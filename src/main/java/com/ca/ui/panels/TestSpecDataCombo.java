@@ -1,0 +1,123 @@
+package com.ca.ui.panels;
+
+import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.List;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.UIManager;
+
+import com.ca.db.model.Category;
+import com.ca.db.service.DBUtils;
+import com.gt.uilib.components.input.DataComboBox;
+
+public class TestSpecDataCombo extends JPanel {
+    SpecificationPanel currentSpecificationPanel;
+    private DataComboBox comboBox;
+    private JPanel panel;
+    private JLabel lblCategory;
+    private JPanel panel_1;
+
+    public TestSpecDataCombo() {
+        initComponents();
+        intCombo();
+    }
+
+    public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    JFrame jf = new JFrame();
+                    TestSpecDataCombo panel = new TestSpecDataCombo();
+                    jf.setBounds(panel.getBounds());
+                    jf.getContentPane().add(panel);
+                    jf.setVisible(true);
+                    jf.pack();
+                    jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void intCombo() {
+        try {
+            List<Category> cl = DBUtils.readAll(Category.class);
+            for (Category c : cl) {
+                comboBox.addRow(new Object[]{c.getId(), c.getCategoryName()});
+            }
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        comboBox.addItemListener(new ItemListener() {
+
+            public void itemStateChanged(ItemEvent e) {
+                int id = comboBox.getSelectedId();
+                getPanel().removeAll();
+                currentSpecificationPanel = null;
+                if (id > 0) {
+                    currentSpecificationPanel = new SpecificationPanel(id);
+                    getPanel().add(currentSpecificationPanel, FlowLayout.LEFT);
+                }
+                getPanel().repaint();
+                getPanel().revalidate();
+
+            }
+        });
+
+    }
+
+    private void initComponents() {
+        setLayout(null);
+        add(getPanel());
+        add(getPanel_1());
+    }
+
+    private DataComboBox getComboBox() {
+        if (comboBox == null) {
+            comboBox = new DataComboBox();
+            comboBox.setBounds(72, 5, 145, 20);
+        }
+        return comboBox;
+    }
+
+    private JPanel getPanel() {
+        if (panel == null) {
+            panel = new JPanel();
+            panel.setBounds(10, 56, 583, 89);
+            panel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+        }
+        return panel;
+    }
+
+    private JLabel getLblCategory() {
+        if (lblCategory == null) {
+            lblCategory = new JLabel("Category :");
+            lblCategory.setBounds(10, 8, 52, 14);
+        }
+        return lblCategory;
+    }
+
+    private JPanel getPanel_1() {
+        if (panel_1 == null) {
+            panel_1 = new JPanel();
+            panel_1.setBounds(10, 11, 249, 34);
+            panel_1.setLayout(null);
+            panel_1.add(getLblCategory());
+            panel_1.add(getComboBox());
+        }
+        return panel_1;
+    }
+}

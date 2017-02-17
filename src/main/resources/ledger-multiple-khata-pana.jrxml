@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Ledger Report" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="817" leftMargin="15" rightMargin="10" topMargin="20" bottomMargin="15">
+	<property name="ireport.zoom" value="5.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="336"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<import value="com.gt.common.utils.JrUtils"/>
+	<field name="date" class="java.lang.String"/>
+	<field name="goodsName" class="java.lang.String"/>
+	<field name="entryFormId" class="java.lang.String"/>
+	<field name="supplier" class="java.lang.String"/>
+	<field name="specification" class="java.lang.String"/>
+	<field name="inQty" class="java.lang.String"/>
+	<field name="inRate" class="java.lang.String"/>
+	<field name="inTotal" class="java.lang.String"/>
+	<field name="reqFormId" class="java.lang.String"/>
+	<field name="nikasaBranch" class="java.lang.String"/>
+	<field name="nikQty" class="java.lang.String"/>
+	<field name="nikRate" class="java.lang.String"/>
+	<field name="nikTotal" class="java.lang.String"/>
+	<field name="remQty" class="java.lang.String"/>
+	<field name="remTot" class="java.lang.String"/>
+	<field name="notes" class="java.lang.String"/>
+	<field name="unitStock" class="java.lang.String"/>
+	<field name="unitNikasa" class="java.lang.String"/>
+	<field name="khataPanaNumber" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="62" splitType="Stretch">
+			<staticText>
+				<reportElement x="238" y="1" width="357" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Company Nepal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="238" y="12" width="357" height="13"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Department]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="238" y="25" width="357" height="11"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Address 1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="90" height="15"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Code No : ....................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="733" y="35" width="84" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Book Page No : ...............]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="36" width="205" height="14"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name of Good : ...................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="744" y="1" width="73" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Form No : P8]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="238" y="40" width="357" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Store Ledger]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="5" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="35" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="37" height="35"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="37" y="0" width="361" height="18"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="37" y="0" width="361" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Goods Received/Income]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="37" y="18" width="32" height="17"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="111" y="18" width="59" height="17"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="398" y="0" width="51" height="35"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="398" y="0" width="51" height="35"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Goods Request / Expense Form No.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="170" y="18" width="88" height="17"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="258" y="18" width="28" height="17"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="313" y="18" width="33" height="17"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="346" y="18" width="52" height="17"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="111" y="18" width="59" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Supplier]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="170" y="18" width="88" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Specifications]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="449" y="0" width="229" height="18"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="449" y="0" width="229" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nikasa/Expenses]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="449" y="18" width="81" height="17"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="449" y="18" width="81" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Branch/Department]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="530" y="18" width="36" height="17"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="593" y="18" width="33" height="17"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="258" y="18" width="28" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="313" y="18" width="33" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rate/Unit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="346" y="18" width="52" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total RS.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="593" y="18" width="33" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rate/Unit]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="626" y="18" width="52" height="17"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="626" y="18" width="52" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total RS.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="678" y="0" width="75" height="18"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="678" y="18" width="30" height="17"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="530" y="18" width="36" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="678" y="18" width="30" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantity]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="708" y="18" width="45" height="17"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="708" y="18" width="45" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total RS.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="783" y="0" width="34" height="35"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="783" y="0" width="34" height="35"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Remarks]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="678" y="0" width="75" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Remaining Stock]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="37" height="35"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="18" width="32" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Entry ID]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="69" y="18" width="42" height="17"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="69" y="18" width="42" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="286" y="18" width="27" height="17"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="286" y="18" width="27" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unit]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="566" y="18" width="27" height="17"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="566" y="18" width="27" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unit]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="753" y="0" width="30" height="35"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="753" y="0" width="30" height="35"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Khata/ Pana Number]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="37" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="37" y="0" width="32" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="111" y="0" width="59" height="20"/>
+			</rectangle>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="37" height="20"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="37" y="0" width="32" height="20"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{entryFormId}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="111" y="0" width="59" height="20"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{supplier}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="170" y="0" width="88" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="258" y="0" width="28" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="313" y="0" width="33" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="346" y="0" width="52" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="398" y="0" width="51" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="449" y="0" width="81" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="530" y="0" width="36" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="593" y="0" width="33" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="626" y="0" width="52" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="678" y="0" width="30" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="708" y="0" width="45" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="783" y="0" width="34" height="20"/>
+			</rectangle>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="170" y="0" width="88" height="20"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{specification}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="258" y="0" width="28" height="20"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{inQty}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="313" y="0" width="33" height="20"/>
+				<box padding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{inRate}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="346" y="0" width="52" height="20"/>
+				<box padding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{inTotal}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="398" y="0" width="51" height="20"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{reqFormId}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="449" y="0" width="81" height="20"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nikasaBranch}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="530" y="0" width="36" height="20"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nikQty}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="593" y="0" width="33" height="20"/>
+				<box padding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nikRate}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="626" y="0" width="52" height="20"/>
+				<box padding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nikTotal}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="678" y="0" width="30" height="20"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{remQty}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="708" y="0" width="45" height="20"/>
+				<box padding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{remTot}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="783" y="0" width="34" height="20"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{notes}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="69" y="0" width="42" height="20"/>
+			</rectangle>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="69" y="0" width="42" height="20"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{goodsName}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="286" y="0" width="27" height="20"/>
+			</rectangle>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="286" y="0" width="27" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{unitStock}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="566" y="0" width="27" height="20"/>
+			</rectangle>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="566" y="0" width="27" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{unitNikasa}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="753" y="0" width="30" height="20"/>
+			</rectangle>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="753" y="0" width="30" height="20"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{khataPanaNumber}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="3" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="656" y="0" width="124" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="780" y="0" width="37" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="5" splitType="Stretch"/>
+	</summary>
+</jasperReport>
