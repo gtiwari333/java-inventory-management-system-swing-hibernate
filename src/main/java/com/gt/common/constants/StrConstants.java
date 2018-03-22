@@ -14,7 +14,7 @@ public class StrConstants {
      * @return map of all declared `static final` fields, to be used by @{@link com.gt.common.ResourceManager}
      */
     public static Map<String, String> getMap() {
-        Map<String, String> mp = new HashMap<String, String>();
+        Map<String, String> mp = new HashMap<>();
 
         Class<StrConstants> c = StrConstants.class;
         for (Field f : c.getDeclaredFields()) {

@@ -52,7 +52,7 @@ public class SpecificationPanel extends JPanel {
         return skipNext;
     }
 
-    public final boolean isValidDataEntered() {
+    public static boolean isValidDataEntered() {
         return true;
         // TODO: implement logic
     }
@@ -78,7 +78,7 @@ public class SpecificationPanel extends JPanel {
     }
 
     private void addCategoryPanels() {
-        pairList = new LinkedList<SpecificationPanel.CategoryEntryPair>();
+        pairList = new LinkedList<>();
         synchronized (pairList) {
             if (!toSkip(category.getSpecification1()))
                 pairList.add(new CategoryEntryPair(category.getSpecification1()));
@@ -122,7 +122,7 @@ public class SpecificationPanel extends JPanel {
      * @return list of specifications (String) entered on displayed textfields
      */
     public final List<String> getSpecificationsStringList() {
-        List<String> sps = new LinkedList<String>();
+        List<String> sps = new LinkedList<>();
         for (CategoryEntryPair pair : pairList) {
             System.out.println(">>>> " + pair.jl.getText());
             System.out.println("SpecificationPanel.getSpecificationsStringList() >>> " + pair.tb.getText());

@@ -154,18 +154,16 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    JFrame jf = new JFrame();
-                    AccountCloseItemEntryPanel panel = new AccountCloseItemEntryPanel();
-                    jf.setBounds(panel.getBounds());
-                    jf.getContentPane().add(panel);
-                    jf.setVisible(true);
-                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                JFrame jf = new JFrame();
+                AccountCloseItemEntryPanel panel = new AccountCloseItemEntryPanel();
+                jf.setBounds(panel.getBounds());
+                jf.getContentPane().add(panel);
+                jf.setVisible(true);
+                jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
@@ -208,12 +206,9 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
         if (buttonPanel == null) {
             buttonPanel = new JPanel();
             btnReadAll = new JButton("Read All");
-            btnReadAll.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    readAndShowAll(true);
-                    changeStatus(Status.READ);
-                }
-
+            btnReadAll.addActionListener(e -> {
+                readAndShowAll(true);
+                changeStatus(Status.READ);
             });
 
             cmbReturnableOrNonRet = new JComboBox();
@@ -224,19 +219,13 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
             buttonPanel.add(btnReadAll);
 
             btnModify = new JButton("Change Pana Number");
-            btnModify.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (editingPrimaryId > 0) changeStatus(Status.MODIFY);
-                }
+            btnModify.addActionListener(e -> {
+                if (editingPrimaryId > 0) changeStatus(Status.MODIFY);
             });
             buttonPanel.add(btnModify);
 
             btnCancel = new JButton("Cancel");
-            btnCancel.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    changeStatus(Status.READ);
-                }
-            });
+            btnCancel.addActionListener(e -> changeStatus(Status.READ));
             buttonPanel.add(btnCancel);
         }
         return buttonPanel;
@@ -578,12 +567,10 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
             txtTotal.setColumns(10);
 
             btnSave = new JButton("Save");
-            btnSave.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    btnSave.setEnabled(false);
-                    handleSaveAction();
-                    btnSave.setEnabled(true);
-                }
+            btnSave.addActionListener(e -> {
+                btnSave.setEnabled(false);
+                handleSaveAction();
+                btnSave.setEnabled(true);
             });
             formPanel.add(btnSave, "10, 28, fill, default");
         }
@@ -682,18 +669,15 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
             JScrollPane sp = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
             lowerPane.add(sp, BorderLayout.CENTER);
-            table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
-                public void valueChanged(ListSelectionEvent e) {
-                    int selRow = table.getSelectedRow();
-                    if (selRow != -1) {
-                        /**
-                         * if second column doesnot have primary id info, then
-                         */
-                        int selectedId = (Integer) dataModel.getValueAt(selRow, 1);
-                        // changeStatus(Status.NONE);
-                        populateSelectedRowInForm(selectedId);
-                    }
+            table.getSelectionModel().addListSelectionListener(e -> {
+                int selRow = table.getSelectedRow();
+                if (selRow != -1) {
+                    /**
+                     * if second column doesnot have primary id info, then
+                     */
+                    int selectedId = (Integer) dataModel.getValueAt(selRow, 1);
+                    // changeStatus(Status.NONE);
+                    populateSelectedRowInForm(selectedId);
                 }
             });
         }

@@ -25,7 +25,7 @@ public class HibernateUtils {
      * @return
      * @throws HibernateException
      */
-    public static SessionFactory buildSessionFactory() throws HibernateException, Exception {
+    public static SessionFactory buildSessionFactory() throws Exception {
         if (sessionFactory != null) {
             closeFactory();
         }
@@ -107,7 +107,7 @@ public class HibernateUtils {
      * @return
      * @throws HibernateException
      */
-    private static SessionFactory configureSessionFactory() throws HibernateException, Exception {
+    private static SessionFactory configureSessionFactory() throws Exception {
 
         Configuration configuration = new Configuration();
 

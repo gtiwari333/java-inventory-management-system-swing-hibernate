@@ -92,18 +92,16 @@ public class StockQueryPanel extends AbstractFunctionPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    JFrame jf = new JFrame();
-                    StockQueryPanel panel = new StockQueryPanel();
-                    jf.setBounds(panel.getBounds());
-                    jf.getContentPane().add(panel);
-                    jf.setVisible(true);
-                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                JFrame jf = new JFrame();
+                StockQueryPanel panel = new StockQueryPanel();
+                jf.setBounds(panel.getBounds());
+                jf.getContentPane().add(panel);
+                jf.setVisible(true);
+                jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
@@ -137,24 +135,21 @@ public class StockQueryPanel extends AbstractFunctionPanel {
             handleDBError(e);
         }
 		/* Item listener on cmbCategory - to change specification panel */
-        cmbCategory.addItemListener(new ItemListener() {
-
-            public void itemStateChanged(ItemEvent e) {
-                int id = cmbCategory.getSelectedId();
-                specPanelHolder.removeAll();
-                currentSpecificationPanel = null;
-                if (id > 0) {
-                    currentSpecificationPanel = new SpecificationPanel(id);
-                    specPanelHolder.add(currentSpecificationPanel, FlowLayout.LEFT);
-                    // if (status == Status.CREATE || status == Status.MODIFY)
-                    // currentSpecificationPanel.enableAll();
-                    // else
-                    // currentSpecificationPanel.disableAll();
-                }
-                specPanelHolder.repaint();
-                specPanelHolder.revalidate();
-
+        cmbCategory.addItemListener(e -> {
+            int id = cmbCategory.getSelectedId();
+            specPanelHolder.removeAll();
+            currentSpecificationPanel = null;
+            if (id > 0) {
+                currentSpecificationPanel = new SpecificationPanel(id);
+                specPanelHolder.add(currentSpecificationPanel, FlowLayout.LEFT);
+                // if (status == Status.CREATE || status == Status.MODIFY)
+                // currentSpecificationPanel.enableAll();
+                // else
+                // currentSpecificationPanel.disableAll();
             }
+            specPanelHolder.repaint();
+            specPanelHolder.revalidate();
+
         });
 
     }
@@ -164,17 +159,15 @@ public class StockQueryPanel extends AbstractFunctionPanel {
             buttonPanel = new JPanel();
 
             btnSaveToExcel = new JButton("Save to Excel");
-            btnSaveToExcel.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    JFileChooser jf = new JFileChooser();
-                    jf.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                    jf.showDialog(StockQueryPanel.this, "Select Save location");
-                    String fileName = jf.getSelectedFile().getAbsolutePath();
-                    try {
-                        ExcelUtils.writeExcelFromJTable(table, fileName + ".xls");
-                    } catch (Exception e1) {
-                        JOptionPane.showMessageDialog(null, "Could not save" + e1.getMessage());
-                    }
+            btnSaveToExcel.addActionListener(e -> {
+                JFileChooser jf = new JFileChooser();
+                jf.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                jf.showDialog(StockQueryPanel.this, "Select Save location");
+                String fileName = jf.getSelectedFile().getAbsolutePath();
+                try {
+                    ExcelUtils.writeExcelFromJTable(table, fileName + ".xls");
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(null, "Could not save" + e1.getMessage());
                 }
             });
 
@@ -337,24 +330,18 @@ public class StockQueryPanel extends AbstractFunctionPanel {
             formPanel.add(txtToDate, "16, 12, fill, default");
 
             btnSave = new JButton("Search");
-            btnSave.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    handleSearchQuery();
-                }
-            });
+            btnSave.addActionListener(e -> handleSearchQuery());
 
             formPanel.add(btnSave, "18, 12");
 
             btnReset = new JButton("Reset");
-            btnReset.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    UIUtils.clearAllFields(formPanel);
-                    if (currentSpecificationPanel != null)
-                        currentSpecificationPanel.resetAll();
-                    cmbCategory.selectDefaultItem();
-                    cmbVendor.selectDefaultItem();
+            btnReset.addActionListener(e -> {
+                UIUtils.clearAllFields(formPanel);
+                if (currentSpecificationPanel != null)
+                    currentSpecificationPanel.resetAll();
+                cmbCategory.selectDefaultItem();
+                cmbVendor.selectDefaultItem();
 //					itemReceiverPanel.clearAll();
-                }
             });
             formPanel.add(btnReset, "20, 12");
         }
@@ -371,7 +358,7 @@ public class StockQueryPanel extends AbstractFunctionPanel {
             List<Item> brsL;
             List<String> specs = null;
             if (currentSpecificationPanel == null) {
-                specs = new LinkedList<String>();
+                specs = new LinkedList<>();
             } else {
                 specs = currentSpecificationPanel.getSpecificationsStringList();
             }

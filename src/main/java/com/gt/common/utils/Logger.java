@@ -85,7 +85,7 @@ public class Logger {
         write(sb.toString());
     }
 
-    private void write(String message) {
+    private static void write(String message) {
 
         try {
             getWriter();

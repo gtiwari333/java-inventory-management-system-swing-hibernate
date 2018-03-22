@@ -30,19 +30,17 @@ public class TestSpecDataCombo extends JPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    JFrame jf = new JFrame();
-                    TestSpecDataCombo panel = new TestSpecDataCombo();
-                    jf.setBounds(panel.getBounds());
-                    jf.getContentPane().add(panel);
-                    jf.setVisible(true);
-                    jf.pack();
-                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                JFrame jf = new JFrame();
+                TestSpecDataCombo panel = new TestSpecDataCombo();
+                jf.setBounds(panel.getBounds());
+                jf.getContentPane().add(panel);
+                jf.setVisible(true);
+                jf.pack();
+                jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
@@ -58,20 +56,17 @@ public class TestSpecDataCombo extends JPanel {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        comboBox.addItemListener(new ItemListener() {
-
-            public void itemStateChanged(ItemEvent e) {
-                int id = comboBox.getSelectedId();
-                getPanel().removeAll();
-                currentSpecificationPanel = null;
-                if (id > 0) {
-                    currentSpecificationPanel = new SpecificationPanel(id);
-                    getPanel().add(currentSpecificationPanel, FlowLayout.LEFT);
-                }
-                getPanel().repaint();
-                getPanel().revalidate();
-
+        comboBox.addItemListener(e -> {
+            int id = comboBox.getSelectedId();
+            getPanel().removeAll();
+            currentSpecificationPanel = null;
+            if (id > 0) {
+                currentSpecificationPanel = new SpecificationPanel(id);
+                getPanel().add(currentSpecificationPanel, FlowLayout.LEFT);
             }
+            getPanel().repaint();
+            getPanel().revalidate();
+
         });
 
     }

@@ -56,12 +56,12 @@ public class Validator {
         this.isShowWarningDialog = isShowWarningDialog;
         color = new Color(243, 255, 59);
         this.dialogErrorMessage = dialogErrorMessage;
-        tasks = new ArrayList<Validator.Task>();
+        tasks = new ArrayList<>();
     }
 
     private synchronized void addTask(Validator.Task task) {
         if (tasks == null) {
-            tasks = new ArrayList<Validator.Task>();
+            tasks = new ArrayList<>();
         }
         tasks.add(task);
     }
@@ -198,7 +198,7 @@ public class Validator {
         }
         if (jc instanceof SpecificationPanel) {
             SpecificationPanel spp = (SpecificationPanel) jc;
-            return spp.isValidDataEntered();
+            return SpecificationPanel.isValidDataEntered();
         }
         if (jc instanceof DataComboBox) {
             DataComboBox dcb = (DataComboBox) jc;

@@ -35,18 +35,16 @@ public class NEWBranchOfficePanel extends BaseDataEntryPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    JFrame jf = new JFrame();
-                    NEWBranchOfficePanel panel = new NEWBranchOfficePanel();
-                    jf.setBounds(panel.getBounds());
-                    jf.getContentPane().add(panel);
-                    jf.setVisible(true);
-                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                JFrame jf = new JFrame();
+                NEWBranchOfficePanel panel = new NEWBranchOfficePanel();
+                jf.setBounds(panel.getBounds());
+                jf.getContentPane().add(panel);
+                jf.setVisible(true);
+                jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }

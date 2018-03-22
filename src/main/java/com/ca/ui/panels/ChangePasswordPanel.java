@@ -44,18 +44,16 @@ public class ChangePasswordPanel extends AbstractFunctionPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    JFrame jf = new JFrame();
-                    ChangePasswordPanel panel = new ChangePasswordPanel();
-                    jf.setBounds(panel.getBounds());
-                    jf.getContentPane().add(panel);
-                    jf.setVisible(true);
-                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                JFrame jf = new JFrame();
+                ChangePasswordPanel panel = new ChangePasswordPanel();
+                jf.setBounds(panel.getBounds());
+                jf.getContentPane().add(panel);
+                jf.setVisible(true);
+                jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
@@ -130,18 +128,8 @@ public class ChangePasswordPanel extends AbstractFunctionPanel {
         innerPanel.add(loginButton, "8, 24, fill, default");
         JButton restPassword = new JButton("Reset");
         innerPanel.add(restPassword, "10, 24");
-        restPassword.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                clearAll();
-            }
-        });
-        loginButton.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                change();
-            }
-        });
+        restPassword.addActionListener(e -> clearAll());
+        loginButton.addActionListener(e -> change());
         return fullPanel;
     }
 

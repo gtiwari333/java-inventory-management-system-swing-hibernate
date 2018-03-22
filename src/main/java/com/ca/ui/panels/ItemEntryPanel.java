@@ -136,18 +136,16 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    JFrame jf = new JFrame();
-                    ItemEntryPanel panel = new ItemEntryPanel();
-                    jf.setBounds(panel.getBounds());
-                    jf.getContentPane().add(panel);
-                    jf.setVisible(true);
-                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                JFrame jf = new JFrame();
+                ItemEntryPanel panel = new ItemEntryPanel();
+                jf.setBounds(panel.getBounds());
+                jf.getContentPane().add(panel);
+                jf.setVisible(true);
+                jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
@@ -175,24 +173,21 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
             handleDBError(e);
         }
 		/* Item listener on cmbCategory - to change specification panel */
-        cmbCategory.addItemListener(new ItemListener() {
-
-            public void itemStateChanged(ItemEvent e) {
-                int id = cmbCategory.getSelectedId();
-                specPanelHolder.removeAll();
-                currentSpecificationPanel = null;
-                if (id > 0) {
-                    currentSpecificationPanel = new SpecificationPanel(id);
-                    specPanelHolder.add(currentSpecificationPanel, FlowLayout.LEFT);
-                    if (status == Status.CREATE || status == Status.MODIFY)
-                        currentSpecificationPanel.enableAll();
-                    else
-                        currentSpecificationPanel.disableAll();
-                }
-                specPanelHolder.repaint();
-                specPanelHolder.revalidate();
-
+        cmbCategory.addItemListener(e -> {
+            int id = cmbCategory.getSelectedId();
+            specPanelHolder.removeAll();
+            currentSpecificationPanel = null;
+            if (id > 0) {
+                currentSpecificationPanel = new SpecificationPanel(id);
+                specPanelHolder.add(currentSpecificationPanel, FlowLayout.LEFT);
+                if (status == Status.CREATE || status == Status.MODIFY)
+                    currentSpecificationPanel.enableAll();
+                else
+                    currentSpecificationPanel.disableAll();
             }
+            specPanelHolder.repaint();
+            specPanelHolder.revalidate();
+
         });
 
     }
@@ -228,46 +223,30 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
         if (buttonPanel == null) {
             buttonPanel = new JPanel();
             btnReadAll = new JButton("Read All");
-            btnReadAll.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    readAndShowAll(true);
-                    changeStatus(Status.READ);
-                }
-
+            btnReadAll.addActionListener(e -> {
+                readAndShowAll(true);
+                changeStatus(Status.READ);
             });
             buttonPanel.add(btnReadAll);
 
             btnNew = new JButton("New");
-            btnNew.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    changeStatus(Status.CREATE);
-                }
-            });
+            btnNew.addActionListener(e -> changeStatus(Status.CREATE));
             buttonPanel.add(btnNew);
 
             btnDeleteThis = new JButton("Delete This");
-            btnDeleteThis.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (editingPrimaryId > 0) handleDeleteAction();
-                }
-
+            btnDeleteThis.addActionListener(e -> {
+                if (editingPrimaryId > 0) handleDeleteAction();
             });
 
             btnModify = new JButton("Modify");
-            btnModify.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (editingPrimaryId > 0) changeStatus(Status.MODIFY);
-                }
+            btnModify.addActionListener(e -> {
+                if (editingPrimaryId > 0) changeStatus(Status.MODIFY);
             });
             buttonPanel.add(btnModify);
             buttonPanel.add(btnDeleteThis);
 
             btnCancel = new JButton("Cancel");
-            btnCancel.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    changeStatus(Status.READ);
-                }
-            });
+            btnCancel.addActionListener(e -> changeStatus(Status.READ));
             buttonPanel.add(btnCancel);
         }
         return buttonPanel;
@@ -560,32 +539,30 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
             btnNewCategory = new JButton("New");
             btnNewCategory.setEnabled(false);
             btnNewCategory.setVisible(false);
-            btnNewCategory.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    GDialog cd = new GDialog(mainApp, "New Category Entry", true);
-                    CategoryPanel vp = new CategoryPanel();
-                    vp.changeStatusToCreate();
-                    cd.setAbstractFunctionPanel(vp, new Dimension(450, 600));
-                    cd.addWindowListener(new WindowAdapter() {
-                        @Override
-                        public void windowClosing(WindowEvent e) {
-                            try {
-                                initCmbCategory();
-                                // cmbCategory.selectLastInsertedItem();
-                            } catch (Exception ex) {
-                                System.err.println(ex.getMessage());
-                                ex.printStackTrace();
-                            }
+            btnNewCategory.addActionListener(e -> {
+                GDialog cd = new GDialog(mainApp, "New Category Entry", true);
+                CategoryPanel vp = new CategoryPanel();
+                vp.changeStatusToCreate();
+                cd.setAbstractFunctionPanel(vp, new Dimension(450, 600));
+                cd.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+                        try {
+                            initCmbCategory();
+                            // cmbCategory.selectLastInsertedItem();
+                        } catch (Exception ex) {
+                            System.err.println(ex.getMessage());
+                            ex.printStackTrace();
                         }
+                    }
 
-                        public void windowClosed(WindowEvent e) {
-                            System.out
-                                    .println("ItemEntryPanel.getUpperFormPanel().new ActionListener() {...}.actionPerformed(...).new WindowAdapter() {...}.windowClosing()");
+                    public void windowClosed(WindowEvent e) {
+                        System.out
+                                .println("ItemEntryPanel.getUpperFormPanel().new ActionListener() {...}.actionPerformed(...).new WindowAdapter() {...}.windowClosing()");
 
 
-                        }
-                    });
-                }
+                    }
+                });
             });
             formPanel.add(btnNewCategory, "10, 12");
 
@@ -662,51 +639,45 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
             formPanel.add(cmbVendor, "8, 24, fill, default");
 
             btnNewVendor = new JButton("New");
-            btnNewVendor.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    GDialog cd = new GDialog(mainApp, "New Vendor Entry", true);
-                    VendorPanel vp = new VendorPanel();
-                    vp.changeStatusToCreate();
-                    cd.setAbstractFunctionPanel(vp, new Dimension(450, 600));
-                    cd.addWindowListener(new WindowAdapter() {
-                        @Override
-                        public void windowClosing(WindowEvent e) {
-                            try {
-                                initCmbVendor();
-                                cmbVendor.setSelectedIndex(cmbVendor.getItemCount() - 1);
-                            } catch (Exception ex) {
-                                System.err.println(ex.getMessage());
-                                ex.printStackTrace();
+            btnNewVendor.addActionListener(e -> {
+                GDialog cd = new GDialog(mainApp, "New Vendor Entry", true);
+                VendorPanel vp = new VendorPanel();
+                vp.changeStatusToCreate();
+                cd.setAbstractFunctionPanel(vp, new Dimension(450, 600));
+                cd.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+                        try {
+                            initCmbVendor();
+                            cmbVendor.setSelectedIndex(cmbVendor.getItemCount() - 1);
+                        } catch (Exception ex) {
+                            System.err.println(ex.getMessage());
+                            ex.printStackTrace();
 
-                            }
                         }
-                    });
-                }
+                    }
+                });
             });
             formPanel.add(btnNewVendor, "10, 24");
 
             btnSave = new JButton("Save");
-            btnSave.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    btnSave.setEnabled(false);
-                    SwingWorker worker = new SwingWorker<Void, Void>() {
-                        @Override
-                        protected Void doInBackground() throws Exception {
-                            handleSaveAction();
-                            return null;
-                        }
+            btnSave.addActionListener(e -> {
+                btnSave.setEnabled(false);
+                SwingWorker worker = new SwingWorker<Void, Void>() {
+                    @Override
+                    protected Void doInBackground() throws Exception {
+                        handleSaveAction();
+                        return null;
+                    }
 
-                    };
-                    worker.addPropertyChangeListener(new PropertyChangeListener() {
-                        public void propertyChange(PropertyChangeEvent evt) {
-                            if ("DONE".equals(evt.getNewValue().toString())) {
-                                btnSave.setEnabled(true);
-                            }
-                        }
-                    });
+                };
+                worker.addPropertyChangeListener(evt -> {
+                    if ("DONE".equals(evt.getNewValue().toString())) {
+                        btnSave.setEnabled(true);
+                    }
+                });
 
-                    worker.execute();
-                }
+                worker.execute();
             });
             formPanel.add(btnSave, "18, 24, fill, default");
         }
@@ -794,18 +765,15 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
             JScrollPane sp = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
             lowerPane.add(sp, BorderLayout.CENTER);
-            table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
-                public void valueChanged(ListSelectionEvent e) {
-                    int selRow = table.getSelectedRow();
-                    if (selRow != -1) {
-                        /**
-                         * if second column doesnot have primary id info, then
-                         */
-                        int selectedId = (Integer) dataModel.getValueAt(selRow, 1);
-                        // changeStatus(Status.NONE);
-                        populateSelectedRowInForm(selectedId);
-                    }
+            table.getSelectionModel().addListSelectionListener(e -> {
+                int selRow = table.getSelectedRow();
+                if (selRow != -1) {
+                    /**
+                     * if second column doesnot have primary id info, then
+                     */
+                    int selectedId = (Integer) dataModel.getValueAt(selRow, 1);
+                    // changeStatus(Status.NONE);
+                    populateSelectedRowInForm(selectedId);
                 }
             });
         }

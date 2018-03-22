@@ -95,18 +95,16 @@ public class CategoryPanel extends AbstractFunctionPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    JFrame jf = new JFrame();
-                    CategoryPanel panel = new CategoryPanel();
-                    jf.setBounds(panel.getBounds());
-                    jf.getContentPane().add(panel);
-                    jf.setVisible(true);
-                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                JFrame jf = new JFrame();
+                CategoryPanel panel = new CategoryPanel();
+                jf.setBounds(panel.getBounds());
+                jf.getContentPane().add(panel);
+                jf.setVisible(true);
+                jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
@@ -123,46 +121,30 @@ public class CategoryPanel extends AbstractFunctionPanel {
         if (buttonPanel == null) {
             buttonPanel = new JPanel();
             btnReadAll = new JButton("Read All");
-            btnReadAll.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    readAndShowAll(true);
-                    changeStatus(Status.READ);
-                }
-
+            btnReadAll.addActionListener(e -> {
+                readAndShowAll(true);
+                changeStatus(Status.READ);
             });
             buttonPanel.add(btnReadAll);
 
             btnNew = new JButton("New");
-            btnNew.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    changeStatus(Status.CREATE);
-                }
-            });
+            btnNew.addActionListener(e -> changeStatus(Status.CREATE));
             buttonPanel.add(btnNew);
 
             btnDeleteThis = new JButton("Delete This");
-            btnDeleteThis.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (editingPrimaryId > 0) handleDeleteAction();
-                }
-
+            btnDeleteThis.addActionListener(e -> {
+                if (editingPrimaryId > 0) handleDeleteAction();
             });
 
             btnModify = new JButton("Modify");
-            btnModify.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (editingPrimaryId > 0) changeStatus(Status.MODIFY);
-                }
+            btnModify.addActionListener(e -> {
+                if (editingPrimaryId > 0) changeStatus(Status.MODIFY);
             });
             buttonPanel.add(btnModify);
             buttonPanel.add(btnDeleteThis);
 
             btnCancel = new JButton("Cancel");
-            btnCancel.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    changeStatus(Status.READ);
-                }
-            });
+            btnCancel.addActionListener(e -> changeStatus(Status.READ));
             buttonPanel.add(btnCancel);
         }
         return buttonPanel;
@@ -326,7 +308,7 @@ public class CategoryPanel extends AbstractFunctionPanel {
     }
 
     private boolean isThereNoDiscontinuity() {
-        List<String> li = new ArrayList<String>();
+        List<String> li = new ArrayList<>();
         li.add(sp1.getText());
         li.add(sp2.getText());
         li.add(sp3.getText());
@@ -527,12 +509,10 @@ public class CategoryPanel extends AbstractFunctionPanel {
             sp10.setColumns(10);
 
             btnSave = new JButton("Save");
-            btnSave.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    btnSave.setEnabled(false);
-                    handleSaveAction();
-                    btnSave.setEnabled(true);
-                }
+            btnSave.addActionListener(e -> {
+                btnSave.setEnabled(false);
+                handleSaveAction();
+                btnSave.setEnabled(true);
             });
             formPanel.add(btnSave, "10, 24, right, default");
         }
@@ -602,17 +582,14 @@ public class CategoryPanel extends AbstractFunctionPanel {
             JScrollPane sp = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
             lowerPane.add(sp, BorderLayout.CENTER);
-            table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
-                public void valueChanged(ListSelectionEvent e) {
-                    int selRow = table.getSelectedRow();
-                    if (selRow != -1) {
-                        /**
-                         * if second column doesnot have primary id info, then
-                         */
-                        int selectedId = (Integer) dataModel.getValueAt(selRow, 1);
-                        populateSelectedRowInForm(selectedId);
-                    }
+            table.getSelectionModel().addListSelectionListener(e -> {
+                int selRow = table.getSelectedRow();
+                if (selRow != -1) {
+                    /**
+                     * if second column doesnot have primary id info, then
+                     */
+                    int selectedId = (Integer) dataModel.getValueAt(selRow, 1);
+                    populateSelectedRowInForm(selectedId);
                 }
             });
         }

@@ -50,7 +50,7 @@ public class DataComboBox extends JComboBox {
 
     public final void addRow(Object[] values) {
         if (itemList == null) {
-            itemList = new ArrayList<DataComboBox.Item>();
+            itemList = new ArrayList<>();
             Item blank = new Item(0, "");
             itemList.add(blank);
             this.addItem(blank);

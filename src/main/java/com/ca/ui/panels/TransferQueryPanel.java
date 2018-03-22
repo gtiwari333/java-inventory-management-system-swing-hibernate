@@ -100,18 +100,16 @@ public class TransferQueryPanel extends AbstractFunctionPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    JFrame jf = new JFrame();
-                    TransferQueryPanel panel = new TransferQueryPanel();
-                    jf.setBounds(panel.getBounds());
-                    jf.getContentPane().add(panel);
-                    jf.setVisible(true);
-                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                JFrame jf = new JFrame();
+                TransferQueryPanel panel = new TransferQueryPanel();
+                jf.setBounds(panel.getBounds());
+                jf.getContentPane().add(panel);
+                jf.setVisible(true);
+                jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
@@ -171,17 +169,15 @@ public class TransferQueryPanel extends AbstractFunctionPanel {
             buttonPanel = new JPanel();
 
             btnSaveToExcel = new JButton("Save to Excel");
-            btnSaveToExcel.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    JFileChooser jf = new JFileChooser();
-                    jf.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                    jf.showDialog(TransferQueryPanel.this, "Select Save location");
-                    String fileName = jf.getSelectedFile().getAbsolutePath();
-                    try {
-                        ExcelUtils.writeExcelFromJTable(table, fileName + ".xls");
-                    } catch (Exception e1) {
-                        JOptionPane.showMessageDialog(null, "Could not save" + e1.getMessage());
-                    }
+            btnSaveToExcel.addActionListener(e -> {
+                JFileChooser jf = new JFileChooser();
+                jf.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                jf.showDialog(TransferQueryPanel.this, "Select Save location");
+                String fileName = jf.getSelectedFile().getAbsolutePath();
+                try {
+                    ExcelUtils.writeExcelFromJTable(table, fileName + ".xls");
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(null, "Could not save" + e1.getMessage());
                 }
             });
 
@@ -193,11 +189,7 @@ public class TransferQueryPanel extends AbstractFunctionPanel {
             buttonPanel.add(btnSaveToExcel);
 
             btnEditcorrect = new JButton("Edit/Correct");
-            btnEditcorrect.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    editCorrectHandle();
-                }
-            });
+            btnEditcorrect.addActionListener(e -> editCorrectHandle());
             buttonPanel.add(btnEditcorrect);
         }
         return buttonPanel;
@@ -331,11 +323,7 @@ public class TransferQueryPanel extends AbstractFunctionPanel {
             formPanel.add(txtToDate, "16, 6, fill, default");
 
             btnSave = new JButton("Search");
-            btnSave.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    handleSearchQuery();
-                }
-            });
+            btnSave.addActionListener(e -> handleSearchQuery());
 
             lblHastantaranStatus = new JLabel("Hastantaran Status");
             formPanel.add(lblHastantaranStatus, "4, 8");
@@ -388,18 +376,16 @@ public class TransferQueryPanel extends AbstractFunctionPanel {
             formPanel.add(btnSave, "18, 8, default, bottom");
 
             btnReset = new JButton("Reset");
-            btnReset.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    UIUtils.clearAllFields(formPanel);
-                    // if(currentSpecificationPanel!=null)
-                    // currentSpecificationPanel.resetAll();
-                    cmbCategory.selectDefaultItem();
-                    // cmbVendor.selectDefaultItem();
-                    itemReceiverPanel.clearAll();
-                    rdbtnAll.setSelected(true);
-                    rdbtnHastanAll.setSelected(true);
-                    editingPrimaryId = -1;
-                }
+            btnReset.addActionListener(e -> {
+                UIUtils.clearAllFields(formPanel);
+                // if(currentSpecificationPanel!=null)
+                // currentSpecificationPanel.resetAll();
+                cmbCategory.selectDefaultItem();
+                // cmbVendor.selectDefaultItem();
+                itemReceiverPanel.clearAll();
+                rdbtnAll.setSelected(true);
+                rdbtnHastanAll.setSelected(true);
+                editingPrimaryId = -1;
             });
             formPanel.add(btnReset, "20, 8, default, bottom");
 
@@ -523,17 +509,14 @@ public class TransferQueryPanel extends AbstractFunctionPanel {
             JScrollPane sp = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
             lowerPane.add(sp, BorderLayout.CENTER);
-            table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            table.getSelectionModel().addListSelectionListener(e -> {
+                int selRow = table.getSelectedRow();
+                if (selRow != -1) {
+                    /**
+                     * if second column doesnot have primary id info, then
+                     */
+                    editingPrimaryId = (Integer) dataModel.getValueAt(selRow, 1);
 
-                public void valueChanged(ListSelectionEvent e) {
-                    int selRow = table.getSelectedRow();
-                    if (selRow != -1) {
-                        /**
-                         * if second column doesnot have primary id info, then
-                         */
-                        editingPrimaryId = (Integer) dataModel.getValueAt(selRow, 1);
-
-                    }
                 }
             });
         }

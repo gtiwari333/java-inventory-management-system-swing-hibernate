@@ -40,18 +40,16 @@ public class LoginPanel extends AbstractFunctionPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    JFrame jf = new JFrame();
-                    LoginPanel panel = new LoginPanel();
-                    jf.setBounds(panel.getBounds());
-                    jf.getContentPane().add(panel);
-                    jf.setVisible(true);
-                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                JFrame jf = new JFrame();
+                LoginPanel panel = new LoginPanel();
+                jf.setBounds(panel.getBounds());
+                jf.getContentPane().add(panel);
+                jf.setVisible(true);
+                jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
@@ -96,40 +94,21 @@ public class LoginPanel extends AbstractFunctionPanel {
 
         userName = new JTextField();
         innerPanel.add(userName, "8, 16, 3, 1, fill, fill");
-        userName.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                doLogin();
-            }
-        });
+        userName.addActionListener(e -> doLogin());
 
         JLabel lblPassword = new JLabel("Password :");
         innerPanel.add(lblPassword, "4, 18, left, default");
 
         passWord = new JPasswordField();
-        passWord.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                doLogin();
-
-            }
-        });
+        passWord.addActionListener(e -> doLogin());
 
         innerPanel.add(passWord, "8, 18, 3, 1, fill, fill");
 
         JButton loginButton = new JButton("Login");
         innerPanel.add(loginButton, "8, 20, fill, default");
-        loginButton.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                doLogin();
-            }
-        });
+        loginButton.addActionListener(e -> doLogin());
         JButton restPassword = new JButton("Reset");
-        restPassword.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                clearAll();
-            }
-        });
+        restPassword.addActionListener(e -> clearAll());
         innerPanel.add(restPassword, "10, 20");
         return fullPanel;
     }

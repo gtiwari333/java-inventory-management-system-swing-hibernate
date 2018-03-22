@@ -67,15 +67,13 @@ public class Main {
 
     private static void startApp() {
 
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        EventQueue.invokeLater(() -> {
 
-                if (new AppStarter().notFindExisting) {
-                    setApplicationStartLog();
-                    setUpAndShowGui();
-                } else {
-                    System.exit(0);
-                }
+            if (new AppStarter().notFindExisting) {
+                setApplicationStartLog();
+                setUpAndShowGui();
+            } else {
+                System.exit(0);
             }
         });
     }

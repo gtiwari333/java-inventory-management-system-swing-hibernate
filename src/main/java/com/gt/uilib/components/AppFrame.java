@@ -103,22 +103,10 @@ public class AppFrame extends JFrame {
              */
             JMenu startMnu = new JMenu("Application");
             JMenuItem logOutMnuItem = new JMenuItem("Log Out");
-            logOutMnuItem.addActionListener(new ActionListener() {
-
-                public void actionPerformed(ActionEvent e) {
-                    LogOutButton.handleLogout();
-
-                }
-            });
+            logOutMnuItem.addActionListener(e -> LogOutButton.handleLogout());
             startMnu.add(logOutMnuItem);
             JMenuItem exitMnuItem = new JMenuItem("Close");
-            exitMnuItem.addActionListener(new ActionListener() {
-
-                public void actionPerformed(ActionEvent e) {
-                    ExitButton.handleExit();
-
-                }
-            });
+            exitMnuItem.addActionListener(e -> ExitButton.handleExit());
             startMnu.add(exitMnuItem);
             menuBar.add(startMnu);
             /**
@@ -161,26 +149,23 @@ public class AppFrame extends JFrame {
             toolsMenu.add(ActionMenuItem.create("Account Transfer/Close", "backup", "com.ca.ui.panels.AccountCloseItemEntryPanel"));
             toolsMenu.add(new JSeparator());
             JMenuItem jmChang = new JMenuItem("Change UserName/Password");
-            jmChang.addActionListener(new ActionListener() {
-
-                public void actionPerformed(ActionEvent e) {
-                    if (isLoggedIn) {
-                        GDialog cd = new GDialog(AppFrame.this, "Change Username/Password", true);
-                        ChangePasswordPanel vp = new ChangePasswordPanel();
-                        cd.setAbstractFunctionPanel(vp, new Dimension(480, 340));
-                        cd.setResizable(false);
-                        cd.setVisible(true);
-                        cd.addWindowListener(new WindowAdapter() {
-                            @Override
-                            public void windowClosing(WindowEvent e) {
-                                // setWindow("com.ca.ui.panels.HomeScreenPanel");
-                                handleLogOut();
-                            }
-                        });
-
-                    }
+            jmChang.addActionListener(e -> {
+                if (isLoggedIn) {
+                    GDialog cd = new GDialog(AppFrame.this, "Change Username/Password", true);
+                    ChangePasswordPanel vp = new ChangePasswordPanel();
+                    cd.setAbstractFunctionPanel(vp, new Dimension(480, 340));
+                    cd.setResizable(false);
+                    cd.setVisible(true);
+                    cd.addWindowListener(new WindowAdapter() {
+                        @Override
+                        public void windowClosing(WindowEvent e) {
+                            // setWindow("com.ca.ui.panels.HomeScreenPanel");
+                            handleLogOut();
+                        }
+                    });
 
                 }
+
             });
             toolsMenu.add(jmChang);
             menuBar.add(toolsMenu);
@@ -194,28 +179,22 @@ public class AppFrame extends JFrame {
             JMenuItem supportMnu = new JMenuItem("Support");
             helpMenu.add(supportMnu);
 
-            readmanualItem.addActionListener(new ActionListener() {
-
-                public void actionPerformed(ActionEvent e) {
-                    try {
-                        String cmd = "cmd.exe /c start ";
-                        String file = "help.pdf";
-                        Runtime.getRuntime().exec(cmd + file);
-                    } catch (Exception e2) {
-                        JOptionPane.showMessageDialog(AppFrame.this, "Could not open help file " + e2.getMessage(), "Error opening file",
-                                JOptionPane.ERROR_MESSAGE);
-                    }
+            readmanualItem.addActionListener(e -> {
+                try {
+                    String cmd = "cmd.exe /c start ";
+                    String file = "help.pdf";
+                    Runtime.getRuntime().exec(cmd + file);
+                } catch (Exception e2) {
+                    JOptionPane.showMessageDialog(AppFrame.this, "Could not open help file " + e2.getMessage(), "Error opening file",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             });
-            supportMnu.addActionListener(new ActionListener() {
+            supportMnu.addActionListener(e -> {
+                GDialog cd = new GDialog(AppFrame.this, "About/Support", true);
+                AboutPanel vp = new AboutPanel();
+                cd.setAbstractFunctionPanel(vp, new Dimension(400, 190));
+                cd.setVisible(true);
 
-                public void actionPerformed(ActionEvent e) {
-                    GDialog cd = new GDialog(AppFrame.this, "About/Support", true);
-                    AboutPanel vp = new AboutPanel();
-                    cd.setAbstractFunctionPanel(vp, new Dimension(400, 190));
-                    cd.setVisible(true);
-
-                }
             });
             menuBar.add(helpMenu);
         }
@@ -262,28 +241,21 @@ public class AppFrame extends JFrame {
         AbstractFunctionPanel object = null;
         try {
             object = (AbstractFunctionPanel) Class.forName(className).newInstance();
-        } catch (InstantiationException e) {
-            System.err.println(e);
-        } catch (IllegalAccessException e) {
-            System.err.println(e);
-        } catch (ClassNotFoundException e) {
+        } catch (InstantiationException | ClassNotFoundException | IllegalAccessException e) {
             System.err.println(e);
         }
         return object;
     }
 
     private void setWindow(final AbstractFunctionPanel next) {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            public void run() {
-                currentWindow = next;
-                bodyPanel.removeAll();
-                bodyPanel.add(next, BorderLayout.CENTER);
-                bodyPanel.revalidate();
-                bodyPanel.repaint();
-                setTitle(StrConstants.APP_TITLE + " : " + next.getFunctionName());
-                next.init();
-            }
+        SwingUtilities.invokeLater(() -> {
+            currentWindow = next;
+            bodyPanel.removeAll();
+            bodyPanel.add(next, BorderLayout.CENTER);
+            bodyPanel.revalidate();
+            bodyPanel.repaint();
+            setTitle(StrConstants.APP_TITLE + " : " + next.getFunctionName());
+            next.init();
         });
 
     }
@@ -293,7 +265,7 @@ public class AppFrame extends JFrame {
             toolBarPanel = new JPanel();
             toolBarPanel.setLayout(new BorderLayout(20, 10));
 
-            List<JLabel> buttons = new ArrayList<JLabel>();
+            List<JLabel> buttons = new ArrayList<>();
             buttons.add(ActionButton.create("HOME", "home", "com.ca.ui.panels.HomeScreenPanel"));
             buttons.add(ActionButton.create("Stock Query", "find", "com.ca.ui.panels.StockQueryPanel"));
             buttons.add(ActionButton.create("Item Entry", "itementry", "com.ca.ui.panels.ItemEntryPanel"));

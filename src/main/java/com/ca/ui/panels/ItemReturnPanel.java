@@ -126,18 +126,16 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    JFrame jf = new JFrame();
-                    ItemReturnPanel panel = new ItemReturnPanel();
-                    jf.setBounds(panel.getBounds());
-                    jf.getContentPane().add(panel);
-                    jf.setVisible(true);
-                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                JFrame jf = new JFrame();
+                ItemReturnPanel panel = new ItemReturnPanel();
+                jf.setBounds(panel.getBounds());
+                jf.getContentPane().add(panel);
+                jf.setVisible(true);
+                jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
@@ -175,44 +173,40 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
             panel_3.add(btnAddItem, "2, 2");
 
             btnDelete = new JButton("Remove");
-            btnDelete.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (returnTable.getRowCount() > 0) {
-                        int selRow = returnTable.getSelectedRow();
-                        if (selRow != -1) {
-                            /**
-                             * if second column doesnot have primary id info,
-                             * then
-                             */
+            btnDelete.addActionListener(e -> {
+                if (returnTable.getRowCount() > 0) {
+                    int selRow = returnTable.getSelectedRow();
+                    if (selRow != -1) {
+                        /**
+                         * if second column doesnot have primary id info,
+                         * then
+                         */
 
-                            int selectedId = cartDataModel.getKeyAtRow(selRow);
-                            System.out.println("Selected ID : " + selectedId + "_  >>  row " + selRow);
-                            if (cartDataModel.containsKey(selectedId)) {
-                                removeSelectedRowInCartTable(selectedId, selRow);
-                            }
-
+                        int selectedId = cartDataModel.getKeyAtRow(selRow);
+                        System.out.println("Selected ID : " + selectedId + "_  >>  row " + selRow);
+                        if (cartDataModel.containsKey(selectedId)) {
+                            removeSelectedRowInCartTable(selectedId, selRow);
                         }
+
                     }
                 }
             });
             panel_3.add(btnDelete, "2, 4");
-            btnAddItem.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (table.getRowCount() > 0) {
-                        int selRow = table.getSelectedRow();
-                        if (selRow != -1) {
-                            /**
-                             * if second column doesnot have primary id info,
-                             * then
-                             */
+            btnAddItem.addActionListener(e -> {
+                if (table.getRowCount() > 0) {
+                    int selRow = table.getSelectedRow();
+                    if (selRow != -1) {
+                        /**
+                         * if second column doesnot have primary id info,
+                         * then
+                         */
 
-                            int selectedId = dataModel.getKeyAtRow(selRow);
+                        int selectedId = dataModel.getKeyAtRow(selRow);
 
-                            if (!cartDataModel.containsKey(selectedId)) {
-                                addSelectedRowInCartTable(selectedId);
-                            } else {
-                                JOptionPane.showMessageDialog(null, "This Item Already Selected", "Duplicate Selection", JOptionPane.ERROR_MESSAGE);
-                            }
+                        if (!cartDataModel.containsKey(selectedId)) {
+                            addSelectedRowInCartTable(selectedId);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "This Item Already Selected", "Duplicate Selection", JOptionPane.ERROR_MESSAGE);
                         }
                     }
                 }
@@ -235,40 +229,35 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
             cartPanel.add(transferDateChooser, "14, 4, fill, top");
 
             btnSend = new JButton("Receive");
-            btnSend.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
+            btnSend.addActionListener(e -> {
 
-                    // System.out.println(itemReceiverPanel.getSelectedId() +
-                    // " >><<>>>>>>>>>><<<<<<<");
-                    if (!isValidCart()) {
-                        JOptionPane.showMessageDialog(null, "Please fill the required data");
-                        return;
+                // System.out.println(itemReceiverPanel.getSelectedId() +
+                // " >><<>>>>>>>>>><<<<<<<");
+                if (!isValidCart()) {
+                    JOptionPane.showMessageDialog(null, "Please fill the required data");
+                    return;
+                }
+
+                btnSend.setEnabled(false);
+
+                SwingWorker worker = new SwingWorker<Void, Void>() {
+
+                    @Override
+                    protected Void doInBackground() throws Exception {
+                        if (DataEntryUtils.confirmDBSave()) saveReturn();
+                        return null;
                     }
 
-                    btnSend.setEnabled(false);
+                };
+                worker.addPropertyChangeListener(evt -> {
+                    System.out.println("Event " + evt + " name" + evt.getPropertyName() + " value " + evt.getNewValue());
+                    if ("DONE".equals(evt.getNewValue().toString())) {
+                        btnSend.setEnabled(true);
+                        // task.setText("Test");
+                    }
+                });
 
-                    SwingWorker worker = new SwingWorker<Void, Void>() {
-
-                        @Override
-                        protected Void doInBackground() throws Exception {
-                            if (DataEntryUtils.confirmDBSave()) saveReturn();
-                            return null;
-                        }
-
-                    };
-                    worker.addPropertyChangeListener(new PropertyChangeListener() {
-
-                        public void propertyChange(PropertyChangeEvent evt) {
-                            System.out.println("Event " + evt + " name" + evt.getPropertyName() + " value " + evt.getNewValue());
-                            if ("DONE".equals(evt.getNewValue().toString())) {
-                                btnSend.setEnabled(true);
-                                // task.setText("Test");
-                            }
-                        }
-                    });
-
-                    worker.execute();
-                }
+                worker.execute();
             });
             cartPanel.add(btnSend, "16, 4, default, top");
         }
@@ -298,19 +287,16 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
     }
 
     protected final void handleTransferSuccess() {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            public void run() {
-                JOptionPane.showMessageDialog(null, "Saved Successfully");
-                cartDataModel.resetModel();
-                cartDataModel.fireTableDataChanged();
-                UIUtils.clearAllFields(cartPanel);
-                itemReceiverPanel.clearAll();
-                dataModel.resetModel();
-                dataModel.fireTableDataChanged();
-                cellQtyEditors.clear();
-                // cellRackNumberEditors.clear();
-            }
+        SwingUtilities.invokeLater(() -> {
+            JOptionPane.showMessageDialog(null, "Saved Successfully");
+            cartDataModel.resetModel();
+            cartDataModel.fireTableDataChanged();
+            UIUtils.clearAllFields(cartPanel);
+            itemReceiverPanel.clearAll();
+            dataModel.resetModel();
+            dataModel.fireTableDataChanged();
+            cellQtyEditors.clear();
+            // cellRackNumberEditors.clear();
         });
     }
 
@@ -380,17 +366,15 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
             buttonPanel = new JPanel();
 
             btnSaveToExcel = new JButton("Save to Excel");
-            btnSaveToExcel.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    JFileChooser jf = new JFileChooser();
-                    jf.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                    jf.showDialog(ItemReturnPanel.this, "Select Save location");
-                    String fileName = jf.getSelectedFile().getAbsolutePath();
-                    try {
-                        ExcelUtils.writeExcelFromJTable(table, fileName + ".xls");
-                    } catch (Exception e1) {
-                        JOptionPane.showMessageDialog(null, "Could not save" + e1.getMessage());
-                    }
+            btnSaveToExcel.addActionListener(e -> {
+                JFileChooser jf = new JFileChooser();
+                jf.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                jf.showDialog(ItemReturnPanel.this, "Select Save location");
+                String fileName = jf.getSelectedFile().getAbsolutePath();
+                try {
+                    ExcelUtils.writeExcelFromJTable(table, fileName + ".xls");
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(null, "Could not save" + e1.getMessage());
                 }
             });
 
@@ -504,11 +488,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
             formPanel.add(txtToDate, "16, 6, fill, default");
 
             btnSave = new JButton("Search");
-            btnSave.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    handleSearchQuery();
-                }
-            });
+            btnSave.addActionListener(e -> handleSearchQuery());
 
             lblReceiver = new JLabel("Receiver :");
             formPanel.add(lblReceiver, "4, 8, default, center");
@@ -523,15 +503,13 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
 
             btnReset = new JButton("Reset");
             formPanel.add(btnReset, "20, 8, default, bottom");
-            btnReset.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    UIUtils.clearAllFields(formPanel);
-                    // if(currentSpecificationPanel!=null)
-                    // currentSpecificationPanel.resetAll();
-                    cmbCategory.selectDefaultItem();
-                    // cmbVendor.selectDefaultItem();
-                    itemReceiverPanel.clearAll();
-                }
+            btnReset.addActionListener(e -> {
+                UIUtils.clearAllFields(formPanel);
+                // if(currentSpecificationPanel!=null)
+                // currentSpecificationPanel.resetAll();
+                cmbCategory.selectDefaultItem();
+                // cmbVendor.selectDefaultItem();
+                itemReceiverPanel.clearAll();
             });
         }
         return formPanel;
@@ -779,7 +757,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
         }
 
         public final Map<Integer, ReturnedItemDTO> getIdAndQuantityMap() {
-            Map<Integer, ReturnedItemDTO> cartIdQtyMap = new HashMap<Integer, ReturnedItemDTO>();
+            Map<Integer, ReturnedItemDTO> cartIdQtyMap = new HashMap<>();
             int rows = getRowCount();
             for (int i = 0; i < rows; i++) {
                 Integer id = Integer.parseInt(getValueAt(i, idCol).toString());

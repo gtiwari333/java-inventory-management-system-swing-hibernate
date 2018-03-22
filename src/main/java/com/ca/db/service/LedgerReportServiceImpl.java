@@ -68,8 +68,8 @@ public class LedgerReportServiceImpl extends BaseDAO {
         SQLQuery sq = s.createSQLQuery(sb.toString());
         List result = sq.list();
 
-        List<ReportBean> rpbL = new ArrayList<ReportBean>();
-        Map<String, Integer> uniqueRows = new HashMap<String, Integer>();
+        List<ReportBean> rpbL = new ArrayList<>();
+        Map<String, Integer> uniqueRows = new HashMap<>();
 
         for (Object o : result) {
 
@@ -123,7 +123,7 @@ public class LedgerReportServiceImpl extends BaseDAO {
                 rpbL.add(rbItem);
 
                 // reset unique row set
-                uniqueRows = new HashMap<String, Integer>();
+                uniqueRows = new HashMap<>();
 
             }
             /**
@@ -240,7 +240,7 @@ public class LedgerReportServiceImpl extends BaseDAO {
         return rpbL;
     }
 
-    private void getTransferString(Transfer nik, ReportBean reportBean) {
+    private static void getTransferString(Transfer nik, ReportBean reportBean) {
         System.out.println("Transfer Type  " + nik.getTransferType());
         switch (nik.getTransferType()) {
             case Transfer.LILAM:

@@ -28,11 +28,7 @@ public class ActionMenuItem extends JMenuItem {
     }
 
     private ActionListener getCommonListener() {
-        ActionListener al = new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                AppFrame.getInstance().setWindow(panelQualifiedClassName);
-            }
-        };
+        ActionListener al = e -> AppFrame.getInstance().setWindow(panelQualifiedClassName);
         return al;
     }
 }

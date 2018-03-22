@@ -54,18 +54,16 @@ public class CorrectionItemReturnPanel extends AbstractFunctionPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    JFrame jf = new JFrame();
-                    CorrectionItemReturnPanel panel = new CorrectionItemReturnPanel(2);
-                    jf.setBounds(panel.getBounds());
-                    jf.getContentPane().add(panel);
-                    jf.setVisible(true);
-                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                JFrame jf = new JFrame();
+                CorrectionItemReturnPanel panel = new CorrectionItemReturnPanel(2);
+                jf.setBounds(panel.getBounds());
+                jf.getContentPane().add(panel);
+                jf.setVisible(true);
+                jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
@@ -240,26 +238,14 @@ public class CorrectionItemReturnPanel extends AbstractFunctionPanel {
 
         JButton btnReset = new JButton("Reset");
         panel.add(btnReset, "2, 2");
-        btnReset.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                init();
-            }
-        });
+        btnReset.addActionListener(e -> init());
 
         JButton btnDelete = new JButton("Delete");
-        btnDelete.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                handleDeleteAction();
-            }
-        });
+        btnDelete.addActionListener(e -> handleDeleteAction());
 
         JButton btnSave = new JButton("Save");
         panel.add(btnSave, "4, 2");
-        btnSave.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                handleSaveAction();
-            }
-        });
+        btnSave.addActionListener(e -> handleSaveAction());
         panel.add(btnDelete, "18, 2");
 
     }

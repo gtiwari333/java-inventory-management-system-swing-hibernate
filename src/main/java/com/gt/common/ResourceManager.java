@@ -47,9 +47,9 @@ public class ResourceManager {
         return stringConstantsMap.get(key);
     }
 
-    public static Map<String, String> readMap(String file, boolean isEncry) throws FileNotFoundException, IOException {
+    public static Map<String, String> readMap(String file, boolean isEncry) throws IOException {
         BufferedReader in = new BufferedReader(new FileReader(file));
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         String str;
         while ((str = in.readLine()) != null) {
             String[] spl = str.split(":");

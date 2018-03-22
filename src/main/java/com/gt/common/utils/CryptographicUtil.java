@@ -39,11 +39,7 @@ public class CryptographicUtil {
             dcipher = Cipher.getInstance("DES");
             ecipher.init(Cipher.ENCRYPT_MODE, key);
             dcipher.init(Cipher.DECRYPT_MODE, key);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (NoSuchPaddingException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
+        } catch (NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException e) {
             e.printStackTrace();
         }
 
@@ -67,11 +63,7 @@ public class CryptographicUtil {
             SecretKey ky = kf.generateSecret(ks);
             nicUtil = new CryptographicUtil(ky);
             encryptedText = nicUtil.encrypt(text);
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidKeySpecException e) {
+        } catch (InvalidKeyException | InvalidKeySpecException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         return encryptedText;
@@ -95,11 +87,7 @@ public class CryptographicUtil {
             SecretKey ky = kf.generateSecret(ks);
             nicUtil = new CryptographicUtil(ky);
             decryptedText = nicUtil.decrypt(text);
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidKeySpecException e) {
+        } catch (InvalidKeyException | InvalidKeySpecException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         return decryptedText;
@@ -134,11 +122,7 @@ public class CryptographicUtil {
             utf8 = str.getBytes("UTF8");
             enc = ecipher.doFinal(utf8);
             encryptedText = new sun.misc.BASE64Encoder().encode(enc);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
+        } catch (UnsupportedEncodingException | BadPaddingException | IllegalBlockSizeException e) {
             e.printStackTrace();
         }
 
@@ -162,11 +146,7 @@ public class CryptographicUtil {
             utf8 = dcipher.doFinal(dec);
             // Decode using utf-8
             decryptedText = new String(utf8, "UTF8");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
+        } catch (IOException | BadPaddingException | IllegalBlockSizeException e) {
             e.printStackTrace();
         }
         return decryptedText;

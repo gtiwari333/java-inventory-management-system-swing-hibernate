@@ -67,18 +67,16 @@ public class LedgerReportPanel extends AbstractFunctionPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    JFrame jf = new JFrame();
-                    LedgerReportPanel panel = new LedgerReportPanel();
-                    jf.setBounds(panel.getBounds());
-                    jf.getContentPane().add(panel);
-                    jf.setVisible(true);
-                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                JFrame jf = new JFrame();
+                LedgerReportPanel panel = new LedgerReportPanel();
+                jf.setBounds(panel.getBounds());
+                jf.getContentPane().add(panel);
+                jf.setVisible(true);
+                jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
@@ -143,11 +141,7 @@ public class LedgerReportPanel extends AbstractFunctionPanel {
             txtPanaNumber.setColumns(10);
 
             btnSave = new JButton("Search");
-            btnSave.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    showLedger();
-                }
-            });
+            btnSave.addActionListener(e -> showLedger());
 
             formPanel.add(btnSave, "18, 2");
 
@@ -189,7 +183,7 @@ public class LedgerReportPanel extends AbstractFunctionPanel {
                 return;
             }
 
-            Map<String, String> parameters = new HashMap<String, String>();
+            Map<String, String> parameters = new HashMap<>();
             viewerPanel.removeAll();
 
             if (isSinglePanaLedger) {
@@ -213,7 +207,7 @@ public class LedgerReportPanel extends AbstractFunctionPanel {
     }
 
     private static List<ReportBean> getRandom() {
-        List<ReportBean> rpbl = new ArrayList<ReportBean>();
+        List<ReportBean> rpbl = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
             ReportBean rp = new ReportBean();
             rp.setDate("Date " + i);

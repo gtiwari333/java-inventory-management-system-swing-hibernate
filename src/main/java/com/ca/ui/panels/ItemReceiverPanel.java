@@ -157,49 +157,46 @@ public class ItemReceiverPanel extends JPanel {
     }
 
     protected final void handleSelection() {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            public void run() {
-                switch (currentType) {
-                    case OFFICIAL:
-                        dataCombo.init();
-                        dataCombo.setEnabled(true);
-                        rdbtnOfficial.setSelected(true);
-                        try {
-                            List<BranchOffice> cl = DBUtils.readAll(BranchOffice.class);
-                            for (BranchOffice c : cl) {
-                                dataCombo.addRow(new Object[]{c.getId(), c.getName(), c.getAddress()});
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
+        SwingUtilities.invokeLater(() -> {
+            switch (currentType) {
+                case OFFICIAL:
+                    dataCombo.init();
+                    dataCombo.setEnabled(true);
+                    rdbtnOfficial.setSelected(true);
+                    try {
+                        List<BranchOffice> cl = DBUtils.readAll(BranchOffice.class);
+                        for (BranchOffice c : cl) {
+                            dataCombo.addRow(new Object[]{c.getId(), c.getName(), c.getAddress()});
                         }
-                        // dataCombo.setEditable(false);
-                        break;
-                    case PERSONNAL:
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    // dataCombo.setEditable(false);
+                    break;
+                case PERSONNAL:
 
-                        dataCombo.init();
-                        // FIXME: filter fix
-                        // dataCombo.setEditable(true);
-                        rdbtnPersonnal.setSelected(true);
-                        dataCombo.setEnabled(true);
-                        try {
-                            List<Person> cl = DBUtils.readAll(Person.class);
-                            for (Person c : cl) {
-                                dataCombo.addRow(new Object[]{c.getId(), c.getFirstName(), c.getLastName()});
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                    dataCombo.init();
+                    // FIXME: filter fix
+                    // dataCombo.setEditable(true);
+                    rdbtnPersonnal.setSelected(true);
+                    dataCombo.setEnabled(true);
+                    try {
+                        List<Person> cl = DBUtils.readAll(Person.class);
+                        for (Person c : cl) {
+                            dataCombo.addRow(new Object[]{c.getId(), c.getFirstName(), c.getLastName()});
                         }
-                        // dataCombo.initArray();
-                        break;
-                    default:
-                        rdbtnLilam.setSelected(true);
-                        dataCombo.init();
-                        dataCombo.setEnabled(false);
-                        break;
-                }
-
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    // dataCombo.initArray();
+                    break;
+                default:
+                    rdbtnLilam.setSelected(true);
+                    dataCombo.init();
+                    dataCombo.setEnabled(false);
+                    break;
             }
+
         });
 
     }
