@@ -9,15 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JSplitPane;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
 import com.ca.db.model.Person;
@@ -83,7 +75,7 @@ public class LedgerReportPanel extends AbstractFunctionPanel {
                     jf.setBounds(panel.getBounds());
                     jf.getContentPane().add(panel);
                     jf.setVisible(true);
-                    jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -92,7 +84,7 @@ public class LedgerReportPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void init() {
+    public final void init() {
         /* never forget to call super.init() */
         super.init();
         UIUtils.clearAllFields(upperPane);
@@ -100,7 +92,7 @@ public class LedgerReportPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void enableDisableComponents() {
+    public final void enableDisableComponents() {
         switch (status) {
             case NONE:
                 UIUtils.clearAllFields(formPanel);
@@ -220,7 +212,7 @@ public class LedgerReportPanel extends AbstractFunctionPanel {
         }
     }
 
-    private List<ReportBean> getRandom() {
+    private static List<ReportBean> getRandom() {
         List<ReportBean> rpbl = new ArrayList<ReportBean>();
         for (int i = 0; i < 30; i++) {
             ReportBean rp = new ReportBean();
@@ -231,7 +223,7 @@ public class LedgerReportPanel extends AbstractFunctionPanel {
             rp.setInRate("inRate " + i);
             rp.setInRate("inRate " + i);
             rp.setInTotal("inTotal " + i);
-            rp.setNikasaBranch("nikasaBranch xxxx xxxxx xxxx xxx" + i);
+            rp.setTransferBranch("transferBranch xxxx xxxxx xxxx xxx" + i);
             rp.setNikQty("nikQty " + i);
             rp.setNikRate("nikRate " + i);
             rp.setNikTotal("nikTotal " + i);
@@ -263,7 +255,7 @@ public class LedgerReportPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public String getFunctionName() {
+    public final String getFunctionName() {
         return "Ledger Report Viewer";
     }
 

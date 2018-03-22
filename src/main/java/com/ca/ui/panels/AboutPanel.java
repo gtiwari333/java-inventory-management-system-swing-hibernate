@@ -5,10 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.UIManager;
+import javax.swing.*;
 
 import com.gt.common.ResourceManager;
 import com.gt.common.constants.StrConstants;
@@ -71,7 +68,7 @@ public class AboutPanel extends AbstractFunctionPanel {
                     jf.setBounds(panel.getBounds());
                     jf.getContentPane().add(panel);
                     jf.setVisible(true);
-                    jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -80,7 +77,7 @@ public class AboutPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public String getFunctionName() {
+    public final String getFunctionName() {
         return "About ";
     }
 

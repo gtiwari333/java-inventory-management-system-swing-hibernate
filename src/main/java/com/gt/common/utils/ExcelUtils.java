@@ -24,7 +24,7 @@ public class ExcelUtils {
         int j = 0;
         for (int i = 0; i < data[0].length; i++) {//rows
             for (j = 0; j < data[i][0].length(); j++) {//column
-                Label row = new Label(j, i + 1, data[i][j].toString());
+                Label row = new Label(j, i + 1, data[i][j]);
                 curSheet.addCell(row);
             }
         }

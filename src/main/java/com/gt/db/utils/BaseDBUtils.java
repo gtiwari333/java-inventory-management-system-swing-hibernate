@@ -22,18 +22,18 @@ public class BaseDBUtils extends BaseDAO {
         super();
     }
 
-    public List readAll(Class clazz) throws Exception {
+    public final List readAll(Class clazz) throws Exception {
         Query q = getSession().createQuery("from " + clazz.getName() + " where dflag=:status order by id desc");
         q.setInteger("status", 1);
         return super.runReadQuery(q);
     }
 
-    public List readAllNoStatus(Class clazz) throws Exception {
+    public final List readAllNoStatus(Class clazz) throws Exception {
         Query q = getSession().createQuery("from " + clazz.getName() + "  order by id desc");
         return super.runReadQuery(q);
     }
 
-    public Object getById(Class clazz, int id) throws Exception {
+    public final Object getById(Class clazz, int id) throws Exception {
         Query q = getSession().createQuery("from " + clazz.getName() + " where id=:id and dflag=:status order by id desc");
         q.setInteger("id", id);
         q.setInteger("status", 1);
@@ -42,13 +42,13 @@ public class BaseDBUtils extends BaseDAO {
 
     }
 
-    public Object getByIdNoStatus(Class clazz, int id) throws Exception {
+    public final Object getByIdNoStatus(Class clazz, int id) throws Exception {
         Query q = getSession().createQuery("from " + clazz.getName() + " where id=:id order by id desc");
         q.setInteger("id", id);
         return super.runReadQuery(q).get(0);
     }
 
-    public int deleteById(Class clazz, int id) throws Exception {
+    public final int deleteById(Class clazz, int id) throws Exception {
 
         Query q = getSession().createQuery("update " + clazz.getName() + " set dflag=:status where id=:id");
         q.setInteger("status", 0);
@@ -56,14 +56,14 @@ public class BaseDBUtils extends BaseDAO {
         return super.runQuery(q);
     }
 
-    public int deleteByIdPhysical(Class clazz, int id) throws Exception {
+    public final int deleteByIdPhysical(Class clazz, int id) throws Exception {
         Query q = getSession().createQuery("delete from " + clazz.getName() + " where id=:id");
         q.setInteger("id", id);
         return super.runQuery(q);
 
     }
 
-    public void saveOrUpdate(Object object) throws Exception {
+    public final void saveOrUpdate(Object object) throws Exception {
         super.saveOrUpdate(object);
 
     }

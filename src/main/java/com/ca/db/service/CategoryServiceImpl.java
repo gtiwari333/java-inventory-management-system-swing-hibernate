@@ -15,18 +15,18 @@ public class CategoryServiceImpl extends BaseDAO {
         // TODO Auto-generated constructor stub
     }
 
-    public boolean isCategoryExists(String categoryName) throws Exception {
+    public static final boolean isCategoryExists(String categoryName) throws Exception {
 
         Criteria c = getSession().createCriteria(Category.class);
         c.add(Restrictions.eq("dFlag", 1));
         c.add(Restrictions.ilike("categoryName", categoryName.toLowerCase()));
         // c.add(Expression.eq("categoryName", categoryName).ignoreCase());
         List l = c.list();
-        return (l.size() > 0) ? true : false;
+        return l.size() > 0;
 
     }
 
-    public boolean isSubCategoryExists(int categoryId, String subCategoryName) throws Exception {
+    public static final boolean isSubCategoryExists(int categoryId, String subCategoryName) throws Exception {
 
         Criteria c = getSession().createCriteria(SubCategory.class);
         c.add(Restrictions.eq("dFlag", 1));
@@ -34,10 +34,10 @@ public class CategoryServiceImpl extends BaseDAO {
 
         c.add(Restrictions.ilike("subCategoryName", subCategoryName.toLowerCase()));
         List l = c.list();
-        return (l.size() > 0) ? true : false;
+        return l.size() > 0;
     }
 
-    public SubCategory getSubCategoryByname(int categoryId, String subCategoryName) throws Exception {
+    public static final SubCategory getSubCategoryByname(int categoryId, String subCategoryName) throws Exception {
         Criteria c = getSession().createCriteria(SubCategory.class);
         c.add(Restrictions.eq("dFlag", 1));
         c.add(Restrictions.eq("categoryId", categoryId));

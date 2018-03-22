@@ -14,37 +14,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.swing.AbstractAction;
-import javax.swing.AbstractCellEditor;
-import javax.swing.Action;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.KeyStroke;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
 import com.ca.db.model.Category;
-import com.ca.db.model.Nikasa;
+import com.ca.db.model.Transfer;
 import com.ca.db.service.DBUtils;
 import com.ca.db.service.ItemReturnServiceImpl;
-import com.ca.db.service.NikasaServiceImpl;
+import com.ca.db.service.TransferServiceImpl;
 import com.ca.db.service.dto.ReturnedItemDTO;
 import com.gt.common.constants.Status;
 import com.gt.common.utils.DateTimeUtils;
@@ -68,7 +48,7 @@ import com.toedter.calendar.JDateChooser;
  * @author GT
  */
 public class ItemReturnPanel extends AbstractFunctionPanel {
-    String[] header = new String[]{"S.N.", "ID", "Name", "Category", "Specification", "Nikasa Date", "Niksa Type", "Sent To", "Nikasa Pana Num",
+    String[] header = new String[]{"S.N.", "ID", "Name", "Category", "Specification", "Transfer Date", "Niksa Type", "Sent To", "Transfer Pana Num",
             "Request Number", "Remaining Quantity", "Unit"};
     String[] returnTblHeader = new String[]{"", "ID", "Name", "Category", "Goods Status", "Return Quantity", "Unit"};
     String[] damageStatusStr = new String[]{"", "Good", "Unrepairable", "Needs Repair", "Exemption"};
@@ -112,7 +92,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
     private JSplitPane lowerPanel;
     private JPanel panel_1;
     private JPanel cartPanel;
-    private JDateChooser nikasaDateChooser;
+    private JDateChooser transferDateChooser;
     private JLabel lblSentDate;
     private JButton btnSend;
     private JButton btnAddItem;
@@ -154,7 +134,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
                     jf.setBounds(panel.getBounds());
                     jf.getContentPane().add(panel);
                     jf.setVisible(true);
-                    jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -205,7 +185,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
                              * then
                              */
 
-                            int selectedId = (Integer) cartDataModel.getKeyAtRow(selRow);
+                            int selectedId = cartDataModel.getKeyAtRow(selRow);
                             System.out.println("Selected ID : " + selectedId + "_  >>  row " + selRow);
                             if (cartDataModel.containsKey(selectedId)) {
                                 removeSelectedRowInCartTable(selectedId, selRow);
@@ -226,7 +206,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
                              * then
                              */
 
-                            int selectedId = (Integer) dataModel.getKeyAtRow(selRow);
+                            int selectedId = dataModel.getKeyAtRow(selRow);
 
                             if (!cartDataModel.containsKey(selectedId)) {
                                 addSelectedRowInCartTable(selectedId);
@@ -250,9 +230,9 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
             lblSentDate = new JLabel("Date");
             cartPanel.add(lblSentDate, "10, 4, default, top");
 
-            nikasaDateChooser = new JDateChooser();
-            nikasaDateChooser.setDate(new Date());
-            cartPanel.add(nikasaDateChooser, "14, 4, fill, top");
+            transferDateChooser = new JDateChooser();
+            transferDateChooser.setDate(new Date());
+            cartPanel.add(transferDateChooser, "14, 4, fill, top");
 
             btnSend = new JButton("Receive");
             btnSend.addActionListener(new ActionListener() {
@@ -300,8 +280,8 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
 
         try {
             ItemReturnServiceImpl irs = new ItemReturnServiceImpl();
-            irs.saveReturnedItem(returnTable.getIdAndQuantityMap(), txtReturnNUmber.getText().trim());
-            handleNikasaSuccess();
+            ItemReturnServiceImpl.saveReturnedItem(returnTable.getIdAndQuantityMap(), txtReturnNUmber.getText().trim());
+            handleTransferSuccess();
         } catch (Exception er) {
             handleDBError(er);
         }
@@ -311,13 +291,13 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
     }
 
     private boolean isValidCart() {
-        if (returnTable.isValidCartQty() && returnTable.getRowCount() > 0 && nikasaDateChooser.getDate() != null) {
+        if (returnTable.isValidCartQty() && returnTable.getRowCount() > 0 && transferDateChooser.getDate() != null) {
             return true;
         }
         return false;
     }
 
-    protected void handleNikasaSuccess() {
+    protected final void handleTransferSuccess() {
         SwingUtilities.invokeLater(new Runnable() {
 
             public void run() {
@@ -334,7 +314,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
         });
     }
 
-    protected void removeSelectedRowInCartTable(int selectedId, int selRow) {
+    protected final void removeSelectedRowInCartTable(int selectedId, int selRow) {
         cartDataModel.removeRowWithKey(selectedId);
         cartDataModel.fireTableDataChanged();
         // TODO:
@@ -344,9 +324,9 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
         // cartTable.adjustColumns();
     }
 
-    protected void addSelectedRowInCartTable(int selectedId) {
+    protected final void addSelectedRowInCartTable(int selectedId) {
         try {
-            Nikasa bo = (Nikasa) DBUtils.getById(Nikasa.class, selectedId);
+            Transfer bo = (Transfer) DBUtils.getById(Transfer.class, selectedId);
             int sn = cartDataModel.getRowCount();
             if (bo != null) {
                 // BigDecimal total = bo.getRate().multiply(new
@@ -373,7 +353,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void init() {
+    public final void init() {
 		/* never forget to call super.init() */
         super.init();
         UIUtils.clearAllFields(upperPane);
@@ -386,7 +366,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
 			/* Category Combo */
             cmbCategory.init();
             ItemReturnServiceImpl is = new ItemReturnServiceImpl();
-            List<Category> cl = is.getNonReturnableCategory();
+            List<Category> cl = ItemReturnServiceImpl.getNonReturnableCategory();
             for (Category c : cl) {
                 cmbCategory.addRow(new Object[]{c.getId(), c.getCategoryName()});
             }
@@ -425,7 +405,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void enableDisableComponents() {
+    public final void enableDisableComponents() {
         switch (status) {
             case NONE:
                 // UIUtils.toggleAllChildren(buttonPanel, false);
@@ -467,7 +447,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
         if (formPanel == null) {
             formPanel = new JPanel();
 
-            formPanel.setBorder(new TitledBorder(null, "Nikasa Search", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+            formPanel.setBorder(new TitledBorder(null, "Transfer Search", TitledBorder.LEADING, TitledBorder.TOP, null, null));
             formPanel.setBounds(10, 49, 474, 135);
             formPanel.setLayout(new FormLayout(new ColumnSpec[]{FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC,
                     FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC, FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC,
@@ -490,7 +470,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
             // formPanel.add(specPanelHolder, "4, 6, 15, 1, fill, fill");
             // specPanelHolder.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 
-            lblPanaNumber = new JLabel("Nikasa Number");
+            lblPanaNumber = new JLabel("Transfer Number");
             formPanel.add(lblPanaNumber, "12, 2");
 
             txtPanaNumber = new JTextField();
@@ -557,18 +537,18 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
         return formPanel;
     }
 
-    protected void handleSearchQuery() {
+    protected final void handleSearchQuery() {
         readAndShowAll(true);
     }
 
     private void readAndShowAll(boolean showSize0Error) {
         try {
-            NikasaServiceImpl is = new NikasaServiceImpl();
-            List<Nikasa> brsL;
+            TransferServiceImpl is = new TransferServiceImpl();
+            List<Transfer> brsL;
             // FIXME : pananumber vs - request number ??
             int returnStatus = -1;
 
-            brsL = is.notReturnedNikasaItemQuery(txtItemname.getText(), cmbCategory.getSelectedId(), itemReceiverPanel.getCurrentReceiverConstant(),
+            brsL = TransferServiceImpl.notReturnedTransferItemQuery(txtItemname.getText(), cmbCategory.getSelectedId(), itemReceiverPanel.getCurrentReceiverConstant(),
                     itemReceiverPanel.getSelectedId(), returnStatus, -1, txtPanaNumber.getText().trim(), "", txtFromDate.getDate(),
                     txtToDate.getDate());
 
@@ -587,26 +567,26 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
         }
     }
 
-    private void showListInGrid(List<Nikasa> brsL) {
+    private void showListInGrid(List<Transfer> brsL) {
         dataModel.resetModel();
         int sn = 0;
-        String nikasaTYpe = "";
+        String transferTYpe = "";
         String sentTo = "";
-        for (Nikasa bo : brsL) {
-            nikasaTYpe = "";
+        for (Transfer bo : brsL) {
+            transferTYpe = "";
             sentTo = "";
 
-            if (bo.getNikasaType() == Nikasa.OFFICIAL) {
-                nikasaTYpe = "Official";
+            if (bo.getTransferType() == Transfer.OFFICIAL) {
+                transferTYpe = "Official";
                 sentTo = bo.getBranchOffice().getName() + "  " + bo.getBranchOffice().getAddress();
-            } else if (bo.getNikasaType() == Nikasa.PERSONNAL) {
-                nikasaTYpe = "Personnal";
+            } else if (bo.getTransferType() == Transfer.PERSONNAL) {
+                transferTYpe = "Personnal";
                 sentTo = bo.getPerson().getFirstName() + "  " + bo.getPerson().getLastName();
             }
             // TODO: add person/office name, specs in column
             dataModel.addRow(new Object[]{++sn, bo.getId(), bo.getItem().getName(), bo.getItem().getCategory().getCategoryName(),
-                    bo.getItem().getSpeciifcationString(), DateTimeUtils.getCvDateMMMddyyyy(bo.getNikasaDate()), nikasaTYpe, sentTo,
-                    bo.getNikasaPanaNumber(), bo.getNikasaRequestNumber(), bo.getRemainingQtyToReturn(), bo.getItem().getUnitsString().getValue()});
+                    bo.getItem().getSpeciifcationString(), DateTimeUtils.getCvDateMMMddyyyy(bo.getTransferDate()), transferTYpe, sentTo,
+                    bo.getTransferPanaNumber(), bo.getTransferRequestNumber(), bo.getRemainingQtyToReturn(), bo.getItem().getUnitsString().getValue()});
         }
         table.setModel(dataModel);
         dataModel.fireTableDataChanged();
@@ -614,7 +594,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public String getFunctionName() {
+    public final String getFunctionName() {
         return "Item Return Entry";
     }
 
@@ -664,7 +644,6 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
                     // do custom stuff
                     // return if default shouldn't happen or call default
                     // after
-                    return;
                     // }
                     // action.actionPerformed(e);
                 }
@@ -694,7 +673,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
          * javax.swing.table.TableCellEditor#getTableCellEditorComponent(javax
          * .swing.JTable, java.lang.Object, boolean, int, int)
          */
-        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int rowIndex, int vColIndex) {
+        public final Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int rowIndex, int vColIndex) {
 
             if (isSelected) {
             }
@@ -710,7 +689,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
          * This method is called when editing is completed.<br>
          * It must return the new value to be stored in the cell.
          */
-        public Object getCellEditorValue() {
+        public final Object getCellEditorValue() {
             Integer retQty = 0;
             try {
                 retQty = Integer.parseInt(((JTextField) component).getText());
@@ -739,7 +718,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
          * javax.swing.table.TableCellEditor#getTableCellEditorComponent(javax
          * .swing.JTable, java.lang.Object, boolean, int, int)
          */
-        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int rowIndex, int vColIndex) {
+        public final Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int rowIndex, int vColIndex) {
             // Configure the component with the specified value
             ((JTextField) component).setText(value.toString());
 
@@ -750,7 +729,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
          * This method is called when editing is completed.<br>
          * It must return the new value to be stored in the cell.
          */
-        public Object getCellEditorValue() {
+        public final Object getCellEditorValue() {
 
             return ((JTextField) component).getText();
         }
@@ -766,8 +745,8 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
             super(dm);
         }
 
-        public boolean isCellEditable(int row, int column) {
-            return (column == qtyCol || column == damageStatusCol) ? true : false;
+        public final boolean isCellEditable(int row, int column) {
+            return column == qtyCol || column == damageStatusCol;
         }
 
         /**
@@ -776,7 +755,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
          *
          * @return
          */
-        public boolean isValidCartQty() {
+        public final boolean isValidCartQty() {
             Map<Integer, ReturnedItemDTO> cartMap = returnTable.getIdAndQuantityMap();
             for (Entry<Integer, ReturnedItemDTO> entry : cartMap.entrySet()) {
                 ReturnedItemDTO ret = entry.getValue();
@@ -799,7 +778,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
             return -1;
         }
 
-        public Map<Integer, ReturnedItemDTO> getIdAndQuantityMap() {
+        public final Map<Integer, ReturnedItemDTO> getIdAndQuantityMap() {
             Map<Integer, ReturnedItemDTO> cartIdQtyMap = new HashMap<Integer, ReturnedItemDTO>();
             int rows = getRowCount();
             for (int i = 0; i < rows; i++) {
@@ -819,7 +798,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
         }
 
         // Determine editor to be used by row
-        public TableCellEditor getCellEditor(int row, int column) {
+        public final TableCellEditor getCellEditor(int row, int column) {
             if (column == qtyCol) {
                 return (TableCellEditor) cellQtyEditors.get(row);
             }

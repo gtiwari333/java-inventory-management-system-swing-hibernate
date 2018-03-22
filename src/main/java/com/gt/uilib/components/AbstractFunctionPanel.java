@@ -52,16 +52,16 @@ public abstract class AbstractFunctionPanel extends JPanel implements Verifier {
     /**
      * we can override this function to display different message
      */
-    public String getUnsavedExitMessage() {
+    public static final String getUnsavedExitMessage() {
         return "Are you sure to exit?";
 
     }
 
-    public AppFrame getMainFrame() {
+    public final AppFrame getMainFrame() {
         return mainApp;
     }
 
-    public void validateFailed() {
+    public final void validateFailed() {
         getMainFrame().getStatusLbl().setText("Please enter data properly before saving");
 
     }
@@ -70,7 +70,7 @@ public abstract class AbstractFunctionPanel extends JPanel implements Verifier {
 
     }
 
-    protected void handleDBError(Exception e) {
+    protected static final void handleDBError(Exception e) {
         System.out.println("db error " + e.toString());
         e.printStackTrace();
         String expln = e.toString();
@@ -80,7 +80,7 @@ public abstract class AbstractFunctionPanel extends JPanel implements Verifier {
         JOptionPane.showMessageDialog(null, "DB Error" + e.getMessage(), "Error ! ", JOptionPane.ERROR_MESSAGE);
     }
 
-    public void changeStatus(Status status) {
+    public final void changeStatus(Status status) {
         this.status = status;
         enableDisableComponents();
     }

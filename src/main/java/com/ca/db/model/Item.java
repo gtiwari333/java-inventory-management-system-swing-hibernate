@@ -9,10 +9,10 @@ import java.util.Date;
 @Entity
 @Table(name = "Item")
 public class Item {
-    public static final Integer ADD_TYPE_NEW_ENTRY = Integer.valueOf(1);
-    public static final Integer ADD_TYPE_RETURNED_ENTRY = Integer.valueOf(2);
+    public static final Integer ADD_TYPE_NEW_ENTRY = 1;
+    public static final Integer ADD_TYPE_RETURNED_ENTRY = 2;
 
-    public static final Integer ACCOUNT_TRANSFERRED_TO_NEW = Integer.valueOf(22);
+    public static final Integer ACCOUNT_TRANSFERRED_TO_NEW = 22;
 
     @Id
     @GeneratedValue
@@ -113,289 +113,288 @@ public class Item {
     private String zxtra5;
 
     private static boolean isEmpty(String str) {
-        if (str == null) return true;
-        return str.trim().length() < 1;
+        return str == null || str.trim().length() < 1;
     }
 
-    public int getAccountTransferStatus() {
+    public final int getAccountTransferStatus() {
         return this.accountTransferStatus;
     }
 
-    public void setAccountTransferStatus(int accountTransferStatus) {
+    public final void setAccountTransferStatus(int accountTransferStatus) {
         this.accountTransferStatus = accountTransferStatus;
     }
 
-    public String getPurchaseOrderNo() {
+    public final String getPurchaseOrderNo() {
         return this.purchaseOrderNo;
     }
 
-    public void setPurchaseOrderNo(String purchaseOrderNo) {
+    public final void setPurchaseOrderNo(String purchaseOrderNo) {
         this.purchaseOrderNo = purchaseOrderNo;
     }
 
-    public String getPanaNumber() {
+    public final String getPanaNumber() {
         return this.panaNumber;
     }
 
-    public void setPanaNumber(String panaNumber) {
+    public final void setPanaNumber(String panaNumber) {
         this.panaNumber = panaNumber;
     }
 
-    public Date getLastModifiedDate() {
+    public final Date getLastModifiedDate() {
         return this.lastModifiedDate;
     }
 
-    public void setLastModifiedDate(Date lastModifiedDate) {
+    public final void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public int getdFlag() {
+    public final int getdFlag() {
         return this.dFlag;
     }
 
-    public void setdFlag(int dFlag) {
+    public final void setdFlag(int dFlag) {
         this.dFlag = dFlag;
     }
 
-    public String getPartsNumber() {
+    public final String getPartsNumber() {
         return this.partsNumber;
     }
 
-    public void setPartsNumber(String partsNumber) {
+    public final void setPartsNumber(String partsNumber) {
         this.partsNumber = partsNumber;
     }
 
-    public Date getPurchaseDate() {
+    public final Date getPurchaseDate() {
         return this.purchaseDate;
     }
 
-    public void setPurchaseDate(Date purchaseDate) {
+    public final void setPurchaseDate(Date purchaseDate) {
         this.purchaseDate = purchaseDate;
     }
 
-    public Date getAddedDate() {
+    public final Date getAddedDate() {
         return this.addedDate;
     }
 
-    public void setAddedDate(Date addedDate) {
+    public final void setAddedDate(Date addedDate) {
         this.addedDate = addedDate;
     }
 
-    public Vendor getVendor() {
+    public final Vendor getVendor() {
         return this.vendor;
     }
 
-    public void setVendor(Vendor vendor) {
+    public final void setVendor(Vendor vendor) {
         this.vendor = vendor;
     }
 
-    public Specification getSpecification() {
+    public final Specification getSpecification() {
         return this.specification;
     }
 
-    public void setSpecification(Specification specification) {
+    public final void setSpecification(Specification specification) {
         this.specification = specification;
     }
 
-    public Category getCategory() {
+    public final Category getCategory() {
         return this.category;
     }
 
-    public void setCategory(Category category) {
+    public final void setCategory(Category category) {
         this.category = category;
     }
 
-    public int getQuantity() {
+    public final int getQuantity() {
         return this.quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public final void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public int getId() {
+    public final int getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public final void setId(int id) {
         this.id = id;
     }
 
-    public String getRackNo() {
+    public final String getRackNo() {
         return this.rackNo;
     }
 
-    public void setRackNo(String rackNo) {
+    public final void setRackNo(String rackNo) {
         this.rackNo = rackNo;
     }
 
-    public String getName() {
+    public final String getName() {
         return this.name;
     }
 
-    public void setName(String name) {
+    public final void setName(String name) {
         this.name = name;
     }
 
-    public BigDecimal getRate() {
+    public final BigDecimal getRate() {
         return this.rate;
     }
 
-    public void setRate(BigDecimal rate) {
+    public final void setRate(BigDecimal rate) {
         this.rate = rate;
     }
 
-    public int getStatus() {
+    public final int getStatus() {
         return this.status;
     }
 
-    public void setStatus(int status) {
+    public final void setStatus(int status) {
         this.status = status;
     }
 
-    public String getSerialNumber() {
+    public final String getSerialNumber() {
         return this.serialNumber;
     }
 
-    public void setSerialNumber(String serialNumber) {
+    public final void setSerialNumber(String serialNumber) {
         this.serialNumber = serialNumber;
     }
 
-    public String getZxtra1() {
+    public final String getZxtra1() {
         return this.zxtra1;
     }
 
-    public void setZxtra1(String zxtra1) {
+    public final void setZxtra1(String zxtra1) {
         this.zxtra1 = zxtra1;
     }
 
-    public String getZxtra2() {
+    public final String getZxtra2() {
         return this.zxtra2;
     }
 
-    public void setZxtra2(String zxtra2) {
+    public final void setZxtra2(String zxtra2) {
         this.zxtra2 = zxtra2;
     }
 
-    public String getZxtra3() {
+    public final String getZxtra3() {
         return this.zxtra3;
     }
 
-    public void setZxtra3(String zxtra3) {
+    public final void setZxtra3(String zxtra3) {
         this.zxtra3 = zxtra3;
     }
 
-    public String getZxtra4() {
+    public final String getZxtra4() {
         return this.zxtra4;
     }
 
-    public void setZxtra4(String zxtra4) {
+    public final void setZxtra4(String zxtra4) {
         this.zxtra4 = zxtra4;
     }
 
-    public String getZxtra5() {
+    public final String getZxtra5() {
         return this.zxtra5;
     }
 
-    public void setZxtra5(String zxtra5) {
+    public final void setZxtra5(String zxtra5) {
         this.zxtra5 = zxtra5;
     }
 
-    public int getOriginalQuantity() {
+    public final int getOriginalQuantity() {
         return this.originalQuantity;
     }
 
-    public void setOriginalQuantity(int originalQuantity) {
+    public final void setOriginalQuantity(int originalQuantity) {
         this.originalQuantity = originalQuantity;
     }
 
-    public int getAddedType() {
+    public final int getAddedType() {
         return this.addedType;
     }
 
-    public void setAddedType(int addedType) {
+    public final void setAddedType(int addedType) {
         this.addedType = addedType;
     }
 
-    public int getParentItemId() {
+    public final int getParentItemId() {
         return this.parentItemId;
     }
 
-    public void setParentItemId(int parentItemId) {
+    public final void setParentItemId(int parentItemId) {
         this.parentItemId = parentItemId;
     }
 
-    public int getCurrentFiscalYear() {
+    public final int getCurrentFiscalYear() {
         return this.currentFiscalYear;
     }
 
-    public void setCurrentFiscalYear(int currentFiscalYear) {
+    public final void setCurrentFiscalYear(int currentFiscalYear) {
         this.currentFiscalYear = currentFiscalYear;
     }
 
-    public String getDakhilaNumber() {
+    public final String getDakhilaNumber() {
         return this.dakhilaNumber;
     }
 
-    public void setDakhilaNumber(String dakhilaNumber) {
+    public final void setDakhilaNumber(String dakhilaNumber) {
         this.dakhilaNumber = dakhilaNumber;
     }
 
-    public String getKhataNumber() {
+    public final String getKhataNumber() {
         return this.khataNumber;
     }
 
-    public void setKhataNumber(String khataNumber) {
+    public final void setKhataNumber(String khataNumber) {
         this.khataNumber = khataNumber;
     }
 
-    public UnitsString getUnitsString() {
+    public final UnitsString getUnitsString() {
         return this.unitsString;
     }
 
-    public void setUnitsString(UnitsString unitsString) {
+    public final void setUnitsString(UnitsString unitsString) {
         this.unitsString = unitsString;
     }
 
-    public String getSpeciifcationString() {
-        StringBuffer sb = new StringBuffer();
+    public final String getSpeciifcationString() {
+        StringBuilder sb = new StringBuilder();
         Category c = getCategory();
         Specification sp = getSpecification();
         if ((!isEmpty(c.getSpecification1())) && (!isEmpty(sp.getSpecification1()))) {
-            sb.append(c.getSpecification1() + " : " + sp.getSpecification1());
+            sb.append(c.getSpecification1()).append(" : ").append(sp.getSpecification1());
         }
         if ((!isEmpty(c.getSpecification2())) && (!isEmpty(sp.getSpecification2()))) {
-            sb.append(" , " + c.getSpecification2() + " : " + sp.getSpecification2());
+            sb.append(" , ").append(c.getSpecification2()).append(" : ").append(sp.getSpecification2());
         }
         if ((!isEmpty(c.getSpecification3())) && (!isEmpty(sp.getSpecification3()))) {
-            sb.append(" , " + c.getSpecification3() + " : " + sp.getSpecification3());
+            sb.append(" , ").append(c.getSpecification3()).append(" : ").append(sp.getSpecification3());
         }
         if ((!isEmpty(c.getSpecification4())) && (!isEmpty(sp.getSpecification4()))) {
-            sb.append(" , " + c.getSpecification4() + " : " + sp.getSpecification4());
+            sb.append(" , ").append(c.getSpecification4()).append(" : ").append(sp.getSpecification4());
         }
         if ((!isEmpty(c.getSpecification5())) && (!isEmpty(sp.getSpecification5()))) {
-            sb.append(" , " + c.getSpecification5() + " : " + sp.getSpecification5());
+            sb.append(" , ").append(c.getSpecification5()).append(" : ").append(sp.getSpecification5());
         }
         if ((!isEmpty(c.getSpecification6())) && (!isEmpty(sp.getSpecification6()))) {
-            sb.append(" , " + c.getSpecification6() + " : " + sp.getSpecification6());
+            sb.append(" , ").append(c.getSpecification6()).append(" : ").append(sp.getSpecification6());
         }
         if ((!isEmpty(c.getSpecification7())) && (!isEmpty(sp.getSpecification7()))) {
-            sb.append(" , " + c.getSpecification7() + " : " + sp.getSpecification7());
+            sb.append(" , ").append(c.getSpecification7()).append(" : ").append(sp.getSpecification7());
         }
         if ((!isEmpty(c.getSpecification8())) && (!isEmpty(sp.getSpecification8()))) {
-            sb.append(" , " + c.getSpecification8() + " : " + sp.getSpecification8());
+            sb.append(" , ").append(c.getSpecification8()).append(" : ").append(sp.getSpecification8());
         }
         if ((!isEmpty(c.getSpecification9())) && (!isEmpty(sp.getSpecification9()))) {
-            sb.append(" , " + c.getSpecification9() + " : " + sp.getSpecification9());
+            sb.append(" , ").append(c.getSpecification9()).append(" : ").append(sp.getSpecification9());
         }
         if ((!isEmpty(c.getSpecification10())) && (!isEmpty(sp.getSpecification10()))) {
-            sb.append(" , " + c.getSpecification10() + " : " + sp.getSpecification10());
+            sb.append(" , ").append(c.getSpecification10()).append(" : ").append(sp.getSpecification10());
         }
 
         return sb.toString();
     }
 
-    public String toString() {
+    public final String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("\nItem [id=");
         builder.append(this.id);

@@ -2,7 +2,6 @@ package com.gt.common;
 
 import com.gt.common.constants.StrConstants;
 import com.gt.common.utils.CryptographicUtil;
-import com.gt.common.utils.ImageUtils;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

@@ -20,12 +20,12 @@ public abstract class BaseDAO extends HibernateUtils {
         getSessionFactory();
     }
 
-    public int runQuery(String query) throws Exception {
+    public final int runQuery(String query) throws Exception {
         Query q = session.createQuery(query);
         return runQuery(q);
     }
 
-    public int runQuery(Query q) throws Exception {
+    public final int runQuery(Query q) throws Exception {
         int ret = 0;
         try {
             startOperation();
@@ -41,7 +41,7 @@ public abstract class BaseDAO extends HibernateUtils {
         return ret;
     }
 
-    public List runReadQuery(Query q) throws Exception {
+    public final List runReadQuery(Query q) throws Exception {
         List list = null;
         try {
             startOperation();
@@ -55,7 +55,7 @@ public abstract class BaseDAO extends HibernateUtils {
         return list;
     }
 
-    public List runReadQuery(String query) throws Exception {
+    public final List runReadQuery(String query) throws Exception {
         Query q = session.createQuery(query);
         return runReadQuery(q);
     }
@@ -73,7 +73,7 @@ public abstract class BaseDAO extends HibernateUtils {
         }
     }
 
-    public void delete(Object obj) throws Exception {
+    public final void delete(Object obj) throws Exception {
         try {
             startOperation();
             session.delete(obj);
@@ -86,7 +86,7 @@ public abstract class BaseDAO extends HibernateUtils {
         }
     }
 
-    public Object find(Class clazz, Long id) throws Exception {
+    public final Object find(Class clazz, Long id) throws Exception {
         Object obj = null;
         try {
             startOperation();
@@ -100,7 +100,7 @@ public abstract class BaseDAO extends HibernateUtils {
         return obj;
     }
 
-    public List findAll(Class clazz) throws Exception {
+    public final List findAll(Class clazz) throws Exception {
         List objects = null;
         try {
             // startOperation();
@@ -116,13 +116,13 @@ public abstract class BaseDAO extends HibernateUtils {
         return objects;
     }
 
-    public void handleException(Exception e) {
+    public final void handleException(Exception e) {
         System.out.println("Transcation rollback due to " + e.getMessage());
         rollback(tx);
 
     }
 
-    public void startOperation() throws Exception {
+    public final void startOperation() throws Exception {
         session = getSession();
         tx = session.beginTransaction();
     }

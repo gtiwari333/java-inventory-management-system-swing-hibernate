@@ -10,17 +10,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -172,7 +162,7 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
                     jf.setBounds(panel.getBounds());
                     jf.getContentPane().add(panel);
                     jf.setVisible(true);
-                    jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -181,7 +171,7 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void init() {
+    public final void init() {
         /* never forget to call super.init() */
         super.init();
         UIUtils.clearAllFields(upperPane);
@@ -276,7 +266,7 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void enableDisableComponents() {
+    public final void enableDisableComponents() {
         v.resetErrors();
         switch (status) {
             case NONE:
@@ -323,7 +313,7 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void handleSaveAction() {
+    public final void handleSaveAction() {
         switch (status) {
             case CREATE:
                 // create new
@@ -616,7 +606,7 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
         try {
             ItemServiceImpl is = new ItemServiceImpl();
             int type = cmbReturnableOrNonRet.getSelectedIndex();
-            List<Item> brsL = is.getAllItemsToCloseCurrFiscalYear(type);
+            List<Item> brsL = ItemServiceImpl.getAllItemsToCloseCurrFiscalYear(type);
             editingPrimaryId = -1;
             if (brsL == null || brsL.size() == 0) {
                 if (showSize0Error) {
@@ -626,7 +616,6 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
 
                 dataModel.fireTableDataChanged();
                 editingPrimaryId = -1;
-                return;
             } else {
                 showListInGrid(brsL);
             }
@@ -668,7 +657,7 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public String getFunctionName() {
+    public final String getFunctionName() {
         return "Account Closing - Ledger Pana Number Update";
     }
 
@@ -711,7 +700,7 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
         return lowerPane;
     }
 
-    protected void populateSelectedRowInForm(int selectedId) {
+    protected final void populateSelectedRowInForm(int selectedId) {
         try {
             Item bro = (Item) DBUtils.getById(Item.class, selectedId);
 

@@ -29,9 +29,9 @@ public class ItemReturn {
     @Column(name = "returnnumber")
     private String returnNumber;
 
-    @Index(name = "nikasa")
+    @Index(name = "transfer")
     @OneToOne(cascade = {javax.persistence.CascadeType.ALL})
-    private Nikasa nikasa;
+    private Transfer transfer;
 
     @Column(name = "quantity")
     private int quantity;
@@ -43,75 +43,75 @@ public class ItemReturn {
     @Column(name = "addeddate")
     private Date addedDate;
 
-    public int getReturnItemCondition() {
+    public final int getReturnItemCondition() {
         return this.returnItemCondition;
     }
 
-    public void setReturnItemCondition(int returnItemCondition) {
+    public final void setReturnItemCondition(int returnItemCondition) {
         this.returnItemCondition = returnItemCondition;
     }
 
-    public int getId() {
+    public final int getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public final void setId(int id) {
         this.id = id;
     }
 
-    public Date getLastModifiedDate() {
+    public final Date getLastModifiedDate() {
         return this.lastModifiedDate;
     }
 
-    public void setLastModifiedDate(Date lastModifiedDate) {
+    public final void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public int getdFlag() {
+    public final int getdFlag() {
         return this.dFlag;
     }
 
-    public void setdFlag(int dFlag) {
+    public final void setdFlag(int dFlag) {
         this.dFlag = dFlag;
     }
 
-    public int getQuantity() {
+    public final int getQuantity() {
         return this.quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public final void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public int getStatus() {
+    public final int getStatus() {
         return this.status;
     }
 
-    public void setStatus(int status) {
+    public final void setStatus(int status) {
         this.status = status;
     }
 
-    public Date getAddedDate() {
+    public final Date getAddedDate() {
         return this.addedDate;
     }
 
-    public void setAddedDate(Date addedDate) {
+    public final void setAddedDate(Date addedDate) {
         this.addedDate = addedDate;
     }
 
-    public String getReturnNumber() {
+    public final String getReturnNumber() {
         return this.returnNumber;
     }
 
-    public void setReturnNumber(String returnNumber) {
+    public final void setReturnNumber(String returnNumber) {
         this.returnNumber = returnNumber;
     }
 
-    public Nikasa getNikasa() {
-        return this.nikasa;
+    public final Transfer getTransfer() {
+        return this.transfer;
     }
 
-    public void setNikasa(Nikasa nikasa) {
-        this.nikasa = nikasa;
+    public final void setTransfer(Transfer transfer) {
+        this.transfer = transfer;
     }
 }

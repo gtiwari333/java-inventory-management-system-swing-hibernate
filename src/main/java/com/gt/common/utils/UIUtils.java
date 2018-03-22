@@ -60,11 +60,11 @@ public class UIUtils {
             ((JCheckBox) parent).setSelected(false);
         } else if (parent instanceof JComponent) {
             Component[] children = ((JComponent) parent).getComponents();
-            for (int i = 0; children.length > i; i++) {
-                if (list != null && list.contains(children[i])) {
+            for (Component aChildren : children) {
+                if (list != null && list.contains(aChildren)) {
                     continue;
                 }
-                clearAllFields(children[i]);
+                clearAllFields(aChildren);
             }
         }
     }
@@ -87,8 +87,8 @@ public class UIUtils {
             ((DataComboBox) parent).selectDefaultItem();
         } else if (parent instanceof JComponent) {
             Component[] children = ((JComponent) parent).getComponents();
-            for (int i = 0; children.length > i; i++) {
-                clearAllFields(children[i]);
+            for (Component aChildren : children) {
+                clearAllFields(aChildren);
             }
         }
     }
@@ -111,13 +111,13 @@ public class UIUtils {
 
         if (parent instanceof JComponent) {
             Component[] children = ((JComponent) parent).getComponents();
-            for (int i = 0; children.length > i; i++) {
-                if (children[i] instanceof JLabel) {
+            for (Component aChildren : children) {
+                if (aChildren instanceof JLabel) {
                     continue;
                 }
                 // System.out.println(children.getClass());
-                if (!igList.contains(children[i])) {
-                    toggleAllChildren(children[i], enabled);
+                if (!igList.contains(aChildren)) {
+                    toggleAllChildren(aChildren, enabled);
                 }
             }
         }
@@ -153,10 +153,10 @@ public class UIUtils {
                     decorateBorders(jc);
                 }
                 if (jc instanceof JTextField) {
-                    ((JTextField) jc).setBorder(BorderFactory.createLineBorder(COMPONENT_BORDER_COLOR, 1));
+                    jc.setBorder(BorderFactory.createLineBorder(COMPONENT_BORDER_COLOR, 1));
                 }
                 if (jc instanceof JTextArea) {
-                    ((JTextArea) jc).setBorder(BorderFactory.createLineBorder(COMPONENT_BORDER_COLOR, 1));
+                    jc.setBorder(BorderFactory.createLineBorder(COMPONENT_BORDER_COLOR, 1));
                 }
 
                 // if (jc instanceof JDateChooser) {

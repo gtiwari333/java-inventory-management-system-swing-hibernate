@@ -32,7 +32,7 @@ public class GTextArea extends JScrollPane {
         JFrame frame = new JFrame("Adventure in Nepal - Combo Test");
         frame.getContentPane().add(new GTextArea(2, 10));
         frame.pack();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
 
@@ -43,11 +43,11 @@ public class GTextArea extends JScrollPane {
         makeUI();
     }
 
-    public String getText() {
+    public final String getText() {
         return addressFLD.getText().trim();
     }
 
-    public void setText(String str) {
+    public final void setText(String str) {
         addressFLD.setText(str);
 
     }
@@ -66,7 +66,7 @@ class JTextFieldLimit extends PlainDocument {
         this.limit = limit;
     }
 
-    public void insertString(int offset, String str, AttributeSet attr) throws BadLocationException {
+    public final void insertString(int offset, String str, AttributeSet attr) throws BadLocationException {
         if (str == null) return;
 
         if ((getLength() + str.length()) <= limit) {

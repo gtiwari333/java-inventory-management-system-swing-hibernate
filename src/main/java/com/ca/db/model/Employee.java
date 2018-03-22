@@ -46,99 +46,99 @@ public class Employee {
     @Column(name = "extra5")
     private String extra5;
 
-    public Date getLastModifiedDate() {
+    public final Date getLastModifiedDate() {
         return this.lastModifiedDate;
     }
 
-    public void setLastModifiedDate(Date lastModifiedDate) {
+    public final void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public int getdFlag() {
+    public final int getdFlag() {
         return this.dFlag;
     }
 
-    public void setdFlag(int dFlag) {
+    public final void setdFlag(int dFlag) {
         this.dFlag = dFlag;
     }
 
-    public int getId() {
+    public final int getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public final void setId(int id) {
         this.id = id;
     }
 
-    public Department getDept() {
+    public final Department getDept() {
         return this.dept;
     }
 
-    public void setDept(Department dept) {
+    public final void setDept(Department dept) {
         this.dept = dept;
     }
 
-    public String getFname() {
+    public final String getFname() {
         return this.fname;
     }
 
-    public void setFname(String fname) {
+    public final void setFname(String fname) {
         this.fname = fname;
     }
 
-    public String getLname() {
+    public final String getLname() {
         return this.lname;
     }
 
-    public void setLname(String lname) {
+    public final void setLname(String lname) {
         this.lname = lname;
     }
 
-    public String getTitle() {
+    public final String getTitle() {
         return this.title;
     }
 
-    public void setTitle(String title) {
+    public final void setTitle(String title) {
         this.title = title;
     }
 
-    public String getExtra1() {
+    public final String getExtra1() {
         return this.extra1;
     }
 
-    public void setExtra1(String extra1) {
+    public final void setExtra1(String extra1) {
         this.extra1 = extra1;
     }
 
-    public String getExtra2() {
+    public final String getExtra2() {
         return this.extra2;
     }
 
-    public void setExtra2(String extra2) {
+    public final void setExtra2(String extra2) {
         this.extra2 = extra2;
     }
 
-    public String getExtra3() {
+    public final String getExtra3() {
         return this.extra3;
     }
 
-    public void setExtra3(String extra3) {
+    public final void setExtra3(String extra3) {
         this.extra3 = extra3;
     }
 
-    public String getExtra4() {
+    public final String getExtra4() {
         return this.extra4;
     }
 
-    public void setExtra4(String extra4) {
+    public final void setExtra4(String extra4) {
         this.extra4 = extra4;
     }
 
-    public String getExtra5() {
+    public final String getExtra5() {
         return this.extra5;
     }
 
-    public void setExtra5(String extra5) {
+    public final void setExtra5(String extra5) {
         this.extra5 = extra5;
     }
 }

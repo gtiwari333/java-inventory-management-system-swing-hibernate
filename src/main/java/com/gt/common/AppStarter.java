@@ -18,7 +18,7 @@ import com.gt.common.utils.Logger;
 public class AppStarter {
     public boolean notFindExisting = true;
     private String HOST = "localhost";
-    private int PORT = 45433;
+    private final int PORT = 45433;
 
     public AppStarter() {
 
@@ -47,7 +47,7 @@ public class AppStarter {
     class DetectForNew implements Runnable {
         ServerSocket serverSocket;
 
-        public void run() {
+        public final void run() {
             try {
                 serverSocket = new ServerSocket(PORT);
                 while (true) {

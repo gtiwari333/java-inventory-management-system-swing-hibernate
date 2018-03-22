@@ -56,7 +56,7 @@ public class Main {
 
     private static void addUserForFirstTime() throws Exception {
         LoginUserServiceImpl lus = new LoginUserServiceImpl();
-        if (!lus.userExists()) {
+        if (!LoginUserServiceImpl.userExists()) {
             LoginUser lu = new LoginUser();
             lu.setdFlag(1);
             lu.setUsername("ADMIN");

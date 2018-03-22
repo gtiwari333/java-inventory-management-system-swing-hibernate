@@ -79,14 +79,14 @@ public class HomeScreenPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void init() {
+    public final void init() {
         super.init();
 
         isReadyToClose = true;
     }
 
     @Override
-    public String getFunctionName() {
+    public final String getFunctionName() {
         // TODO Auto-generated method stub
         return "Welcome . . .";
     }

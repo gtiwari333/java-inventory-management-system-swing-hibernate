@@ -6,14 +6,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
+import javax.swing.*;
 
 import com.ca.db.model.LoginUser;
 import com.ca.db.service.LoginUserServiceImpl;
@@ -59,7 +52,7 @@ public class ChangePasswordPanel extends AbstractFunctionPanel {
                     jf.setBounds(panel.getBounds());
                     jf.getContentPane().add(panel);
                     jf.setVisible(true);
-                    jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -152,7 +145,7 @@ public class ChangePasswordPanel extends AbstractFunctionPanel {
         return fullPanel;
     }
 
-    protected void clearAll() {
+    protected final void clearAll() {
         UIUtils.clearAllFields(innerPanel);
 
     }
@@ -172,7 +165,7 @@ public class ChangePasswordPanel extends AbstractFunctionPanel {
         LoginUserServiceImpl lus;
         try {
             lus = new LoginUserServiceImpl();
-            LoginUser user = lus.getLoginUser(userName.getText().trim(), passWord.getText().trim());
+            LoginUser user = LoginUserServiceImpl.getLoginUser(userName.getText().trim(), passWord.getText().trim());
             if (user == null) {
                 JOptionPane.showMessageDialog(null, "Original Username Password Error");
                 passWord.setText("");
@@ -182,7 +175,7 @@ public class ChangePasswordPanel extends AbstractFunctionPanel {
 
             lus = new LoginUserServiceImpl();
             // finally change password/username
-            lus.changeLogin(txtNewUsrName.getText().trim(), txtNewpass.getText().trim());
+            LoginUserServiceImpl.changeLogin(txtNewUsrName.getText().trim(), txtNewpass.getText().trim());
 
             JOptionPane.showMessageDialog(null, "Username/Password Changed Successfully\n New UserName is " + txtNewUsrName.getText().trim());
             clearAll();
@@ -194,7 +187,7 @@ public class ChangePasswordPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public String getFunctionName() {
+    public final String getFunctionName() {
         return "Login";
     }
 
@@ -204,7 +197,7 @@ public class ChangePasswordPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void init() {
+    public final void init() {
         super.init();
         userName.requestFocus();
         isReadyToClose = true;

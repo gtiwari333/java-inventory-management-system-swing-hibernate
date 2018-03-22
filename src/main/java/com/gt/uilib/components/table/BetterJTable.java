@@ -24,14 +24,14 @@ public class BetterJTable extends JTable {
         hideCol();
     }
 
-    public void hideCol() {
+    public final void hideCol() {
         String columnName = "ID";
         TableColumnModel tcm = getColumnModel();
         int index = tcm.getColumnIndex(columnName);
         TableColumn column = tcm.getColumn(index);
         Map<Object, Object> hiddenColumns = new HashMap<Object, Object>();
         hiddenColumns.put(columnName, column);
-        hiddenColumns.put(":" + columnName, new Integer(index));
+        hiddenColumns.put(":" + columnName, index);
         tcm.removeColumn(column);
     }
 
@@ -40,11 +40,11 @@ public class BetterJTable extends JTable {
     }
 
     @Override
-    public Class<?> getColumnClass(int column) {
+    public final Class<?> getColumnClass(int column) {
         return (column == 0) ? Integer.class : Object.class;
     }
 
-    public String getToolTipText(MouseEvent e) {
+    public final String getToolTipText(MouseEvent e) {
         int row = rowAtPoint(e.getPoint());
         int column = columnAtPoint(e.getPoint());
         try {
@@ -64,7 +64,7 @@ public class BetterJTable extends JTable {
     }
 
     @Override
-    public Component prepareRenderer(TableCellRenderer tcr, int row, int column) {
+    public final Component prepareRenderer(TableCellRenderer tcr, int row, int column) {
         Component c = super.prepareRenderer(tcr, row, column);
         if (isRowSelected(row)) {
             c.setForeground(getSelectionForeground());

@@ -27,11 +27,11 @@ public class LogOutButton extends ActionButton {
     }
 
     @Override
-    protected void initListner() {
+    protected final void initListner() {
         addMouseListener(getLogOutMouseListener());
     }
 
-    protected MouseListener getLogOutMouseListener() {
+    protected final MouseListener getLogOutMouseListener() {
         MouseListener ml = new MouseAdapter() {
 
             public void mouseReleased(MouseEvent e) {

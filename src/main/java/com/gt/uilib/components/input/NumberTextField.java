@@ -27,18 +27,18 @@ public class NumberTextField extends JTextField {
         this.isPositiveOnly = isPositiveOnly;
     }
 
-    public boolean isRestrictPositiveNumber() {
+    public final boolean isRestrictPositiveNumber() {
         return isPositiveOnly;
     }
 
-    public void setRestrictPositiveNumber(boolean isPositiveNumber) {
+    public final void setRestrictPositiveNumber(boolean isPositiveNumber) {
         isPositiveOnly = isPositiveNumber;
     }
 
-    public boolean isNonZeroEntered() {
+    public final boolean isNonZeroEntered() {
         String val = getText();
         BigDecimal bd = new BigDecimal(val);
-        if (bd.compareTo(BigDecimal.ZERO) == 1) {
+        if (bd.compareTo(BigDecimal.ZERO) > 0) {
             System.out.println("nonzero");
             return true;
         }
@@ -46,26 +46,26 @@ public class NumberTextField extends JTextField {
 
     }
 
-    protected Document createDefaultModel() {
+    protected final Document createDefaultModel() {
         return new NumberFormatDocument(this);
     }
 
-    public void setMaxLength(int maxLength) {
+    public final void setMaxLength(int maxLength) {
         ((NumberFormatDocument) getDocument()).setMaxLength(maxLength);
     }
 
-    public void setDecimalPlace(int size) {
+    public final void setDecimalPlace(int size) {
         ((NumberFormatDocument) getDocument()).setDecimalPlacesSize(size);
     }
 
-    public String getText() {
+    public final String getText() {
         String text = super.getText();
         if (text == null) return text;
         else
             return text.replaceAll("[,]", "");
     }
 
-    public void selectAll() {
+    public final void selectAll() {
         Document doc = getDocument();
         if (doc != null && super.getText() != null) {
             setCaretPosition(0);
@@ -73,7 +73,7 @@ public class NumberTextField extends JTextField {
         }
     }
 
-    protected void initProperties() {
+    protected final void initProperties() {
         setHorizontalAlignment(4);
     }
 }

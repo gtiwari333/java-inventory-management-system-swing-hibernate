@@ -58,14 +58,14 @@ public abstract class BaseDataEntryPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void init() {
+    public final void init() {
         /* never forget to call super.init() */
         super.init();
         UIUtils.clearAllFields(upperPane);
         changeStatus(Status.NONE);
     }
 
-    protected JButton getSaveButton() {
+    protected final JButton getSaveButton() {
         if (btnSave == null) {
             btnSave = new JButton("Save");
             btnSave.addActionListener(new ActionListener() {
@@ -80,7 +80,7 @@ public abstract class BaseDataEntryPanel extends AbstractFunctionPanel {
         return btnSave;
     }
 
-    protected JPanel getButtonPanel() {
+    protected final JPanel getButtonPanel() {
         if (buttonPanel == null) {
             buttonPanel = new JPanel();
             btnReadAll = new JButton("Read All");
@@ -131,7 +131,7 @@ public abstract class BaseDataEntryPanel extends AbstractFunctionPanel {
         return buttonPanel;
     }
 
-    protected void handleDeleteAction() {
+    protected final void handleDeleteAction() {
         switch (status) {
             case READ:
                 deleteSelectedModel();
@@ -154,7 +154,7 @@ public abstract class BaseDataEntryPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void enableDisableComponents() {
+    public final void enableDisableComponents() {
         switch (status) {
             case NONE:
                 enableDisableINIT();
@@ -176,7 +176,7 @@ public abstract class BaseDataEntryPanel extends AbstractFunctionPanel {
         }
     }
 
-    protected void enableDisableREAD() {
+    protected final void enableDisableREAD() {
         UIUtils.toggleAllChildren(getUpperFormPanel(), false);
         UIUtils.toggleAllChildren(getButtonPanel(), true);
         UIUtils.clearAllFields(getUpperFormPanel());
@@ -186,7 +186,7 @@ public abstract class BaseDataEntryPanel extends AbstractFunctionPanel {
         btnCancel.setEnabled(false);
     }
 
-    protected void enableDisableMODIFY() {
+    protected final void enableDisableMODIFY() {
         UIUtils.toggleAllChildren(getUpperFormPanel(), true);
         UIUtils.toggleAllChildren(getButtonPanel(), false);
         btnCancel.setEnabled(true);
@@ -194,7 +194,7 @@ public abstract class BaseDataEntryPanel extends AbstractFunctionPanel {
         table.setEnabled(false);
     }
 
-    protected void enableDisableCREATE() {
+    protected final void enableDisableCREATE() {
         UIUtils.toggleAllChildren(getButtonPanel(), false);
         UIUtils.toggleAllChildren(getUpperFormPanel(), true);
         table.setEnabled(false);
@@ -202,7 +202,7 @@ public abstract class BaseDataEntryPanel extends AbstractFunctionPanel {
         getSaveButton().setEnabled(true);
     }
 
-    protected void enableDisableINIT() {
+    protected final void enableDisableINIT() {
         UIUtils.toggleAllChildren(getButtonPanel(), false);
         UIUtils.toggleAllChildren(getUpperFormPanel(), false);
         UIUtils.clearAllFields(getUpperFormPanel());
@@ -212,7 +212,7 @@ public abstract class BaseDataEntryPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void handleSaveAction() {
+    public final void handleSaveAction() {
 
         switch (status) {
             case CREATE:
@@ -239,7 +239,7 @@ public abstract class BaseDataEntryPanel extends AbstractFunctionPanel {
 
     protected abstract void showDbModelListInGrid(List<Class> list);
 
-    protected void readAndShowAll(boolean showSize0Error) {
+    protected final void readAndShowAll(boolean showSize0Error) {
         try {
             List<Class> brsL = DBUtils.readAll(clazz);
             editingPrimaryId = -1;

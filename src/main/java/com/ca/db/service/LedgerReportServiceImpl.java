@@ -2,7 +2,7 @@ package com.ca.db.service;
 
 import com.ca.db.model.Item;
 import com.ca.db.model.ItemReturn;
-import com.ca.db.model.Nikasa;
+import com.ca.db.model.Transfer;
 import com.ca.ui.report.ReportBean;
 import com.gt.common.utils.DateTimeUtils;
 import com.gt.common.utils.StringUtils;
@@ -31,19 +31,19 @@ public class LedgerReportServiceImpl extends BaseDAO {
         // System.out.println(DateTimeUtils.getMySqlDate(new Date()));
     }
 
-    public List<ReportBean> getLedger(String khataNumber, String panaNumber, int categoryId, int vendorId, Date fromDate, Date toDate)
+    public final List<ReportBean> getLedger(String khataNumber, String panaNumber, int categoryId, int vendorId, Date fromDate, Date toDate)
             throws Exception {
         Session s = getSession();
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         sb.append("select i.id as iid,nik.id, itr.id as nid from item i ");
-        sb.append("left join nikasa nik on (i.ID = nik.item_id");
+        sb.append("left join transfer nik on (i.ID = nik.item_id");
         sb.append(" and  nik.REMAININGQTYTORETURN>0 ");
         sb.append(" and nik.dFlag is not '0' ");
         sb.append(")");
 
-        sb.append("left join itemreturn itr on (nik.ID = itr.nikasa_id");
+        sb.append("left join itemreturn itr on (nik.ID = itr.transfer_id");
         sb.append(" and itr.dFlag is not '0' ");
         sb.append(" and itr.returnItemCondition in (");
         sb.append(ItemReturn.RETURN_ITEM_CONDITION_GOOD + ", ");
@@ -54,15 +54,15 @@ public class LedgerReportServiceImpl extends BaseDAO {
         sb.append(" where 1=1");
 
         if (!StringUtils.isEmpty(khataNumber)) {
-            sb.append(" and i.KHATANUMBER='" + khataNumber + "'");
+            sb.append(" and i.KHATANUMBER='").append(khataNumber).append("'");
         }
         sb.append(" and i.ACCOUNTTRANSFERSTATUS is not '" + Item.ACCOUNT_TRANSFERRED_TO_NEW + "'");
         if (!StringUtils.isEmpty(panaNumber)) {
-            sb.append(" and i.PANANUMBER ='" + panaNumber + "'");
+            sb.append(" and i.PANANUMBER ='").append(panaNumber).append("'");
         }
         sb.append(" and i.dFlag is not '0' ");
 
-        sb.append(" order by i.KHATANUMBER, i.PANANUMBER, nik.nikasaDate, itr.addeddate");
+        sb.append(" order by i.KHATANUMBER, i.PANANUMBER, nik.transferDate, itr.addeddate");
         System.out.println("reportQuery > " + sb.toString());
 
         SQLQuery sq = s.createSQLQuery(sb.toString());
@@ -114,11 +114,11 @@ public class LedgerReportServiceImpl extends BaseDAO {
                 rbItem.setRemQty(remQty + "");
                 rbItem.setRemTot(getTotalPrice(item.getRate(), remQty));
                 rbItem.setReqFormId("");
-                rbItem.setNikasaBranch(" ");
+                rbItem.setTransferBranch(" ");
                 rbItem.setNikQty("");
                 rbItem.setNikRate("");
                 rbItem.setNikTotal("");
-                rbItem.setUnitNikasa("");
+                rbItem.setUnitTransfer("");
 
                 rpbL.add(rbItem);
 
@@ -127,45 +127,45 @@ public class LedgerReportServiceImpl extends BaseDAO {
 
             }
             /**
-             * Some item might not have nikasa, check for this
+             * Some item might not have transfer, check for this
              */
             if (nikId != null) {
                 System.out.println("nikId != null");
 
                 /**
-                 * Find Nikasa from nikasaId
+                 * Find Transfer from transferId
                  */
-                Criteria c2 = getSession().createCriteria(Nikasa.class);
+                Criteria c2 = getSession().createCriteria(Transfer.class);
                 c2.add(Restrictions.eq("id", nikId));
-                Nikasa nik = (Nikasa) c2.list().get(0);
+                Transfer nik = (Transfer) c2.list().get(0);
 
-                ReportBean rbNikasa = new ReportBean();
-                rbNikasa.setDate(DateTimeUtils.getCvDateMMDDYYYY(nik.getNikasaDate()));
+                ReportBean rbTransfer = new ReportBean();
+                rbTransfer.setDate(DateTimeUtils.getCvDateMMDDYYYY(nik.getTransferDate()));
                 /**
                  * Empty the item fields
                  */
-                rbNikasa.setGoodsName("");
-                rbNikasa.setEntryFormId("");
-                rbNikasa.setInQty("");
-                rbNikasa.setInRate("");
-                rbNikasa.setInTotal("");
-                rbNikasa.setSpecification("");
-                rbNikasa.setSupplier("");
-                rbNikasa.setUnitStock("");
-                rbNikasa.setNotes("");
-                rbNikasa.setKhataPanaNumber("");
+                rbTransfer.setGoodsName("");
+                rbTransfer.setEntryFormId("");
+                rbTransfer.setInQty("");
+                rbTransfer.setInRate("");
+                rbTransfer.setInTotal("");
+                rbTransfer.setSpecification("");
+                rbTransfer.setSupplier("");
+                rbTransfer.setUnitStock("");
+                rbTransfer.setNotes("");
+                rbTransfer.setKhataPanaNumber("");
                 // System.out.println(item.toString());
                 // System.out.println(nik.toString());
-                rbNikasa.setReqFormId(nik.getNikasaRequestNumber());
+                rbTransfer.setReqFormId(nik.getTransferRequestNumber());
 
                 /**
                  * Set types
                  */
-                getNikasaString(nik, rbNikasa);
-                rbNikasa.setNikQty(nik.getQuantity() + "");
-                rbNikasa.setNikRate(StringUtils.toString(nik.getRate()));
-                rbNikasa.setNikTotal(getTotalPrice(nik.getRate(), nik.getQuantity()));
-                rbNikasa.setUnitNikasa(nik.getItem().getUnitsString().getValue());
+                getTransferString(nik, rbTransfer);
+                rbTransfer.setNikQty(nik.getQuantity() + "");
+                rbTransfer.setNikRate(StringUtils.toString(nik.getRate()));
+                rbTransfer.setNikTotal(getTotalPrice(nik.getRate(), nik.getQuantity()));
+                rbTransfer.setUnitTransfer(nik.getItem().getUnitsString().getValue());
 
                 /**
                  * For Remaining quanity
@@ -181,10 +181,10 @@ public class LedgerReportServiceImpl extends BaseDAO {
                     rem = item.getOriginalQuantity() - nik.getQuantity();
                     uniqueRows.put("I" + item.getId(), rem);
                 }
-                rbNikasa.setRemQty(rem + "");
-                rbNikasa.setRemTot(getTotalPrice(item.getRate(), rem));
+                rbTransfer.setRemQty(rem + "");
+                rbTransfer.setRemTot(getTotalPrice(item.getRate(), rem));
 
-                rpbL.add(rbNikasa);
+                rpbL.add(rbTransfer);
 
             }
             /**
@@ -201,11 +201,11 @@ public class LedgerReportServiceImpl extends BaseDAO {
                 rbReturn.setGoodsName("");
                 rbReturn.setEntryFormId("");
                 rbReturn.setInQty(itemReturn.getQuantity() + "");
-                rbReturn.setInRate(itemReturn.getNikasa().getItem().getRate() + "");
-                rbReturn.setInTotal(getTotalPrice(itemReturn.getNikasa().getItem().getRate(), itemReturn.getQuantity()));
+                rbReturn.setInRate(itemReturn.getTransfer().getItem().getRate() + "");
+                rbReturn.setInTotal(getTotalPrice(itemReturn.getTransfer().getItem().getRate(), itemReturn.getQuantity()));
                 rbReturn.setSpecification("");
-//				rbReturn.setSupplier(nik.getNikasa().get);
-                getNikasaString(itemReturn.getNikasa(), rbReturn);
+//				rbReturn.setSupplier(nik.getTransfer().get);
+                getTransferString(itemReturn.getTransfer(), rbReturn);
                 rbReturn.setUnitStock("");
                 rbReturn.setNotes("Returned Item");
                 rbReturn.setKhataPanaNumber("");
@@ -214,7 +214,7 @@ public class LedgerReportServiceImpl extends BaseDAO {
                 rbReturn.setNikQty("");
                 rbReturn.setNikRate("");
                 rbReturn.setNikTotal("");
-                rbReturn.setUnitNikasa("");
+                rbReturn.setUnitTransfer("");
 
                 Integer rem = 0;
                 if (uniqueRows.containsKey("I" + item.getId())) {
@@ -227,7 +227,7 @@ public class LedgerReportServiceImpl extends BaseDAO {
                     rem = item.getOriginalQuantity() + itemReturn.getQuantity();
                     uniqueRows.put("I" + item.getId(), rem);
                 }
-                rbReturn.setUnitStock(itemReturn.getNikasa().getItem().getUnitsString().getValue());
+                rbReturn.setUnitStock(itemReturn.getTransfer().getItem().getUnitsString().getValue());
                 rbReturn.setReqFormId(itemReturn.getReturnNumber());
                 rbReturn.setRemQty(rem + "");
                 rbReturn.setRemQty(rem + "");
@@ -240,19 +240,23 @@ public class LedgerReportServiceImpl extends BaseDAO {
         return rpbL;
     }
 
-    private void getNikasaString(Nikasa nik, ReportBean reportBean) {
-        System.out.println("Nikasa Type  " + nik.getNikasaType());
-        if (nik.getNikasaType() == Nikasa.LILAM) {
-            reportBean.setNikasaBranch(" ");
-            reportBean.setNotes("Lilam");
-        } else if (nik.getNikasaType() == Nikasa.OFFICIAL) {
-            reportBean.setNikasaBranch(nik.getBranchOffice().getName());
-        } else if (nik.getNikasaType() == Nikasa.PERSONNAL) {
-            reportBean.setNikasaBranch(nik.getPerson().getFirstName() + " " + nik.getPerson().getLastName());
+    private void getTransferString(Transfer nik, ReportBean reportBean) {
+        System.out.println("Transfer Type  " + nik.getTransferType());
+        switch (nik.getTransferType()) {
+            case Transfer.LILAM:
+                reportBean.setTransferBranch(" ");
+                reportBean.setNotes("Lilam");
+                break;
+            case Transfer.OFFICIAL:
+                reportBean.setTransferBranch(nik.getBranchOffice().getName());
+                break;
+            case Transfer.PERSONNAL:
+                reportBean.setTransferBranch(nik.getPerson().getFirstName() + " " + nik.getPerson().getLastName());
+                break;
         }
     }
 
-    private String getTotalPrice(BigDecimal rate, int qty) {
+    private static String getTotalPrice(BigDecimal rate, int qty) {
         // System.out.println("LedgerReportServcieImpl.getTotalPrice()  " +
         // rate);
         if (rate != null) return rate.multiply(new BigDecimal(qty)).toString();
@@ -262,13 +266,13 @@ public class LedgerReportServiceImpl extends BaseDAO {
     /**
      * hibernate join same column names SQLQuery sq =
      * getSession().createSQLQuery(
-     * "select * from item i left join nikasa nik on (i.ID = nik.item_id) order by i.id, i.name"
-     * ) .addEntity(Item.class).addEntity(Nikasa.class); List result =
+     * "select * from item i left join transfer nik on (i.ID = nik.item_id) order by i.id, i.name"
+     * ) .addEntity(Item.class).addEntity(Transfer.class); List result =
      * sq.list();
      *
      * Iterator ite = result.iterator(); List<ReportBean> rpbL = new
      * ArrayList<ReportBean>(); for (Object o : result) { Object[] objects =
-     * (Object[]) o; Item item = (Item) objects[0]; Nikasa nik = (Nikasa)
+     * (Object[]) o; Item item = (Item) objects[0]; Transfer nik = (Transfer)
      * objects[1];
      */
 }

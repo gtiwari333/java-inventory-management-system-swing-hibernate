@@ -18,16 +18,16 @@ public class EasyTableModel extends DefaultTableModel {
 
     public EasyTableModel(String[] header) {
         this.header = header;
-        for (int i = 0; i < header.length; i++) {
-            addColumn(header[i]);
+        for (String aHeader : header) {
+            addColumn(aHeader);
         }
     }
 
-    public Integer getKeyAtRow(int row) {
+    public final Integer getKeyAtRow(int row) {
         return (Integer) getValueAt(row, KEY_ID_COLUMN);
     }
 
-    public void setKeyColumn(int keyCol) {
+    public final void setKeyColumn(int keyCol) {
         this.KEY_ID_COLUMN = keyCol;
     }
 
@@ -37,23 +37,23 @@ public class EasyTableModel extends DefaultTableModel {
      * @param key
      * @return
      */
-    public boolean containsKey(Integer key) {
+    public final boolean containsKey(Integer key) {
 
         int rowC = getRowCount();
         for (int i = 0; i < rowC; i++) {
             Integer keyAtRowI = getKeyAtRow(i);
-            if (keyAtRowI == key) {
+            if (keyAtRowI.equals(key)) {
                 return true;
             }
         }
         return false;
     }
 
-    public void setEditable(boolean isEditable) {
+    public static final void setEditable(boolean isEditable) {
         setEditable(isEditable);
     }
 
-    public void removeRowWithKey(Integer key) {
+    public final void removeRowWithKey(Integer key) {
         if (key == null || key < 0) {
             return;
         }
@@ -63,7 +63,7 @@ public class EasyTableModel extends DefaultTableModel {
 //		System.out.println("removing key "+key +"   count "+rowC);
         for (int i = 0; i < rowC; i++) {
             Integer keyAtRowI = getKeyAtRow(i);
-            if (keyAtRowI == key) {
+            if (keyAtRowI.equals(key)) {
                 removeRow(index);
 //				System.out.println("Row count after removal  "+getRowCount());
                 return;
@@ -73,12 +73,12 @@ public class EasyTableModel extends DefaultTableModel {
 
     }
 
-    public void addRow(Object[] values) {
+    public final void addRow(Object[] values) {
         super.addRow(values);
 //		System.out.println("EasyTableModel.addRow() >>  "+getRowCount());
     }
 
-    public void resetModel() {
+    public final void resetModel() {
         super.setRowCount(0);
     }
 

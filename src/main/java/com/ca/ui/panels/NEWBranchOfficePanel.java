@@ -3,13 +3,7 @@ package com.ca.ui.panels;
 import java.awt.EventQueue;
 import java.util.List;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
 import com.ca.db.model.BranchOffice;
@@ -49,7 +43,7 @@ public class NEWBranchOfficePanel extends BaseDataEntryPanel {
                     jf.setBounds(panel.getBounds());
                     jf.getContentPane().add(panel);
                     jf.setVisible(true);
-                    jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -79,13 +73,13 @@ public class NEWBranchOfficePanel extends BaseDataEntryPanel {
         return bo;
     }
 
-    protected void setModelIntoForm(BranchOffice bro) {
+    protected final void setModelIntoForm(BranchOffice bro) {
         nameFLD.setText(bro.getName());
         addressFLD.setText(bro.getAddress());
         phoneNumberFLD.setText(bro.getPhoneNumber());
     }
 
-    protected void save(boolean isModified) {
+    protected final void save(boolean isModified) {
         initValidator();
         if (v.validate()) {
             try {
@@ -110,7 +104,7 @@ public class NEWBranchOfficePanel extends BaseDataEntryPanel {
         }
     }
 
-    protected JPanel getUpperFormPanel() {
+    protected final JPanel getUpperFormPanel() {
         if (formPanel == null) {
             formPanel = new JPanel();
 
@@ -149,11 +143,11 @@ public class NEWBranchOfficePanel extends BaseDataEntryPanel {
     }
 
     @Override
-    public String getFunctionName() {
+    public final String getFunctionName() {
         return "Branch-Office Information";
     }
 
-    protected void populateSelectedRowInForm(int selectedId) {
+    protected final void populateSelectedRowInForm(int selectedId) {
         try {
             BranchOffice bro = (BranchOffice) DBUtils.getById(BranchOffice.class, selectedId);
             if (bro != null) {
@@ -173,7 +167,7 @@ public class NEWBranchOfficePanel extends BaseDataEntryPanel {
      * com.ca.ui.panels.BaseDataEntryPanel#setModelIntoForm(java.lang.Object)
      */
     @Override
-    protected void setModelIntoForm(Object object) {
+    protected final void setModelIntoForm(Object object) {
         BranchOffice bro = (BranchOffice) object;
         nameFLD.setText(bro.getName());
         addressFLD.setText(bro.getAddress());
@@ -187,7 +181,7 @@ public class NEWBranchOfficePanel extends BaseDataEntryPanel {
      * @see com.ca.ui.panels.BaseDataEntryPanel#getTableHeader()
      */
     @Override
-    protected String[] getTableHeader() {
+    protected final String[] getTableHeader() {
         return new String[]{"S.N.", "ID", "Name", "Address", "PhoneNumber"};
     }
 
@@ -198,7 +192,7 @@ public class NEWBranchOfficePanel extends BaseDataEntryPanel {
      * com.ca.ui.panels.BaseDataEntryPanel#showDbModelListInGrid(java.util.List)
      */
     @Override
-    protected void showDbModelListInGrid(List<Class> list) {
+    protected final void showDbModelListInGrid(List<Class> list) {
         dataModel.resetModel();
         int sn = 0;
         for (Object boo : list) {

@@ -23,7 +23,7 @@ public class ActionMenuItem extends JMenuItem {
         return new ActionMenuItem(text, fullFileName, panelQualifiedClassName);
     }
 
-    protected void initListner() {
+    protected final void initListner() {
         addActionListener(getCommonListener());
     }
 

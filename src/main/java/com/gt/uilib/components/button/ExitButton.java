@@ -2,6 +2,7 @@ package com.gt.uilib.components.button;
 
 import com.gt.common.ResourceManager;
 import com.gt.common.utils.Logger;
+import com.gt.uilib.components.AbstractFunctionPanel;
 import com.gt.uilib.components.AppFrame;
 
 import javax.swing.*;
@@ -25,7 +26,7 @@ public class ExitButton extends ActionButton {
         int res = 0;
         if (AppFrame.currentWindow != null) {
             if (AppFrame.currentWindow.isReadyToClose == false)
-                res = JOptionPane.showConfirmDialog(AppFrame.getInstance(), AppFrame.currentWindow.getUnsavedExitMessage(), "Exit Confirmation",
+                res = JOptionPane.showConfirmDialog(AppFrame.getInstance(), AbstractFunctionPanel.getUnsavedExitMessage(), "Exit Confirmation",
                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         } else {
             res = JOptionPane.showConfirmDialog(AppFrame.getInstance(), "Are you sure to exit", "Exit Confirmation", JOptionPane.YES_NO_OPTION,
@@ -43,11 +44,11 @@ public class ExitButton extends ActionButton {
     }
 
     @Override
-    protected void initListner() {
+    protected final void initListner() {
         addMouseListener(getExitMouseListener());
     }
 
-    protected MouseListener getExitMouseListener() {
+    protected final MouseListener getExitMouseListener() {
         MouseListener ml = new MouseAdapter() {
 
             public void mouseReleased(MouseEvent e) {

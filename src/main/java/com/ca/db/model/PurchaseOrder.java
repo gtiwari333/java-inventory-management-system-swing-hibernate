@@ -43,83 +43,83 @@ public class PurchaseOrder {
     @Column(name = "addeddate")
     private Date addedDate;
 
-    public int getdFlag() {
+    public final int getdFlag() {
         return this.dFlag;
     }
 
-    public void setdFlag(int dFlag) {
+    public final void setdFlag(int dFlag) {
         this.dFlag = dFlag;
     }
 
-    public Specification getSpecification() {
+    public final Specification getSpecification() {
         return this.specification;
     }
 
-    public void setSpecification(Specification specification) {
+    public final void setSpecification(Specification specification) {
         this.specification = specification;
     }
 
-    public Category getCategory() {
+    public final Category getCategory() {
         return this.category;
     }
 
-    public void setCategory(Category category) {
+    public final void setCategory(Category category) {
         this.category = category;
     }
 
-    public String getPartsNumber() {
+    public final String getPartsNumber() {
         return this.partsNumber;
     }
 
-    public void setPartsNumber(String partsNumber) {
+    public final void setPartsNumber(String partsNumber) {
         this.partsNumber = partsNumber;
     }
 
-    public int getQuantity() {
+    public final int getQuantity() {
         return this.quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public final void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public int getStatus() {
+    public final int getStatus() {
         return this.status;
     }
 
-    public void setStatus(int status) {
+    public final void setStatus(int status) {
         this.status = status;
     }
 
-    public Date getOrderDate() {
+    public final Date getOrderDate() {
         return this.orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public final void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
     }
 
-    public Date getAddedDate() {
+    public final Date getAddedDate() {
         return this.addedDate;
     }
 
-    public void setAddedDate(Date addedDate) {
+    public final void setAddedDate(Date addedDate) {
         this.addedDate = addedDate;
     }
 
-    public int getId() {
+    public final int getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public final void setId(int id) {
         this.id = id;
     }
 
-    public Date getLastModifiedDate() {
+    public final Date getLastModifiedDate() {
         return this.lastModifiedDate;
     }
 
-    public void setLastModifiedDate(Date lastModifiedDate) {
+    public final void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 }

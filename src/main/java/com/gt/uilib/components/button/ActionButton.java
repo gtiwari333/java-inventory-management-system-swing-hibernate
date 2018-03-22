@@ -36,11 +36,11 @@ public class ActionButton extends JLabel {
         return new ActionButton(text, ResourceManager.getImageIcon(onFile), ResourceManager.getImageIcon(offFile), panelQualifiedClassName);
     }
 
-    public void highlight() {
+    public final void highlight() {
         setIcon(on);
     }
 
-    public void unhighlight() {
+    public final void unhighlight() {
         setIcon(off);
     }
 

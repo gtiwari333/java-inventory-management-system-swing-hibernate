@@ -34,24 +34,23 @@ public class NumberFormatDocument extends PlainDocument {
         patternNegative = Pattern.compile(REGEXP_NEGATIVE);
     }
 
-    public int getMaxLength() {
+    public final int getMaxLength() {
         return maxLength;
     }
 
-    public void setMaxLength(int maxLength) {
+    public final void setMaxLength(int maxLength) {
         if (maxLength > 16 || maxLength < 1) {
             throw new IllegalArgumentException("the max length value is limited from 1 to 16.");
         } else {
             this.maxLength = maxLength;
-            return;
         }
     }
 
-    public void setDecimalPlacesSize(int decimalPlacesSize) {
+    public final void setDecimalPlacesSize(int decimalPlacesSize) {
         this.decimalPlacesSize = decimalPlacesSize;
     }
 
-    public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
+    public final void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
         Matcher matcher = null;
         if (target.isRestrictPositiveNumber()) matcher = pattern.matcher(str);
         else
@@ -122,7 +121,7 @@ public class NumberFormatDocument extends PlainDocument {
         }
     }
 
-    public void remove(int offs, int len) throws BadLocationException {
+    public final void remove(int offs, int len) throws BadLocationException {
         int dot = target.getCaret().getDot();
         int comma1 = calcComma(getText(0, dot));
         boolean isDelete = false;
@@ -153,7 +152,7 @@ public class NumberFormatDocument extends PlainDocument {
             target.setForeground(Color.BLACK);
     }
 
-    private int calcComma(String val) {
+    private static int calcComma(String val) {
         int n = 0;
         for (int i = 0; i < val.length(); i++)
             if (val.charAt(i) == ',') n++;

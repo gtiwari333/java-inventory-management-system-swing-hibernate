@@ -5,12 +5,7 @@ import java.awt.FlowLayout;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
+import javax.swing.*;
 
 import com.ca.db.model.Category;
 import com.ca.db.model.Specification;
@@ -43,7 +38,7 @@ public class SpecificationPanel extends JPanel {
         jf.getContentPane().add(new SpecificationPanel(1));
         jf.pack();
         jf.setVisible(true);
-        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     private boolean toSkip(String spec) {
@@ -57,12 +52,12 @@ public class SpecificationPanel extends JPanel {
         return skipNext;
     }
 
-    public boolean isValidDataEntered() {
+    public final boolean isValidDataEntered() {
         return true;
         // TODO: implement logic
     }
 
-    public void disableAll() {
+    public final void disableAll() {
         for (CategoryEntryPair pair : pairList) {
             pair.tb.setEnabled(false);
             pair.tb.setEditable(false);
@@ -71,14 +66,14 @@ public class SpecificationPanel extends JPanel {
         }
     }
 
-    public void resetAll() {
+    public final void resetAll() {
         for (CategoryEntryPair pair : pairList) {
 
             pair.tb.setText("");
         }
     }
 
-    public void enableAll() {
+    public final void enableAll() {
         UIUtils.toggleAllChildren(this, true);
     }
 
@@ -126,7 +121,7 @@ public class SpecificationPanel extends JPanel {
     /**
      * @return list of specifications (String) entered on displayed textfields
      */
-    public List<String> getSpecificationsStringList() {
+    public final List<String> getSpecificationsStringList() {
         List<String> sps = new LinkedList<String>();
         for (CategoryEntryPair pair : pairList) {
             System.out.println(">>>> " + pair.jl.getText());
@@ -136,7 +131,7 @@ public class SpecificationPanel extends JPanel {
         return sps;
     }
 
-    public Specification getSpecificationsObject() {
+    public final Specification getSpecificationsObject() {
         Specification sps = new Specification();
         try {
             sps.setSpecification1(pairList.get(0).tb.getText().trim());
@@ -155,7 +150,7 @@ public class SpecificationPanel extends JPanel {
         return sps;
     }
 
-    public void populateValues(Specification spec) {
+    public final void populateValues(Specification spec) {
         try {
             pairList.get(0).tb.setText(spec.getSpecification1());
             pairList.get(1).tb.setText(spec.getSpecification2());
@@ -195,11 +190,11 @@ public class SpecificationPanel extends JPanel {
             add(tb);
         }
 
-        public String getValue() {
+        public final String getValue() {
             return tb.getText().trim();
         }
 
-        public boolean isEmpty() {
+        public final boolean isEmpty() {
             return (tb.getText().trim().equals(""));
         }
     }

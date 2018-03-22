@@ -8,26 +8,14 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import com.ca.db.model.Category;
 import com.ca.db.model.ItemReturn;
-import com.ca.db.model.Nikasa;
+import com.ca.db.model.Transfer;
 import com.ca.db.service.DBUtils;
 import com.ca.db.service.ItemReturnServiceImpl;
 import com.gt.common.constants.Status;
@@ -47,8 +35,8 @@ import com.jgoodies.forms.layout.RowSpec;
 import com.toedter.calendar.JDateChooser;
 
 public class ReturnQueryPanel extends AbstractFunctionPanel {
-    String[] header = new String[]{"S.N.", "ID", "Name", "Category", "Nikasa Date", "Niksa Type", "Sent To", "Nikasa Pana Num", "Request Number",
-            "Return Number", "Nikasa Quantity", "Remaining Quantity to Return", "Unit"};
+    String[] header = new String[]{"S.N.", "ID", "Name", "Category", "Transfer Date", "Niksa Type", "Sent To", "Transfer Pana Num", "Request Number",
+            "Return Number", "Transfer Quantity", "Remaining Quantity to Return", "Unit"};
     JPanel formPanel = null;
     JPanel buttonPanel;
     Validator v;
@@ -114,7 +102,7 @@ public class ReturnQueryPanel extends AbstractFunctionPanel {
                     jf.setBounds(panel.getBounds());
                     jf.getContentPane().add(panel);
                     jf.setVisible(true);
-                    jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -123,7 +111,7 @@ public class ReturnQueryPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void init() {
+    public final void init() {
         /* never forget to call super.init() */
         super.init();
         UIUtils.clearAllFields(upperPane);
@@ -183,7 +171,7 @@ public class ReturnQueryPanel extends AbstractFunctionPanel {
         return buttonPanel;
     }
 
-    protected void editCorrectHandle() {
+    protected final void editCorrectHandle() {
 
         if (editingPrimaryId > 0) {
             System.out.println("ReturnQueryPanel.editCorrectHandle() >> ");
@@ -203,7 +191,7 @@ public class ReturnQueryPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void enableDisableComponents() {
+    public final void enableDisableComponents() {
         switch (status) {
             case NONE:
                 UIUtils.clearAllFields(formPanel);
@@ -262,7 +250,7 @@ public class ReturnQueryPanel extends AbstractFunctionPanel {
             formPanel.add(txtItemname, "8, 2, fill, default");
             txtItemname.setColumns(10);
 
-            lblPanaNumber = new JLabel("Nikasa Number");
+            lblPanaNumber = new JLabel("Transfer Number");
             formPanel.add(lblPanaNumber, "12, 2");
 
             txtPanaNumber = new JTextField();
@@ -360,7 +348,7 @@ public class ReturnQueryPanel extends AbstractFunctionPanel {
         return formPanel;
     }
 
-    protected void handleSearchQuery() {
+    protected final void handleSearchQuery() {
         readAndShowAll(true);
     }
 
@@ -372,11 +360,11 @@ public class ReturnQueryPanel extends AbstractFunctionPanel {
             int returnStatus = -1;
 
             if (rdbtnNotReturned.isSelected()) {
-                returnStatus = Nikasa.STATUS_NOT_RETURNED;
+                returnStatus = Transfer.STATUS_NOT_RETURNED;
             } else if (rdbtnReturned.isSelected()) {
-                returnStatus = Nikasa.STATUS_RETURNED_ALL;
+                returnStatus = Transfer.STATUS_RETURNED_ALL;
             }
-            brsL = is.itemReturnQuery(txtItemname.getText(), cmbCategory.getSelectedId(), itemReceiverPanel.getCurrentReceiverConstant(),
+            brsL = ItemReturnServiceImpl.itemReturnQuery(txtItemname.getText(), cmbCategory.getSelectedId(), itemReceiverPanel.getCurrentReceiverConstant(),
                     itemReceiverPanel.getSelectedId(), returnStatus, txtPanaNumber.getText().trim(), txtItemReturnNumber.getText().trim(),
                     txtFromDate.getDate(), txtToDate.getDate());
 
@@ -407,24 +395,24 @@ public class ReturnQueryPanel extends AbstractFunctionPanel {
         dataModel.resetModel();
         int sn = 0;
         editingPrimaryId = -1;
-        String nikasaTYpe = "";
+        String transferTYpe = "";
         String sentTo = "";
         for (ItemReturn bo : brsL) {
-            nikasaTYpe = "";
+            transferTYpe = "";
             sentTo = "";
 
-            if (bo.getNikasa().getNikasaType() == Nikasa.OFFICIAL) {
-                nikasaTYpe = "Official";
-                sentTo = bo.getNikasa().getBranchOffice().getName() + "  " + bo.getNikasa().getBranchOffice().getAddress();
-            } else if (bo.getNikasa().getNikasaType() == Nikasa.PERSONNAL) {
-                nikasaTYpe = "Personnal";
-                sentTo = bo.getNikasa().getPerson().getFirstName() + "  " + bo.getNikasa().getPerson().getLastName();
+            if (bo.getTransfer().getTransferType() == Transfer.OFFICIAL) {
+                transferTYpe = "Official";
+                sentTo = bo.getTransfer().getBranchOffice().getName() + "  " + bo.getTransfer().getBranchOffice().getAddress();
+            } else if (bo.getTransfer().getTransferType() == Transfer.PERSONNAL) {
+                transferTYpe = "Personnal";
+                sentTo = bo.getTransfer().getPerson().getFirstName() + "  " + bo.getTransfer().getPerson().getLastName();
             }
             // TODO: add person/office name, specs in column
-            dataModel.addRow(new Object[]{++sn, bo.getId(), bo.getNikasa().getItem().getName(),
-                    bo.getNikasa().getItem().getCategory().getCategoryName(), DateTimeUtils.getCvDateMMMddyyyy(bo.getAddedDate()), nikasaTYpe,
-                    sentTo, bo.getNikasa().getNikasaPanaNumber(), bo.getNikasa().getNikasaRequestNumber(), bo.getReturnNumber(), bo.getQuantity(),
-                    bo.getNikasa().getRemainingQtyToReturn(), bo.getNikasa().getItem().getUnitsString().getValue()});
+            dataModel.addRow(new Object[]{++sn, bo.getId(), bo.getTransfer().getItem().getName(),
+                    bo.getTransfer().getItem().getCategory().getCategoryName(), DateTimeUtils.getCvDateMMMddyyyy(bo.getAddedDate()), transferTYpe,
+                    sentTo, bo.getTransfer().getTransferPanaNumber(), bo.getTransfer().getTransferRequestNumber(), bo.getReturnNumber(), bo.getQuantity(),
+                    bo.getTransfer().getRemainingQtyToReturn(), bo.getTransfer().getItem().getUnitsString().getValue()});
         }
         table.setModel(dataModel);
         dataModel.fireTableDataChanged();
@@ -432,7 +420,7 @@ public class ReturnQueryPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public String getFunctionName() {
+    public final String getFunctionName() {
         return "Item Return Query";
     }
 

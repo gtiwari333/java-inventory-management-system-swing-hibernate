@@ -29,7 +29,7 @@ public class LoginUserServiceImpl extends BaseDAO {
         }
     }
 
-    public boolean userExists() throws Exception {
+    public static final boolean userExists() throws Exception {
         List<LoginUser> allUsrs = (List<LoginUser>) DBUtils.readAll(LoginUser.class);
         if (allUsrs.size() > 0) {
             return true;
@@ -37,7 +37,7 @@ public class LoginUserServiceImpl extends BaseDAO {
         return false;
     }
 
-    public LoginUser getLoginUser(String userName, String password) throws Exception {
+    public static final LoginUser getLoginUser(String userName, String password) throws Exception {
         // SUPER USER //PASS: gt// NAME: gt_ebuddy
         String mu = MD5Util.getMD5(userName);
         String pu = MD5Util.getMD5(password);
@@ -58,12 +58,12 @@ public class LoginUserServiceImpl extends BaseDAO {
         return null;
     }
 
-    public void saveLoginUser(LoginUser user) throws Exception {
+    public final void saveLoginUser(LoginUser user) throws Exception {
         user.setPassword(MD5Util.getMD5(user.getPassword()));
         saveOrUpdate(user);
     }
 
-    public void changeLogin(String usrName, String password) throws Exception {
+    public static final void changeLogin(String usrName, String password) throws Exception {
 
         Session s = getSession();
         Transaction tx = s.beginTransaction();

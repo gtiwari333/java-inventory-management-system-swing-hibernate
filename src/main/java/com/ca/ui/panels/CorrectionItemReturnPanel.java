@@ -5,21 +5,12 @@ import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JSeparator;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
+import javax.swing.*;
 
 import com.ca.db.model.ItemReturn;
-import com.ca.db.model.Nikasa;
+import com.ca.db.model.Transfer;
 import com.ca.db.service.DBUtils;
-import com.ca.db.service.NikasaServiceImpl;
+import com.ca.db.service.TransferServiceImpl;
 import com.gt.uilib.components.AbstractFunctionPanel;
 import com.gt.uilib.components.input.NumberTextField;
 import com.gt.uilib.inputverifier.Validator;
@@ -37,12 +28,12 @@ public class CorrectionItemReturnPanel extends AbstractFunctionPanel {
     Validator v;
     String[] damageStatusStr = new String[]{"", "Good", "Unrepairable", "Needs Repair", "Exemption"};
     JComboBox cmbReturnStatus;
-    JLabel txtNikasaPnaNum1;
+    JLabel txtTransferPnaNum1;
     JLabel lblItemrequestnumber;
-    JLabel lblNikasaquanityt;
+    JLabel lblTransferquanityt;
     JLabel lblRemainingquantity;
     private int currentReturnId;
-    private JDateChooser txtNikasaDate;
+    private JDateChooser txtTransferDate;
     private NumberTextField txtReturnQuanitty;
     private JDateChooser returnDateChooser;
     private JTextField txtReturnnumber;
@@ -71,7 +62,7 @@ public class CorrectionItemReturnPanel extends AbstractFunctionPanel {
                     jf.setBounds(panel.getBounds());
                     jf.getContentPane().add(panel);
                     jf.setVisible(true);
-                    jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -80,21 +71,21 @@ public class CorrectionItemReturnPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void init() {
+    public final void init() {
         /* never forget to call super.init() */
         super.init();
         try {
             ItemReturn ret = (ItemReturn) DBUtils.getById(ItemReturn.class, currentReturnId);
 
-            //nikasa
-            Nikasa nik = ret.getNikasa();
+            //transfer
+            Transfer nik = ret.getTransfer();
             txtItemnmaa.setText(nik.getItem().getName());
             txtCategoryr.setText(nik.getItem().getCategory().getCategoryName());
             txtKhatapananumbbber.setText(nik.getItem().getKhataNumber() + " / " + nik.getItem().getPanaNumber());
-            txtNikasaPnaNum1.setText(nik.getNikasaPanaNumber());
-            lblItemrequestnumber.setText(nik.getNikasaRequestNumber());
-            txtNikasaDate.setDate(nik.getNikasaDate());
-            lblNikasaquanityt.setText(nik.getQuantity() + "");
+            txtTransferPnaNum1.setText(nik.getTransferPanaNumber());
+            lblItemrequestnumber.setText(nik.getTransferRequestNumber());
+            txtTransferDate.setDate(nik.getTransferDate());
+            lblTransferquanityt.setText(nik.getQuantity() + "");
             lblRemainingquantity.setText(nik.getRemainingQtyToReturn() + "");
 
             //item return
@@ -104,7 +95,7 @@ public class CorrectionItemReturnPanel extends AbstractFunctionPanel {
             cmbReturnStatus.setSelectedIndex(ret.getReturnItemCondition());
 //			lbl
             // disable components :
-            txtNikasaDate.setEnabled(false);
+            txtTransferDate.setEnabled(false);
             returnDateChooser.getDateEditor().setEnabled(false);
         } catch (Exception e) {
             e.printStackTrace();
@@ -179,11 +170,11 @@ public class CorrectionItemReturnPanel extends AbstractFunctionPanel {
         txtKhatapananumbbber = new JLabel("KhataPanaNumbbber");
         add(txtKhatapananumbbber, "10, 6");
 
-        JLabel lblNikasaNumber = new JLabel("Nikasa Pana Number");
-        add(lblNikasaNumber, "4, 8");
+        JLabel lblTransferNumber = new JLabel("Transfer Pana Number");
+        add(lblTransferNumber, "4, 8");
 
-        txtNikasaPnaNum1 = new JLabel("xx");
-        add(txtNikasaPnaNum1, "10, 8");
+        txtTransferPnaNum1 = new JLabel("xx");
+        add(txtTransferPnaNum1, "10, 8");
 
         JLabel lblItemRequestNumber = new JLabel("Item Request Number");
         add(lblItemRequestNumber, "4, 10");
@@ -191,11 +182,11 @@ public class CorrectionItemReturnPanel extends AbstractFunctionPanel {
         lblItemrequestnumber = new JLabel("itemRequestNumber");
         add(lblItemrequestnumber, "10, 10");
 
-        JLabel lblQuantity = new JLabel("Nikasa Quantity");
+        JLabel lblQuantity = new JLabel("Transfer Quantity");
         add(lblQuantity, "4, 12");
 
-        lblNikasaquanityt = new JLabel("NikasaQuanityt");
-        add(lblNikasaquanityt, "10, 12");
+        lblTransferquanityt = new JLabel("TransferQuanityt");
+        add(lblTransferquanityt, "10, 12");
 
         JLabel lblRemainingQuantity = new JLabel("Remaining Quantity");
         add(lblRemainingQuantity, "4, 14");
@@ -203,12 +194,12 @@ public class CorrectionItemReturnPanel extends AbstractFunctionPanel {
         lblRemainingquantity = new JLabel("remainingQuantity");
         add(lblRemainingquantity, "10, 14");
 
-        JLabel lblDate = new JLabel("Nikasa Date");
+        JLabel lblDate = new JLabel("Transfer Date");
         add(lblDate, "4, 16");
 
-        txtNikasaDate = new JDateChooser();
+        txtTransferDate = new JDateChooser();
         // txtDate.setText("Date");
-        add(txtNikasaDate, "10, 16, fill, default");
+        add(txtTransferDate, "10, 16, fill, default");
 
         JSeparator separator = new JSeparator();
         add(separator, "4, 18, 7, 1");
@@ -273,13 +264,13 @@ public class CorrectionItemReturnPanel extends AbstractFunctionPanel {
 
     }
 
-    protected void handleDeleteAction() {
+    protected final void handleDeleteAction() {
         if (!DataEntryUtils.confirmDBDelete()) {
             return;
         }
         try {
-            NikasaServiceImpl ns = new NikasaServiceImpl();
-            ns.deleteNikasa(currentReturnId);
+            TransferServiceImpl ns = new TransferServiceImpl();
+            TransferServiceImpl.deleteTransfer(currentReturnId);
 
             handleDeleteSuccess();
         } catch (Exception e) {
@@ -289,8 +280,8 @@ public class CorrectionItemReturnPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public String getFunctionName() {
-        return "Nikasa Correction and Edit, Hastantaran Register";
+    public final String getFunctionName() {
+        return "Transfer Correction and Edit, Hastantaran Register";
     }
 
     private boolean isValidData() {
@@ -330,7 +321,7 @@ public class CorrectionItemReturnPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void handleSaveAction() {
+    public final void handleSaveAction() {
         if (!isValidData()) {
             return;
         }
@@ -346,13 +337,13 @@ public class CorrectionItemReturnPanel extends AbstractFunctionPanel {
         }
     }
 
-    public void handleSuccess() {
+    public final void handleSuccess() {
         JOptionPane.showMessageDialog(null, "Saved Successfully");
         Window w = SwingUtilities.getWindowAncestor(CorrectionItemReturnPanel.this);
         w.setVisible(false);
     }
 
-    public void handleDeleteSuccess() {
+    public final void handleDeleteSuccess() {
         JOptionPane.showMessageDialog(null, "Deleted Successfully");
         Window w = SwingUtilities.getWindowAncestor(CorrectionItemReturnPanel.this);
         w.setVisible(false);

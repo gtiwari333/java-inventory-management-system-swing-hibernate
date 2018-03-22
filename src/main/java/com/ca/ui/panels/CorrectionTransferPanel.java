@@ -5,20 +5,11 @@ import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
+import javax.swing.*;
 
-import com.ca.db.model.Nikasa;
+import com.ca.db.model.Transfer;
 import com.ca.db.service.DBUtils;
-import com.ca.db.service.NikasaServiceImpl;
+import com.ca.db.service.TransferServiceImpl;
 import com.gt.uilib.components.AbstractFunctionPanel;
 import com.gt.uilib.components.input.NumberTextField;
 import com.gt.uilib.inputverifier.Validator;
@@ -28,24 +19,24 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.toedter.calendar.JDateChooser;
 
-public class CorrectionNikasaPanel extends AbstractFunctionPanel {
+public class CorrectionTransferPanel extends AbstractFunctionPanel {
     JLabel txtItemnmaa;
     JLabel txtCategoryr;
     JLabel txtKhatapananumbbber;
     Validator v;
-    private JTextField txtNikasapananum;
+    private JTextField txtTransferpananum;
     private JTextField txtRequestnum;
     private NumberTextField txtQty;
-    private int currentNikasaId;
+    private int currentTransferId;
     private ItemReceiverPanel itemReceiverPanel;
-    private JDateChooser nikasaDateChooser;
+    private JDateChooser transferDateChooser;
     private JPanel hastantaranStatus;
     private JRadioButton rdbtnHastantaranreceived;
     private JRadioButton rdbtnHastanNotReceived;
 
-    public CorrectionNikasaPanel(int id) {
+    public CorrectionTransferPanel(int id) {
 
-        this.currentNikasaId = id;
+        this.currentTransferId = id;
 
         getEditPanel();
         init();
@@ -63,11 +54,11 @@ public class CorrectionNikasaPanel extends AbstractFunctionPanel {
             public void run() {
                 try {
                     JFrame jf = new JFrame();
-                    CorrectionNikasaPanel panel = new CorrectionNikasaPanel(2);
+                    CorrectionTransferPanel panel = new CorrectionTransferPanel(2);
                     jf.setBounds(panel.getBounds());
                     jf.getContentPane().add(panel);
                     jf.setVisible(true);
-                    jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -76,21 +67,21 @@ public class CorrectionNikasaPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void init() {
+    public final void init() {
         /* never forget to call super.init() */
         super.init();
         try {
-            Nikasa nik = (Nikasa) DBUtils.getById(Nikasa.class, currentNikasaId);
+            Transfer nik = (Transfer) DBUtils.getById(Transfer.class, currentTransferId);
             txtItemnmaa.setText(nik.getItem().getName());
             txtCategoryr.setText(nik.getItem().getCategory().getCategoryName());
             txtKhatapananumbbber.setText(nik.getItem().getKhataNumber() + " / " + nik.getItem().getPanaNumber());
-            txtNikasapananum.setText(nik.getNikasaPanaNumber());
-            txtRequestnum.setText(nik.getNikasaRequestNumber());
-            nikasaDateChooser.setDate(nik.getNikasaDate());
+            txtTransferpananum.setText(nik.getTransferPanaNumber());
+            txtRequestnum.setText(nik.getTransferRequestNumber());
+            transferDateChooser.setDate(nik.getTransferDate());
             itemReceiverPanel.setCurrentType(nik);
             txtQty.setText(nik.getQuantity() + "");
 
-            if (nik.getHastantaranReceivedStatus() == Nikasa.HASTANTARAN_NOT_RECEIVED) {
+            if (nik.getHastantaranReceivedStatus() == Transfer.HASTANTARAN_NOT_RECEIVED) {
                 rdbtnHastanNotReceived.setSelected(true);
             } else {
                 rdbtnHastantaranreceived.setSelected(true);
@@ -132,13 +123,13 @@ public class CorrectionNikasaPanel extends AbstractFunctionPanel {
         txtKhatapananumbbber = new JLabel("KhataPanaNumbbber");
         add(txtKhatapananumbbber, "8, 6");
 
-        JLabel lblNikasaNumber = new JLabel("Nikasa Pana Number");
-        add(lblNikasaNumber, "4, 8");
+        JLabel lblTransferNumber = new JLabel("Transfer Pana Number");
+        add(lblTransferNumber, "4, 8");
 
-        txtNikasapananum = new JTextField();
-        txtNikasapananum.setText("NikasaPanaNum");
-        add(txtNikasapananum, "8, 8, fill, default");
-        txtNikasapananum.setColumns(10);
+        txtTransferpananum = new JTextField();
+        txtTransferpananum.setText("TransferPanaNum");
+        add(txtTransferpananum, "8, 8, fill, default");
+        txtTransferpananum.setColumns(10);
 
         JLabel lblItemRequestNumber = new JLabel("Item Request Number");
         add(lblItemRequestNumber, "4, 10");
@@ -158,9 +149,9 @@ public class CorrectionNikasaPanel extends AbstractFunctionPanel {
         JLabel lblDate = new JLabel("Date");
         add(lblDate, "4, 14");
 
-        nikasaDateChooser = new JDateChooser();
+        transferDateChooser = new JDateChooser();
         // txtDate.setText("Date");
-        add(nikasaDateChooser, "8, 14, fill, default");
+        add(transferDateChooser, "8, 14, fill, default");
 
         JLabel lblReceiver = new JLabel("Receiver");
         add(lblReceiver, "4, 16");
@@ -223,13 +214,13 @@ public class CorrectionNikasaPanel extends AbstractFunctionPanel {
 
     }
 
-    protected void handleDeleteAction() {
+    protected final void handleDeleteAction() {
         if (!DataEntryUtils.confirmDBDelete()) {
             return;
         }
         try {
-            NikasaServiceImpl ns = new NikasaServiceImpl();
-            ns.deleteNikasa(currentNikasaId);
+            TransferServiceImpl ns = new TransferServiceImpl();
+            TransferServiceImpl.deleteTransfer(currentTransferId);
 
             handleDeleteSuccess();
         } catch (Exception e) {
@@ -239,14 +230,14 @@ public class CorrectionNikasaPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public String getFunctionName() {
-        return "Nikasa Correction and Edit, Hastantaran Register";
+    public final String getFunctionName() {
+        return "Transfer Correction and Edit, Hastantaran Register";
     }
 
     private boolean isValidData() {
         int qty = Integer.parseInt(txtQty.getText());
 
-        if (qty > 0 && itemReceiverPanel.isSelected() && nikasaDateChooser.getDate() != null) {
+        if (qty > 0 && itemReceiverPanel.isSelected() && transferDateChooser.getDate() != null) {
             return true;
         }
         return false;
@@ -254,7 +245,7 @@ public class CorrectionNikasaPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void handleSaveAction() {
+    public final void handleSaveAction() {
         if (!isValidData()) {
             JOptionPane.showMessageDialog(null, "Please enter the required values before saving");
             return;
@@ -266,13 +257,13 @@ public class CorrectionNikasaPanel extends AbstractFunctionPanel {
 
             int hastan = -1;
             if (rdbtnHastanNotReceived.isSelected()) {
-                hastan = Nikasa.HASTANTARAN_NOT_RECEIVED;
+                hastan = Transfer.HASTANTARAN_NOT_RECEIVED;
             } else {
-                hastan = Nikasa.HASTANTARAN_RECEIVED;
+                hastan = Transfer.HASTANTARAN_RECEIVED;
             }
-            NikasaServiceImpl ns = new NikasaServiceImpl();
-            ns.updateNikasa(currentNikasaId, Integer.parseInt(txtQty.getText()), nikasaDateChooser.getDate(), itemReceiverPanel.getCurrentType(),
-                    itemReceiverPanel.getSelectedId(), txtNikasapananum.getText().trim(), txtRequestnum.getText().trim(), hastan);
+            TransferServiceImpl ns = new TransferServiceImpl();
+            TransferServiceImpl.updateTransfer(currentTransferId, Integer.parseInt(txtQty.getText()), transferDateChooser.getDate(), itemReceiverPanel.getCurrentType(),
+                    itemReceiverPanel.getSelectedId(), txtTransferpananum.getText().trim(), txtRequestnum.getText().trim(), hastan);
             handleSuccess();
         } catch (Exception e) {
             e.printStackTrace();
@@ -280,15 +271,15 @@ public class CorrectionNikasaPanel extends AbstractFunctionPanel {
         }
     }
 
-    public void handleSuccess() {
+    public final void handleSuccess() {
         JOptionPane.showMessageDialog(null, "Saved Successfully");
-        Window w = SwingUtilities.getWindowAncestor(CorrectionNikasaPanel.this);
+        Window w = SwingUtilities.getWindowAncestor(CorrectionTransferPanel.this);
         w.setVisible(false);
     }
 
-    public void handleDeleteSuccess() {
+    public final void handleDeleteSuccess() {
         JOptionPane.showMessageDialog(null, "Deleted Successfully");
-        Window w = SwingUtilities.getWindowAncestor(CorrectionNikasaPanel.this);
+        Window w = SwingUtilities.getWindowAncestor(CorrectionTransferPanel.this);
         w.setVisible(false);
     }
 

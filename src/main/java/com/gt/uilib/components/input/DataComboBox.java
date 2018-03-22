@@ -17,7 +17,7 @@ import java.util.List;
 public class DataComboBox extends JComboBox {
 
     private static final long serialVersionUID = -615634209230481880L;
-    List<Item> itemList;
+    private List<Item> itemList;
 
     public DataComboBox() {
         super();
@@ -29,7 +29,7 @@ public class DataComboBox extends JComboBox {
     /**
      * clears the all data in combo
      */
-    public void init() {
+    public final void init() {
         if (itemList != null) {
             this.removeAllItems();
             itemList.clear();
@@ -38,7 +38,7 @@ public class DataComboBox extends JComboBox {
         }
     }
 
-    public boolean isValidDataChoosen() {
+    public final boolean isValidDataChoosen() {
         return (getSelectedId() != -1);
     }
 
@@ -48,7 +48,7 @@ public class DataComboBox extends JComboBox {
      * @param values first index must contain ID field
      */
 
-    public void addRow(Object[] values) {
+    public final void addRow(Object[] values) {
         if (itemList == null) {
             itemList = new ArrayList<DataComboBox.Item>();
             Item blank = new Item(0, "");
@@ -61,8 +61,8 @@ public class DataComboBox extends JComboBox {
 
     }
 
-    protected String getStringRepresentation(Object[] values) {
-        StringBuffer sb = new StringBuffer();
+    protected static final String getStringRepresentation(Object[] values) {
+        StringBuilder sb = new StringBuilder();
         for (int i = 1; i < values.length; i++) {
             sb.append(values[i]);
             if (i != values.length - 1) sb.append("  -  ");
@@ -70,7 +70,7 @@ public class DataComboBox extends JComboBox {
         return sb.toString();
     }
 
-    public int getSelectedId() {
+    public final int getSelectedId() {
         int index = this.getSelectedIndex();
         if (index > 0 && itemList != null && itemList.size() > 0) {
             Item item = itemList.get(index);
@@ -79,7 +79,7 @@ public class DataComboBox extends JComboBox {
         return -1;
     }
 
-    public void selectItem(int id) {
+    public final void selectItem(int id) {
         for (Item item : itemList) {
             if (item.getId() == id) {
                 this.setSelectedItem(item);
@@ -112,17 +112,17 @@ public class DataComboBox extends JComboBox {
 //		else
 //			setSelectedIndex(getItemCount() - 1);
 //	}
-    public void selectLastItem() {
+    public final void selectLastItem() {
         if (itemList != null) this.setSelectedItem(itemList.size());
         else
             setSelectedIndex(getItemCount() - 1);
     }
 
-    public void selectDefaultItem() {
+    public final void selectDefaultItem() {
         if (itemList != null && itemList.size() > 0) this.setSelectedItem(itemList.get(0));
     }
 
-    public boolean contains(String s) {
+    public final boolean contains(String s) {
         if (s == null || s.trim().isEmpty()) return true;
         if (itemList == null) return false;
         s = s.toLowerCase();
@@ -135,7 +135,7 @@ public class DataComboBox extends JComboBox {
 
     }
 
-    public boolean matches(String s) {
+    public final boolean matches(String s) {
         if (s == null || s.trim().isEmpty()) return true;
         s = s.toLowerCase();
         for (Item i : itemList) {
@@ -157,30 +157,30 @@ public class DataComboBox extends JComboBox {
             this.text = text;
         }
 
-        public int getId() {
+        public final int getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public final void setId(int id) {
             this.id = id;
         }
 
-        public String getText() {
+        public final String getText() {
             return text;
         }
 
-        public void setText(String text) {
+        public final void setText(String text) {
             this.text = text;
         }
 
         @Override
-        public String toString() {
+        public final String toString() {
             // return String.format("%s : %s", id, text);
             return String.format("%s", text);
         }
 
-        public int compareTo(Item o) {
-            Item it2 = (Item) o;
+        public final int compareTo(Item o) {
+            Item it2 = o;
             return this.text.compareToIgnoreCase(it2.text);
 
         }

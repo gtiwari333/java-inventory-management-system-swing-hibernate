@@ -13,7 +13,7 @@ public class ReportBean {
     private String inRate;
     private String inTotal;
     private String reqFormId;
-    private String nikasaBranch;
+    private String transferBranch;
     private String nikQty;
     private String nikRate;
     private String nikTotal;
@@ -21,170 +21,170 @@ public class ReportBean {
     private String remTot;
     private String notes;
     private String unitStock;
-    private String unitNikasa;
+    private String unitTransfer;
 
-    public int getItemId() {
+    public final int getItemId() {
         return itemId;
     }
 
-    public void setItemId(int itemId) {
+    public final void setItemId(int itemId) {
         this.itemId = itemId;
     }
 
-    public String getDate() {
+    public final String getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public final void setDate(String date) {
         this.date = date;
     }
 
-    public String getGoodsName() {
+    public final String getGoodsName() {
         return goodsName;
     }
 
-    public void setGoodsName(String goodsName) {
+    public final void setGoodsName(String goodsName) {
         this.goodsName = goodsName;
     }
 
-    public String getEntryFormId() {
+    public final String getEntryFormId() {
         return entryFormId;
     }
 
-    public void setEntryFormId(String entryFormId) {
+    public final void setEntryFormId(String entryFormId) {
         this.entryFormId = entryFormId;
     }
 
-    public String getSupplier() {
+    public final String getSupplier() {
         return supplier;
     }
 
-    public void setSupplier(String supplier) {
+    public final void setSupplier(String supplier) {
         this.supplier = supplier;
     }
 
-    public String getSpecification() {
+    public final String getSpecification() {
         return specification;
     }
 
-    public void setSpecification(String specification) {
+    public final void setSpecification(String specification) {
         this.specification = specification;
     }
 
-    public String getInQty() {
+    public final String getInQty() {
         return inQty;
     }
 
-    public void setInQty(String inQty) {
+    public final void setInQty(String inQty) {
         this.inQty = inQty;
     }
 
-    public String getInRate() {
+    public final String getInRate() {
         return inRate;
     }
 
-    public void setInRate(String inRate) {
+    public final void setInRate(String inRate) {
         this.inRate = inRate;
     }
 
-    public String getInTotal() {
+    public final String getInTotal() {
         return inTotal;
     }
 
-    public void setInTotal(String inTotal) {
+    public final void setInTotal(String inTotal) {
         this.inTotal = inTotal;
     }
 
-    public String getReqFormId() {
+    public final String getReqFormId() {
         return reqFormId;
     }
 
-    public void setReqFormId(String reqFormId) {
+    public final void setReqFormId(String reqFormId) {
         this.reqFormId = reqFormId;
     }
 
-    public String getNikasaBranch() {
-        return nikasaBranch;
+    public final String getTransferBranch() {
+        return transferBranch;
     }
 
-    public void setNikasaBranch(String nikasaBranch) {
-        this.nikasaBranch = nikasaBranch;
+    public final void setTransferBranch(String transferBranch) {
+        this.transferBranch = transferBranch;
     }
 
-    public String getNikQty() {
+    public final String getNikQty() {
         return nikQty;
     }
 
-    public void setNikQty(String nikQty) {
+    public final void setNikQty(String nikQty) {
         this.nikQty = nikQty;
     }
 
-    public String getNikRate() {
+    public final String getNikRate() {
         return nikRate;
     }
 
-    public void setNikRate(String nikRate) {
+    public final void setNikRate(String nikRate) {
         this.nikRate = nikRate;
     }
 
-    public String getNikTotal() {
+    public final String getNikTotal() {
         return nikTotal;
     }
 
-    public void setNikTotal(String nikTotal) {
+    public final void setNikTotal(String nikTotal) {
         this.nikTotal = nikTotal;
     }
 
-    public String getRemQty() {
+    public final String getRemQty() {
         return remQty;
     }
 
-    public void setRemQty(String remQty) {
+    public final void setRemQty(String remQty) {
         this.remQty = remQty;
     }
 
-    public String getRemTot() {
+    public final String getRemTot() {
         return remTot;
     }
 
-    public void setRemTot(String remTot) {
+    public final void setRemTot(String remTot) {
         this.remTot = remTot;
     }
 
-    public String getNotes() {
+    public final String getNotes() {
         return notes;
     }
 
-    public void setNotes(String notes) {
+    public final void setNotes(String notes) {
         this.notes = notes;
     }
 
-    public String getUnitStock() {
+    public final String getUnitStock() {
         return unitStock;
     }
 
-    public void setUnitStock(String unitStock) {
+    public final void setUnitStock(String unitStock) {
         this.unitStock = unitStock;
     }
 
-    public String getUnitNikasa() {
-        return unitNikasa;
+    public final String getUnitTransfer() {
+        return unitTransfer;
     }
 
-    public void setUnitNikasa(String unitNikasa) {
-        this.unitNikasa = unitNikasa;
+    public final void setUnitTransfer(String unitTransfer) {
+        this.unitTransfer = unitTransfer;
     }
 
-    public String getKhataPanaNumber() {
+    public final String getKhataPanaNumber() {
         return khataPanaNumber;
     }
 
-    public void setKhataPanaNumber(String khataPanaNumber) {
+    public final void setKhataPanaNumber(String khataPanaNumber) {
         this.khataPanaNumber = khataPanaNumber;
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(Object obj) {
         ReportBean rb = (ReportBean) obj;
         if (rb.getItemId() == this.getItemId()) {
             return true;
@@ -193,7 +193,7 @@ public class ReportBean {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("ReportBean [itemId=");
         builder.append(itemId);
@@ -217,8 +217,8 @@ public class ReportBean {
         builder.append(inTotal);
         builder.append(", reqFormId=");
         builder.append(reqFormId);
-        builder.append(", nikasaBranch=");
-        builder.append(nikasaBranch);
+        builder.append(", transferBranch=");
+        builder.append(transferBranch);
         builder.append(", nikQty=");
         builder.append(nikQty);
         builder.append(", nikRate=");
@@ -233,8 +233,8 @@ public class ReportBean {
         builder.append(notes);
         builder.append(", unitStock=");
         builder.append(unitStock);
-        builder.append(", unitNikasa=");
-        builder.append(unitNikasa);
+        builder.append(", unitTransfer=");
+        builder.append(unitTransfer);
         builder.append("]");
         return builder.toString();
     }

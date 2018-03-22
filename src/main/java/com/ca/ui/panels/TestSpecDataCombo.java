@@ -6,10 +6,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.List;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
+import javax.swing.*;
 
 import com.ca.db.model.Category;
 import com.ca.db.service.DBUtils;
@@ -42,7 +39,7 @@ public class TestSpecDataCombo extends JPanel {
                     jf.getContentPane().add(panel);
                     jf.setVisible(true);
                     jf.pack();
-                    jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -18,17 +18,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingWorker;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -154,7 +144,7 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
                     jf.setBounds(panel.getBounds());
                     jf.getContentPane().add(panel);
                     jf.setVisible(true);
-                    jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -163,7 +153,7 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void init() {
+    public final void init() {
         /* never forget to call super.init() */
         super.init();
         UIUtils.clearAllFields(upperPane);
@@ -307,7 +297,7 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void enableDisableComponents() {
+    public final void enableDisableComponents() {
         v.resetErrors();
         switch (status) {
             case NONE:
@@ -362,7 +352,7 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void handleSaveAction() {
+    public final void handleSaveAction() {
         switch (status) {
             case CREATE:
                 // create new
@@ -733,7 +723,7 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
     private void readAndShowAll(boolean showSize0Error) {
         try {
             ItemServiceImpl is = new ItemServiceImpl();
-            List<Item> brsL = is.getAddedItems();
+            List<Item> brsL = ItemServiceImpl.getAddedItems();
             editingPrimaryId = -1;
             if (brsL == null || brsL.size() == 0) {
                 if (showSize0Error) {
@@ -779,7 +769,7 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public String getFunctionName() {
+    public final String getFunctionName() {
         return "New Item Entry";
     }
 
@@ -822,7 +812,7 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
         return lowerPane;
     }
 
-    protected void populateSelectedRowInForm(int selectedId) {
+    protected final void populateSelectedRowInForm(int selectedId) {
         try {
             Item bro = (Item) DBUtils.getById(Item.class, selectedId);
 

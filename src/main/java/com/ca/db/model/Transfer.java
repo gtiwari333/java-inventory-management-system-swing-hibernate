@@ -7,8 +7,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "Nikasa")
-public class Nikasa {
+@Table(name = "Transfer")
+public class Transfer {
     public static final int OFFICIAL = 2;
     public static final int PERSONNAL = 1;
     public static final int LILAM = 3;
@@ -26,8 +26,8 @@ public class Nikasa {
     @OneToOne(cascade = {javax.persistence.CascadeType.ALL})
     private BranchOffice branchOffice;
 
-    @Column(name = "nikasadate")
-    private Date nikasaDate;
+    @Column(name = "transferdate")
+    private Date transferDate;
 
     @Column(name = "dflag")
     private int dFlag;
@@ -35,8 +35,8 @@ public class Nikasa {
     @Column(name = "lastmodifieddate")
     private Date lastModifiedDate;
 
-    @Index(name = "nikasatype")
-    private int nikasaType;
+    @Index(name = "transfertype")
+    private int transferType;
 
     @Index(name = "person")
     @OneToOne(cascade = {javax.persistence.CascadeType.ALL})
@@ -61,157 +61,157 @@ public class Nikasa {
     @Column(name = "delivereddate")
     private Date deliveredDate;
 
-    @Index(name = "nikasarequestnumber")
-    private String nikasaRequestNumber;
+    @Index(name = "transferrequestnumber")
+    private String transferRequestNumber;
 
-    @Index(name = "nikasapananumber")
-    private String nikasaPanaNumber;
+    @Index(name = "transferpananumber")
+    private String transferPanaNumber;
 
     @Column(name = "hastantaranReceivedStatus")
     private int hastantaranReceivedStatus;
 
-    public int getHastantaranReceivedStatus() {
+    public final int getHastantaranReceivedStatus() {
         return this.hastantaranReceivedStatus;
     }
 
-    public void setHastantaranReceivedStatus(int hastantaranReceivedStatus) {
+    public final void setHastantaranReceivedStatus(int hastantaranReceivedStatus) {
         this.hastantaranReceivedStatus = hastantaranReceivedStatus;
     }
 
-    public Date getLastModifiedDate() {
+    public final Date getLastModifiedDate() {
         return this.lastModifiedDate;
     }
 
-    public void setLastModifiedDate(Date lastModifiedDate) {
+    public final void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public int getdFlag() {
+    public final int getdFlag() {
         return this.dFlag;
     }
 
-    public void setdFlag(int dFlag) {
+    public final void setdFlag(int dFlag) {
         this.dFlag = dFlag;
     }
 
-    public int getId() {
+    public final int getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public final void setId(int id) {
         this.id = id;
     }
 
-    public BranchOffice getBranchOffice() {
+    public final BranchOffice getBranchOffice() {
         return this.branchOffice;
     }
 
-    public void setBranchOffice(BranchOffice branchOffice) {
+    public final void setBranchOffice(BranchOffice branchOffice) {
         this.branchOffice = branchOffice;
     }
 
-    public Date getNikasaDate() {
-        return this.nikasaDate;
+    public final Date getTransferDate() {
+        return this.transferDate;
     }
 
-    public void setNikasaDate(Date nikasaDate) {
-        this.nikasaDate = nikasaDate;
+    public final void setTransferDate(Date transferDate) {
+        this.transferDate = transferDate;
     }
 
-    public int getNikasaType() {
-        return this.nikasaType;
+    public final int getTransferType() {
+        return this.transferType;
     }
 
-    public void setNikasaType(int nikasaType) {
-        this.nikasaType = nikasaType;
+    public final void setTransferType(int transferType) {
+        this.transferType = transferType;
     }
 
-    public Item getItem() {
+    public final Item getItem() {
         return this.item;
     }
 
-    public void setItem(Item item) {
+    public final void setItem(Item item) {
         this.item = item;
     }
 
-    public int getQuantity() {
+    public final int getQuantity() {
         return this.quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public final void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public int getStatus() {
+    public final int getStatus() {
         return this.status;
     }
 
-    public void setStatus(int status) {
+    public final void setStatus(int status) {
         this.status = status;
     }
 
-    public BigDecimal getRate() {
+    public final BigDecimal getRate() {
         return this.rate;
     }
 
-    public void setRate(BigDecimal rate) {
+    public final void setRate(BigDecimal rate) {
         this.rate = rate;
     }
 
-    public Date getDeliveredDate() {
+    public final Date getDeliveredDate() {
         return this.deliveredDate;
     }
 
-    public void setDeliveredDate(Date deliveredDate) {
+    public final void setDeliveredDate(Date deliveredDate) {
         this.deliveredDate = deliveredDate;
     }
 
-    public String getNikasaPanaNumber() {
-        return this.nikasaPanaNumber;
+    public final String getTransferPanaNumber() {
+        return this.transferPanaNumber;
     }
 
-    public void setNikasaPanaNumber(String nikasaPanaNumber) {
-        this.nikasaPanaNumber = nikasaPanaNumber;
+    public final void setTransferPanaNumber(String transferPanaNumber) {
+        this.transferPanaNumber = transferPanaNumber;
     }
 
-    public Person getPerson() {
+    public final Person getPerson() {
         return this.person;
     }
 
-    public void setPerson(Person person) {
+    public final void setPerson(Person person) {
         this.person = person;
     }
 
-    public String getNikasaRequestNumber() {
-        return this.nikasaRequestNumber;
+    public final String getTransferRequestNumber() {
+        return this.transferRequestNumber;
     }
 
-    public void setNikasaRequestNumber(String nikasaRequestNumber) {
-        this.nikasaRequestNumber = nikasaRequestNumber;
+    public final void setTransferRequestNumber(String transferRequestNumber) {
+        this.transferRequestNumber = transferRequestNumber;
     }
 
-    public int getRemainingQtyToReturn() {
+    public final int getRemainingQtyToReturn() {
         return this.remainingQtyToReturn;
     }
 
-    public void setRemainingQtyToReturn(int remainingQtyToReturn) {
+    public final void setRemainingQtyToReturn(int remainingQtyToReturn) {
         this.remainingQtyToReturn = remainingQtyToReturn;
     }
 
-    public String toString() {
+    public final String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("\nNikasa [id=");
+        builder.append("\nTransfer [id=");
         builder.append(this.id);
         builder.append(", branchOffice=");
         builder.append(this.branchOffice);
-        builder.append(", nikasaDate=");
-        builder.append(this.nikasaDate);
+        builder.append(", transferDate=");
+        builder.append(this.transferDate);
         builder.append(", dFlag=");
         builder.append(this.dFlag);
         builder.append(", lastModifiedDate=");
         builder.append(this.lastModifiedDate);
-        builder.append(", nikasaType=");
-        builder.append(this.nikasaType);
+        builder.append(", transferType=");
+        builder.append(this.transferType);
         builder.append(", person=");
         builder.append(this.person);
         builder.append(", quantity=");
@@ -225,10 +225,10 @@ public class Nikasa {
         builder.append(", deliveredDate=");
         builder.append(this.deliveredDate);
 
-        builder.append(", nikasaRequestNumber=");
-        builder.append(this.nikasaRequestNumber);
-        builder.append(", nikasaPanaNumber=");
-        builder.append(this.nikasaPanaNumber);
+        builder.append(", transferRequestNumber=");
+        builder.append(this.transferRequestNumber);
+        builder.append(", transferPanaNumber=");
+        builder.append(this.transferPanaNumber);
         builder.append("]");
         return builder.toString();
     }

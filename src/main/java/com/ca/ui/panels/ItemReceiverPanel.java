@@ -4,16 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.AbstractButton;
-import javax.swing.ButtonGroup;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
+import javax.swing.*;
 
 import com.ca.db.model.BranchOffice;
-import com.ca.db.model.Nikasa;
+import com.ca.db.model.Transfer;
 import com.ca.db.model.Person;
 import com.ca.db.service.DBUtils;
 import com.gt.uilib.components.input.DataComboBox;
@@ -84,49 +78,49 @@ public class ItemReceiverPanel extends JPanel {
         jf.getContentPane().add(new ItemReceiverPanel());
         jf.pack();
         jf.setVisible(true);
-        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    public ReceiverType getCurrentType() {
+    public final ReceiverType getCurrentType() {
 //		System.out.println("ItemReceiverPanel.getCurrentType() " + currentType);
         return currentType;
     }
 
-    public void setCurrentType(Nikasa nik) {
-        currentType = getType(nik.getNikasaType());
+    public final void setCurrentType(Transfer nik) {
+        currentType = getType(nik.getTransferType());
         handleSelection();
 
     }
 
-    public int getCurrentReceiverConstant() {
+    public final int getCurrentReceiverConstant() {
         if (getCurrentType() == ReceiverType.PERSONNAL) {
-            return Nikasa.PERSONNAL;
+            return Transfer.PERSONNAL;
         }
         if (getCurrentType() == ReceiverType.OFFICIAL) {
-            return Nikasa.OFFICIAL;
+            return Transfer.OFFICIAL;
         }
         if (getCurrentType() == ReceiverType.LILAM) {
-            return Nikasa.LILAM;
+            return Transfer.LILAM;
         }
         return -1;
     }
 
-    public void disableAll() {
+    public final void disableAll() {
         dataCombo.setEnabled(false);
         rdbtnPersonnal.setEnabled(false);
         rdbtnOfficial.setEnabled(false);
         rdbtnLilam.setEnabled(false);
     }
 
-    public ReceiverType getType(int type) {
+    public static final ReceiverType getType(int type) {
         switch (type) {
-            case Nikasa.OFFICIAL:
+            case Transfer.OFFICIAL:
                 return ReceiverType.OFFICIAL;
 
-            case Nikasa.PERSONNAL:
+            case Transfer.PERSONNAL:
                 return ReceiverType.PERSONNAL;
 
-            case Nikasa.LILAM:
+            case Transfer.LILAM:
                 return ReceiverType.LILAM;
 
             default:
@@ -135,21 +129,21 @@ public class ItemReceiverPanel extends JPanel {
         }
     }
 
-    public void hideLilam() {
+    public final void hideLilam() {
         rdbtnLilam.setVisible(false);
     }
 
-    public void clearAll() {
+    public final void clearAll() {
         bg.clearSelection();
         dataCombo.removeAllItems();
         currentType = ReceiverType.NONE;
     }
 
-    public boolean isSelected() {
-        return getSelectedId() > 0 ? true : false;
+    public final boolean isSelected() {
+        return getSelectedId() > 0;
     }
 
-    public Integer getSelectedId() {
+    public final Integer getSelectedId() {
         if (currentType == ReceiverType.OFFICIAL) {
             return dataCombo.getSelectedId();
         }
@@ -162,43 +156,47 @@ public class ItemReceiverPanel extends JPanel {
         return -1;
     }
 
-    protected void handleSelection() {
+    protected final void handleSelection() {
         SwingUtilities.invokeLater(new Runnable() {
 
             public void run() {
-                if (currentType == ReceiverType.OFFICIAL) {
-                    dataCombo.init();
-                    dataCombo.setEnabled(true);
-                    rdbtnOfficial.setSelected(true);
-                    try {
-                        List<BranchOffice> cl = DBUtils.readAll(BranchOffice.class);
-                        for (BranchOffice c : cl) {
-                            dataCombo.addRow(new Object[]{c.getId(), c.getName(), c.getAddress()});
+                switch (currentType) {
+                    case OFFICIAL:
+                        dataCombo.init();
+                        dataCombo.setEnabled(true);
+                        rdbtnOfficial.setSelected(true);
+                        try {
+                            List<BranchOffice> cl = DBUtils.readAll(BranchOffice.class);
+                            for (BranchOffice c : cl) {
+                                dataCombo.addRow(new Object[]{c.getId(), c.getName(), c.getAddress()});
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    // dataCombo.setEditable(false);
-                } else if (currentType == ReceiverType.PERSONNAL) {
+                        // dataCombo.setEditable(false);
+                        break;
+                    case PERSONNAL:
 
-                    dataCombo.init();
-                    // FIXME: filter fix
-                    // dataCombo.setEditable(true);
-                    rdbtnPersonnal.setSelected(true);
-                    dataCombo.setEnabled(true);
-                    try {
-                        List<Person> cl = DBUtils.readAll(Person.class);
-                        for (Person c : cl) {
-                            dataCombo.addRow(new Object[]{c.getId(), c.getFirstName(), c.getLastName()});
+                        dataCombo.init();
+                        // FIXME: filter fix
+                        // dataCombo.setEditable(true);
+                        rdbtnPersonnal.setSelected(true);
+                        dataCombo.setEnabled(true);
+                        try {
+                            List<Person> cl = DBUtils.readAll(Person.class);
+                            for (Person c : cl) {
+                                dataCombo.addRow(new Object[]{c.getId(), c.getFirstName(), c.getLastName()});
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    // dataCombo.initArray();
-                } else {
-                    rdbtnLilam.setSelected(true);
-                    dataCombo.init();
-                    dataCombo.setEnabled(false);
+                        // dataCombo.initArray();
+                        break;
+                    default:
+                        rdbtnLilam.setSelected(true);
+                        dataCombo.init();
+                        dataCombo.setEnabled(false);
+                        break;
                 }
 
             }

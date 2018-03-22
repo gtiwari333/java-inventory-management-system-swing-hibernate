@@ -8,7 +8,7 @@ import java.util.Date;
 public class DateTimeUtils {
 
     public static boolean isEmpty(Date date) {
-        return date == null ? true : false;
+        return date == null;
     }
 
     public static String getCurrentTimeHMS() {

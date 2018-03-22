@@ -6,14 +6,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
+import javax.swing.*;
 
 import com.ca.db.model.LoginUser;
 import com.ca.db.service.LoginUserServiceImpl;
@@ -55,7 +48,7 @@ public class LoginPanel extends AbstractFunctionPanel {
                     jf.setBounds(panel.getBounds());
                     jf.getContentPane().add(panel);
                     jf.setVisible(true);
-                    jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -141,7 +134,7 @@ public class LoginPanel extends AbstractFunctionPanel {
         return fullPanel;
     }
 
-    protected void clearAll() {
+    protected final void clearAll() {
         UIUtils.clearAllFields(innerPanel);
 
     }
@@ -150,7 +143,7 @@ public class LoginPanel extends AbstractFunctionPanel {
         LoginUserServiceImpl lus;
         try {
             lus = new LoginUserServiceImpl();
-            LoginUser user = lus.getLoginUser(userName.getText().trim(), passWord.getText().trim());
+            LoginUser user = LoginUserServiceImpl.getLoginUser(userName.getText().trim(), passWord.getText().trim());
             if (user != null) {
                 AppFrame.loginSuccess();
             } else {
@@ -167,7 +160,7 @@ public class LoginPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public String getFunctionName() {
+    public final String getFunctionName() {
         return "Login";
     }
 
@@ -177,7 +170,7 @@ public class LoginPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void init() {
+    public final void init() {
         super.init();
         userName.requestFocus();
         isReadyToClose = true;

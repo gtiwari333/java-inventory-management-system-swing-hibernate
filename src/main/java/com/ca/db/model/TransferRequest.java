@@ -6,8 +6,8 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "NikasaRequest")
-public class NikasaRequest {
+@Table(name = "TransferRequest")
+public class TransferRequest {
     public static final int OFFICIAL = 2;
     public static final int PESONNAL = 1;
 
@@ -29,8 +29,8 @@ public class NikasaRequest {
     @Column(name = "lastmodifieddate")
     private Date lastModifiedDate;
 
-    @Index(name = "nikasatype")
-    private int nikasaType;
+    @Index(name = "transfertype")
+    private int transferType;
 
     @Index(name = "person")
     @OneToOne(cascade = {javax.persistence.CascadeType.ALL})
@@ -53,99 +53,99 @@ public class NikasaRequest {
     @Index(name = "requestpananumber")
     private String requestPanaNumber;
 
-    public Date getLastModifiedDate() {
+    public final Date getLastModifiedDate() {
         return this.lastModifiedDate;
     }
 
-    public void setLastModifiedDate(Date lastModifiedDate) {
+    public final void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public int getdFlag() {
+    public final int getdFlag() {
         return this.dFlag;
     }
 
-    public void setdFlag(int dFlag) {
+    public final void setdFlag(int dFlag) {
         this.dFlag = dFlag;
     }
 
-    public int getId() {
+    public final int getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public final void setId(int id) {
         this.id = id;
     }
 
-    public BranchOffice getBranchOffice() {
+    public final BranchOffice getBranchOffice() {
         return this.branchOffice;
     }
 
-    public void setBranchOffice(BranchOffice branchOffice) {
+    public final void setBranchOffice(BranchOffice branchOffice) {
         this.branchOffice = branchOffice;
     }
 
-    public int getNikasaType() {
-        return this.nikasaType;
+    public final int getTransferType() {
+        return this.transferType;
     }
 
-    public void setNikasaType(int nikasaType) {
-        this.nikasaType = nikasaType;
+    public final void setTransferType(int transferType) {
+        this.transferType = transferType;
     }
 
-    public Item getItem() {
+    public final Item getItem() {
         return this.item;
     }
 
-    public void setItem(Item item) {
+    public final void setItem(Item item) {
         this.item = item;
     }
 
-    public int getQuantity() {
+    public final int getQuantity() {
         return this.quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public final void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public int getStatus() {
+    public final int getStatus() {
         return this.status;
     }
 
-    public void setStatus(int status) {
+    public final void setStatus(int status) {
         this.status = status;
     }
 
-    public Person getPerson() {
+    public final Person getPerson() {
         return this.person;
     }
 
-    public void setPerson(Person person) {
+    public final void setPerson(Person person) {
         this.person = person;
     }
 
-    public Date getRequestDate() {
+    public final Date getRequestDate() {
         return this.requestDate;
     }
 
-    public void setRequestDate(Date requestDate) {
+    public final void setRequestDate(Date requestDate) {
         this.requestDate = requestDate;
     }
 
-    public Specification getSpecification() {
+    public final Specification getSpecification() {
         return this.specification;
     }
 
-    public void setSpecification(Specification specification) {
+    public final void setSpecification(Specification specification) {
         this.specification = specification;
     }
 
-    public String getRequestPanaNumber() {
+    public final String getRequestPanaNumber() {
         return this.requestPanaNumber;
     }
 
-    public void setRequestPanaNumber(String requestPanaNumber) {
+    public final void setRequestPanaNumber(String requestPanaNumber) {
         this.requestPanaNumber = requestPanaNumber;
     }
 }

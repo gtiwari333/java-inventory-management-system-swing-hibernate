@@ -11,17 +11,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
 import com.ca.db.model.Category;
@@ -110,7 +100,7 @@ public class StockQueryPanel extends AbstractFunctionPanel {
                     jf.setBounds(panel.getBounds());
                     jf.getContentPane().add(panel);
                     jf.setVisible(true);
-                    jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -119,7 +109,7 @@ public class StockQueryPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void init() {
+    public final void init() {
         /* never forget to call super.init() */
         super.init();
         UIUtils.clearAllFields(upperPane);
@@ -199,7 +189,7 @@ public class StockQueryPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void enableDisableComponents() {
+    public final void enableDisableComponents() {
         switch (status) {
             case NONE:
                 // UIUtils.toggleAllChildren(buttonPanel, false);
@@ -371,7 +361,7 @@ public class StockQueryPanel extends AbstractFunctionPanel {
         return formPanel;
     }
 
-    protected void handleSearchQuery() {
+    protected final void handleSearchQuery() {
         readAndShowAll(true);
     }
 
@@ -385,7 +375,7 @@ public class StockQueryPanel extends AbstractFunctionPanel {
             } else {
                 specs = currentSpecificationPanel.getSpecificationsStringList();
             }
-            brsL = is.itemStockQuery(txtItemname.getText(), cmbCategory.getSelectedId(), cmbVendor.getSelectedId(), txtPanaNumber.getText().trim(), txtRacknumber.getText().trim(), txtKhataNumber.getText().trim(), txtDakhilanumber.getText().trim(),
+            brsL = ItemServiceImpl.itemStockQuery(txtItemname.getText(), cmbCategory.getSelectedId(), cmbVendor.getSelectedId(), txtPanaNumber.getText().trim(), txtRacknumber.getText().trim(), txtKhataNumber.getText().trim(), txtDakhilanumber.getText().trim(),
                     txtFromDate.getDate(), txtToDate.getDate(), specs);
 
             if (brsL == null || brsL.size() == 0) {
@@ -426,7 +416,7 @@ public class StockQueryPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public String getFunctionName() {
+    public final String getFunctionName() {
         return "Stock Query";
     }
 

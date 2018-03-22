@@ -35,7 +35,7 @@ public class GFile extends File {
 
         if (filename != null) {
 
-            if (System.getProperty("os.name").indexOf("Windows") > -1) {
+            if (System.getProperty("os.name").contains("Windows")) {
 
                 if (filename.indexOf("/") == 0) {
 
@@ -49,7 +49,7 @@ public class GFile extends File {
 
             } else {
 
-                if (filename.indexOf(":") > -1) {
+                if (filename.contains(":")) {
 
                     filename = "/" + filename.substring(filename.indexOf(":") - 1);
                     filename = StringUtils.replace(filename, ":", "");

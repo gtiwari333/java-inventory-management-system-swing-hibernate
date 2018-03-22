@@ -20,24 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.swing.AbstractAction;
-import javax.swing.AbstractCellEditor;
-import javax.swing.Action;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.KeyStroke;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableModel;
@@ -47,7 +30,7 @@ import com.ca.db.model.Item;
 import com.ca.db.model.Vendor;
 import com.ca.db.service.DBUtils;
 import com.ca.db.service.ItemServiceImpl;
-import com.ca.db.service.NikasaServiceImpl;
+import com.ca.db.service.TransferServiceImpl;
 import com.gt.common.constants.Status;
 import com.gt.common.utils.DateTimeUtils;
 import com.gt.common.utils.UIUtils;
@@ -63,7 +46,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.toedter.calendar.JDateChooser;
 
-public class ItemNikasaPanel extends AbstractFunctionPanel {
+public class ItemTransferPanel extends AbstractFunctionPanel {
     final int qtyCol = 6;
     String[] header = new String[]{"", "ID", "Pana Number", "Name", "Category", "Specification", "Parts Number", "Serial Number", "Rack Number",
             "Purchase date", "Added date", "Vendor", "Quantity", "Unit", "Rate"};
@@ -96,7 +79,7 @@ public class ItemNikasaPanel extends AbstractFunctionPanel {
     private JPanel panel_1;
     private JPanel cartPanel;
     private ItemReceiverPanel itemReceiverPanel;
-    private JDateChooser nikasaDateChooser;
+    private JDateChooser transferDateChooser;
     private JLabel lblSentDate;
     private JLabel lblReceiver;
     private JButton btnSend;
@@ -106,7 +89,7 @@ public class ItemNikasaPanel extends AbstractFunctionPanel {
     private JPanel panel_3;
     private JLabel lblNiksasaPanaNumber;
     private JLabel lblRequestNumber;
-    private JTextField txtNikasapananumber;
+    private JTextField txtTransferpananumber;
     private JTextField txtRequestnumber;
     private JButton btnReset;
     private JLabel lblKhataNumber;
@@ -118,7 +101,7 @@ public class ItemNikasaPanel extends AbstractFunctionPanel {
     private JLabel lblTo;
     private JDateChooser txtToDate;
 
-    public ItemNikasaPanel() {
+    public ItemTransferPanel() {
         /**
          * all gui components added from here;
          */
@@ -146,11 +129,11 @@ public class ItemNikasaPanel extends AbstractFunctionPanel {
             public void run() {
                 try {
                     JFrame jf = new JFrame();
-                    ItemNikasaPanel panel = new ItemNikasaPanel();
+                    ItemTransferPanel panel = new ItemTransferPanel();
                     jf.setBounds(panel.getBounds());
                     jf.getContentPane().add(panel);
                     jf.setVisible(true);
-                    jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -172,7 +155,7 @@ public class ItemNikasaPanel extends AbstractFunctionPanel {
             panel_1.setLayout(new BorderLayout(0, 0));
 
             cartPanel = new JPanel();
-            cartPanel.setBorder(new TitledBorder(null, "Nikasa Entry", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+            cartPanel.setBorder(new TitledBorder(null, "Transfer Entry", TitledBorder.LEADING, TitledBorder.TOP, null, null));
             panel_1.add(cartPanel, BorderLayout.CENTER);
             cartPanel.setLayout(new FormLayout(new ColumnSpec[]{FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC,
                     FormFactory.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(45dlu;default)"), FormFactory.RELATED_GAP_COLSPEC,
@@ -202,7 +185,7 @@ public class ItemNikasaPanel extends AbstractFunctionPanel {
                              * then
                              */
 
-                            int selectedId = (Integer) cartDataModel.getKeyAtRow(selRow);
+                            int selectedId = cartDataModel.getKeyAtRow(selRow);
                             System.out.println("Selected ID : " + selectedId + "_  >>  row " + selRow);
                             if (cartDataModel.containsKey(selectedId)) {
                                 removeSelectedRowInCartTable(selectedId, selRow);
@@ -223,7 +206,7 @@ public class ItemNikasaPanel extends AbstractFunctionPanel {
                              * then
                              */
 
-                            int selectedId = (Integer) dataModel.getKeyAtRow(selRow);
+                            int selectedId = dataModel.getKeyAtRow(selRow);
 
                             if (!cartDataModel.containsKey(selectedId)) {
                                 addSelectedRowInCartTable(selectedId);
@@ -246,9 +229,9 @@ public class ItemNikasaPanel extends AbstractFunctionPanel {
             lblSentDate = new JLabel("Date");
             cartPanel.add(lblSentDate, "10, 4, default, bottom");
 
-            nikasaDateChooser = new JDateChooser();
-            nikasaDateChooser.setDate(new Date());
-            cartPanel.add(nikasaDateChooser, "14, 4, fill, bottom");
+            transferDateChooser = new JDateChooser();
+            transferDateChooser.setDate(new Date());
+            cartPanel.add(transferDateChooser, "14, 4, fill, bottom");
 
             btnSend = new JButton("Send");
             btnSend.addActionListener(new ActionListener() {
@@ -263,7 +246,7 @@ public class ItemNikasaPanel extends AbstractFunctionPanel {
 
                         @Override
                         protected Void doInBackground() throws Exception {
-                            if (DataEntryUtils.confirmDBSave()) saveNikasa();
+                            if (DataEntryUtils.confirmDBSave()) saveTransfer();
                             return null;
                         }
 
@@ -288,9 +271,9 @@ public class ItemNikasaPanel extends AbstractFunctionPanel {
             lblNiksasaPanaNumber = new JLabel("Niksasa Pana Number");
             cartPanel.add(lblNiksasaPanaNumber, "4, 6, left, default");
 
-            txtNikasapananumber = new JTextField();
-            cartPanel.add(txtNikasapananumber, "6, 6, fill, default");
-            txtNikasapananumber.setColumns(10);
+            txtTransferpananumber = new JTextField();
+            cartPanel.add(txtTransferpananumber, "6, 6, fill, default");
+            txtTransferpananumber.setColumns(10);
 
             lblRequestNumber = new JLabel("Request Number");
             cartPanel.add(lblRequestNumber, "4, 8, left, default");
@@ -303,19 +286,19 @@ public class ItemNikasaPanel extends AbstractFunctionPanel {
         return lowerPanel;
     }
 
-    private void saveNikasa() {
+    private void saveTransfer() {
         try {
-            NikasaServiceImpl ns = new NikasaServiceImpl();
-            ns.saveNikasa(cartTable.getIdAndQuantityMap(), nikasaDateChooser.getDate(), itemReceiverPanel.getCurrentType(),
+            TransferServiceImpl ns = new TransferServiceImpl();
+            TransferServiceImpl.saveTransfer(cartTable.getIdAndQuantityMap(), transferDateChooser.getDate(), itemReceiverPanel.getCurrentType(),
                     itemReceiverPanel.getSelectedId(), txtPanaNumber.getText().trim(), txtRequestnumber.getText().trim());
 
-            handleNikasaSuccess();
+            handleTransferSuccess();
         } catch (Exception er) {
             handleDBError(er);
         }
     }
 
-    protected void removeSelectedRowInCartTable(int selectedId, int selRow) {
+    protected final void removeSelectedRowInCartTable(int selectedId, int selRow) {
         cartDataModel.removeRowWithKey(selectedId);
         cartDataModel.fireTableDataChanged();
         // TODO:
@@ -324,7 +307,7 @@ public class ItemNikasaPanel extends AbstractFunctionPanel {
         // cartTable.adjustColumns();
     }
 
-    protected void handleNikasaSuccess() {
+    protected final void handleTransferSuccess() {
         SwingUtilities.invokeLater(new Runnable() {
 
             public void run() {
@@ -342,7 +325,7 @@ public class ItemNikasaPanel extends AbstractFunctionPanel {
 
     }
 
-    protected void addSelectedRowInCartTable(int selectedId) {
+    protected final void addSelectedRowInCartTable(int selectedId) {
         try {
             Item bo = (Item) DBUtils.getById(Item.class, selectedId);
             System.out.println("Adding to cart id = " + selectedId + ">>" + bo.getQuantity() + " >> org " + bo.getOriginalQuantity());
@@ -363,7 +346,7 @@ public class ItemNikasaPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void init() {
+    public final void init() {
         /* never forget to call super.init() */
         super.init();
         UIUtils.clearAllFields(upperPane);
@@ -410,7 +393,7 @@ public class ItemNikasaPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void enableDisableComponents() {
+    public final void enableDisableComponents() {
         switch (status) {
             case NONE:
                 // UIUtils.toggleAllChildren(buttonPanel, false);
@@ -439,7 +422,7 @@ public class ItemNikasaPanel extends AbstractFunctionPanel {
     }
 
     private boolean isValidCart() {
-        if (cartTable.isValidCartQty() && cartTable.getRowCount() > 0 && itemReceiverPanel.isSelected() && nikasaDateChooser.getDate() != null) {
+        if (cartTable.isValidCartQty() && cartTable.getRowCount() > 0 && itemReceiverPanel.isSelected() && transferDateChooser.getDate() != null) {
             return true;
         }
         return false;
@@ -553,7 +536,7 @@ public class ItemNikasaPanel extends AbstractFunctionPanel {
         return formPanel;
     }
 
-    protected void handleSearchQuery() {
+    protected final void handleSearchQuery() {
         readAndShowAll(true);
     }
 
@@ -567,7 +550,7 @@ public class ItemNikasaPanel extends AbstractFunctionPanel {
             } else {
                 specs = currentSpecificationPanel.getSpecificationsStringList();
             }
-            brsL = is.itemStockQuery(txtItemname.getText().trim(), cmbCategory.getSelectedId(), cmbVendor.getSelectedId(), txtPanaNumber.getText()
+            brsL = ItemServiceImpl.itemStockQuery(txtItemname.getText().trim(), cmbCategory.getSelectedId(), cmbVendor.getSelectedId(), txtPanaNumber.getText()
                             .trim(), null, txtKhatanumber.getText().trim(), txtDakhilanumber.getText().trim(), txtFromDate.getDate(), txtToDate.getDate(),
                     specs);
 
@@ -606,8 +589,8 @@ public class ItemNikasaPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public String getFunctionName() {
-        return "Item Nikasa Entry";
+    public final String getFunctionName() {
+        return "Item Transfer Entry";
     }
 
     private JPanel getUpperSplitPane() {
@@ -686,7 +669,7 @@ public class ItemNikasaPanel extends AbstractFunctionPanel {
          * javax.swing.table.TableCellEditor#getTableCellEditorComponent(javax
          * .swing.JTable, java.lang.Object, boolean, int, int)
          */
-        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int rowIndex, int vColIndex) {
+        public final Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int rowIndex, int vColIndex) {
 
             if (isSelected) {
             }
@@ -702,7 +685,7 @@ public class ItemNikasaPanel extends AbstractFunctionPanel {
          * This method is called when editing is completed.<br>
          * It must return the new value to be stored in the cell.
          */
-        public Object getCellEditorValue() {
+        public final Object getCellEditorValue() {
             Integer retQty = 0;
             try {
                 retQty = Integer.parseInt(((JTextField) component).getText());
@@ -726,8 +709,8 @@ public class ItemNikasaPanel extends AbstractFunctionPanel {
             super(dm);
         }
 
-        public boolean isCellEditable(int row, int column) {
-            return (column == qtyCol) ? true : false;
+        public final boolean isCellEditable(int row, int column) {
+            return column == qtyCol;
         }
 
         /**
@@ -736,7 +719,7 @@ public class ItemNikasaPanel extends AbstractFunctionPanel {
          *
          * @return
          */
-        public boolean isValidCartQty() {
+        public final boolean isValidCartQty() {
             Map<Integer, Integer> cartMap = cartTable.getIdAndQuantityMap();
             for (Entry<Integer, Integer> entry : cartMap.entrySet()) {
                 int qty = entry.getValue();
@@ -749,7 +732,7 @@ public class ItemNikasaPanel extends AbstractFunctionPanel {
 
         }
 
-        public Map<Integer, Integer> getIdAndQuantityMap() {
+        public final Map<Integer, Integer> getIdAndQuantityMap() {
             Map<Integer, Integer> cartIdQtyMap = new HashMap<Integer, Integer>();
             int rows = getRowCount();
             for (int i = 0; i < rows; i++) {
@@ -766,7 +749,7 @@ public class ItemNikasaPanel extends AbstractFunctionPanel {
         }
 
         // Determine editor to be used by row
-        public TableCellEditor getCellEditor(int row, int column) {
+        public final TableCellEditor getCellEditor(int row, int column) {
             if (column == qtyCol) {
                 return (TableCellEditor) cellEditors.get(row);
             } else

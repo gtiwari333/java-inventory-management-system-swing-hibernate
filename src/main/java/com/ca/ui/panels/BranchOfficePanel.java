@@ -6,16 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -87,7 +78,7 @@ public class BranchOfficePanel extends AbstractFunctionPanel {
                     jf.setBounds(panel.getBounds());
                     jf.getContentPane().add(panel);
                     jf.setVisible(true);
-                    jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -96,7 +87,7 @@ public class BranchOfficePanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void init() {
+    public final void init() {
         /* never forget to call super.init() */
         super.init();
         UIUtils.clearAllFields(upperPane);
@@ -177,7 +168,7 @@ public class BranchOfficePanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void enableDisableComponents() {
+    public final void enableDisableComponents() {
         switch (status) {
             case NONE:
                 UIUtils.toggleAllChildren(buttonPanel, false);
@@ -218,7 +209,7 @@ public class BranchOfficePanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void handleSaveAction() {
+    public final void handleSaveAction() {
         switch (status) {
             case CREATE:
                 // create new
@@ -385,7 +376,7 @@ public class BranchOfficePanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public String getFunctionName() {
+    public final String getFunctionName() {
         return "Branch-Office Information";
     }
 
@@ -427,7 +418,7 @@ public class BranchOfficePanel extends AbstractFunctionPanel {
         return lowerPane;
     }
 
-    protected void populateSelectedRowInForm(int selectedId) {
+    protected final void populateSelectedRowInForm(int selectedId) {
         try {
             BranchOffice bro = (BranchOffice) DBUtils.getById(BranchOffice.class, selectedId);
             if (bro != null) {

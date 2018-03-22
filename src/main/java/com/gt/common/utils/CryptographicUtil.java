@@ -123,7 +123,7 @@ public class CryptographicUtil {
      * @param str the str
      * @return the string
      */
-    public String encrypt(String str) {
+    public final String encrypt(String str) {
 
         byte[] utf8;
 
@@ -151,7 +151,7 @@ public class CryptographicUtil {
      * @param str the str
      * @return the string
      */
-    public String decrypt(String str) {
+    public final String decrypt(String str) {
 
         byte[] dec;
         byte[] utf8;
@@ -177,7 +177,7 @@ public class CryptographicUtil {
      *
      * @return the key
      */
-    public String getKey() {
+    public final String getKey() {
         return key;
     }
 
@@ -186,7 +186,7 @@ public class CryptographicUtil {
      *
      * @param key the new key
      */
-    public void setKey(String key) {
+    public final void setKey(String key) {
         this.key = key;
     }
 

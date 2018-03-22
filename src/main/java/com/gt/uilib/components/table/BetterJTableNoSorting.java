@@ -25,11 +25,11 @@ public class BetterJTableNoSorting extends JTable {
     }
 
     @Override
-    public Class<?> getColumnClass(int column) {
+    public final Class<?> getColumnClass(int column) {
         return (column == 0 || column == 1) ? Integer.class : Object.class;
     }
 
-    public String getToolTipText(MouseEvent e) {
+    public final String getToolTipText(MouseEvent e) {
         int row = rowAtPoint(e.getPoint());
         int column = columnAtPoint(e.getPoint());
         try {
@@ -49,7 +49,7 @@ public class BetterJTableNoSorting extends JTable {
     }
 
     @Override
-    public Component prepareRenderer(TableCellRenderer tcr, int row, int column) {
+    public final Component prepareRenderer(TableCellRenderer tcr, int row, int column) {
         Component c = super.prepareRenderer(tcr, row, column);
         if (isRowSelected(row)) {
             c.setForeground(getSelectionForeground());

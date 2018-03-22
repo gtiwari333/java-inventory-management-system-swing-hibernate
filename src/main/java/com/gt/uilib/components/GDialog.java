@@ -17,7 +17,7 @@ public class GDialog extends JDialog {
         super(owner, title, modal);
     }
 
-    public void setAbstractFunctionPanel(AbstractFunctionPanel abstractFunctionPanel, Dimension dm) {
+    public final void setAbstractFunctionPanel(AbstractFunctionPanel abstractFunctionPanel, Dimension dm) {
         this.funcPane = abstractFunctionPanel;
 
         add(funcPane);

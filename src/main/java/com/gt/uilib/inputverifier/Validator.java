@@ -75,7 +75,7 @@ public class Validator {
      * @param isRequired is it required input field
      * @param showPopup  currenlty not used
      */
-    public synchronized void addTask(JComponent comp, String message, String regex, boolean isRequired, boolean showPopup) {
+    public final synchronized void addTask(JComponent comp, String message, String regex, boolean isRequired, boolean showPopup) {
         addTask(new Task(comp, message, regex, isRequired, showPopup));
 
     }
@@ -87,7 +87,7 @@ public class Validator {
      * @param message error message to display in popup (currently not supported)
      * @param regex   RegexUtils.XXXXX type of input to validate
      */
-    public void addTask(JComponent comp, String message, String regex) {
+    public final void addTask(JComponent comp, String message, String regex) {
         addTask(new Task(comp, message, regex));
     }
 
@@ -99,18 +99,18 @@ public class Validator {
      * @param regex      RegexUtils.XXXXX type of input to validate
      * @param isRequired is it required input field
      */
-    public void addTask(JComponent comp, String message, String regex, boolean isRequired) {
+    public final void addTask(JComponent comp, String message, String regex, boolean isRequired) {
         addTask(new Task(comp, message, regex, isRequired));
     }
 
-    public void resetErrors() {
+    public final void resetErrors() {
         for (Validator.Task task : tasks) {
             task.hideErrorInfo();
         }
         tasks.clear();
     }
 
-    public boolean validate() {
+    public final boolean validate() {
 
         int errorCount = 0;
         int firstErrorCount = 0;
@@ -137,7 +137,7 @@ public class Validator {
         return (errorCount == 0);
     }
 
-    protected boolean validationCriteria(Task task) {
+    protected final boolean validationCriteria(Task task) {
 
         JComponent jc = task.comp;
 
@@ -249,7 +249,7 @@ public class Validator {
 
         }
 
-        public void showWarning() {
+        public final void showWarning() {
             JDialog d = this.createDialog(parent, "Error");
             d.setVisible(true);
         }

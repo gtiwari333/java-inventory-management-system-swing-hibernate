@@ -76,7 +76,7 @@ public class Logger {
         String className = traceLine.getClassName();
         String methodName = traceLine.getMethodName();
         int lineNumber = traceLine.getLineNumber();
-        StringBuffer sb = new StringBuffer(120);
+        StringBuilder sb = new StringBuilder(120);
         sb.append("[").append(type).append("]");
         sb.append("\t").append(DateTimeUtils.getCurrentTimeHMS());
         sb.append("\t").append(className).append("\t").append(methodName);

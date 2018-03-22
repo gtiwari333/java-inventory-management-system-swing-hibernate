@@ -126,7 +126,7 @@ public class AppFrame extends JFrame {
              */
             JMenu entryMenu = new JMenu("Entry");
             entryMenu.add(ActionMenuItem.create("New Item Entry", "sitementry", "com.ca.ui.panels.ItemEntryPanel"));
-            entryMenu.add(ActionMenuItem.create("Item Nikasha", "sitemnikasha", "com.ca.ui.panels.ItemNikasaPanel"));
+            entryMenu.add(ActionMenuItem.create("Item Nikasha", "sitemnikasha", "com.ca.ui.panels.ItemTransferPanel"));
             entryMenu.add(ActionMenuItem.create("Item Return", "sitemnikasha", "com.ca.ui.panels.ItemReturnPanel"));
             entryMenu.add(new JSeparator());
             JMenu initRecordMenuSub = new JMenu("Initial Records");
@@ -144,7 +144,7 @@ public class AppFrame extends JFrame {
              */
             JMenu searchMnu = new JMenu("Search");
             searchMnu.add(ActionMenuItem.create("Stock Search", "sfind", "com.ca.ui.panels.StockQueryPanel"));
-            searchMnu.add(ActionMenuItem.create("Nikasa Search", "sfind", "com.ca.ui.panels.NikasaQueryPanel"));
+            searchMnu.add(ActionMenuItem.create("Transfer Search", "sfind", "com.ca.ui.panels.TransferQueryPanel"));
             searchMnu.add(ActionMenuItem.create("Item Return Search", "sfind", "com.ca.ui.panels.ReturnQueryPanel"));
             menuBar.add(searchMnu);
 
@@ -229,7 +229,7 @@ public class AppFrame extends JFrame {
         return statusPanel;
     }
 
-    public JLabel getStatusLbl() {
+    public final JLabel getStatusLbl() {
         if (statusLbl == null) {
             statusLbl = new JLabel("-(:::)-");
         }
@@ -237,7 +237,7 @@ public class AppFrame extends JFrame {
 
     }
 
-    private JPanel getBodyPanel() {
+    private static JPanel getBodyPanel() {
         bodyPanel = new JPanel();
         bodyPanel.setLayout(new BorderLayout());
         bodyPanel.add(new JLabel("Hello"));
@@ -258,7 +258,7 @@ public class AppFrame extends JFrame {
         }
     }
 
-    protected AbstractFunctionPanel getFunctionPanelInstance(String className) {
+    protected static final AbstractFunctionPanel getFunctionPanelInstance(String className) {
         AbstractFunctionPanel object = null;
         try {
             object = (AbstractFunctionPanel) Class.forName(className).newInstance();
@@ -297,7 +297,7 @@ public class AppFrame extends JFrame {
             buttons.add(ActionButton.create("HOME", "home", "com.ca.ui.panels.HomeScreenPanel"));
             buttons.add(ActionButton.create("Stock Query", "find", "com.ca.ui.panels.StockQueryPanel"));
             buttons.add(ActionButton.create("Item Entry", "itementry", "com.ca.ui.panels.ItemEntryPanel"));
-            buttons.add(ActionButton.create("Nikasa", "itemnikasa", "com.ca.ui.panels.ItemNikasaPanel"));
+            buttons.add(ActionButton.create("Transfer", "itemtransfer", "com.ca.ui.panels.ItemTransferPanel"));
             buttons.add(ActionButton.create("Item Return", "return", "com.ca.ui.panels.ItemReturnPanel"));
             buttons.add(ActionButton.create("Return Query", "returnquerya", "com.ca.ui.panels.ReturnQueryPanel"));
             buttons.add(ActionButton.create("Ledger View", "stock", "com.ca.ui.report.LedgerReportPanel"));
@@ -321,12 +321,12 @@ public class AppFrame extends JFrame {
         return toolBarPanel;
     }
 
-    public void showDBConnectionErrorMessage(Exception e) {
+    public static final void showDBConnectionErrorMessage(Exception e) {
         JOptionPane.showMessageDialog(null, "Could not start DB Connection " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         Logger.L(Logger.E, "DB connection failed" + e.getMessage());
     }
 
-    public void handleLogOut() {
+    public final void handleLogOut() {
         setWindow(AppFrame.loginPanel);
         isLoggedIn = false;
 

@@ -8,27 +8,15 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import com.ca.db.model.Category;
-import com.ca.db.model.Nikasa;
+import com.ca.db.model.Transfer;
 import com.ca.db.service.DBUtils;
-import com.ca.db.service.NikasaServiceImpl;
+import com.ca.db.service.TransferServiceImpl;
 import com.gt.common.constants.Status;
 import com.gt.common.utils.DateTimeUtils;
 import com.gt.common.utils.ExcelUtils;
@@ -45,9 +33,9 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.toedter.calendar.JDateChooser;
 
-public class NikasaQueryPanel extends AbstractFunctionPanel {
-    String[] header = new String[]{"S.N.", "ID", "Name", "Category", "Specification", "Nikasa Date", "Niksa Type", "Sent To", "Nikasa Pana Num",
-            "Request Number", "Nikasa Quantity", "Remaining Quantity to Return", "Units"};
+public class TransferQueryPanel extends AbstractFunctionPanel {
+    String[] header = new String[]{"S.N.", "ID", "Name", "Category", "Specification", "Transfer Date", "Transfer Type", "Sent To", "Transfer Book Num",
+            "Request Number", "Transfer Quantity", "Remaining Quantity to Return", "Units"};
     JPanel formPanel = null;
     JPanel buttonPanel;
     Validator v;
@@ -89,7 +77,7 @@ public class NikasaQueryPanel extends AbstractFunctionPanel {
     private JButton btnEditcorrect;
     private int editingPrimaryId = -1;
 
-    public NikasaQueryPanel() {
+    public TransferQueryPanel() {
         /**
          * all gui components added from here;
          */
@@ -116,11 +104,11 @@ public class NikasaQueryPanel extends AbstractFunctionPanel {
             public void run() {
                 try {
                     JFrame jf = new JFrame();
-                    NikasaQueryPanel panel = new NikasaQueryPanel();
+                    TransferQueryPanel panel = new TransferQueryPanel();
                     jf.setBounds(panel.getBounds());
                     jf.getContentPane().add(panel);
                     jf.setVisible(true);
-                    jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -129,7 +117,7 @@ public class NikasaQueryPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void init() {
+    public final void init() {
         /* never forget to call super.init() */
         super.init();
         UIUtils.clearAllFields(upperPane);
@@ -187,7 +175,7 @@ public class NikasaQueryPanel extends AbstractFunctionPanel {
                 public void actionPerformed(ActionEvent e) {
                     JFileChooser jf = new JFileChooser();
                     jf.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                    jf.showDialog(NikasaQueryPanel.this, "Select Save location");
+                    jf.showDialog(TransferQueryPanel.this, "Select Save location");
                     String fileName = jf.getSelectedFile().getAbsolutePath();
                     try {
                         ExcelUtils.writeExcelFromJTable(table, fileName + ".xls");
@@ -215,12 +203,12 @@ public class NikasaQueryPanel extends AbstractFunctionPanel {
         return buttonPanel;
     }
 
-    protected void editCorrectHandle() {
+    protected final void editCorrectHandle() {
 
         if (editingPrimaryId > 0) {
 
-            GDialog cd = new GDialog(mainApp, "View Edit Delete - Nikasa Information", true);
-            CorrectionNikasaPanel vp = new CorrectionNikasaPanel(editingPrimaryId);
+            GDialog cd = new GDialog(mainApp, "View Edit Delete - Transfer Information", true);
+            CorrectionTransferPanel vp = new CorrectionTransferPanel(editingPrimaryId);
             cd.setAbstractFunctionPanel(vp, new Dimension(400, 370));
             cd.setResizable(false);
             init();
@@ -241,7 +229,7 @@ public class NikasaQueryPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public void enableDisableComponents() {
+    public final void enableDisableComponents() {
         switch (status) {
             case NONE:
                 // UIUtils.toggleAllChildren(buttonPanel, false);
@@ -284,7 +272,7 @@ public class NikasaQueryPanel extends AbstractFunctionPanel {
         if (formPanel == null) {
             formPanel = new JPanel();
 
-            formPanel.setBorder(new TitledBorder(null, "Nikasa Search", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+            formPanel.setBorder(new TitledBorder(null, "Transfer Search", TitledBorder.LEADING, TitledBorder.TOP, null, null));
             formPanel.setBounds(10, 49, 474, 135);
             formPanel.setLayout(new FormLayout(new ColumnSpec[]{FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC,
                     FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC, FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC,
@@ -309,7 +297,7 @@ public class NikasaQueryPanel extends AbstractFunctionPanel {
             // formPanel.add(specPanelHolder, "4, 6, 15, 1, fill, fill");
             // specPanelHolder.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 
-            lblPanaNumber = new JLabel("Nikasa Number");
+            lblPanaNumber = new JLabel("Transfer Number");
             formPanel.add(lblPanaNumber, "12, 2");
 
             txtPanaNumber = new JTextField();
@@ -423,30 +411,30 @@ public class NikasaQueryPanel extends AbstractFunctionPanel {
         return formPanel;
     }
 
-    protected void handleSearchQuery() {
+    protected final void handleSearchQuery() {
         readAndShowAll(true);
     }
 
     private void readAndShowAll(boolean showSize0Error) {
         try {
-            NikasaServiceImpl is = new NikasaServiceImpl();
-            List<Nikasa> brsL;
+            TransferServiceImpl is = new TransferServiceImpl();
+            List<Transfer> brsL;
             // FIXME : pananumber vs - request number ??
             int returnStatus = -1;
             if (rdbtnNotReturned.isSelected()) {
-                returnStatus = Nikasa.STATUS_NOT_RETURNED;
+                returnStatus = Transfer.STATUS_NOT_RETURNED;
             } else if (rdbtnReturned.isSelected()) {
-                returnStatus = Nikasa.STATUS_RETURNED_ALL;
+                returnStatus = Transfer.STATUS_RETURNED_ALL;
             }
 
             int hastantaranStatus = -1;
             if (rdbtnHastanNotReceived.isSelected()) {
-                hastantaranStatus = Nikasa.HASTANTARAN_NOT_RECEIVED;
+                hastantaranStatus = Transfer.HASTANTARAN_NOT_RECEIVED;
             } else if (rdbtnHastantaranreceived.isSelected()) {
-                hastantaranStatus = Nikasa.HASTANTARAN_RECEIVED;
+                hastantaranStatus = Transfer.HASTANTARAN_RECEIVED;
             }
 
-            brsL = is.allNikasaItemQuery(txtItemname.getText(), cmbCategory.getSelectedId(), itemReceiverPanel.getCurrentReceiverConstant(),
+            brsL = TransferServiceImpl.allTransferItemQuery(txtItemname.getText(), cmbCategory.getSelectedId(), itemReceiverPanel.getCurrentReceiverConstant(),
                     itemReceiverPanel.getSelectedId(), returnStatus, hastantaranStatus, txtPanaNumber.getText().trim(), "", txtFromDate.getDate(),
                     txtToDate.getDate());
 
@@ -474,30 +462,34 @@ public class NikasaQueryPanel extends AbstractFunctionPanel {
         }
     }
 
-    private void showListInGrid(List<Nikasa> brsL) {
+    private void showListInGrid(List<Transfer> brsL) {
         dataModel.resetModel();
         int sn = 0;
         editingPrimaryId = -1;
-        String nikasaTYpe = "";
+        String transferTYpe = "";
         String sentTo = "";
-        for (Nikasa bo : brsL) {
-            nikasaTYpe = "";
+        for (Transfer bo : brsL) {
+            transferTYpe = "";
             sentTo = "";
 
-            if (bo.getNikasaType() == Nikasa.OFFICIAL) {
-                nikasaTYpe = "Official";
-                sentTo = bo.getBranchOffice().getName() + "  " + bo.getBranchOffice().getAddress();
-            } else if (bo.getNikasaType() == Nikasa.PERSONNAL) {
-                nikasaTYpe = "Personnal";
-                sentTo = bo.getPerson().getFirstName() + "  " + bo.getPerson().getLastName();
-            } else if (bo.getNikasaType() == Nikasa.LILAM) {
-                nikasaTYpe = "Lilam";
-                sentTo = "Lilam";
+            switch (bo.getTransferType()) {
+                case Transfer.OFFICIAL:
+                    transferTYpe = "Official";
+                    sentTo = bo.getBranchOffice().getName() + "  " + bo.getBranchOffice().getAddress();
+                    break;
+                case Transfer.PERSONNAL:
+                    transferTYpe = "Personnal";
+                    sentTo = bo.getPerson().getFirstName() + "  " + bo.getPerson().getLastName();
+                    break;
+                case Transfer.LILAM:
+                    transferTYpe = "Lilam";
+                    sentTo = "Lilam";
+                    break;
             }
             // TODO: add person/office name, specs in column
             dataModel.addRow(new Object[]{++sn, bo.getId(), bo.getItem().getName(), bo.getItem().getCategory().getCategoryName(),
-                    bo.getItem().getSpeciifcationString(), DateTimeUtils.getCvDateMMMddyyyy(bo.getNikasaDate()), nikasaTYpe, sentTo,
-                    bo.getNikasaPanaNumber(), bo.getNikasaRequestNumber(), bo.getQuantity(), bo.getRemainingQtyToReturn(),
+                    bo.getItem().getSpeciifcationString(), DateTimeUtils.getCvDateMMMddyyyy(bo.getTransferDate()), transferTYpe, sentTo,
+                    bo.getTransferPanaNumber(), bo.getTransferRequestNumber(), bo.getQuantity(), bo.getRemainingQtyToReturn(),
                     bo.getItem().getUnitsString().getValue()});
         }
         table.setModel(dataModel);
@@ -506,8 +498,8 @@ public class NikasaQueryPanel extends AbstractFunctionPanel {
     }
 
     @Override
-    public String getFunctionName() {
-        return "Nikasa Information Query";
+    public final String getFunctionName() {
+        return "Transfer Information Query";
     }
 
     private JPanel getUpperSplitPane() {
