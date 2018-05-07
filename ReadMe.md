@@ -16,9 +16,9 @@
 
 ##### Configuration and Data
 - Use 'Entry' -> 'Initial Records' menu to enter configuration such as  product category, vendor, measurement unit, branch office etc
-- Start with "Item Entry" tab to enter inventory items and do Stock Query, Transfer(to branch office), Returns, Leger etc
+- Start with "Item Entry" tab to enter inventory items and do Stock Query, Transfer or Sell, Handle Returns of Items, View Leger etc
 
-## You can use this project as a template to build out your projects!
+## You can use this project as a template to build out your projects! I believe the code is simple enough to understand the overall flow and add/modify modules.
 
 ### For any queries :
 - Email : gtiwari333@gmail.com
