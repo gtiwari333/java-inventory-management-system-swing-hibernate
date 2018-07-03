@@ -1,4 +1,4 @@
-## Inventory Management System - desktop based 
+## Inventory Management System - desktop based - thgis should got o main project 
 
 ##### Note:I wrote this as a test project to practice DBMS/Java/Hibernate/Swing during my early days of programming (2011-2012). 
 
