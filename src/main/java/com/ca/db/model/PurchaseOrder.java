@@ -1,7 +1,5 @@
 package com.ca.db.model;
 
-import org.hibernate.annotations.Index;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -20,11 +18,9 @@ public class PurchaseOrder {
     @Column(name = "dflag")
     private int dFlag;
 
-    @Index(name = "specification")
     @OneToOne(cascade = {javax.persistence.CascadeType.ALL})
     private Specification specification;
 
-    @Index(name = "category")
     @OneToOne(cascade = {javax.persistence.CascadeType.ALL})
     private Category category;
 
@@ -34,7 +30,6 @@ public class PurchaseOrder {
     @Column(name = "quantity")
     private int quantity;
 
-    @Index(name = "status")
     private int status;
 
     @Column(name = "orderdate")
@@ -43,83 +38,83 @@ public class PurchaseOrder {
     @Column(name = "addeddate")
     private Date addedDate;
 
-    public final int getdFlag() {
+    public int getdFlag() {
         return this.dFlag;
     }
 
-    public final void setdFlag(int dFlag) {
+    public void setdFlag(int dFlag) {
         this.dFlag = dFlag;
     }
 
-    public final Specification getSpecification() {
+    public Specification getSpecification() {
         return this.specification;
     }
 
-    public final void setSpecification(Specification specification) {
+    public void setSpecification(Specification specification) {
         this.specification = specification;
     }
 
-    public final Category getCategory() {
+    public Category getCategory() {
         return this.category;
     }
 
-    public final void setCategory(Category category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
-    public final String getPartsNumber() {
+    public String getPartsNumber() {
         return this.partsNumber;
     }
 
-    public final void setPartsNumber(String partsNumber) {
+    public void setPartsNumber(String partsNumber) {
         this.partsNumber = partsNumber;
     }
 
-    public final int getQuantity() {
+    public int getQuantity() {
         return this.quantity;
     }
 
-    public final void setQuantity(int quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public final int getStatus() {
+    public int getStatus() {
         return this.status;
     }
 
-    public final void setStatus(int status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
-    public final Date getOrderDate() {
+    public Date getOrderDate() {
         return this.orderDate;
     }
 
-    public final void setOrderDate(Date orderDate) {
+    public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
     }
 
-    public final Date getAddedDate() {
+    public Date getAddedDate() {
         return this.addedDate;
     }
 
-    public final void setAddedDate(Date addedDate) {
+    public void setAddedDate(Date addedDate) {
         this.addedDate = addedDate;
     }
 
-    public final int getId() {
+    public int getId() {
         return this.id;
     }
 
-    public final void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public final Date getLastModifiedDate() {
+    public Date getLastModifiedDate() {
         return this.lastModifiedDate;
     }
 
-    public final void setLastModifiedDate(Date lastModifiedDate) {
+    public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 }

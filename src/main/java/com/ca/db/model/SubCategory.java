@@ -1,7 +1,5 @@
 package com.ca.db.model;
 
-import org.hibernate.annotations.Index;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -16,11 +14,9 @@ public class SubCategory {
     @Column(name = "id")
     private int id;
 
-    @Index(name = "categoryid")
     private int categoryId;
 
     @Column(name = "subcategoryname")
-    @Index(name = "subcategoryname")
     private String subCategoryName;
 
     @Column(name = "subcategorytype")
@@ -35,59 +31,59 @@ public class SubCategory {
     @OneToOne(cascade = {javax.persistence.CascadeType.ALL})
     private CategorySpecifications categorySpecifications;
 
-    public final int getCategoryId() {
+    public int getCategoryId() {
         return this.categoryId;
     }
 
-    public final void setCategoryId(int categoryId) {
+    public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
 
-    public final Date getLastModifiedDate() {
+    public Date getLastModifiedDate() {
         return this.lastModifiedDate;
     }
 
-    public final void setLastModifiedDate(Date lastModifiedDate) {
+    public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public final int getdFlag() {
+    public int getdFlag() {
         return this.dFlag;
     }
 
-    public final void setdFlag(int dFlag) {
+    public void setdFlag(int dFlag) {
         this.dFlag = dFlag;
     }
 
-    public final int getId() {
+    public int getId() {
         return this.id;
     }
 
-    public final void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public final String getSubCategoryName() {
+    public String getSubCategoryName() {
         return this.subCategoryName;
     }
 
-    public final void setSubCategoryName(String subCategoryName) {
+    public void setSubCategoryName(String subCategoryName) {
         this.subCategoryName = subCategoryName;
     }
 
-    public final int getSubCategoryType() {
+    public int getSubCategoryType() {
         return this.subCategoryType;
     }
 
-    public final void setSubCategoryType(int subCategoryType) {
+    public void setSubCategoryType(int subCategoryType) {
         this.subCategoryType = subCategoryType;
     }
 
-    public final CategorySpecifications getCategorySpecifications() {
+    public CategorySpecifications getCategorySpecifications() {
         return this.categorySpecifications;
     }
 
-    public final void setCategorySpecifications(CategorySpecifications categorySpecifications) {
+    public void setCategorySpecifications(CategorySpecifications categorySpecifications) {
         this.categorySpecifications = categorySpecifications;
     }
 }

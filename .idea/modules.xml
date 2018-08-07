@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/inventory-management-system.iml" filepath="$PROJECT_DIR$/inventory-management-system.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/java-inventory-management-system-swing-hibernate-nepal.iml" filepath="$PROJECT_DIR$/.idea/java-inventory-management-system-swing-hibernate-nepal.iml" />
     </modules>
   </component>
 </project>

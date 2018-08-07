@@ -50,111 +50,111 @@ public class LoginUser {
     @Column(name = "zxtra5")
     private String zxtra5;
 
-    public final int getdFlag() {
+    public int getdFlag() {
         return this.dFlag;
     }
 
-    public final void setdFlag(int dFlag) {
+    public void setdFlag(int dFlag) {
         this.dFlag = dFlag;
     }
 
-    public final Date getLastModifiedDate() {
+    public Date getLastModifiedDate() {
         return this.lastModifiedDate;
     }
 
-    public final void setLastModifiedDate(Date lastModifiedDate) {
+    public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public final List<Role> getRoles() {
+    public List<Role> getRoles() {
         return this.roles;
     }
 
-    public final void setRoles(List<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
-    public final int getId() {
+    public int getId() {
         return this.id;
     }
 
-    public final void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public final String getUsername() {
+    public String getUsername() {
         return this.username;
     }
 
-    public final void setUsername(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
-    public final String getPassword() {
+    public String getPassword() {
         return this.password;
     }
 
-    public final void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public final int getInvalid_count() {
+    public int getInvalid_count() {
         return this.invalid_count;
     }
 
-    public final void setInvalid_count(int invalid_count) {
+    public void setInvalid_count(int invalid_count) {
         this.invalid_count = invalid_count;
     }
 
-    public final Date getLastLoginDate() {
+    public Date getLastLoginDate() {
         return this.lastLoginDate;
     }
 
-    public final void setLastLoginDate(Date lastLoginDate) {
+    public void setLastLoginDate(Date lastLoginDate) {
         this.lastLoginDate = lastLoginDate;
     }
 
-    public final String getZxtra1() {
+    public String getZxtra1() {
         return this.zxtra1;
     }
 
-    public final void setZxtra1(String zxtra1) {
+    public void setZxtra1(String zxtra1) {
         this.zxtra1 = zxtra1;
     }
 
-    public final String getZxtra2() {
+    public String getZxtra2() {
         return this.zxtra2;
     }
 
-    public final void setZxtra2(String zxtra2) {
+    public void setZxtra2(String zxtra2) {
         this.zxtra2 = zxtra2;
     }
 
-    public final String getZxtra3() {
+    public String getZxtra3() {
         return this.zxtra3;
     }
 
-    public final void setZxtra3(String zxtra3) {
+    public void setZxtra3(String zxtra3) {
         this.zxtra3 = zxtra3;
     }
 
-    public final String getZxtra4() {
+    public String getZxtra4() {
         return this.zxtra4;
     }
 
-    public final void setZxtra4(String zxtra4) {
+    public void setZxtra4(String zxtra4) {
         this.zxtra4 = zxtra4;
     }
 
-    public final String getZxtra5() {
+    public String getZxtra5() {
         return this.zxtra5;
     }
 
-    public final void setZxtra5(String zxtra5) {
+    public void setZxtra5(String zxtra5) {
         this.zxtra5 = zxtra5;
     }
 
-    public final int hashCode() {
+    public int hashCode() {
         int prime = 31;
         int result = 1;
         result = 31 * result + this.id;
@@ -162,7 +162,7 @@ public class LoginUser {
         return result;
     }
 
-    public final boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (this == obj)
             return true;
         if (obj == null)

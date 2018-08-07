@@ -1,7 +1,5 @@
 package com.ca.db.model;
 
-import org.hibernate.annotations.Index;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -29,89 +27,87 @@ public class ItemReturn {
     @Column(name = "returnnumber")
     private String returnNumber;
 
-    @Index(name = "transfer")
     @OneToOne(cascade = {javax.persistence.CascadeType.ALL})
     private Transfer transfer;
 
     @Column(name = "quantity")
     private int quantity;
 
-    @Index(name = "status")
     @Column(name = "status")
     private int status;
 
     @Column(name = "addeddate")
     private Date addedDate;
 
-    public final int getReturnItemCondition() {
+    public int getReturnItemCondition() {
         return this.returnItemCondition;
     }
 
-    public final void setReturnItemCondition(int returnItemCondition) {
+    public void setReturnItemCondition(int returnItemCondition) {
         this.returnItemCondition = returnItemCondition;
     }
 
-    public final int getId() {
+    public int getId() {
         return this.id;
     }
 
-    public final void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public final Date getLastModifiedDate() {
+    public Date getLastModifiedDate() {
         return this.lastModifiedDate;
     }
 
-    public final void setLastModifiedDate(Date lastModifiedDate) {
+    public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public final int getdFlag() {
+    public int getdFlag() {
         return this.dFlag;
     }
 
-    public final void setdFlag(int dFlag) {
+    public void setdFlag(int dFlag) {
         this.dFlag = dFlag;
     }
 
-    public final int getQuantity() {
+    public int getQuantity() {
         return this.quantity;
     }
 
-    public final void setQuantity(int quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public final int getStatus() {
+    public int getStatus() {
         return this.status;
     }
 
-    public final void setStatus(int status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
-    public final Date getAddedDate() {
+    public Date getAddedDate() {
         return this.addedDate;
     }
 
-    public final void setAddedDate(Date addedDate) {
+    public void setAddedDate(Date addedDate) {
         this.addedDate = addedDate;
     }
 
-    public final String getReturnNumber() {
+    public String getReturnNumber() {
         return this.returnNumber;
     }
 
-    public final void setReturnNumber(String returnNumber) {
+    public void setReturnNumber(String returnNumber) {
         this.returnNumber = returnNumber;
     }
 
-    public final Transfer getTransfer() {
+    public Transfer getTransfer() {
         return this.transfer;
     }
 
-    public final void setTransfer(Transfer transfer) {
+    public void setTransfer(Transfer transfer) {
         this.transfer = transfer;
     }
 }

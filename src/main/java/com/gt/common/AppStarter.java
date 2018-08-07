@@ -1,24 +1,26 @@
 package com.gt.common;
 
+import com.ca.ui.Main;
+import org.apache.log4j.Logger;
+
 import java.net.ServerSocket;
 import java.net.Socket;
-
-import com.ca.ui.Main;
-import com.gt.common.utils.Logger;
 
 /**
  * Used in code <br/>
  * com.gt.common-AppStarter.java<br/>
  *
  * @author Ganesh Tiwari @@ gtiwari333@gmail.com <br/>
- *         Created on : Mar 19, 2012<br/>
- *         Copyright : <a
- *         href="http://ganeshtiwaridotcomdotnp.blogspot.com">Ganesh Tiwari </a>
+ * Created on : Mar 19, 2012<br/>
+ * Copyright : <a
+ * href="http://ganeshtiwaridotcomdotnp.blogspot.com">Ganesh Tiwari </a>
  */
 public class AppStarter {
     public boolean notFindExisting = true;
     private String HOST = "localhost";
     private final int PORT = 45433;
+
+    Logger logger = Logger.getLogger(AppStarter.class);
 
     public AppStarter() {
 
@@ -35,7 +37,7 @@ public class AppStarter {
         Socket client;
         try {
             client = new Socket(HOST, PORT);
-            Logger.L("conn", "Connection accepted by already running app");
+            logger.info("Connection accepted by already running app");
             notFindExisting = false;
         } catch (Exception e) {
             notFindExisting = true;

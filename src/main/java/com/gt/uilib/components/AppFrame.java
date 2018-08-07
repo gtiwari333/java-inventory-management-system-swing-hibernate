@@ -1,46 +1,31 @@
 package com.gt.uilib.components;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GraphicsEnvironment;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import com.ca.ui.panels.AboutPanel;
+import com.ca.ui.panels.ChangePasswordPanel;
+import com.gt.common.ResourceManager;
+import com.gt.common.constants.StrConstants;
+import com.gt.uilib.components.button.ActionButton;
+import com.gt.uilib.components.button.ExitButton;
+import com.gt.uilib.components.button.LogOutButton;
+import org.apache.log4j.Logger;
+
+import javax.swing.*;
+import javax.swing.border.EtchedBorder;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JSeparator;
-import javax.swing.SwingUtilities;
-import javax.swing.border.EtchedBorder;
-
-import com.ca.ui.panels.AboutPanel;
-import com.ca.ui.panels.ChangePasswordPanel;
-import com.gt.common.ResourceManager;
-import com.gt.common.constants.StrConstants;
-import com.gt.common.utils.Logger;
-import com.gt.uilib.components.button.ActionButton;
-import com.gt.uilib.components.button.ExitButton;
-import com.gt.uilib.components.button.LogOutButton;
-
 /**
- *
  * @author GT
- *         <p>
- *         Mar 7, 2012 com.ca.ui-AppFrame.java
+ * <p>
+ * Mar 7, 2012 com.ca.ui-AppFrame.java
  */
 public class AppFrame extends JFrame {
 
+    static Logger logger = Logger.getLogger(AppFrame.class);
     public static final String loginPanel = "com.ca.ui.panels.LoginPanel";
 
     public static AbstractFunctionPanel currentWindow;
@@ -63,18 +48,18 @@ public class AppFrame extends JFrame {
         setBounds(100, 100, 850, 500);
 
         this.setIconImage(ResourceManager.getImage("logo2.png"));
-        
+
         getContentPane().setLayout(new BorderLayout(0, 0));
         setJMenuBar(getMenuBarr());
         getContentPane().add(getStatusPanel(), BorderLayout.SOUTH);
         getContentPane().add(getBodyPanel(), BorderLayout.CENTER);
         getContentPane().add(getToolBarPanel(), BorderLayout.NORTH);
-        
+
         addWindowListener(exitListener);
-        
+
         currentWindow = getFunctionPanelInstance(loginPanel);
         setWindow(currentWindow);
-        
+
         GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
 
         setMaximizedBounds(e.getMaximumWindowBounds());
@@ -92,7 +77,7 @@ public class AppFrame extends JFrame {
     public static void loginSuccess() {
         isLoggedIn = true;
         getInstance().setWindow("com.ca.ui.panels.HomeScreenPanel");
-        Logger.I("logged in");
+        logger.info("logged in");
     }
 
     private JMenuBar getMenuBarr() {
@@ -276,7 +261,7 @@ public class AppFrame extends JFrame {
             buttons.add(new JLabel());
             buttons.add(LogOutButton.create("Logout", "logout", "com.ca.ui.panels.HomeScreenPanel"));
             buttons.add(ExitButton.create("Exit", "exit", "com.ca.ui.panels.HomeScreenPanel"));
-            
+
             toolBarPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
             toolBarPanel.setPreferredSize(new Dimension(getWidth(), 80));
             toolBarPanel.setLayout(new GridBagLayout());
@@ -295,7 +280,7 @@ public class AppFrame extends JFrame {
 
     public static final void showDBConnectionErrorMessage(Exception e) {
         JOptionPane.showMessageDialog(null, "Could not start DB Connection " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        Logger.L(Logger.E, "DB connection failed" + e.getMessage());
+        logger.error("DB connection failed", e);
     }
 
     public final void handleLogOut() {

@@ -24,43 +24,43 @@ public class Role {
     @Column(name = "lastmodifieddate")
     private Date lastModifiedDate;
 
-    public final Date getLastModifiedDate() {
+    public Date getLastModifiedDate() {
         return this.lastModifiedDate;
     }
 
-    public final void setLastModifiedDate(Date lastModifiedDate) {
+    public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public final int getdFlag() {
+    public int getdFlag() {
         return this.dFlag;
     }
 
-    public final void setdFlag(int dFlag) {
+    public void setdFlag(int dFlag) {
         this.dFlag = dFlag;
     }
 
-    public final int getId() {
+    public int getId() {
         return this.id;
     }
 
-    public final void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public final int getUserId() {
+    public int getUserId() {
         return this.userId;
     }
 
-    public final void setUserId(int userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
-    public final String getRole() {
+    public String getRole() {
         return this.role;
     }
 
-    public final void setRole(String role) {
+    public void setRole(String role) {
         this.role = role;
     }
 }

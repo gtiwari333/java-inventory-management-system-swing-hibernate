@@ -24,47 +24,47 @@ public class ApplicationLog {
     @Column(name = "lastmodifieddate")
     private Date lastModifiedDate;
 
-    public final int getdFlag() {
+    public int getdFlag() {
         return this.dFlag;
     }
 
-    public final void setdFlag(int dFlag) {
+    public void setdFlag(int dFlag) {
         this.dFlag = dFlag;
     }
 
-    public final Date getLastModifiedDate() {
+    public Date getLastModifiedDate() {
         return this.lastModifiedDate;
     }
 
-    public final void setLastModifiedDate(Date lastModifiedDate) {
+    public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public final int getId() {
+    public int getId() {
         return this.id;
     }
 
-    public final void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public final Date getDateTime() {
+    public Date getDateTime() {
         return this.dateTime;
     }
 
-    public final void setDateTime(Date dateTime) {
+    public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }
 
-    public final String getMessage() {
+    public String getMessage() {
         return this.message;
     }
 
-    public final void setMessage(String message) {
+    public void setMessage(String message) {
         this.message = message;
     }
 
-    public final int hashCode() {
+    public int hashCode() {
         int prime = 31;
         int result = 1;
         result = 31 * result + (this.dateTime == null ? 0 : this.dateTime.hashCode());
@@ -72,7 +72,7 @@ public class ApplicationLog {
         return result;
     }
 
-    public final boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (this == obj)
             return true;
         if (obj == null)

@@ -29,7 +29,7 @@ public class SUBBCategory {
     @Column(name = "dflag")
     private int dFlag;
 
-    public final void addSubCategory(SubCategory aSubCategory) {
+    public void addSubCategory(SubCategory aSubCategory) {
         if (this.subCategory == null) {
             this.subCategory = new ArrayList();
             System.out.println("Category.addSubCategory() >> New - adding sub category");
@@ -38,43 +38,43 @@ public class SUBBCategory {
         aSubCategory.setCategoryId(this.id);
     }
 
-    public final int getId() {
+    public int getId() {
         return this.id;
     }
 
-    public final void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public final Date getLastModifiedDate() {
+    public Date getLastModifiedDate() {
         return this.lastModifiedDate;
     }
 
-    public final void setLastModifiedDate(Date lastModifiedDate) {
+    public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public final String getCategoryName() {
+    public String getCategoryName() {
         return this.categoryName;
     }
 
-    public final void setCategoryName(String categoryName) {
+    public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
 
-    public final List<SubCategory> getSubCategory() {
+    public List<SubCategory> getSubCategory() {
         return this.subCategory;
     }
 
-    public final void setSubCategory(List<SubCategory> subCategory) {
+    public void setSubCategory(List<SubCategory> subCategory) {
         this.subCategory = subCategory;
     }
 
-    public final int getdFlag() {
+    public int getdFlag() {
         return this.dFlag;
     }
 
-    public final void setdFlag(int dFlag) {
+    public void setdFlag(int dFlag) {
         this.dFlag = dFlag;
     }
 }

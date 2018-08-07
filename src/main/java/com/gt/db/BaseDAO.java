@@ -11,13 +11,13 @@ import org.hibernate.Transaction;
  *
  * @author GT
  */
-public abstract class BaseDAO extends HibernateUtils {
+public abstract class BaseDAO extends SessionUtils {
     private Session session;
     private Transaction tx;
 
     public BaseDAO() throws Exception {
 
-        getSessionFactory();
+        get();
     }
 
     public final int runQuery(String query) throws Exception {

@@ -33,67 +33,67 @@ public class Person {
     @Column(name = "lastmodifieddate")
     private Date lastModifiedDate;
 
-    public final Date getLastModifiedDate() {
+    public Date getLastModifiedDate() {
         return this.lastModifiedDate;
     }
 
-    public final void setLastModifiedDate(Date lastModifiedDate) {
+    public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public final int getdFlag() {
+    public int getdFlag() {
         return this.dFlag;
     }
 
-    public final void setdFlag(int dFlag) {
+    public void setdFlag(int dFlag) {
         this.dFlag = dFlag;
     }
 
-    public final int getId() {
+    public int getId() {
         return this.id;
     }
 
-    public final void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public final String getFirstName() {
+    public String getFirstName() {
         return this.firstName;
     }
 
-    public final void setFirstName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public final String getLastName() {
+    public String getLastName() {
         return this.lastName;
     }
 
-    public final void setLastName(String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    public final String getAddress() {
+    public String getAddress() {
         return this.address;
     }
 
-    public final void setAddress(String address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    public final String getDistrict() {
+    public String getDistrict() {
         return this.district;
     }
 
-    public final void setDistrict(String district) {
+    public void setDistrict(String district) {
         this.district = district;
     }
 
-    public final String getPhoneNumber() {
+    public String getPhoneNumber() {
         return this.phoneNumber;
     }
 
-    public final void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 }

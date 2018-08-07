@@ -1,7 +1,5 @@
 package com.ca.db.model;
 
-import org.hibernate.annotations.Index;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -15,7 +13,6 @@ public class Vendor {
     private int id;
 
     @Column(name = "name")
-    @Index(name = "name")
     private String name;
 
     @Column(name = "address")
@@ -30,51 +27,51 @@ public class Vendor {
     @Column(name = "lastmodifieddate")
     private Date lastModifiedDate;
 
-    public final Date getLastModifiedDate() {
+    public Date getLastModifiedDate() {
         return this.lastModifiedDate;
     }
 
-    public final void setLastModifiedDate(Date lastModifiedDate) {
+    public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public final int getdFlag() {
+    public int getdFlag() {
         return this.dFlag;
     }
 
-    public final void setdFlag(int dFlag) {
+    public void setdFlag(int dFlag) {
         this.dFlag = dFlag;
     }
 
-    public final int getId() {
+    public int getId() {
         return this.id;
     }
 
-    public final void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public final String getName() {
+    public String getName() {
         return this.name;
     }
 
-    public final void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public final String getAddress() {
+    public String getAddress() {
         return this.address;
     }
 
-    public final void setAddress(String address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    public final String getPhoneNumber() {
+    public String getPhoneNumber() {
         return this.phoneNumber;
     }
 
-    public final void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 }

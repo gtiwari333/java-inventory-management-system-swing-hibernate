@@ -1,9 +1,9 @@
 package com.gt.uilib.components.button;
 
 import com.gt.common.ResourceManager;
-import com.gt.common.utils.Logger;
 import com.gt.uilib.components.AbstractFunctionPanel;
 import com.gt.uilib.components.AppFrame;
+import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -12,6 +12,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class ExitButton extends ActionButton {
+
+    static Logger logger = Logger.getLogger(ExitButton.class);
+
     public ExitButton(String Text, ImageIcon on, ImageIcon off, String panelQualifiedClassName) {
         super(Text, on, off, panelQualifiedClassName);
     }
@@ -35,8 +38,7 @@ public class ExitButton extends ActionButton {
 
         if (res == JOptionPane.YES_OPTION) {
             // setVisible(false);
-            Logger.I("Shutting Down");
-            Logger.closeWriter();
+            logger.info("Shutting Down");
             AppFrame.getInstance().dispose();
             // TODO: DB connection close
             System.exit(0);

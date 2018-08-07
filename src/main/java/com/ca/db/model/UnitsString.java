@@ -24,43 +24,43 @@ public class UnitsString {
     @Column(name = "lastmodifieddate")
     private Date lastModifiedDate;
 
-    public final int getId() {
+    public int getId() {
         return this.id;
     }
 
-    public final void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public final Date getDateTime() {
+    public Date getDateTime() {
         return this.dateTime;
     }
 
-    public final void setDateTime(Date dateTime) {
+    public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }
 
-    public final int getdFlag() {
+    public int getdFlag() {
         return this.dFlag;
     }
 
-    public final void setdFlag(int dFlag) {
+    public void setdFlag(int dFlag) {
         this.dFlag = dFlag;
     }
 
-    public final String getValue() {
+    public String getValue() {
         return this.value;
     }
 
-    public final void setValue(String value) {
+    public void setValue(String value) {
         this.value = value;
     }
 
-    public final Date getLastModifiedDate() {
+    public Date getLastModifiedDate() {
         return this.lastModifiedDate;
     }
 
-    public final void setLastModifiedDate(Date lastModifiedDate) {
+    public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 }
