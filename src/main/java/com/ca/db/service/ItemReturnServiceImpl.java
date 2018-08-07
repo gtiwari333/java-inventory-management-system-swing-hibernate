@@ -42,12 +42,12 @@ public class ItemReturnServiceImpl extends BaseDAO {
             }
             /*
              * adjust item stock qty
-			 */
+             */
             item.setQuantity(item.getQuantity() - ret.getQuantity() + qty);
 
-			/*
+            /*
              * adjust transfer remaining qty
-			 */
+             */
             transfer.setRemainingQtyToReturn(transfer.getRemainingQtyToReturn() + ret.getQuantity() - qty);
 
             ret.setAddedDate(returnDate);

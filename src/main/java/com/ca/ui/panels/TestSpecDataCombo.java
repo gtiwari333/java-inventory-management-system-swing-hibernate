@@ -1,16 +1,12 @@
 package com.ca.ui.panels;
 
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.util.List;
-
-import javax.swing.*;
-
 import com.ca.db.model.Category;
 import com.ca.db.service.DBUtils;
 import com.gt.uilib.components.input.DataComboBox;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.List;
 
 public class TestSpecDataCombo extends JPanel {
     SpecificationPanel currentSpecificationPanel;

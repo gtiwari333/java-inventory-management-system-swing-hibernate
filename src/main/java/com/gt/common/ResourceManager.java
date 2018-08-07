@@ -16,9 +16,9 @@ import java.util.Map;
  * com.gt.common-ResourceManager.java<br/>
  *
  * @author Ganesh Tiwari @@ gtiwari333@gmail.com <br/>
- *         Created on : Mar 19, 2012<br/>
- *         Copyright : <a
- *         href="http://ganeshtiwaridotcomdotnp.blogspot.com">Ganesh Tiwari </a>
+ * Created on : Mar 19, 2012<br/>
+ * Copyright : <a
+ * href="http://ganeshtiwaridotcomdotnp.blogspot.com">Ganesh Tiwari </a>
  */
 public class ResourceManager {
 

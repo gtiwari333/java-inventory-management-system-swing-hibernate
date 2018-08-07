@@ -1,16 +1,5 @@
 package com.ca.ui.panels;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
-
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import com.ca.db.model.Person;
 import com.ca.db.service.DBUtils;
 import com.gt.common.constants.Status;
@@ -24,6 +13,11 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.util.List;
 
 public class PersonPanel extends AbstractFunctionPanel {
     String[] header = new String[]{"S.N.", "ID", "First Name", "Last Name", "Address", "District", "PhoneNumber"};

@@ -1,9 +1,9 @@
 package com.gt.common;
 
+import com.gt.common.utils.StringUtils;
+
 import java.io.File;
 import java.net.URI;
-
-import com.gt.common.utils.StringUtils;
 
 public class GFile extends File {
 

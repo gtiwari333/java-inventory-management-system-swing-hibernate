@@ -1,19 +1,5 @@
 package com.ca.ui.panels;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
-
 import com.ca.db.model.Category;
 import com.ca.db.model.Item;
 import com.ca.db.model.Vendor;
@@ -33,6 +19,13 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.toedter.calendar.JDateChooser;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 public class StockQueryPanel extends AbstractFunctionPanel {
     String[] header = new String[]{"S.N.", "ID", "Name", "Category", "Specification", "Khata No.", "Dakhila No.", "Parts Number", "Serial Number", "Pana Number", "Rack Number", "Purchase date", "Vendor", "Added Type",
@@ -117,14 +110,14 @@ public class StockQueryPanel extends AbstractFunctionPanel {
 
     private void intCombo() {
         try {
-			/* Category Combo */
+            /* Category Combo */
             cmbCategory.init();
             List<Category> cl = DBUtils.readAll(Category.class);
             for (Category c : cl) {
                 cmbCategory.addRow(new Object[]{c.getId(), c.getCategoryName()});
             }
 
-			/* Vendor Combo */
+            /* Vendor Combo */
             cmbVendor.init();
             List<Vendor> vl = DBUtils.readAll(Vendor.class);
             for (Vendor v : vl) {
@@ -134,7 +127,7 @@ public class StockQueryPanel extends AbstractFunctionPanel {
         } catch (Exception e) {
             handleDBError(e);
         }
-		/* Item listener on cmbCategory - to change specification panel */
+        /* Item listener on cmbCategory - to change specification panel */
         cmbCategory.addItemListener(e -> {
             int id = cmbCategory.getSelectedId();
             specPanelHolder.removeAll();

@@ -1,19 +1,17 @@
 package com.ca.ui;
 
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.event.ComponentEvent;
-import java.io.File;
-import java.util.Date;
-
-import javax.swing.UIManager;
-
 import com.ca.db.model.ApplicationLog;
 import com.ca.db.model.LoginUser;
 import com.ca.db.service.DBUtils;
 import com.ca.db.service.LoginUserServiceImpl;
 import com.gt.common.AppStarter;
 import com.gt.uilib.components.AppFrame;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.io.File;
+import java.util.Date;
 
 public class Main {
 

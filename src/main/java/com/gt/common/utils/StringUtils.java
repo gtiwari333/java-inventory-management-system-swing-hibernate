@@ -2,7 +2,7 @@ package com.gt.common.utils;
 
 public final class StringUtils {
 
-     private StringUtils() {
+    private StringUtils() {
     }
 
     public static String toString(Object object) {
@@ -12,7 +12,8 @@ public final class StringUtils {
     public static String clean(String str) {
         return (str == null ? "" : str.trim());
     }
-     public static String trim(String str) {
+
+    public static String trim(String str) {
         return (str == null ? null : str.trim());
     }
 

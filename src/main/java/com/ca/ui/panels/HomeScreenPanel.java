@@ -1,11 +1,5 @@
 package com.ca.ui.panels;
 
-import java.awt.FlowLayout;
-import java.awt.Font;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import com.gt.common.ResourceManager;
 import com.gt.common.constants.StrConstants;
 import com.gt.uilib.components.AbstractFunctionPanel;
@@ -13,6 +7,9 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class HomeScreenPanel extends AbstractFunctionPanel {
 

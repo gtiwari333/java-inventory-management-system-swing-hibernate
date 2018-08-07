@@ -1,10 +1,7 @@
 package com.gt.uilib.components;
 
-import java.awt.Dialog;
-import java.awt.Dimension;
-import java.awt.Frame;
-
-import javax.swing.JDialog;
+import javax.swing.*;
+import java.awt.*;
 
 public class GDialog extends JDialog {
     AbstractFunctionPanel funcPane;

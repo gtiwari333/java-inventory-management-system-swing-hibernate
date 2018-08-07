@@ -1,19 +1,5 @@
 package com.ca.ui.panels;
 
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
-
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import com.ca.db.service.DBUtils;
 import com.gt.common.constants.Status;
 import com.gt.common.utils.UIUtils;
@@ -21,6 +7,10 @@ import com.gt.uilib.components.AbstractFunctionPanel;
 import com.gt.uilib.components.table.BetterJTable;
 import com.gt.uilib.components.table.EasyTableModel;
 import com.gt.uilib.inputverifier.Validator;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.List;
 
 public abstract class BaseDataEntryPanel extends AbstractFunctionPanel {
     protected JButton btnReadAll;

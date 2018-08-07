@@ -1,6 +1,6 @@
 package com.gt.uilib.resource;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 
 public class Icons {
     public static final ImageIcon MAIN_ICON_0 = getIcon("/images/pomodoro16_0.png");

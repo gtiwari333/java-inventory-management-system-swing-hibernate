@@ -1,21 +1,5 @@
 package com.gt.uilib.inputverifier;
 
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Window;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.text.JTextComponent;
-
 import com.ca.ui.panels.SpecificationPanel;
 import com.gt.common.ResourceManager;
 import com.gt.common.utils.RegexUtils;
@@ -25,13 +9,23 @@ import com.gt.uilib.components.input.GTextArea;
 import com.gt.uilib.components.input.NumberTextField;
 import com.toedter.calendar.JDateChooser;
 
+import javax.swing.*;
+import javax.swing.text.JTextComponent;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 /**
  * com.gt.uilib.inputverifier-Validator.java<br/>
  *
  * @author Ganesh Tiwari @@ gtiwari333@gmail.com <br/>
- *         Created on : Mar 19, 2012<br/>
- *         Copyright : <a
- *         href="http://ganeshtiwaridotcomdotnp.blogspot.com">Ganesh Tiwari </a>
+ * Created on : Mar 19, 2012<br/>
+ * Copyright : <a
+ * href="http://ganeshtiwaridotcomdotnp.blogspot.com">Ganesh Tiwari </a>
  */
 public class Validator {
 

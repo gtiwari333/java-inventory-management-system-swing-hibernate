@@ -21,6 +21,7 @@ public class NumberFormatDocument extends PlainDocument {
     private int decimalPlacesSize;
     private Pattern pattern;
     private Pattern patternNegative;
+
     public NumberFormatDocument(NumberTextField f) {
 
         format = NumberFormat.getNumberInstance();

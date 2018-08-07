@@ -1,18 +1,5 @@
 package com.ca.ui.panels;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Date;
-import java.util.List;
-
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import com.ca.db.model.Category;
 import com.ca.db.model.Transfer;
 import com.ca.db.service.DBUtils;
@@ -32,6 +19,12 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.toedter.calendar.JDateChooser;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.util.Date;
+import java.util.List;
 
 public class TransferQueryPanel extends AbstractFunctionPanel {
     String[] header = new String[]{"S.N.", "ID", "Name", "Category", "Specification", "Transfer Date", "Transfer Type", "Sent To", "Transfer Book Num",
@@ -126,7 +119,7 @@ public class TransferQueryPanel extends AbstractFunctionPanel {
 
     private void intCombo() {
         try {
-			/* Category Combo */
+            /* Category Combo */
             cmbCategory.init();
             List<Category> cl = DBUtils.readAll(Category.class);
             for (Category c : cl) {

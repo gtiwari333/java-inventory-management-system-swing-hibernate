@@ -1,23 +1,20 @@
 package com.gt.uilib.components;
 
-import java.awt.BorderLayout;
-
-import javax.swing.BorderFactory;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
 import com.gt.common.constants.CommonConsts;
 import com.gt.common.constants.Status;
 import com.gt.common.utils.UIUtils;
 import com.gt.uilib.inputverifier.Verifier;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * com.gt.uilib.components-AbstractFunctionPanel.java<br/>
  *
  * @author Ganesh Tiwari @@ gtiwari333@gmail.com <br/>
- *         Created on : Mar 19, 2012<br/>
- *         Copyright : <a
- *         href="http://ganeshtiwaridotcomdotnp.blogspot.com">Ganesh Tiwari </a>
+ * Created on : Mar 19, 2012<br/>
+ * Copyright : <a
+ * href="http://ganeshtiwaridotcomdotnp.blogspot.com">Ganesh Tiwari </a>
  */
 public abstract class AbstractFunctionPanel extends JPanel implements Verifier {
     private static final long serialVersionUID = -5535283266424039078L;

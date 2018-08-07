@@ -1,20 +1,5 @@
 package com.ca.ui.panels;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import com.ca.db.model.Category;
 import com.ca.db.model.Item;
 import com.ca.db.model.Vendor;
@@ -35,6 +20,15 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.toedter.calendar.JDateChooser;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
 public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
     String[] header = new String[]{"S.N.", "ID", "Purchase Order No.", "Name", "Pana Number", "Category", "Parts Number", "Serial Number",
@@ -92,7 +86,7 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
     private JLabel lblKhataNumber;
     private JTextField txtKhatanumber;
 
-//	/**
+    //	/**
 //	 * current date not added to object ( for the case of modified data)
 //	 * 
 //	 * @return
@@ -182,14 +176,14 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
 
     private void intCombo() {
         try {
-			/* Category Combo */
+            /* Category Combo */
             cmbCategory.init();
             List<Category> cl = DBUtils.readAll(Category.class);
             for (Category c : cl) {
                 cmbCategory.addRow(new Object[]{c.getId(), c.getCategoryName()});
             }
 
-			/* Vendor Combo */
+            /* Vendor Combo */
             cmbVendor.init();
             List<Vendor> vl = DBUtils.readAll(Vendor.class);
             for (Vendor v : vl) {

@@ -9,8 +9,8 @@ import java.util.List;
  * Commonly used db functions
  *
  * @author GT
- *         <p>
- *         Mar 3, 2012 com.gt.db.utils-DBUtils.java
+ * <p>
+ * Mar 3, 2012 com.gt.db.utils-DBUtils.java
  */
 public class BaseDBUtils extends BaseDAO {
 

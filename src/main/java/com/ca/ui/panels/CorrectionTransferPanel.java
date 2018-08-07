@@ -1,12 +1,5 @@
 package com.ca.ui.panels;
 
-import java.awt.EventQueue;
-import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.*;
-
 import com.ca.db.model.Transfer;
 import com.ca.db.service.DBUtils;
 import com.ca.db.service.TransferServiceImpl;
@@ -18,6 +11,9 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.toedter.calendar.JDateChooser;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class CorrectionTransferPanel extends AbstractFunctionPanel {
     JLabel txtItemnmaa;

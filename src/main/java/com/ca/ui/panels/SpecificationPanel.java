@@ -1,17 +1,15 @@
 package com.ca.ui.panels;
 
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.swing.*;
-
 import com.ca.db.model.Category;
 import com.ca.db.model.Specification;
 import com.ca.db.service.DBUtils;
 import com.gt.common.utils.StringUtils;
 import com.gt.common.utils.UIUtils;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.LinkedList;
+import java.util.List;
 
 public class SpecificationPanel extends JPanel {
 

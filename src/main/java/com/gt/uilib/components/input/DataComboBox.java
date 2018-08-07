@@ -10,9 +10,9 @@ import java.util.List;
  * com.gt.uilib.components.combo-DataComboBox.java<br/>
  *
  * @author Ganesh Tiwari @@ gtiwari333@gmail.com <br/>
- *         Created on : Mar 19, 2012<br/>
- *         Copyright : <a
- *         href="http://ganeshtiwaridotcomdotnp.blogspot.com">Ganesh Tiwari </a>
+ * Created on : Mar 19, 2012<br/>
+ * Copyright : <a
+ * href="http://ganeshtiwaridotcomdotnp.blogspot.com">Ganesh Tiwari </a>
  */
 public class DataComboBox extends JComboBox {
 

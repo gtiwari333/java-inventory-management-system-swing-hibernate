@@ -1,11 +1,5 @@
 package com.ca.ui.panels;
 
-import java.awt.EventQueue;
-import java.util.List;
-
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
-
 import com.ca.db.model.BranchOffice;
 import com.ca.db.service.DBUtils;
 import com.gt.common.constants.Status;
@@ -15,6 +9,11 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.util.List;
 
 //TODO: under implementation, not used anywhere
 public class NEWBranchOfficePanel extends BaseDataEntryPanel {

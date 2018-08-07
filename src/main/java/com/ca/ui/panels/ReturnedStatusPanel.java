@@ -1,6 +1,6 @@
 package com.ca.ui.panels;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class ReturnedStatusPanel extends JPanel {
 

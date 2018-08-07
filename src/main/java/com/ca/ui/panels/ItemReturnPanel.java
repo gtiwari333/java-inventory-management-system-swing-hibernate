@@ -1,25 +1,5 @@
 package com.ca.ui.panels;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableModel;
-
 import com.ca.db.model.Category;
 import com.ca.db.model.Transfer;
 import com.ca.db.service.DBUtils;
@@ -41,6 +21,17 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.toedter.calendar.JDateChooser;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.*;
+import java.util.List;
+import java.util.Map.Entry;
 
 /**
  * entry of returned items
@@ -83,9 +74,9 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
     private JPanel receiverHolder;
     private JLabel lblReceiver;
 
-	/*
+    /*
      * Some Inner classes
-	 */
+     */
     private ItemReceiverPanel itemReceiverPanel;
     private JTextField txtItemRequestNumber;
     private JPanel addToCartPanel;
@@ -340,7 +331,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
 
     @Override
     public final void init() {
-		/* never forget to call super.init() */
+        /* never forget to call super.init() */
         super.init();
         UIUtils.clearAllFields(upperPane);
         changeStatus(Status.NONE);
@@ -349,7 +340,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
 
     private void intCombo() {
         try {
-			/* Category Combo */
+            /* Category Combo */
             cmbCategory.init();
             ItemReturnServiceImpl is = new ItemReturnServiceImpl();
             List<Category> cl = ItemReturnServiceImpl.getNonReturnableCategory();

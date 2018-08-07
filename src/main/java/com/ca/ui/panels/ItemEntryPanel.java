@@ -1,28 +1,5 @@
 package com.ca.ui.panels;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import com.ca.db.model.Category;
 import com.ca.db.model.Item;
 import com.ca.db.model.UnitsString;
@@ -45,6 +22,17 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.toedter.calendar.JDateChooser;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
 public class ItemEntryPanel extends AbstractFunctionPanel {
     String[] header = new String[]{"S.N.", "ID", "Purchase Order No.", "Khata No.", "Dakhila No.", "Name", "Pana No.", "Category", "Specification",
@@ -172,7 +160,7 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
         } catch (Exception e) {
             handleDBError(e);
         }
-		/* Item listener on cmbCategory - to change specification panel */
+        /* Item listener on cmbCategory - to change specification panel */
         cmbCategory.addItemListener(e -> {
             int id = cmbCategory.getSelectedId();
             specPanelHolder.removeAll();
@@ -193,7 +181,7 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
     }
 
     private void initCmbCategory() throws Exception {
-		/* Category Combo */
+        /* Category Combo */
         cmbCategory.init();
         List<Category> cl = DBUtils.readAll(Category.class);
         for (Category c : cl) {
@@ -202,7 +190,7 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
     }
 
     private void initCmbUnits() throws Exception {
-		/* Category Combo */
+        /* Category Combo */
         cmbUnitcombo.init();
         List<UnitsString> cl = DBUtils.readAll(UnitsString.class);
         for (UnitsString c : cl) {
@@ -211,7 +199,7 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
     }
 
     private void initCmbVendor() throws Exception {
-		/* Vendor Combo */
+        /* Vendor Combo */
         cmbVendor.init();
         List<Vendor> vl = DBUtils.readAll(Vendor.class);
         for (Vendor v : vl) {
