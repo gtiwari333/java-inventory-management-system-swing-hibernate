@@ -147,7 +147,7 @@ public class DataComboBox extends JComboBox {
 
     }
 
-    class Item implements Comparable<Item> {
+    static class Item implements Comparable<Item> {
         int id;
         String text;
 

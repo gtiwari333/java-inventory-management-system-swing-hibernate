@@ -11,7 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="inventory-management-system" target="1.8" />
+      <module name="inventory-management-system" target="11" />
       <module name="java-inventory-management-system-swing-hibernate-nepal" target="1.8" />
     </bytecodeTargetLevel>
   </component>

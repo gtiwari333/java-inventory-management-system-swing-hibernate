@@ -94,8 +94,6 @@ public abstract class BaseDAO extends SessionUtils {
         } catch (Exception e) {
             handleException(e);
             throw new Exception(e);
-        } finally {
-            // HibernateFactory.close(session);
         }
         return obj;
     }

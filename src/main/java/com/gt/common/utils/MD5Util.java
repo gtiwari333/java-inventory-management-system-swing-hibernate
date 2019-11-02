@@ -12,7 +12,7 @@ public class MD5Util {
 
             md.update(someText.getBytes());
 
-            byte byteData[] = md.digest();
+            byte[] byteData = md.digest();
 
             // convert the byte to hex format method 1
             StringBuilder sb = new StringBuilder();

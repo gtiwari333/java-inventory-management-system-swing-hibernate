@@ -168,7 +168,7 @@ public class NumberFormatDocument extends PlainDocument {
         String decimalValue = "";
         if (value.contains(".")) {
             isDecimal = true;
-            String values[] = value.split("\\.");
+            String[] values = value.split("\\.");
             if (values.length > 2) throw new BadLocationException(value, offs);
             intValue = values[0];
             if (values.length == 2) {
