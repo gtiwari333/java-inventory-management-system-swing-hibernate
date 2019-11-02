@@ -14,9 +14,9 @@ import java.util.List;
 public class SpecificationPanel extends JPanel {
 
     private static final long serialVersionUID = 1859550688843095275L;
-    Category category;
-    List<CategoryEntryPair> pairList;
-    boolean skipNext = false;
+    private Category category;
+    private List<CategoryEntryPair> pairList;
+    private boolean skipNext = false;
 
     /**
      * @param id category id of which we want to display Specification entry
@@ -47,7 +47,7 @@ public class SpecificationPanel extends JPanel {
             skipNext = true;
         }
         System.out.println(skipNext + " skipnext..");
-        return skipNext;
+        return !skipNext;
     }
 
     public static boolean isValidDataEntered() {
@@ -78,25 +78,25 @@ public class SpecificationPanel extends JPanel {
     private void addCategoryPanels() {
         pairList = new LinkedList<>();
         synchronized (pairList) {
-            if (!toSkip(category.getSpecification1()))
+            if (toSkip(category.getSpecification1()))
                 pairList.add(new CategoryEntryPair(category.getSpecification1()));
-            if (!toSkip(category.getSpecification2()))
+            if (toSkip(category.getSpecification2()))
                 pairList.add(new CategoryEntryPair(category.getSpecification2()));
-            if (!toSkip(category.getSpecification3()))
+            if (toSkip(category.getSpecification3()))
                 pairList.add(new CategoryEntryPair(category.getSpecification3()));
-            if (!toSkip(category.getSpecification4()))
+            if (toSkip(category.getSpecification4()))
                 pairList.add(new CategoryEntryPair(category.getSpecification4()));
-            if (!toSkip(category.getSpecification5()))
+            if (toSkip(category.getSpecification5()))
                 pairList.add(new CategoryEntryPair(category.getSpecification5()));
-            if (!toSkip(category.getSpecification6()))
+            if (toSkip(category.getSpecification6()))
                 pairList.add(new CategoryEntryPair(category.getSpecification6()));
-            if (!toSkip(category.getSpecification7()))
+            if (toSkip(category.getSpecification7()))
                 pairList.add(new CategoryEntryPair(category.getSpecification7()));
-            if (!toSkip(category.getSpecification8()))
+            if (toSkip(category.getSpecification8()))
                 pairList.add(new CategoryEntryPair(category.getSpecification8()));
-            if (!toSkip(category.getSpecification9()))
+            if (toSkip(category.getSpecification9()))
                 pairList.add(new CategoryEntryPair(category.getSpecification9()));
-            if (!toSkip(category.getSpecification10()))
+            if (toSkip(category.getSpecification10()))
                 pairList.add(new CategoryEntryPair(category.getSpecification10()));
 
 //			Collections.reverse(pairList);
@@ -161,7 +161,7 @@ public class SpecificationPanel extends JPanel {
             pairList.get(8).tb.setText(spec.getSpecification9());
             pairList.get(9).tb.setText(spec.getSpecification10());
 
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
 
@@ -175,12 +175,12 @@ public class SpecificationPanel extends JPanel {
         }
     }
 
-    class CategoryEntryPair extends JPanel {
+    static class CategoryEntryPair extends JPanel {
         private static final long serialVersionUID = -623894842418823841L;
-        JLabel jl;
-        JTextField tb;
+        final JLabel jl;
+        final JTextField tb;
 
-        public CategoryEntryPair(String name) {
+        CategoryEntryPair(String name) {
             jl = new JLabel(name);
             tb = new JTextField(8);
             setLayout(new FlowLayout());

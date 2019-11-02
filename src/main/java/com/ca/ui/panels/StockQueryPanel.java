@@ -28,14 +28,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class StockQueryPanel extends AbstractFunctionPanel {
-    String[] header = new String[]{"S.N.", "ID", "Name", "Category", "Specification", "Khata No.", "Dakhila No.", "Parts Number", "Serial Number", "Pana Number", "Rack Number", "Purchase date", "Vendor", "Added Type",
+    private final String[] header = new String[]{"S.N.", "ID", "Name", "Category", "Specification", "Khata No.", "Dakhila No.", "Parts Number", "Serial Number", "Pana Number", "Rack Number", "Purchase date", "Vendor", "Added Type",
             "Remaining Quantity", "Unit", "Rate",};
-    JPanel formPanel = null;
-    JPanel buttonPanel;
-    Validator v;
-    JDateChooser txtFromDate;
-    JDateChooser txtToDate;
-    SpecificationPanel currentSpecificationPanel;
+    private JPanel formPanel = null;
+    private JPanel buttonPanel;
+    private Validator v;
+    private JDateChooser txtFromDate;
+    private JDateChooser txtToDate;
+    private SpecificationPanel currentSpecificationPanel;
     private JButton btnSave;
     private JPanel upperPane;
     private JPanel lowerPane;
@@ -341,11 +341,11 @@ public class StockQueryPanel extends AbstractFunctionPanel {
         return formPanel;
     }
 
-    protected final void handleSearchQuery() {
-        readAndShowAll(true);
+    private void handleSearchQuery() {
+        readAndShowAll();
     }
 
-    private void readAndShowAll(boolean showSize0Error) {
+    private void readAndShowAll() {
         try {
             ItemServiceImpl is = new ItemServiceImpl();
             List<Item> brsL;
@@ -359,7 +359,7 @@ public class StockQueryPanel extends AbstractFunctionPanel {
                     txtFromDate.getDate(), txtToDate.getDate(), specs);
 
             if (brsL == null || brsL.size() == 0) {
-                if (showSize0Error) {
+                if (true) {
                     JOptionPane.showMessageDialog(null, "No Records Found");
                 }
                 dataModel.resetModel();

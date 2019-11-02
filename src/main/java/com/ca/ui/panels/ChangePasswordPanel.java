@@ -16,8 +16,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ChangePasswordPanel extends AbstractFunctionPanel {
-    JPanel fullPanel;
-    JPanel innerPanel;
+    private JPanel fullPanel;
+    private JPanel innerPanel;
     private JTextField userName;
     private JPasswordField passWord;
     private JLabel lblDept;
@@ -128,7 +128,7 @@ public class ChangePasswordPanel extends AbstractFunctionPanel {
         return fullPanel;
     }
 
-    protected final void clearAll() {
+    private void clearAll() {
         UIUtils.clearAllFields(innerPanel);
 
     }

@@ -16,14 +16,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class CorrectionTransferPanel extends AbstractFunctionPanel {
-    JLabel txtItemnmaa;
-    JLabel txtCategoryr;
-    JLabel txtKhatapananumbbber;
+    private JLabel txtItemnmaa;
+    private JLabel txtCategoryr;
+    private JLabel txtKhatapananumbbber;
     Validator v;
     private JTextField txtTransferpananum;
     private JTextField txtRequestnum;
     private NumberTextField txtQty;
-    private int currentTransferId;
+    private final int currentTransferId;
     private ItemReceiverPanel itemReceiverPanel;
     private JDateChooser transferDateChooser;
     private JPanel hastantaranStatus;
@@ -196,7 +196,7 @@ public class CorrectionTransferPanel extends AbstractFunctionPanel {
 
     }
 
-    protected final void handleDeleteAction() {
+    private void handleDeleteAction() {
         if (!DataEntryUtils.confirmDBDelete()) {
             return;
         }
@@ -253,13 +253,13 @@ public class CorrectionTransferPanel extends AbstractFunctionPanel {
         }
     }
 
-    public final void handleSuccess() {
+    private void handleSuccess() {
         JOptionPane.showMessageDialog(null, "Saved Successfully");
         Window w = SwingUtilities.getWindowAncestor(CorrectionTransferPanel.this);
         w.setVisible(false);
     }
 
-    public final void handleDeleteSuccess() {
+    private void handleDeleteSuccess() {
         JOptionPane.showMessageDialog(null, "Deleted Successfully");
         Window w = SwingUtilities.getWindowAncestor(CorrectionTransferPanel.this);
         w.setVisible(false);

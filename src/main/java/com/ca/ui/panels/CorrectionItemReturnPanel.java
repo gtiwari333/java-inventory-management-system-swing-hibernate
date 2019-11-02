@@ -18,17 +18,17 @@ import java.awt.*;
 
 public class CorrectionItemReturnPanel extends AbstractFunctionPanel {
 
-    JLabel txtItemnmaa;
-    JLabel txtCategoryr;
-    JLabel txtKhatapananumbbber;
+    private JLabel txtItemnmaa;
+    private JLabel txtCategoryr;
+    private JLabel txtKhatapananumbbber;
     Validator v;
-    String[] damageStatusStr = new String[]{"", "Good", "Unrepairable", "Needs Repair", "Exemption"};
-    JComboBox cmbReturnStatus;
-    JLabel txtTransferPnaNum1;
-    JLabel lblItemrequestnumber;
-    JLabel lblTransferquanityt;
-    JLabel lblRemainingquantity;
-    private int currentReturnId;
+    private final String[] damageStatusStr = new String[]{"", "Good", "Unrepairable", "Needs Repair", "Exemption"};
+    private JComboBox cmbReturnStatus;
+    private JLabel txtTransferPnaNum1;
+    private JLabel lblItemrequestnumber;
+    private JLabel lblTransferquanityt;
+    private JLabel lblRemainingquantity;
+    private final int currentReturnId;
     private JDateChooser txtTransferDate;
     private NumberTextField txtReturnQuanitty;
     private JDateChooser returnDateChooser;
@@ -246,7 +246,7 @@ public class CorrectionItemReturnPanel extends AbstractFunctionPanel {
 
     }
 
-    protected final void handleDeleteAction() {
+    private void handleDeleteAction() {
         if (!DataEntryUtils.confirmDBDelete()) {
             return;
         }
@@ -319,13 +319,13 @@ public class CorrectionItemReturnPanel extends AbstractFunctionPanel {
         }
     }
 
-    public final void handleSuccess() {
+    private void handleSuccess() {
         JOptionPane.showMessageDialog(null, "Saved Successfully");
         Window w = SwingUtilities.getWindowAncestor(CorrectionItemReturnPanel.this);
         w.setVisible(false);
     }
 
-    public final void handleDeleteSuccess() {
+    private void handleDeleteSuccess() {
         JOptionPane.showMessageDialog(null, "Deleted Successfully");
         Window w = SwingUtilities.getWindowAncestor(CorrectionItemReturnPanel.this);
         w.setVisible(false);

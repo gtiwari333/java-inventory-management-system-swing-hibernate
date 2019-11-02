@@ -35,14 +35,14 @@ import java.util.Date;
 import java.util.List;
 
 public class ItemEntryPanel extends AbstractFunctionPanel {
-    String[] header = new String[]{"S.N.", "ID", "Purchase Order No.", "Khata No.", "Dakhila No.", "Name", "Pana No.", "Category", "Specification",
+    private final String[] header = new String[]{"S.N.", "ID", "Purchase Order No.", "Khata No.", "Dakhila No.", "Name", "Pana No.", "Category", "Specification",
             "Parts No.", "Serial No.", "Rack Number", "Purchase date", "Added date", "Vendor", "Original Quantity", "Qty in Stock", "Rate", "Unit",
             "Total"};
-    JPanel formPanel = null;
-    JPanel buttonPanel;
-    Validator v;
-    JDateChooser txtPurDate;
-    SpecificationPanel currentSpecificationPanel;
+    private JPanel formPanel = null;
+    private JPanel buttonPanel;
+    private Validator v;
+    private JDateChooser txtPurDate;
+    private SpecificationPanel currentSpecificationPanel;
     private JTextField txtName;
     private JButton btnReadAll;
     private JButton btnNew;
@@ -71,7 +71,7 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
     private NumberTextField txtRate;
     private JTextField txtTotal;
     private JTextField txtSerialnumber;
-    private KeyListener priceCalcListener = new KeyListener() {
+    private final KeyListener priceCalcListener = new KeyListener() {
 
         public void keyPressed(KeyEvent e) {
             txtTotal.setText(getPrice());
@@ -241,12 +241,8 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
     }
 
     private void handleDeleteAction() {
-        switch (status) {
-            case READ:
-                if (DataEntryUtils.confirmDBDelete()) deleteSelectedItem();
-                break;
-            default:
-                break;
+        if (status == Status.READ) {
+            if (DataEntryUtils.confirmDBDelete()) deleteSelectedItem();
         }
 
     }
@@ -653,7 +649,7 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
                 btnSave.setEnabled(false);
                 SwingWorker worker = new SwingWorker<Void, Void>() {
                     @Override
-                    protected Void doInBackground() throws Exception {
+                    protected Void doInBackground() {
                         handleSaveAction();
                         return null;
                     }
@@ -768,7 +764,7 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
         return lowerPane;
     }
 
-    protected final void populateSelectedRowInForm(int selectedId) {
+    private void populateSelectedRowInForm(int selectedId) {
         try {
             Item bro = (Item) DBUtils.getById(Item.class, selectedId);
 

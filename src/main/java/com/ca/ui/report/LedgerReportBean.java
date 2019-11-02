@@ -23,7 +23,7 @@ public class LedgerReportBean {
     private String unitStock;
     private String unitTransfer;
 
-    public final int getItemId() {
+    private int getItemId() {
         return itemId;
     }
 

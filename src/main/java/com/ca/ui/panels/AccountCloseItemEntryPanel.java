@@ -31,12 +31,12 @@ import java.util.Date;
 import java.util.List;
 
 public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
-    String[] header = new String[]{"S.N.", "ID", "Purchase Order No.", "Name", "Pana Number", "Category", "Parts Number", "Serial Number",
+    private final String[] header = new String[]{"S.N.", "ID", "Purchase Order No.", "Name", "Pana Number", "Category", "Parts Number", "Serial Number",
             "Rack Number", "Purchase date", "Added date", "Vendor", "Original Quantity", "Qty in Stock", "Rate", "Unit", "Total", "Saved Date"};
-    JPanel formPanel = null;
-    JPanel buttonPanel;
-    Validator v;
-    JDateChooser txtPurDate;
+    private JPanel formPanel = null;
+    private JPanel buttonPanel;
+    private final Validator v;
+    private JDateChooser txtPurDate;
     private JTextField txtName;
     private JButton btnReadAll;
     private JButton btnSave;
@@ -62,7 +62,7 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
     private NumberTextField txtRate;
     private JTextField txtTotal;
     private JTextField txtSerialnumber;
-    private KeyListener priceCalcListener = new KeyListener() {
+    private final KeyListener priceCalcListener = new KeyListener() {
 
         public void keyPressed(KeyEvent e) {
             txtTotal.setText(getPrice());
@@ -86,40 +86,6 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
     private JLabel lblKhataNumber;
     private JTextField txtKhatanumber;
 
-    //	/**
-//	 * current date not added to object ( for the case of modified data)
-//	 * 
-//	 * @return
-//	 */
-//	private Item getModelFromForm() {
-//		Item bo = new Item();
-//		bo.setPurchaseOrderNo(txtPurchaseordernumber.getText().trim());
-//		bo.setName(txtName.getText().trim());
-//		bo.setKhataNumber(txtKhatanumber.getText().trim());
-//		bo.setDakhilaNumber(txtDakhilanumber.getText().trim());
-//		
-//		bo.setPanaNumber(txtPananumber.getText().trim());
-//		bo.setRackNo(txtRacknumber.getText().trim());
-//		bo.setRate(new BigDecimal(txtRate.getText().trim()));
-//		bo.setPartsNumber(txtPartsnumber.getText().trim());
-//		bo.setOriginalQuantity(Integer.parseInt(txtQuantity.getText().trim()));
-//		bo.setQuantity(Integer.parseInt(txtQuantity.getText().trim()));
-//		bo.setSerialNumber(txtSerialnumber.getText().trim());
-//		bo.setPurchaseDate(txtPurDate.getDate());
-//		bo.setAddedType(Item.ACCOUNT_TRANSFERRED_TO_NEW);
-//		try {
-//
-//			bo.setCategory((Category) DBUtils.getById(Category.class, cmbCategory.getSelectedId()));
-//			bo.setSpecification(currentSpecificationPanel.getSpecificationsObject());
-//			bo.setVendor((Vendor) DBUtils.getById(Vendor.class, cmbVendor.getSelectedId()));
-////			bo.setUnitsString((UnitsString)DBUtils.getById(UnitsString.class, cmbUnitcombo.getSelectedId()));
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			handleDBError(e);
-//		}
-//		return bo;
-//	}
     private JLabel lblDakhilaNumber;
     private JTextField txtDakhilanumber;
 
@@ -226,12 +192,8 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
     }
 
     private void handleDeleteAction() {
-        switch (status) {
-            case READ:
-                if (DataEntryUtils.confirmDBDelete()) deleteSelectedBranchOffice();
-                break;
-            default:
-                break;
+        if (status == Status.READ) {
+            if (DataEntryUtils.confirmDBDelete()) deleteSelectedBranchOffice();
         }
 
     }
@@ -300,11 +262,11 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
         switch (status) {
             case CREATE:
                 // create new
-                save(false);
+                save();
                 break;
             case MODIFY:
                 // modify
-                if (DataEntryUtils.confirmDBUpdate()) save(true);
+                if (DataEntryUtils.confirmDBUpdate()) save();
                 break;
 
             default:
@@ -341,7 +303,7 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
         txtTotal.setText(total.toString());
     }
 
-    private void save(boolean isModified) {
+    private void save() {
         initValidator();
         if (v.validate()) {
             try {
@@ -678,7 +640,7 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
         return lowerPane;
     }
 
-    protected final void populateSelectedRowInForm(int selectedId) {
+    private void populateSelectedRowInForm(int selectedId) {
         try {
             Item bro = (Item) DBUtils.getById(Item.class, selectedId);
 

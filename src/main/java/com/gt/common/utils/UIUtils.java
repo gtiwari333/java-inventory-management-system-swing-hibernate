@@ -4,16 +4,12 @@ import com.gt.uilib.components.input.DataComboBox;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
-import javax.swing.FocusManager;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.List;
 
 public class UIUtils {
-    public static final char BACKSPACE_KEY = '\b';
     private static final Color COMPONENT_BORDER_COLOR = Color.GRAY;
 
     public static boolean isEmpty(JTextComponent jt) {
@@ -23,22 +19,6 @@ public class UIUtils {
         }
 
         return false;
-    }
-
-    public static JComponent decoratePreviousComponentFocus(JComponent comp, final char key) {
-        comp.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                super.keyTyped(e);
-                if (key != BACKSPACE_KEY) {
-                    return;
-                }
-                if (e.getKeyChar() == key) {
-                    FocusManager.getCurrentManager().focusPreviousComponent();
-                }
-            }
-        });
-        return comp;
     }
 
     public static void clearAllFields(Component parent, Component... ignoreList) {
@@ -71,9 +51,7 @@ public class UIUtils {
 
     public static void clearAllFields(Component parent) {
         if (parent instanceof JTextField) {
-            // if (((JTextField) parent).isEditable()) {
             ((JTextField) parent).setText("");
-            // }
         }
         if (parent instanceof JTextArea) {
             if (((JTextArea) parent).isEditable()) {
@@ -115,25 +93,9 @@ public class UIUtils {
                 if (aChildren instanceof JLabel) {
                     continue;
                 }
-                // System.out.println(children.getClass());
                 if (!igList.contains(aChildren)) {
                     toggleAllChildren(aChildren, enabled);
                 }
-            }
-        }
-    }
-
-    public static void updateFont(final Font font, JComponent p) {
-        for (Component c : p.getComponents()) {
-            if (c instanceof JToolBar) {
-                continue;
-            } else if (c instanceof JComponent) {
-                JComponent jc = (JComponent) c;
-                jc.updateUI();
-                if (jc.getComponentCount() > 0) {
-                    updateFont(font, jc);
-                }
-                c.setFont(font);
             }
         }
     }
@@ -143,9 +105,7 @@ public class UIUtils {
             if (c instanceof JToolBar) {
                 continue;
             } else if (c instanceof JComboBox) {
-//				if (jc instanceof JComboBox) {
                 ((JComboBox) c).setBorder(BorderFactory.createLineBorder(COMPONENT_BORDER_COLOR, 1));
-//				}
             } else if (c instanceof JComponent) {
                 JComponent jc = (JComponent) c;
 
@@ -159,10 +119,6 @@ public class UIUtils {
                     jc.setBorder(BorderFactory.createLineBorder(COMPONENT_BORDER_COLOR, 1));
                 }
 
-                // if (jc instanceof JDateChooser) {
-                // ((JDateChooser) jc).setBorder(BorderFactory.createLineBorder(
-                // Color.GRAY, 1));
-                // }
                 jc.updateUI();
             }
         }

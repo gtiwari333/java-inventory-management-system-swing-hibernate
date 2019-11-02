@@ -17,13 +17,13 @@ import java.util.List;
 
 public class ItemReceiverPanel extends JPanel {
 
-    DataComboBox dataCombo;
-    ButtonGroup bg;
-    ReceiverType currentType;
-    private JRadioButton rdbtnPersonnal;
-    private JRadioButton rdbtnOfficial;
-    private JRadioButton rdbtnLilam;
-    ActionListener radioButtonAL = new ActionListener() {
+    private final DataComboBox dataCombo;
+    private final ButtonGroup bg;
+    private ReceiverType currentType;
+    private final JRadioButton rdbtnPersonnal;
+    private final JRadioButton rdbtnOfficial;
+    private final JRadioButton rdbtnLilam;
+    private final ActionListener radioButtonAL = new ActionListener() {
         public void actionPerformed(ActionEvent actionEvent) {
             AbstractButton aButton = (AbstractButton) actionEvent.getSource();
 //			System.out.println("Selected: " + aButton.getText());
@@ -111,7 +111,7 @@ public class ItemReceiverPanel extends JPanel {
         rdbtnLilam.setEnabled(false);
     }
 
-    public static final ReceiverType getType(int type) {
+    private static ReceiverType getType(int type) {
         switch (type) {
             case Transfer.OFFICIAL:
                 return ReceiverType.OFFICIAL;
@@ -155,7 +155,7 @@ public class ItemReceiverPanel extends JPanel {
         return -1;
     }
 
-    protected final void handleSelection() {
+    private void handleSelection() {
         SwingUtilities.invokeLater(() -> {
             switch (currentType) {
                 case OFFICIAL:

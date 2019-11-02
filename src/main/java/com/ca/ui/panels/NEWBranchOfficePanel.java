@@ -17,7 +17,7 @@ import java.util.List;
 
 //TODO: under implementation, not used anywhere
 public class NEWBranchOfficePanel extends BaseDataEntryPanel {
-    JPanel formPanel = null;
+    private JPanel formPanel = null;
     private JTextField nameFLD;
     private JTextField phoneNumberFLD;
     private JTextArea addressFLD;
@@ -70,7 +70,7 @@ public class NEWBranchOfficePanel extends BaseDataEntryPanel {
         return bo;
     }
 
-    protected final void setModelIntoForm(BranchOffice bro) {
+    private void setModelIntoForm(BranchOffice bro) {
         nameFLD.setText(bro.getName());
         addressFLD.setText(bro.getAddress());
         phoneNumberFLD.setText(bro.getPhoneNumber());

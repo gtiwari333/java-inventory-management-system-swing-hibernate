@@ -21,11 +21,11 @@ import java.util.List;
 
 public class VendorPanel extends AbstractFunctionPanel {
     // --
-    String[] header = new String[]{"S.N.", "ID", "Name", "Address",
+    private final String[] header = new String[]{"S.N.", "ID", "Name", "Address",
             "PhoneNumber"};
-    JPanel formPanel = null;
-    JPanel buttonPanel;
-    Validator v;
+    private JPanel formPanel = null;
+    private JPanel buttonPanel;
+    private Validator v;
     private JTextField nameFLD;
     private JTextField phoneNumberFLD;
     private GTextArea addressFLD;
@@ -128,12 +128,8 @@ public class VendorPanel extends AbstractFunctionPanel {
     }
 
     private void handleDeleteAction() {
-        switch (status) {
-            case READ:
-                deleteSelectedVendor();
-                break;
-            default:
-                break;
+        if (status == Status.READ) {
+            deleteSelectedVendor();
         }
 
     }
@@ -390,7 +386,7 @@ public class VendorPanel extends AbstractFunctionPanel {
         return lowerPane;
     }
 
-    protected final void populateSelectedRowInForm(int selectedId) {
+    private void populateSelectedRowInForm(int selectedId) {
         try {
             Vendor bro = (Vendor) DBUtils.getById(Vendor.class, selectedId);
             if (bro != null) {

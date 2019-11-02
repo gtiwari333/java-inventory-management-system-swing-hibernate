@@ -6,7 +6,7 @@ import java.util.List;
 
 public class DBUtils {
 
-    public static synchronized BaseDBUtils getUtils() throws Exception {
+    private static synchronized BaseDBUtils getUtils() throws Exception {
         return new BaseDBUtils();
     }
 

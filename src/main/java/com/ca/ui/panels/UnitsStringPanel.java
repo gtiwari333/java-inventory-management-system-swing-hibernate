@@ -21,10 +21,10 @@ import java.util.Date;
 import java.util.List;
 
 public class UnitsStringPanel extends AbstractFunctionPanel {
-    String[] header = new String[]{"S.N.", "ID", "Name", "Created Date"};
-    JPanel formPanel = null;
-    JPanel buttonPanel;
-    Validator v;
+    private final String[] header = new String[]{"S.N.", "ID", "Name", "Created Date"};
+    private JPanel formPanel = null;
+    private JPanel buttonPanel;
+    private Validator v;
     private JTextField nameFLD;
     private JButton btnReadAll;
     private JButton btnNew;
@@ -117,12 +117,8 @@ public class UnitsStringPanel extends AbstractFunctionPanel {
     }
 
     private void handleDeleteAction() {
-        switch (status) {
-            case READ:
-                deleteSelectedRecord();
-                break;
-            default:
-                break;
+        if (status == Status.READ) {
+            deleteSelectedRecord();
         }
 
     }
@@ -342,7 +338,7 @@ public class UnitsStringPanel extends AbstractFunctionPanel {
         return lowerPane;
     }
 
-    protected final void populateSelectedRowInForm(int selectedId) {
+    private void populateSelectedRowInForm(int selectedId) {
         try {
             UnitsString bro = (UnitsString) DBUtils.getById(UnitsString.class, selectedId);
             if (bro != null) {

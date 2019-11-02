@@ -25,10 +25,6 @@ public class JrUtils {
         jasperReport.setWhenNoDataType(WhenNoDataTypeEnum.ALL_SECTIONS_NO_DETAIL);
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
         return new JRViewer(jasperPrint);
-
-        // JasperViewer jv = new JasperViewer(jasperPrint, false);
-        // jv.setTitle(title);
-        // jv.setVisible(true);
     }
 
 }

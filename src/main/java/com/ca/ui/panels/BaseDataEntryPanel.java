@@ -13,24 +13,24 @@ import java.awt.*;
 import java.util.List;
 
 public abstract class BaseDataEntryPanel extends AbstractFunctionPanel {
-    protected JButton btnReadAll;
-    protected JButton btnNew;
-    protected JButton btnDeleteThis;
-    protected JButton btnSave;
-    protected JPanel upperPane;
-    protected JPanel lowerPane;
+    private JButton btnReadAll;
+    private JButton btnNew;
+    private JButton btnDeleteThis;
+    private JButton btnSave;
+    private JPanel upperPane;
+    private JPanel lowerPane;
 
-    protected BetterJTable table;
-    protected EasyTableModel dataModel;
-    protected JPanel buttonPanel;
-    protected Validator v;
+    BetterJTable table;
+    EasyTableModel dataModel;
+    private JPanel buttonPanel;
+    Validator v;
 
-    protected int editingPrimaryId = 0;
-    protected JButton btnModify;
-    protected JButton btnCancel;
-    protected Class clazz;
+    int editingPrimaryId = 0;
+    private JButton btnModify;
+    private JButton btnCancel;
+    Class clazz;
 
-    public BaseDataEntryPanel(double splitValue) {
+    BaseDataEntryPanel(double splitValue) {
         /**
          * all gui components added from here;
          */
@@ -55,7 +55,7 @@ public abstract class BaseDataEntryPanel extends AbstractFunctionPanel {
         changeStatus(Status.NONE);
     }
 
-    protected final JButton getSaveButton() {
+    final JButton getSaveButton() {
         if (btnSave == null) {
             btnSave = new JButton("Save");
             btnSave.addActionListener(e -> handleSaveAction());
@@ -65,7 +65,7 @@ public abstract class BaseDataEntryPanel extends AbstractFunctionPanel {
         return btnSave;
     }
 
-    protected final JPanel getButtonPanel() {
+    private JPanel getButtonPanel() {
         if (buttonPanel == null) {
             buttonPanel = new JPanel();
             btnReadAll = new JButton("Read All");
@@ -100,13 +100,9 @@ public abstract class BaseDataEntryPanel extends AbstractFunctionPanel {
         return buttonPanel;
     }
 
-    protected final void handleDeleteAction() {
-        switch (status) {
-            case READ:
-                deleteSelectedModel();
-                break;
-            default:
-                break;
+    private void handleDeleteAction() {
+        if (status == Status.READ) {
+            deleteSelectedModel();
         }
 
     }
@@ -145,7 +141,7 @@ public abstract class BaseDataEntryPanel extends AbstractFunctionPanel {
         }
     }
 
-    protected final void enableDisableREAD() {
+    private void enableDisableREAD() {
         UIUtils.toggleAllChildren(getUpperFormPanel(), false);
         UIUtils.toggleAllChildren(getButtonPanel(), true);
         UIUtils.clearAllFields(getUpperFormPanel());
@@ -155,7 +151,7 @@ public abstract class BaseDataEntryPanel extends AbstractFunctionPanel {
         btnCancel.setEnabled(false);
     }
 
-    protected final void enableDisableMODIFY() {
+    private void enableDisableMODIFY() {
         UIUtils.toggleAllChildren(getUpperFormPanel(), true);
         UIUtils.toggleAllChildren(getButtonPanel(), false);
         btnCancel.setEnabled(true);
@@ -163,7 +159,7 @@ public abstract class BaseDataEntryPanel extends AbstractFunctionPanel {
         table.setEnabled(false);
     }
 
-    protected final void enableDisableCREATE() {
+    private void enableDisableCREATE() {
         UIUtils.toggleAllChildren(getButtonPanel(), false);
         UIUtils.toggleAllChildren(getUpperFormPanel(), true);
         table.setEnabled(false);
@@ -171,7 +167,7 @@ public abstract class BaseDataEntryPanel extends AbstractFunctionPanel {
         getSaveButton().setEnabled(true);
     }
 
-    protected final void enableDisableINIT() {
+    private void enableDisableINIT() {
         UIUtils.toggleAllChildren(getButtonPanel(), false);
         UIUtils.toggleAllChildren(getUpperFormPanel(), false);
         UIUtils.clearAllFields(getUpperFormPanel());
@@ -208,7 +204,7 @@ public abstract class BaseDataEntryPanel extends AbstractFunctionPanel {
 
     protected abstract void showDbModelListInGrid(List<Class> list);
 
-    protected final void readAndShowAll(boolean showSize0Error) {
+    final void readAndShowAll(boolean showSize0Error) {
         try {
             List<Class> brsL = DBUtils.readAll(clazz);
             editingPrimaryId = -1;

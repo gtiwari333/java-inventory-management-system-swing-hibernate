@@ -16,7 +16,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class LoginPanel extends AbstractFunctionPanel {
-    JPanel innerPanel;
+    private JPanel innerPanel;
     private JTextField userName;
     private JTextField passWord;
     private JLabel lblDept;
@@ -108,7 +108,7 @@ public class LoginPanel extends AbstractFunctionPanel {
         return fullPanel;
     }
 
-    protected final void clearAll() {
+    private void clearAll() {
         UIUtils.clearAllFields(innerPanel);
 
     }

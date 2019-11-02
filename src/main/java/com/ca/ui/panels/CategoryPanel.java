@@ -22,11 +22,11 @@ import java.util.List;
 
 public class CategoryPanel extends AbstractFunctionPanel {
     // --
-    String[] header = new String[]{"S.N.", "ID", "Name", "Type", "Specification1", "Specification2", "Specification3", "Specification4",
+    private final String[] header = new String[]{"S.N.", "ID", "Name", "Type", "Specification1", "Specification2", "Specification3", "Specification4",
             "Specification5", "Specification6", "Specification7", "Specification8", "Specification9", "Specification10"};
-    JPanel formPanel = null;
-    JPanel buttonPanel;
-    Validator v;
+    private JPanel formPanel = null;
+    private JPanel buttonPanel;
+    private Validator v;
     private JButton btnReadAll;
     private JButton btnNew;
     private JButton btnDeleteThis;
@@ -150,12 +150,8 @@ public class CategoryPanel extends AbstractFunctionPanel {
     }
 
     private void handleDeleteAction() {
-        switch (status) {
-            case READ:
-                if (DataEntryUtils.confirmDBDelete()) deleteSelectedBranchOffice();
-                break;
-            default:
-                break;
+        if (status == Status.READ) {
+            if (DataEntryUtils.confirmDBDelete()) deleteSelectedBranchOffice();
         }
 
     }
@@ -590,7 +586,7 @@ public class CategoryPanel extends AbstractFunctionPanel {
         return lowerPane;
     }
 
-    protected final void populateSelectedRowInForm(int selectedId) {
+    private void populateSelectedRowInForm(int selectedId) {
         try {
             Category bro = (Category) DBUtils.getById(Category.class, selectedId);
             if (bro != null) {

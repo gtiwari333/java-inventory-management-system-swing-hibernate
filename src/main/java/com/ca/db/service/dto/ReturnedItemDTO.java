@@ -2,9 +2,9 @@ package com.ca.db.service.dto;
 
 public class ReturnedItemDTO {
 
-    public int qty;
-    public int damageStatus;
-    public String rackNumber;
+    public final int qty;
+    public final int damageStatus;
+    private final String rackNumber;
 
     public ReturnedItemDTO(int qty, int damageStatus, String rackNumber) {
         super();

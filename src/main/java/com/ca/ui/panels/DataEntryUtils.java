@@ -2,7 +2,7 @@ package com.ca.ui.panels;
 
 import javax.swing.*;
 
-public class DataEntryUtils {
+class DataEntryUtils {
     public static boolean confirmDBSave() {
         return confirm("Are you sure to save");
     }

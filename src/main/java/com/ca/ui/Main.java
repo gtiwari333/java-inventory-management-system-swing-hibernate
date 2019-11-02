@@ -79,7 +79,7 @@ public class Main {
         });
     }
 
-    protected static void setApplicationStartLog() {
+    private static void setApplicationStartLog() {
         try {
             ApplicationLog log = new ApplicationLog();
             log.setDateTime(new Date());

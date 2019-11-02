@@ -9,13 +9,13 @@ import java.awt.*;
 import java.util.List;
 
 public class TestSpecDataCombo extends JPanel {
-    SpecificationPanel currentSpecificationPanel;
+    private SpecificationPanel currentSpecificationPanel;
     private DataComboBox comboBox;
     private JPanel panel;
     private JLabel lblCategory;
     private JPanel panel_1;
 
-    public TestSpecDataCombo() {
+    private TestSpecDataCombo() {
         initComponents();
         intCombo();
     }

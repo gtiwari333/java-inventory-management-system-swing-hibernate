@@ -39,21 +39,21 @@ import java.util.Map.Entry;
  * @author GT
  */
 public class ItemReturnPanel extends AbstractFunctionPanel {
-    String[] header = new String[]{"S.N.", "ID", "Name", "Category", "Specification", "Transfer Date", "Niksa Type", "Sent To", "Transfer Pana Num",
+    private final String[] header = new String[]{"S.N.", "ID", "Name", "Category", "Specification", "Transfer Date", "Niksa Type", "Sent To", "Transfer Pana Num",
             "Request Number", "Remaining Quantity", "Unit"};
-    String[] returnTblHeader = new String[]{"", "ID", "Name", "Category", "Goods Status", "Return Quantity", "Unit"};
-    String[] damageStatusStr = new String[]{"", "Good", "Unrepairable", "Needs Repair", "Exemption"};
-    ReturnTable returnTable;
-    JPanel formPanel = null;
-    JPanel buttonPanel;
-    Validator v;
+    private final String[] returnTblHeader = new String[]{"", "ID", "Name", "Category", "Goods Status", "Return Quantity", "Unit"};
+    private final String[] damageStatusStr = new String[]{"", "Good", "Unrepairable", "Needs Repair", "Exemption"};
+    private ReturnTable returnTable;
+    private JPanel formPanel = null;
+    private JPanel buttonPanel;
+    private Validator v;
     Validator vCart;
-    JDateChooser txtFromDate;
-    JDateChooser txtToDate;
-    List cellQtyEditors = new ArrayList();
-    int idCol = 1;
-    int qtyCol = 5;
-    int damageStatusCol = 4;
+    private JDateChooser txtFromDate;
+    private JDateChooser txtToDate;
+    private final List cellQtyEditors = new ArrayList();
+    private final int idCol = 1;
+    private final int qtyCol = 5;
+    private final int damageStatusCol = 4;
     private JButton btnSave;
     private JPanel upperPane;
     private JPanel lowerPane;
@@ -234,7 +234,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
                 SwingWorker worker = new SwingWorker<Void, Void>() {
 
                     @Override
-                    protected Void doInBackground() throws Exception {
+                    protected Void doInBackground() {
                         if (DataEntryUtils.confirmDBSave()) saveReturn();
                         return null;
                     }
@@ -277,7 +277,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
         return false;
     }
 
-    protected final void handleTransferSuccess() {
+    private void handleTransferSuccess() {
         SwingUtilities.invokeLater(() -> {
             JOptionPane.showMessageDialog(null, "Saved Successfully");
             cartDataModel.resetModel();
@@ -291,7 +291,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
         });
     }
 
-    protected final void removeSelectedRowInCartTable(int selectedId, int selRow) {
+    private void removeSelectedRowInCartTable(int selectedId, int selRow) {
         cartDataModel.removeRowWithKey(selectedId);
         cartDataModel.fireTableDataChanged();
         // TODO:
@@ -301,7 +301,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
         // cartTable.adjustColumns();
     }
 
-    protected final void addSelectedRowInCartTable(int selectedId) {
+    private void addSelectedRowInCartTable(int selectedId) {
         try {
             Transfer bo = (Transfer) DBUtils.getById(Transfer.class, selectedId);
             int sn = cartDataModel.getRowCount();
@@ -506,11 +506,11 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
         return formPanel;
     }
 
-    protected final void handleSearchQuery() {
-        readAndShowAll(true);
+    private void handleSearchQuery() {
+        readAndShowAll();
     }
 
-    private void readAndShowAll(boolean showSize0Error) {
+    private void readAndShowAll() {
         try {
             TransferServiceImpl is = new TransferServiceImpl();
             List<Transfer> brsL;
@@ -522,7 +522,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
                     txtToDate.getDate());
 
             if (brsL == null || brsL.size() == 0) {
-                if (showSize0Error) {
+                if (true) {
                     JOptionPane.showMessageDialog(null, "No Records Found");
                 }
                 dataModel.resetModel();
@@ -626,11 +626,11 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
         return addToCartPanel;
     }
 
-    public class CartTableQuantityCellEditor extends AbstractCellEditor implements TableCellEditor {
-        JComponent component = new JTextField();
+    static class CartTableQuantityCellEditor extends AbstractCellEditor implements TableCellEditor {
+        final JComponent component = new JTextField();
         int maxQuantity = 0;
 
-        public CartTableQuantityCellEditor(int maxQuantity) {
+        CartTableQuantityCellEditor(int maxQuantity) {
             this.maxQuantity = maxQuantity;
         }
 
@@ -659,7 +659,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
          * It must return the new value to be stored in the cell.
          */
         public final Object getCellEditorValue() {
-            Integer retQty = 0;
+            int retQty = 0;
             try {
                 retQty = Integer.parseInt(((JTextField) component).getText());
                 // if max
@@ -676,8 +676,8 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
         }
     }
 
-    public class CartTableNewRackNumberCellEditor extends AbstractCellEditor implements TableCellEditor {
-        JComponent component = new JTextField();
+    static class CartTableNewRackNumberCellEditor extends AbstractCellEditor implements TableCellEditor {
+        final JComponent component = new JTextField();
 
         /*
          * This method is called when a cell value is edited by the
@@ -710,7 +710,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
          * ID at sec col, Qty at 6th
          */
 
-        public ReturnTable(TableModel dm) {
+        ReturnTable(TableModel dm) {
             super(dm);
         }
 
@@ -724,12 +724,12 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
          *
          * @return
          */
-        public final boolean isValidCartQty() {
+        final boolean isValidCartQty() {
             Map<Integer, ReturnedItemDTO> cartMap = returnTable.getIdAndQuantityMap();
             for (Entry<Integer, ReturnedItemDTO> entry : cartMap.entrySet()) {
                 ReturnedItemDTO ret = entry.getValue();
-                Integer qty = ret.qty;
-                Integer damageStatus = ret.damageStatus;
+                int qty = ret.qty;
+                int damageStatus = ret.damageStatus;
                 if (qty > 0 && damageStatus > 0) {
                     return true;
                 }
@@ -747,12 +747,12 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
             return -1;
         }
 
-        public final Map<Integer, ReturnedItemDTO> getIdAndQuantityMap() {
+        final Map<Integer, ReturnedItemDTO> getIdAndQuantityMap() {
             Map<Integer, ReturnedItemDTO> cartIdQtyMap = new HashMap<>();
             int rows = getRowCount();
             for (int i = 0; i < rows; i++) {
                 Integer id = Integer.parseInt(getValueAt(i, idCol).toString());
-                Integer qty = Integer.parseInt(getValueAt(i, qtyCol).toString());
+                int qty = Integer.parseInt(getValueAt(i, qtyCol).toString());
                 // String rackNumber = getValueAt(i, rackCol).toString();
                 int damageStatus = getDamageStatusIndex(getValueAt(i, damageStatusCol).toString());
 

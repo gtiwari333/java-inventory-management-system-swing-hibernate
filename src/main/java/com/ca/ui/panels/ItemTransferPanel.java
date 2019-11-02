@@ -32,19 +32,19 @@ import java.util.List;
 import java.util.Map.Entry;
 
 public class ItemTransferPanel extends AbstractFunctionPanel {
-    final int qtyCol = 6;
-    String[] header = new String[]{"", "ID", "Pana Number", "Name", "Category", "Specification", "Parts Number", "Serial Number", "Rack Number",
+    private final int qtyCol = 6;
+    private final String[] header = new String[]{"", "ID", "Pana Number", "Name", "Category", "Specification", "Parts Number", "Serial Number", "Rack Number",
             "Purchase date", "Added date", "Vendor", "Quantity", "Unit", "Rate"};
-    String[] cartHeader = new String[]{"", "ID", "Name", "Category", "Specification", "Rack Number", "Quantity", "Unit"};
+    private final String[] cartHeader = new String[]{"", "ID", "Name", "Category", "Specification", "Rack Number", "Quantity", "Unit"};
     /**
      * ID at sec col, Qty at 7th
      */
-    int idCol = 1;
-    JPanel formPanel = null;
-    Validator v;
+    private final int idCol = 1;
+    private JPanel formPanel = null;
+    private Validator v;
     Validator vCart;
-    SpecificationPanel currentSpecificationPanel;
-    List cellEditors = new ArrayList();
+    private SpecificationPanel currentSpecificationPanel;
+    private final List cellEditors = new ArrayList();
     private JButton btnSave;
     private JPanel upperPane;
     private JPanel lowerPane;
@@ -223,7 +223,7 @@ public class ItemTransferPanel extends AbstractFunctionPanel {
                 SwingWorker worker = new SwingWorker<Void, Void>() {
 
                     @Override
-                    protected Void doInBackground() throws Exception {
+                    protected Void doInBackground() {
                         if (DataEntryUtils.confirmDBSave()) saveTransfer();
                         return null;
                     }
@@ -272,7 +272,7 @@ public class ItemTransferPanel extends AbstractFunctionPanel {
         }
     }
 
-    protected final void removeSelectedRowInCartTable(int selectedId, int selRow) {
+    private void removeSelectedRowInCartTable(int selectedId, int selRow) {
         cartDataModel.removeRowWithKey(selectedId);
         cartDataModel.fireTableDataChanged();
         // TODO:
@@ -281,7 +281,7 @@ public class ItemTransferPanel extends AbstractFunctionPanel {
         // cartTable.adjustColumns();
     }
 
-    protected final void handleTransferSuccess() {
+    private void handleTransferSuccess() {
         SwingUtilities.invokeLater(() -> {
             JOptionPane.showMessageDialog(null, "Saved Successfully");
             cartDataModel.resetModel();
@@ -296,7 +296,7 @@ public class ItemTransferPanel extends AbstractFunctionPanel {
 
     }
 
-    protected final void addSelectedRowInCartTable(int selectedId) {
+    private void addSelectedRowInCartTable(int selectedId) {
         try {
             Item bo = (Item) DBUtils.getById(Item.class, selectedId);
             System.out.println("Adding to cart id = " + selectedId + ">>" + bo.getQuantity() + " >> org " + bo.getOriginalQuantity());
@@ -498,11 +498,11 @@ public class ItemTransferPanel extends AbstractFunctionPanel {
         return formPanel;
     }
 
-    protected final void handleSearchQuery() {
-        readAndShowAll(true);
+    private void handleSearchQuery() {
+        readAndShowAll();
     }
 
-    private void readAndShowAll(boolean showSize0Error) {
+    private void readAndShowAll() {
         try {
             ItemServiceImpl is = new ItemServiceImpl();
             List<Item> brsL;
@@ -517,7 +517,7 @@ public class ItemTransferPanel extends AbstractFunctionPanel {
                     specs);
 
             if (brsL == null || brsL.size() == 0) {
-                if (showSize0Error) {
+                if (true) {
                     JOptionPane.showMessageDialog(null, "No Records Found");
                 }
                 dataModel.resetModel();
@@ -613,11 +613,11 @@ public class ItemTransferPanel extends AbstractFunctionPanel {
         return addToCartPanel;
     }
 
-    public class CartTableQuantityCellEditor extends AbstractCellEditor implements TableCellEditor {
-        JComponent component = new JTextField();
+    static class CartTableQuantityCellEditor extends AbstractCellEditor implements TableCellEditor {
+        final JComponent component = new JTextField();
         int maxQuantity = 0;
 
-        public CartTableQuantityCellEditor(int maxQuantity) {
+        CartTableQuantityCellEditor(int maxQuantity) {
             this.maxQuantity = maxQuantity;
         }
 
@@ -646,7 +646,7 @@ public class ItemTransferPanel extends AbstractFunctionPanel {
          * It must return the new value to be stored in the cell.
          */
         public final Object getCellEditorValue() {
-            Integer retQty = 0;
+            int retQty = 0;
             try {
                 retQty = Integer.parseInt(((JTextField) component).getText());
                 // if max
@@ -665,7 +665,7 @@ public class ItemTransferPanel extends AbstractFunctionPanel {
 
     class CartTable extends BetterJTableNoSorting {
 
-        public CartTable(TableModel dm) {
+        CartTable(TableModel dm) {
             super(dm);
         }
 
@@ -679,7 +679,7 @@ public class ItemTransferPanel extends AbstractFunctionPanel {
          *
          * @return
          */
-        public final boolean isValidCartQty() {
+        final boolean isValidCartQty() {
             Map<Integer, Integer> cartMap = cartTable.getIdAndQuantityMap();
             for (Entry<Integer, Integer> entry : cartMap.entrySet()) {
                 int qty = entry.getValue();
@@ -692,7 +692,7 @@ public class ItemTransferPanel extends AbstractFunctionPanel {
 
         }
 
-        public final Map<Integer, Integer> getIdAndQuantityMap() {
+        final Map<Integer, Integer> getIdAndQuantityMap() {
             Map<Integer, Integer> cartIdQtyMap = new HashMap<>();
             int rows = getRowCount();
             for (int i = 0; i < rows; i++) {

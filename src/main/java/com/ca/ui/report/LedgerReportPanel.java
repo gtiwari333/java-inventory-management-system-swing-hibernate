@@ -21,7 +21,7 @@ import java.util.Map;
 public class LedgerReportPanel extends AbstractFunctionPanel {
     private static final String LEDGER_FILE_NAME_MULTIPLE_KHATA_PANA = "ledger-multiple-khata-pana.jrxml";
     private static final String LEDGER_FILE_NAME_SINGLE_PANA = "ledger-single-pana.jrxml";
-    JPanel formPanel = null;
+    private JPanel formPanel = null;
     private JButton btnSave;
     private JPanel upperPane;
     private JPanel lowerPane;
@@ -165,7 +165,7 @@ public class LedgerReportPanel extends AbstractFunctionPanel {
 
         try {
             LedgerReportServiceImpl lrs = new LedgerReportServiceImpl();
-            List<LedgerReportBean> rpbl = lrs.getLedger(txtKhataNumber.getText().trim(), txtPanaNumber.getText().trim(), -1, -1, null, null);
+            List<LedgerReportBean> rpbl = lrs.getLedger(txtKhataNumber.getText().trim(), txtPanaNumber.getText().trim());
 
             if (rpbl.size() == 0) {
                 JOptionPane.showMessageDialog(null, "Nothing to display", "No records", JOptionPane.INFORMATION_MESSAGE);

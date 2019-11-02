@@ -24,14 +24,14 @@ public class LedgerReportServiceImpl extends BaseDAO {
     public static void main(String[] args) {
         try {
             LedgerReportServiceImpl lrs = new LedgerReportServiceImpl();
-            lrs.getLedger(null, null, 0, 0, null, null);
+            lrs.getLedger(null, null);
         } catch (Exception e) {
             e.printStackTrace();
         }
         // System.out.println(DateTimeUtils.getMySqlDate(new Date()));
     }
 
-    public final List<LedgerReportBean> getLedger(String khataNumber, String panaNumber, int categoryId, int vendorId, Date fromDate, Date toDate)
+    public final List<LedgerReportBean> getLedger(String khataNumber, String panaNumber)
             throws Exception {
         Session s = getSession();
 
@@ -212,7 +212,7 @@ public class LedgerReportServiceImpl extends BaseDAO {
                 rbReturn.setNikTotal("");
                 rbReturn.setUnitTransfer("");
 
-                Integer rem = 0;
+                int rem = 0;
                 if (uniqueRows.containsKey("I" + item.getId())) {
                     Integer prevQty = uniqueRows.get("I" + item.getId());
                     System.out.println("prev qty " + prevQty);

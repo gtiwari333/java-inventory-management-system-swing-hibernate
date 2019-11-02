@@ -102,8 +102,8 @@ public class Item {
     @Column(name = "zxtra5")
     private String zxtra5;
 
-    private static boolean isEmpty(String str) {
-        return str == null || str.trim().length() < 1;
+    private static boolean isNotEmpty(String str) {
+        return str != null && str.trim().length() >= 1;
     }
 
     public int getAccountTransferStatus() {
@@ -350,34 +350,34 @@ public class Item {
         StringBuilder sb = new StringBuilder();
         Category c = getCategory();
         Specification sp = getSpecification();
-        if ((!isEmpty(c.getSpecification1())) && (!isEmpty(sp.getSpecification1()))) {
+        if ((isNotEmpty(c.getSpecification1())) && (isNotEmpty(sp.getSpecification1()))) {
             sb.append(c.getSpecification1()).append(" : ").append(sp.getSpecification1());
         }
-        if ((!isEmpty(c.getSpecification2())) && (!isEmpty(sp.getSpecification2()))) {
+        if ((isNotEmpty(c.getSpecification2())) && (isNotEmpty(sp.getSpecification2()))) {
             sb.append(" , ").append(c.getSpecification2()).append(" : ").append(sp.getSpecification2());
         }
-        if ((!isEmpty(c.getSpecification3())) && (!isEmpty(sp.getSpecification3()))) {
+        if ((isNotEmpty(c.getSpecification3())) && (isNotEmpty(sp.getSpecification3()))) {
             sb.append(" , ").append(c.getSpecification3()).append(" : ").append(sp.getSpecification3());
         }
-        if ((!isEmpty(c.getSpecification4())) && (!isEmpty(sp.getSpecification4()))) {
+        if ((isNotEmpty(c.getSpecification4())) && (isNotEmpty(sp.getSpecification4()))) {
             sb.append(" , ").append(c.getSpecification4()).append(" : ").append(sp.getSpecification4());
         }
-        if ((!isEmpty(c.getSpecification5())) && (!isEmpty(sp.getSpecification5()))) {
+        if ((isNotEmpty(c.getSpecification5())) && (isNotEmpty(sp.getSpecification5()))) {
             sb.append(" , ").append(c.getSpecification5()).append(" : ").append(sp.getSpecification5());
         }
-        if ((!isEmpty(c.getSpecification6())) && (!isEmpty(sp.getSpecification6()))) {
+        if ((isNotEmpty(c.getSpecification6())) && (isNotEmpty(sp.getSpecification6()))) {
             sb.append(" , ").append(c.getSpecification6()).append(" : ").append(sp.getSpecification6());
         }
-        if ((!isEmpty(c.getSpecification7())) && (!isEmpty(sp.getSpecification7()))) {
+        if ((isNotEmpty(c.getSpecification7())) && (isNotEmpty(sp.getSpecification7()))) {
             sb.append(" , ").append(c.getSpecification7()).append(" : ").append(sp.getSpecification7());
         }
-        if ((!isEmpty(c.getSpecification8())) && (!isEmpty(sp.getSpecification8()))) {
+        if ((isNotEmpty(c.getSpecification8())) && (isNotEmpty(sp.getSpecification8()))) {
             sb.append(" , ").append(c.getSpecification8()).append(" : ").append(sp.getSpecification8());
         }
-        if ((!isEmpty(c.getSpecification9())) && (!isEmpty(sp.getSpecification9()))) {
+        if ((isNotEmpty(c.getSpecification9())) && (isNotEmpty(sp.getSpecification9()))) {
             sb.append(" , ").append(c.getSpecification9()).append(" : ").append(sp.getSpecification9());
         }
-        if ((!isEmpty(c.getSpecification10())) && (!isEmpty(sp.getSpecification10()))) {
+        if ((isNotEmpty(c.getSpecification10())) && (isNotEmpty(sp.getSpecification10()))) {
             sb.append(" , ").append(c.getSpecification10()).append(" : ").append(sp.getSpecification10());
         }
 

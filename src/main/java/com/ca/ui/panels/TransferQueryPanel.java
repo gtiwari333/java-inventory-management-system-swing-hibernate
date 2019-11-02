@@ -27,13 +27,13 @@ import java.util.Date;
 import java.util.List;
 
 public class TransferQueryPanel extends AbstractFunctionPanel {
-    String[] header = new String[]{"S.N.", "ID", "Name", "Category", "Specification", "Transfer Date", "Transfer Type", "Sent To", "Transfer Book Num",
+    private final String[] header = new String[]{"S.N.", "ID", "Name", "Category", "Specification", "Transfer Date", "Transfer Type", "Sent To", "Transfer Book Num",
             "Request Number", "Transfer Quantity", "Remaining Quantity to Return", "Units"};
-    JPanel formPanel = null;
-    JPanel buttonPanel;
-    Validator v;
-    JDateChooser txtFromDate;
-    JDateChooser txtToDate;
+    private JPanel formPanel = null;
+    private JPanel buttonPanel;
+    private Validator v;
+    private JDateChooser txtFromDate;
+    private JDateChooser txtToDate;
     private JButton btnSave;
     private JPanel upperPane;
     private JPanel lowerPane;
@@ -188,7 +188,7 @@ public class TransferQueryPanel extends AbstractFunctionPanel {
         return buttonPanel;
     }
 
-    protected final void editCorrectHandle() {
+    private void editCorrectHandle() {
 
         if (editingPrimaryId > 0) {
 
@@ -390,11 +390,11 @@ public class TransferQueryPanel extends AbstractFunctionPanel {
         return formPanel;
     }
 
-    protected final void handleSearchQuery() {
-        readAndShowAll(true);
+    private void handleSearchQuery() {
+        readAndShowAll();
     }
 
-    private void readAndShowAll(boolean showSize0Error) {
+    private void readAndShowAll() {
         try {
             TransferServiceImpl is = new TransferServiceImpl();
             List<Transfer> brsL;
@@ -418,7 +418,7 @@ public class TransferQueryPanel extends AbstractFunctionPanel {
                     txtToDate.getDate());
 
             if (brsL == null || brsL.size() == 0) {
-                if (showSize0Error) {
+                if (true) {
                     JOptionPane.showMessageDialog(null, "No Records Found");
                 }
                 resetTableData();
@@ -436,7 +436,7 @@ public class TransferQueryPanel extends AbstractFunctionPanel {
             dataModel.resetModel();
             dataModel.fireTableDataChanged();
             table.adjustColumns();
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
     }

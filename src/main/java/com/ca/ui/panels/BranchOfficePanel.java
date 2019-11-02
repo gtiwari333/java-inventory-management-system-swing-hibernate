@@ -20,10 +20,10 @@ import java.awt.*;
 import java.util.List;
 
 public class BranchOfficePanel extends AbstractFunctionPanel {
-    String[] header = new String[]{"S.N.", "ID", "Name", "Address", "District", "PhoneNumber"};
-    JPanel formPanel = null;
-    JPanel buttonPanel;
-    Validator v;
+    private final String[] header = new String[]{"S.N.", "ID", "Name", "Address", "District", "PhoneNumber"};
+    private JPanel formPanel = null;
+    private JPanel buttonPanel;
+    private Validator v;
     private JTextField nameFLD;
     private JTextField phoneNumberFLD;
     private GTextArea addressFLD;
@@ -122,12 +122,8 @@ public class BranchOfficePanel extends AbstractFunctionPanel {
     }
 
     private void handleDeleteAction() {
-        switch (status) {
-            case READ:
-                deleteSelectedBranchOffice();
-                break;
-            default:
-                break;
+        if (status == Status.READ) {
+            deleteSelectedBranchOffice();
         }
 
     }
@@ -389,7 +385,7 @@ public class BranchOfficePanel extends AbstractFunctionPanel {
         return lowerPane;
     }
 
-    protected final void populateSelectedRowInForm(int selectedId) {
+    private void populateSelectedRowInForm(int selectedId) {
         try {
             BranchOffice bro = (BranchOffice) DBUtils.getById(BranchOffice.class, selectedId);
             if (bro != null) {

@@ -185,9 +185,9 @@ public class ItemReturnServiceImpl extends BaseDAO {
 
                 int itemId = entry.getKey();
                 ReturnedItemDTO ret = entry.getValue();
-                Integer qty = ret.qty;
+                int qty = ret.qty;
                 // TODO: return item status
-                Integer damageStatus = ret.damageStatus;
+                int damageStatus = ret.damageStatus;
 
                 Criteria c = s.createCriteria(Transfer.class);
                 c.add(Restrictions.eq("id", itemId));

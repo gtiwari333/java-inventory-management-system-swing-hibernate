@@ -28,13 +28,13 @@ import java.util.Date;
 import java.util.List;
 
 public class ReturnQueryPanel extends AbstractFunctionPanel {
-    String[] header = new String[]{"S.N.", "ID", "Name", "Category", "Transfer Date", "Niksa Type", "Sent To", "Transfer Pana Num", "Request Number",
+    private final String[] header = new String[]{"S.N.", "ID", "Name", "Category", "Transfer Date", "Niksa Type", "Sent To", "Transfer Pana Num", "Request Number",
             "Return Number", "Transfer Quantity", "Remaining Quantity to Return", "Unit"};
-    JPanel formPanel = null;
-    JPanel buttonPanel;
-    Validator v;
-    JDateChooser txtFromDate;
-    JDateChooser txtToDate;
+    private JPanel formPanel = null;
+    private JPanel buttonPanel;
+    private Validator v;
+    private JDateChooser txtFromDate;
+    private JDateChooser txtToDate;
     private JButton btnSave;
     private JPanel upperPane;
     private JPanel lowerPane;
@@ -156,7 +156,7 @@ public class ReturnQueryPanel extends AbstractFunctionPanel {
         return buttonPanel;
     }
 
-    protected final void editCorrectHandle() {
+    private void editCorrectHandle() {
 
         if (editingPrimaryId > 0) {
             System.out.println("ReturnQueryPanel.editCorrectHandle() >> ");
@@ -327,11 +327,11 @@ public class ReturnQueryPanel extends AbstractFunctionPanel {
         return formPanel;
     }
 
-    protected final void handleSearchQuery() {
-        readAndShowAll(true);
+    private void handleSearchQuery() {
+        readAndShowAll();
     }
 
-    private void readAndShowAll(boolean showSize0Error) {
+    private void readAndShowAll() {
         try {
             ItemReturnServiceImpl is = new ItemReturnServiceImpl();
             List<ItemReturn> brsL;
@@ -348,7 +348,7 @@ public class ReturnQueryPanel extends AbstractFunctionPanel {
                     txtFromDate.getDate(), txtToDate.getDate());
 
             if (brsL == null || brsL.size() == 0) {
-                if (showSize0Error) {
+                if (true) {
                     JOptionPane.showMessageDialog(null, "No Records Found");
                 }
                 resetTableData();
@@ -365,7 +365,7 @@ public class ReturnQueryPanel extends AbstractFunctionPanel {
             dataModel.resetModel();
             dataModel.fireTableDataChanged();
             table.adjustColumns();
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
     }

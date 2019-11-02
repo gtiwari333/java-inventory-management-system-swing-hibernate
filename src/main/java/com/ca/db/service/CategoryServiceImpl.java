@@ -8,7 +8,7 @@ import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 
-public class CategoryServiceImpl extends BaseDAO {
+class CategoryServiceImpl extends BaseDAO {
 
     public CategoryServiceImpl() throws Exception {
         super();
