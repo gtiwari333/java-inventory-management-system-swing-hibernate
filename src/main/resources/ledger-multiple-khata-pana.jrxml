@@ -14,7 +14,7 @@
 	<field name="inRate" class="java.lang.String"/>
 	<field name="inTotal" class="java.lang.String"/>
 	<field name="reqFormId" class="java.lang.String"/>
-	<field name="nikasaBranch" class="java.lang.String"/>
+<!--	<field name="nikasaBranch" class="java.lang.String"/>-->
 	<field name="nikQty" class="java.lang.String"/>
 	<field name="nikRate" class="java.lang.String"/>
 	<field name="nikTotal" class="java.lang.String"/>
@@ -22,7 +22,7 @@
 	<field name="remTot" class="java.lang.String"/>
 	<field name="notes" class="java.lang.String"/>
 	<field name="unitStock" class="java.lang.String"/>
-	<field name="unitNikasa" class="java.lang.String"/>
+<!--	<field name="unitNikasa" class="java.lang.String"/>-->
 	<field name="khataPanaNumber" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -425,14 +425,14 @@
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{reqFormId}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="449" y="0" width="81" height="20"/>
-				<box padding="2"/>
-				<textElement verticalAlignment="Middle">
-					<font size="6"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{nikasaBranch}]]></textFieldExpression>
-			</textField>
+<!--			<textField isStretchWithOverflow="true">-->
+<!--				<reportElement x="449" y="0" width="81" height="20"/>-->
+<!--				<box padding="2"/>-->
+<!--				<textElement verticalAlignment="Middle">-->
+<!--					<font size="6"/>-->
+<!--				</textElement>-->
+<!--				<textFieldExpression class="java.lang.String"><![CDATA[$F{nikasaBranch}]]></textFieldExpression>-->
+<!--			</textField>-->
 			<textField isStretchWithOverflow="true">
 				<reportElement x="530" y="0" width="36" height="20"/>
 				<box padding="2"/>
@@ -505,13 +505,13 @@
 			<rectangle>
 				<reportElement stretchType="RelativeToBandHeight" x="566" y="0" width="27" height="20"/>
 			</rectangle>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="566" y="0" width="27" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="6"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{unitNikasa}]]></textFieldExpression>
-			</textField>
+<!--			<textField isStretchWithOverflow="true">-->
+<!--				<reportElement x="566" y="0" width="27" height="20"/>-->
+<!--				<textElement textAlignment="Center" verticalAlignment="Middle">-->
+<!--					<font size="6"/>-->
+<!--				</textElement>-->
+<!--				<textFieldExpression class="java.lang.String"><![CDATA[$F{unitNikasa}]]></textFieldExpression>-->
+<!--			</textField>-->
 			<rectangle>
 				<reportElement stretchType="RelativeToBandHeight" x="753" y="0" width="30" height="20"/>
 			</rectangle>

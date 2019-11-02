@@ -1,15 +1,11 @@
 package com.ca.ui.report;
 
-import com.ca.db.model.Person;
-import com.ca.db.service.DBUtils;
 import com.ca.db.service.LedgerReportServiceImpl;
-import com.ca.ui.panels.SpecificationPanel;
 import com.gt.common.constants.Status;
 import com.gt.common.utils.JrUtils;
 import com.gt.common.utils.StringUtils;
 import com.gt.common.utils.UIUtils;
 import com.gt.uilib.components.AbstractFunctionPanel;
-import com.gt.uilib.inputverifier.Validator;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
@@ -18,7 +14,6 @@ import com.jgoodies.forms.layout.RowSpec;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,8 +22,6 @@ public class LedgerReportPanel extends AbstractFunctionPanel {
     private static final String LEDGER_FILE_NAME_MULTIPLE_KHATA_PANA = "ledger-multiple-khata-pana.jrxml";
     private static final String LEDGER_FILE_NAME_SINGLE_PANA = "ledger-single-pana.jrxml";
     JPanel formPanel = null;
-    Validator v;
-    SpecificationPanel currentSpecificationPanel;
     private JButton btnSave;
     private JPanel upperPane;
     private JPanel lowerPane;
@@ -172,9 +165,9 @@ public class LedgerReportPanel extends AbstractFunctionPanel {
 
         try {
             LedgerReportServiceImpl lrs = new LedgerReportServiceImpl();
-            List<ReportBean> rpbl = lrs.getLedger(txtKhataNumber.getText().trim(), txtPanaNumber.getText().trim(), -1, -1, null, null);
+            List<LedgerReportBean> rpbl = lrs.getLedger(txtKhataNumber.getText().trim(), txtPanaNumber.getText().trim(), -1, -1, null, null);
 
-            if (rpbl == null || rpbl.size() == 0) {
+            if (rpbl.size() == 0) {
                 JOptionPane.showMessageDialog(null, "Nothing to display", "No records", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
@@ -198,49 +191,8 @@ public class LedgerReportPanel extends AbstractFunctionPanel {
             viewerPanel.revalidate();
             viewerPanel.repaint();
         } catch (Exception e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error " + e.getMessage(), "Could not show Leger", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    private static List<ReportBean> getRandom() {
-        List<ReportBean> rpbl = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            ReportBean rp = new ReportBean();
-            rp.setDate("Date " + i);
-            rp.setEntryFormId("entryFormId " + i);
-            rp.setGoodsName("goodsName " + i);
-            rp.setInQty("Qty " + i);
-            rp.setInRate("inRate " + i);
-            rp.setInRate("inRate " + i);
-            rp.setInTotal("inTotal " + i);
-            rp.setTransferBranch("transferBranch xxxx xxxxx xxxx xxx" + i);
-            rp.setNikQty("nikQty " + i);
-            rp.setNikRate("nikRate " + i);
-            rp.setNikTotal("nikTotal " + i);
-            rp.setNotes("notes " + i);
-            rp.setRemQty("remQty " + i);
-            rp.setReqFormId("reqFormId " + i);
-            rp.setSpecification("specification specification specification specification" + i);
-            rp.setSupplier("supplier " + i);
-            rp.setRemTot("Remaining Total" + i);
-            rpbl.add(rp);
-        }
-        return rpbl;
-    }
-
-    private void readAndShowAl00l(boolean showSize0Error) {
-        try {
-            List cats = DBUtils.readAll(Person.class);
-            Map parameters = new HashMap();
-            parameters.put("Report Title", "test title");
-            parameters.put("Page Header1", "header1");
-            parameters.put("Page Header2", "header2");
-            viewerPanel.removeAll();
-            viewerPanel.add(JrUtils.getJrViewerReport(cats, "testReport.jrxml", "Ledger Report", parameters));
-            viewerPanel.revalidate();
-            viewerPanel.repaint();
-
-        } catch (Exception e) {
         }
     }
 

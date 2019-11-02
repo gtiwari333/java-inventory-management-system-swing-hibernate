@@ -1,6 +1,6 @@
 package com.ca.ui.report;
 
-public class ReportBean {
+public class LedgerReportBean {
 
     private int itemId;
     private String date;
@@ -185,7 +185,7 @@ public class ReportBean {
 
     @Override
     public final boolean equals(Object obj) {
-        ReportBean rb = (ReportBean) obj;
+        LedgerReportBean rb = (LedgerReportBean) obj;
         if (rb.getItemId() == this.getItemId()) {
             return true;
         }

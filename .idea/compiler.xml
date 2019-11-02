@@ -7,9 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="java-inventory-management-system-swing-hibernate-nepal" />
+        <module name="inventory-management-system" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="inventory-management-system" target="1.8" />
       <module name="java-inventory-management-system-swing-hibernate-nepal" target="1.8" />
     </bytecodeTargetLevel>
   </component>

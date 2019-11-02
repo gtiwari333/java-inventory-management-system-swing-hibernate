@@ -18,7 +18,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.3.0.Beta1</version>
+            <version>5.4.7.Final</version>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
@@ -28,13 +28,13 @@
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
-            <version>3.2.7</version>
+            <version>3.3.0</version>
         </dependency>
 
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.16</version>
+            <version>1.2.17</version>
         </dependency>
 
         <dependency>
@@ -68,13 +68,13 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.4.197</version>
+            <version>1.4.200</version>
         </dependency>
 
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
-            <version>6.6.0</version>
+            <version>6.10.0</version>
         </dependency>
         <dependency>
             <groupId>net.sourceforge.jexcelapi</groupId>

@@ -3,14 +3,14 @@ package com.ca.db.service;
 import com.ca.db.model.Item;
 import com.ca.db.model.ItemReturn;
 import com.ca.db.model.Transfer;
-import com.ca.ui.report.ReportBean;
+import com.ca.ui.report.LedgerReportBean;
 import com.gt.common.utils.DateTimeUtils;
 import com.gt.common.utils.StringUtils;
 import com.gt.db.BaseDAO;
 import org.hibernate.Criteria;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.query.NativeQuery;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -31,44 +31,44 @@ public class LedgerReportServiceImpl extends BaseDAO {
         // System.out.println(DateTimeUtils.getMySqlDate(new Date()));
     }
 
-    public final List<ReportBean> getLedger(String khataNumber, String panaNumber, int categoryId, int vendorId, Date fromDate, Date toDate)
+    public final List<LedgerReportBean> getLedger(String khataNumber, String panaNumber, int categoryId, int vendorId, Date fromDate, Date toDate)
             throws Exception {
         Session s = getSession();
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("select i.id as iid,nik.id, itr.id as nid from item i ");
-        sb.append("left join transfer nik on (i.ID = nik.item_id");
+        sb.append("select i.id as iid, nik.id, itr.id as nid from item i ");
+        sb.append(" left join transfer nik on (i.ID = nik.item_id ");
         sb.append(" and  nik.REMAININGQTYTORETURN>0 ");
-        sb.append(" and nik.dFlag is not '0' ");
-        sb.append(")");
+        sb.append(" and nik.dFlag <> '0' ");
+        sb.append(" )");
 
-        sb.append("left join itemreturn itr on (nik.ID = itr.transfer_id");
-        sb.append(" and itr.dFlag is not '0' ");
-        sb.append(" and itr.returnItemCondition in (");
+        sb.append(" left join itemreturn itr on (nik.ID = itr.transfer_id ");
+        sb.append(" and itr.dFlag  <>  '0' ");
+        sb.append(" and itr.returnItemCondition in ( ");
         sb.append(ItemReturn.RETURN_ITEM_CONDITION_GOOD + ", ");
         sb.append(ItemReturn.RETURN_NEEDS_REPAIR);
-        sb.append(")");
-        sb.append(")");
+        sb.append(" ) ");
+        sb.append(" ) ");
 
         sb.append(" where 1=1");
 
         if (!StringUtils.isEmpty(khataNumber)) {
             sb.append(" and i.KHATANUMBER='").append(khataNumber).append("'");
         }
-        sb.append(" and i.ACCOUNTTRANSFERSTATUS is not '" + Item.ACCOUNT_TRANSFERRED_TO_NEW + "'");
+        sb.append(" and i.ACCOUNTTRANSFERSTATUS  <>  '" + Item.ACCOUNT_TRANSFERRED_TO_NEW + "' ");
         if (!StringUtils.isEmpty(panaNumber)) {
             sb.append(" and i.PANANUMBER ='").append(panaNumber).append("'");
         }
-        sb.append(" and i.dFlag is not '0' ");
+        sb.append(" and i.dFlag  <>  '0' ");
 
-        sb.append(" order by i.KHATANUMBER, i.PANANUMBER, nik.transferDate, itr.addeddate");
+        sb.append(" order by i.KHATANUMBER, i.PANANUMBER, nik.transferDate, itr.addeddate ");
         System.out.println("reportQuery > " + sb.toString());
 
-        SQLQuery sq = s.createSQLQuery(sb.toString());
+        NativeQuery sq = s.createSQLQuery(sb.toString());
         List result = sq.list();
 
-        List<ReportBean> rpbL = new ArrayList<>();
+        List<LedgerReportBean> rpbL = new ArrayList<>();
         Map<String, Integer> uniqueRows = new HashMap<>();
 
         for (Object o : result) {
@@ -77,9 +77,7 @@ public class LedgerReportServiceImpl extends BaseDAO {
             Integer itemId = (Integer) objects[0];
             Integer nikId = (Integer) objects[1];
             Integer retId = (Integer) objects[2];
-            // System.out.println("nik id " + nikId + " itemId  " + itemId);
-            ReportBean rbItem = new ReportBean();
-            // System.out.println("obejcts size " + objects.length);
+            LedgerReportBean rbItem = new LedgerReportBean();
 
             /**
              * Find Item from selected itemId
@@ -139,7 +137,7 @@ public class LedgerReportServiceImpl extends BaseDAO {
                 c2.add(Restrictions.eq("id", nikId));
                 Transfer nik = (Transfer) c2.list().get(0);
 
-                ReportBean rbTransfer = new ReportBean();
+                LedgerReportBean rbTransfer = new LedgerReportBean();
                 rbTransfer.setDate(DateTimeUtils.getCvDateMMDDYYYY(nik.getTransferDate()));
                 /**
                  * Empty the item fields
@@ -154,8 +152,6 @@ public class LedgerReportServiceImpl extends BaseDAO {
                 rbTransfer.setUnitStock("");
                 rbTransfer.setNotes("");
                 rbTransfer.setKhataPanaNumber("");
-                // System.out.println(item.toString());
-                // System.out.println(nik.toString());
                 rbTransfer.setReqFormId(nik.getTransferRequestNumber());
 
                 /**
@@ -196,7 +192,7 @@ public class LedgerReportServiceImpl extends BaseDAO {
                 c2.add(Restrictions.eq("id", retId));
                 ItemReturn itemReturn = (ItemReturn) c2.list().get(0);
 
-                ReportBean rbReturn = new ReportBean();
+                LedgerReportBean rbReturn = new LedgerReportBean();
                 rbReturn.setDate(DateTimeUtils.getCvDateMMDDYYYY(itemReturn.getAddedDate()));
                 rbReturn.setGoodsName("");
                 rbReturn.setEntryFormId("");
@@ -240,39 +236,27 @@ public class LedgerReportServiceImpl extends BaseDAO {
         return rpbL;
     }
 
-    private static void getTransferString(Transfer nik, ReportBean reportBean) {
+    private static void getTransferString(Transfer nik, LedgerReportBean ledgerReportBean) {
         System.out.println("Transfer Type  " + nik.getTransferType());
         switch (nik.getTransferType()) {
             case Transfer.LILAM:
-                reportBean.setTransferBranch(" ");
-                reportBean.setNotes("Lilam");
+                ledgerReportBean.setTransferBranch(" ");
+                ledgerReportBean.setNotes("Lilam");
                 break;
             case Transfer.OFFICIAL:
-                reportBean.setTransferBranch(nik.getBranchOffice().getName());
+                ledgerReportBean.setTransferBranch(nik.getBranchOffice().getName());
                 break;
             case Transfer.PERSONNAL:
-                reportBean.setTransferBranch(nik.getPerson().getFirstName() + " " + nik.getPerson().getLastName());
+                ledgerReportBean.setTransferBranch(nik.getPerson().getFirstName() + " " + nik.getPerson().getLastName());
                 break;
         }
     }
 
     private static String getTotalPrice(BigDecimal rate, int qty) {
-        // System.out.println("LedgerReportServcieImpl.getTotalPrice()  " +
-        // rate);
-        if (rate != null) return rate.multiply(new BigDecimal(qty)).toString();
+        if (rate != null)
+            return rate.multiply(new BigDecimal(qty)).toString();
         else
             return "";
     }
-    /**
-     * hibernate join same column names SQLQuery sq =
-     * getSession().createSQLQuery(
-     * "select * from item i left join transfer nik on (i.ID = nik.item_id) order by i.id, i.name"
-     * ) .addEntity(Item.class).addEntity(Transfer.class); List result =
-     * sq.list();
-     *
-     * Iterator ite = result.iterator(); List<ReportBean> rpbL = new
-     * ArrayList<ReportBean>(); for (Object o : result) { Object[] objects =
-     * (Object[]) o; Item item = (Item) objects[0]; Transfer nik = (Transfer)
-     * objects[1];
-     */
+
 }

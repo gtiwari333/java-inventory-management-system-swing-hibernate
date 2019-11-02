@@ -6,6 +6,7 @@ import com.ca.db.service.DBUtils;
 import com.ca.db.service.LoginUserServiceImpl;
 import com.gt.common.AppStarter;
 import com.gt.uilib.components.AppFrame;
+import org.apache.commons.lang3.SystemUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,7 +43,9 @@ public class Main {
      * Launch the application.
      */
     public static void main(String[] args) throws Exception {
-        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        if (SystemUtils.IS_OS_WINDOWS) {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        }
 
         File f = new File("log");
         f.mkdir();

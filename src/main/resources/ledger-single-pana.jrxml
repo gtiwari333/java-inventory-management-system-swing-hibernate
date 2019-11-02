@@ -17,7 +17,7 @@
 	<field name="inRate" class="java.lang.String"/>
 	<field name="inTotal" class="java.lang.String"/>
 	<field name="reqFormId" class="java.lang.String"/>
-	<field name="nikasaBranch" class="java.lang.String"/>
+<!--	<field name="nikasaBranch" class="java.lang.String"/>-->
 	<field name="nikQty" class="java.lang.String"/>
 	<field name="nikRate" class="java.lang.String"/>
 	<field name="nikTotal" class="java.lang.String"/>
@@ -434,14 +434,14 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{reqFormId}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="449" y="0" width="81" height="20"/>
-				<box padding="2"/>
-				<textElement verticalAlignment="Middle">
-					<font size="6"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{nikasaBranch}]]></textFieldExpression>
-			</textField>
+<!--			<textField isStretchWithOverflow="true">-->
+<!--				<reportElement x="449" y="0" width="81" height="20"/>-->
+<!--				<box padding="2"/>-->
+<!--				<textElement verticalAlignment="Middle">-->
+<!--					<font size="6"/>-->
+<!--				</textElement>-->
+<!--				<textFieldExpression><![CDATA[$F{nikasaBranch}]]></textFieldExpression>-->
+<!--			</textField>-->
 			<textField isStretchWithOverflow="true">
 				<reportElement x="530" y="0" width="36" height="20"/>
 				<box padding="2"/>

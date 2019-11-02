@@ -3,12 +3,12 @@ package com.gt.common.utils;
 
 import javax.crypto.*;
 import javax.crypto.spec.DESKeySpec;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
+import java.util.Base64;
 
 
 public class CryptographicUtil {
@@ -119,10 +119,10 @@ public class CryptographicUtil {
         String encryptedText = null;
         try {
             // Encode the string into bytes using utf-8
-            utf8 = str.getBytes("UTF8");
+            utf8 = str.getBytes(StandardCharsets.UTF_8);
             enc = ecipher.doFinal(utf8);
-            encryptedText = new sun.misc.BASE64Encoder().encode(enc);
-        } catch (UnsupportedEncodingException | BadPaddingException | IllegalBlockSizeException e) {
+            encryptedText = new String(Base64.getEncoder().encode(enc));
+        } catch (BadPaddingException | IllegalBlockSizeException e) {
             e.printStackTrace();
         }
 
@@ -142,11 +142,11 @@ public class CryptographicUtil {
         String decryptedText = null;
         try {
             // Decode base64 to get bytes
-            dec = new sun.misc.BASE64Decoder().decodeBuffer(str);
+            dec = Base64.getDecoder().decode(str);
             utf8 = dcipher.doFinal(dec);
             // Decode using utf-8
-            decryptedText = new String(utf8, "UTF8");
-        } catch (IOException | BadPaddingException | IllegalBlockSizeException e) {
+            decryptedText = new String(utf8, StandardCharsets.UTF_8);
+        } catch (BadPaddingException | IllegalBlockSizeException e) {
             e.printStackTrace();
         }
         return decryptedText;
