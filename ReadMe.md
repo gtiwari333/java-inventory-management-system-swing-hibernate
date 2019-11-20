@@ -1,7 +1,5 @@
 ## Inventory Management System - desktop based 
 
-##### Note:I wrote this as a test project to practice DBMS/Java/Hibernate/Swing during my early days of programming (2011-2012). 
-
 #### This uses following libraries/frameworks
 - Swing 
 - JGoodies Swing Extension Library
