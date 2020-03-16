@@ -190,37 +190,36 @@ public class Transfer {
     }
 
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("\nTransfer [id=");
-        builder.append(this.id);
-        builder.append(", branchOffice=");
-        builder.append(this.branchOffice);
-        builder.append(", transferDate=");
-        builder.append(this.transferDate);
-        builder.append(", dFlag=");
-        builder.append(this.dFlag);
-        builder.append(", lastModifiedDate=");
-        builder.append(this.lastModifiedDate);
-        builder.append(", transferType=");
-        builder.append(this.transferType);
-        builder.append(", person=");
-        builder.append(this.person);
-        builder.append(", quantity=");
-        builder.append(this.quantity);
-        builder.append(", remainingQtyToReturn=");
-        builder.append(this.remainingQtyToReturn);
-        builder.append(", status=");
-        builder.append(this.status);
-        builder.append(", rate=");
-        builder.append(this.rate);
-        builder.append(", deliveredDate=");
-        builder.append(this.deliveredDate);
 
-        builder.append(", transferRequestNumber=");
-        builder.append(this.transferRequestNumber);
-        builder.append(", transferPanaNumber=");
-        builder.append(this.transferPanaNumber);
-        builder.append("]");
-        return builder.toString();
+        String builder = "\nTransfer [id=" +
+                this.id +
+                ", branchOffice=" +
+                this.branchOffice +
+                ", transferDate=" +
+                this.transferDate +
+                ", dFlag=" +
+                this.dFlag +
+                ", lastModifiedDate=" +
+                this.lastModifiedDate +
+                ", transferType=" +
+                this.transferType +
+                ", person=" +
+                this.person +
+                ", quantity=" +
+                this.quantity +
+                ", remainingQtyToReturn=" +
+                this.remainingQtyToReturn +
+                ", status=" +
+                this.status +
+                ", rate=" +
+                this.rate +
+                ", deliveredDate=" +
+                this.deliveredDate +
+                ", transferRequestNumber=" +
+                this.transferRequestNumber +
+                ", transferPanaNumber=" +
+                this.transferPanaNumber +
+                "]";
+        return builder;
     }
 }

@@ -81,7 +81,7 @@ public class UIUtils {
         Color enabledColor = (Color) UIManager.get("TextField.background");
         if (!igList.contains(parent)) {
             parent.setEnabled(enabled);
-            if (parent instanceof JTextComponent || parent instanceof JDateChooser || parent instanceof DataComboBox || parent instanceof JComboBox) {
+            if (parent instanceof JTextComponent || parent instanceof JDateChooser || parent instanceof JComboBox) {
                 if (!enabled) parent.setBackground(disabledColor);
                 if (enabled) parent.setBackground(enabledColor);
             }

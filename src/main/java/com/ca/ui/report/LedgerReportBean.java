@@ -194,49 +194,48 @@ public class LedgerReportBean {
 
     @Override
     public final String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("ReportBean [itemId=");
-        builder.append(itemId);
-        builder.append(", date=");
-        builder.append(date);
-        builder.append(", goodsName=");
-        builder.append(goodsName);
-        builder.append(", entryFormId=");
-        builder.append(entryFormId);
-        builder.append(", khataPanaNumber=");
-        builder.append(khataPanaNumber);
-        builder.append(", supplier=");
-        builder.append(supplier);
-        builder.append(", specification=");
-        builder.append(specification);
-        builder.append(", inQty=");
-        builder.append(inQty);
-        builder.append(", inRate=");
-        builder.append(inRate);
-        builder.append(", inTotal=");
-        builder.append(inTotal);
-        builder.append(", reqFormId=");
-        builder.append(reqFormId);
-        builder.append(", transferBranch=");
-        builder.append(transferBranch);
-        builder.append(", nikQty=");
-        builder.append(nikQty);
-        builder.append(", nikRate=");
-        builder.append(nikRate);
-        builder.append(", nikTotal=");
-        builder.append(nikTotal);
-        builder.append(", remQty=");
-        builder.append(remQty);
-        builder.append(", remTot=");
-        builder.append(remTot);
-        builder.append(", notes=");
-        builder.append(notes);
-        builder.append(", unitStock=");
-        builder.append(unitStock);
-        builder.append(", unitTransfer=");
-        builder.append(unitTransfer);
-        builder.append("]");
-        return builder.toString();
+        String builder = "ReportBean [itemId=" +
+                itemId +
+                ", date=" +
+                date +
+                ", goodsName=" +
+                goodsName +
+                ", entryFormId=" +
+                entryFormId +
+                ", khataPanaNumber=" +
+                khataPanaNumber +
+                ", supplier=" +
+                supplier +
+                ", specification=" +
+                specification +
+                ", inQty=" +
+                inQty +
+                ", inRate=" +
+                inRate +
+                ", inTotal=" +
+                inTotal +
+                ", reqFormId=" +
+                reqFormId +
+                ", transferBranch=" +
+                transferBranch +
+                ", nikQty=" +
+                nikQty +
+                ", nikRate=" +
+                nikRate +
+                ", nikTotal=" +
+                nikTotal +
+                ", remQty=" +
+                remQty +
+                ", remTot=" +
+                remTot +
+                ", notes=" +
+                notes +
+                ", unitStock=" +
+                unitStock +
+                ", unitTransfer=" +
+                unitTransfer +
+                "]";
+        return builder;
     }
 
 }

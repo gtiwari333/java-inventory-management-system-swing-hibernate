@@ -114,7 +114,7 @@ public class NumberFormatDocument extends PlainDocument {
             FocusManager fm = FocusManager.getCurrentManager();
             if (fm != null) {
                 Component owner = fm.getFocusOwner();
-                if (owner != null && (owner instanceof JTextComponent)) {
+                if ((owner instanceof JTextComponent)) {
                     JTextComponent tf = (JTextComponent) owner;
                     if (tf.getDocument() == this) owner.transferFocus();
                 }

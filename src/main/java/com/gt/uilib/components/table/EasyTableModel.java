@@ -13,7 +13,6 @@ public class EasyTableModel extends DefaultTableModel {
     private int KEY_ID_COLUMN = 1;
 
     protected EasyTableModel() {
-        setEditable(false);
     }
 
     public EasyTableModel(String[] header) {
@@ -47,10 +46,6 @@ public class EasyTableModel extends DefaultTableModel {
             }
         }
         return false;
-    }
-
-    public static final void setEditable(boolean isEditable) {
-        setEditable(isEditable);
     }
 
     public final void removeRowWithKey(Integer key) {

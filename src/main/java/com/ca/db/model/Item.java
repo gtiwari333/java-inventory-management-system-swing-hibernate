@@ -385,52 +385,51 @@ public class Item {
     }
 
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("\nItem [id=");
-        builder.append(this.id);
-        builder.append(", name=");
-        builder.append(this.name);
-        builder.append(", rackNo=");
-        builder.append(this.rackNo);
-        builder.append(", rate=");
-        builder.append(this.rate);
-        builder.append(", unitsString=");
-        builder.append(this.unitsString);
-        builder.append(", partsNumber=");
-        builder.append(this.partsNumber);
-        builder.append(", quantity=");
-        builder.append(this.quantity);
-        builder.append(", originalQuantity=");
-        builder.append(this.originalQuantity);
-        builder.append(", status=");
-        builder.append(this.status);
-        builder.append(", serialNumber=");
-        builder.append(this.serialNumber);
-        builder.append(", purchaseDate=");
-        builder.append(this.purchaseDate);
-        builder.append(", addedDate=");
-        builder.append(this.addedDate);
-        builder.append(", dFlag=");
-        builder.append(this.dFlag);
-        builder.append(", lastModifiedDate=");
-        builder.append(this.lastModifiedDate);
-        builder.append(", purchaseOrderNo=");
-        builder.append(this.purchaseOrderNo);
-        builder.append(", panaNumber=");
-        builder.append(this.panaNumber);
-        builder.append(", addedType=");
-        builder.append(this.addedType);
-        builder.append(", parentItemId=");
-        builder.append(this.parentItemId);
-        builder.append(", accountTransferStatus=");
-        builder.append(this.accountTransferStatus);
-        builder.append(", currentFiscalYear=");
-        builder.append(this.currentFiscalYear);
-        builder.append(", dakhilaNumber=");
-        builder.append(this.dakhilaNumber);
-        builder.append(", khataNumber=");
-        builder.append(this.khataNumber);
-        builder.append("]");
-        return builder.toString();
+        String builder = "\nItem [id=" +
+                this.id +
+                ", name=" +
+                this.name +
+                ", rackNo=" +
+                this.rackNo +
+                ", rate=" +
+                this.rate +
+                ", unitsString=" +
+                this.unitsString +
+                ", partsNumber=" +
+                this.partsNumber +
+                ", quantity=" +
+                this.quantity +
+                ", originalQuantity=" +
+                this.originalQuantity +
+                ", status=" +
+                this.status +
+                ", serialNumber=" +
+                this.serialNumber +
+                ", purchaseDate=" +
+                this.purchaseDate +
+                ", addedDate=" +
+                this.addedDate +
+                ", dFlag=" +
+                this.dFlag +
+                ", lastModifiedDate=" +
+                this.lastModifiedDate +
+                ", purchaseOrderNo=" +
+                this.purchaseOrderNo +
+                ", panaNumber=" +
+                this.panaNumber +
+                ", addedType=" +
+                this.addedType +
+                ", parentItemId=" +
+                this.parentItemId +
+                ", accountTransferStatus=" +
+                this.accountTransferStatus +
+                ", currentFiscalYear=" +
+                this.currentFiscalYear +
+                ", dakhilaNumber=" +
+                this.dakhilaNumber +
+                ", khataNumber=" +
+                this.khataNumber +
+                "]";
+        return builder;
     }
 }
