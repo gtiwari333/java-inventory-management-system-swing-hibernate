@@ -40,7 +40,8 @@ public class NumberFormatDocument extends PlainDocument {
     }
 
     public final void setMaxLength(int maxLength) {
-        if (maxLength > 16 || maxLength < 1) {
+        final boolean isOutofLength = maxLength > 16 || maxLength < 1;
+		if (isOutofLength) {
             throw new IllegalArgumentException("the max length value is limited from 1 to 16.");
         } else {
             this.maxLength = maxLength;
