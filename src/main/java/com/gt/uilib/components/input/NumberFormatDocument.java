@@ -105,12 +105,7 @@ public class NumberFormatDocument extends PlainDocument {
         super.remove(0, getLength());
         super.insertString(0, commaValue, a);
         dot += str.length();
-        int comma2 = calcComma(getText(0, dot));
-        dot += comma2 - comma1;
-        target.getCaret().setDot(dot);
-        if (getLength() > 0 && getText(0, 1).equals("-")) target.setForeground(Color.RED);
-        else
-            target.setForeground(Color.BLACK);
+        setColorForeground(dot, comma1);
         if (focusNext) {
             FocusManager fm = FocusManager.getCurrentManager();
             if (fm != null) {
@@ -122,6 +117,15 @@ public class NumberFormatDocument extends PlainDocument {
             }
         }
     }
+
+	private void setColorForeground(int dot, int comma1) throws BadLocationException {
+		int comma2 = calcComma(getText(0, dot));
+        dot += comma2 - comma1;
+        target.getCaret().setDot(dot);
+        if (getLength() > 0 && getText(0, 1).equals("-")) target.setForeground(Color.RED);
+        else
+            target.setForeground(Color.BLACK);
+	}
 
     public final void remove(int offs, int len) throws BadLocationException {
         int dot = target.getCaret().getDot();
@@ -146,12 +150,7 @@ public class NumberFormatDocument extends PlainDocument {
         super.remove(0, getLength());
         super.insertString(0, commaValue, null);
         if (!isDelete) dot -= len;
-        int comma2 = calcComma(getText(0, dot));
-        dot += comma2 - comma1;
-        target.getCaret().setDot(dot);
-        if (getLength() > 0 && getText(0, 1).equals("-")) target.setForeground(Color.RED);
-        else
-            target.setForeground(Color.BLACK);
+        setColorForeground(dot, comma1);
     }
 
     private static int calcComma(String val) {
