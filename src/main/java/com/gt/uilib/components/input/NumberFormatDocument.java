@@ -60,7 +60,9 @@ public class NumberFormatDocument extends PlainDocument {
         if (!matcher.matches()) throw new BadLocationException(str, offs);
         int dot = target.getCaret().getDot();
         int len = getLength();
+        
         StringBuilder buf = new StringBuilder();
+        //
         if (str.equals("-")) {
             if (len == 0) {
                 super.insertString(offs, str, a);
@@ -81,19 +83,26 @@ public class NumberFormatDocument extends PlainDocument {
             }
             return;
         }
+        
         if (str.equals(",")) return;
+        
         buf.append(getText(0, offs));
         buf.append(str);
         buf.append(getText(offs, len - offs));
+        
         int comma1 = calcComma(getText(0, dot));
         String value = buf.toString();
         value = value.replace(",", "");
+        
         String temp = value.replace("-", "");
         int periodIndex = temp.indexOf('.');
         boolean focusNext = false;
         String temp2 = temp.replace(".", "");
-        if (temp2.length() == maxLength) focusNext = true;
+        
+//        if (temp2.length() == maxLength) focusNext = true;
+        focusNext = (temp2.length() == maxLength);
         if (periodIndex > 0) {
+        	//
             if (decimalPlacesSize == 0) throw new BadLocationException(str, offs);
             int decimal = temp.length() - periodIndex - 1;
             if (decimal > decimalPlacesSize) throw new BadLocationException(str, offs);
@@ -101,11 +110,17 @@ public class NumberFormatDocument extends PlainDocument {
         }
         int checkLength = maxLength - decimalPlacesSize;
         if (temp.length() > checkLength) throw new BadLocationException(str, offs);
-        String commaValue = format(value, offs);
-        super.remove(0, getLength());
-        super.insertString(0, commaValue, a);
+        
+        // extract method
+//        String commaValue = format(value, offs);
+//        super.remove(0, getLength());
+//        super.insertString(0, commaValue, a);
+        setComma(offs, value, a);
+        
         dot += str.length();
+        
         setColorForeground(dot, comma1);
+        
         if (focusNext) {
             FocusManager fm = FocusManager.getCurrentManager();
             if (fm != null) {
@@ -117,6 +132,12 @@ public class NumberFormatDocument extends PlainDocument {
             }
         }
     }
+
+	private void setComma(int offs, String value, AttributeSet a) throws BadLocationException {
+		String commaValue = format(value, offs);
+        super.remove(0, getLength());
+        super.insertString(0, commaValue, a);
+	}
 
 	private void setColorForeground(int dot, int comma1) throws BadLocationException {
 		int comma2 = calcComma(getText(0, dot));
@@ -146,9 +167,13 @@ public class NumberFormatDocument extends PlainDocument {
             return;
         }
         value = value.replaceAll("[,]", "");
-        String commaValue = format(value, offs);
-        super.remove(0, getLength());
-        super.insertString(0, commaValue, null);
+        
+     // extract method
+//        String commaValue = format(value, offs);
+//        super.remove(0, getLength());
+//        super.insertString(0, commaValue, null);
+        setComma(offs, value, null);
+        
         if (!isDelete) dot -= len;
         setColorForeground(dot, comma1);
     }
