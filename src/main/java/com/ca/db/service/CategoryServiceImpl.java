@@ -26,24 +26,23 @@ class CategoryServiceImpl extends BaseDAO {
 
     }
 
-    public static final boolean isSubCategoryExists(int categoryId, String subCategoryName) throws Exception {
-
+    public static final List getCategoryList(int categoryId, String subCategoryName) throws Exception {
         Criteria c = getSession().createCriteria(SubCategory.class);
         c.add(Restrictions.eq("dFlag", 1));
         c.add(Restrictions.eq("categoryId", categoryId));
 
         c.add(Restrictions.ilike("subCategoryName", subCategoryName.toLowerCase()));
         List l = c.list();
+        return l;
+    }
+    
+    public static final boolean isSubCategoryExists(int categoryId, String subCategoryName) throws Exception {
+        List l = getCategoryList(categoryId, subCategoryName);
         return l.size() > 0;
     }
 
     public static final SubCategory getSubCategoryByname(int categoryId, String subCategoryName) throws Exception {
-        Criteria c = getSession().createCriteria(SubCategory.class);
-        c.add(Restrictions.eq("dFlag", 1));
-        c.add(Restrictions.eq("categoryId", categoryId));
-
-        c.add(Restrictions.ilike("subCategoryName", subCategoryName.toLowerCase()));
-        List l = c.list();
+    	List l = getCategoryList(categoryId, subCategoryName);
         return (SubCategory) l.get(0);
     }
 }

@@ -32,13 +32,7 @@ public class TransferServiceImpl extends BaseDAO {
             c.add(Restrictions.eq("id", transferId));
             Transfer transfer = (Transfer) (c.list()).get(0);
 
-            if (transfer.getQuantity() != transfer.getRemainingQtyToReturn()) {
-                throw new Exception(" This cannot be modified.");
-            }
-
-            Criteria cI = s.createCriteria(Item.class);
-            cI.add(Restrictions.eq("id", transfer.getItem().getId()));
-            Item item = (Item) (cI.list()).get(0);
+            Item item = getItemById(s, transfer);
 
             // qty in stock, add previous qty (since it is deleted)
             item.setQuantity(item.getQuantity() + transfer.getQuantity());
@@ -67,13 +61,7 @@ public class TransferServiceImpl extends BaseDAO {
             c.add(Restrictions.eq("id", transferId));
             Transfer transfer = (Transfer) (c.list()).get(0);
 
-            if (transfer.getQuantity() != transfer.getRemainingQtyToReturn()) {
-                throw new Exception(" This cannot be modified.");
-            }
-
-            Criteria cI = s.createCriteria(Item.class);
-            cI.add(Restrictions.eq("id", transfer.getItem().getId()));
-            Item item = (Item) (cI.list()).get(0);
+            Item item = getItemById(s, transfer);
 
             // qty in stock, add previous qty and minus new one
             item.setQuantity(item.getQuantity() + transfer.getQuantity() - qty);
@@ -121,6 +109,17 @@ public class TransferServiceImpl extends BaseDAO {
             throw new Exception("Item transfer update failed " + er.getMessage());
         }
     }
+
+	private static Item getItemById(Session s, Transfer transfer) throws Exception {
+		if (transfer.getQuantity() != transfer.getRemainingQtyToReturn()) {
+		    throw new Exception(" This cannot be modified.");
+		}
+
+		Criteria cI = s.createCriteria(Item.class);
+		cI.add(Restrictions.eq("id", transfer.getItem().getId()));
+		Item item = (Item) (cI.list()).get(0);
+		return item;
+	}
 
     public static final void saveTransfer(Map<Integer, Integer> cartMap, Date transferDate, ReceiverType type, int id, String transferPanaNumber, String requestNumber)
             throws Exception {
