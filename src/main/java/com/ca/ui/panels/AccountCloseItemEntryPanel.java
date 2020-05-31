@@ -35,7 +35,7 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
             "Rack Number", "Purchase date", "Added date", "Vendor", "Original Quantity", "Qty in Stock", "Rate", "Unit", "Total", "Saved Date"};
     private JPanel formPanel = null;
     private JPanel buttonPanel;
-    private final Validator v;
+    private final Validator validator;
     private JDateChooser txtPurDate;
     private JTextField txtName;
     private JButton btnReadAll;
@@ -104,7 +104,7 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
         /**
          * never forget to call after setting up UI
          */
-        v = new Validator(mainApp, true);
+        validator = new Validator(mainApp, true);
         init();
     }
 
@@ -116,12 +116,12 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
         }
         EventQueue.invokeLater(() -> {
             try {
-                JFrame jf = new JFrame();
+                JFrame jframe = new JFrame();
                 AccountCloseItemEntryPanel panel = new AccountCloseItemEntryPanel();
-                jf.setBounds(panel.getBounds());
-                jf.getContentPane().add(panel);
-                jf.setVisible(true);
-                jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                jframe.setBounds(panel.getBounds());
+                jframe.getContentPane().add(panel);
+                jframe.setVisible(true);
+                jframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -212,7 +212,7 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
 
     @Override
     public final void enableDisableComponents() {
-        v.resetErrors();
+        validator.resetErrors();
         switch (status) {
             case NONE:
                 UIUtils.toggleAllChildren(buttonPanel, false);
@@ -276,36 +276,24 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
 
     private void initValidator() {
 
-        if (v != null) {
-            v.resetErrors();
+        if (validator != null) {
+            validator.resetErrors();
         }
 
-        v.addTask(txtPananumber, "Req", null, true);
+        validator.addTask(txtPananumber, "Req", null, true);
 
 
     }
 
     private void setModelIntoForm(Item bro) {
-        txtPurchaseordernumber.setText(bro.getPurchaseOrderNo());
-        txtName.setText(bro.getName());
-        txtPananumber.setText(bro.getPanaNumber());
-        cmbCategory.selectItem(bro.getCategory().getId());
-        txtPartsnumber.setText(bro.getPartsNumber());
-        txtSerialnumber.setText(bro.getSerialNumber());
-        txtRacknumber.setText(bro.getRackNo());
-        txtPurDate.setDate(bro.getPurchaseDate());
-        cmbVendor.selectItem(bro.getVendor().getId());
-        txtQuantity.setText(bro.getQuantity() + "");
-        txtRate.setText(bro.getRate().toString());
-        txtKhatanumber.setText(bro.getKhataNumber());
-        txtDakhilanumber.setText(bro.getDakhilaNumber());
-        BigDecimal total = bro.getRate().multiply(new BigDecimal(bro.getQuantity()));
-        txtTotal.setText(total.toString());
+    	setModelIntoForm(bro, txtPurchaseordernumber, txtName, txtPananumber, cmbCategory,
+        		txtPartsnumber, txtSerialnumber, txtRacknumber, txtPurDate, cmbVendor,
+        		txtQuantity, txtRate, txtTotal, txtKhatanumber, txtDakhilanumber);
     }
 
     private void save() {
         initValidator();
-        if (v.validate()) {
+        if (validator.validate()) {
             try {
 
                 Item bo = (Item) DBUtils.getById(Item.class, editingPrimaryId);

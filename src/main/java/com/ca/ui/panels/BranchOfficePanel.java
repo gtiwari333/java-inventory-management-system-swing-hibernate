@@ -23,7 +23,7 @@ public class BranchOfficePanel extends AbstractFunctionPanel {
     private final String[] header = new String[]{"S.N.", "ID", "Name", "Address", "District", "PhoneNumber"};
     private JPanel formPanel = null;
     private JPanel buttonPanel;
-    private Validator v;
+    private Validator validator;
     private JTextField nameFLD;
     private JTextField phoneNumberFLD;
     private GTextArea addressFLD;
@@ -66,12 +66,12 @@ public class BranchOfficePanel extends AbstractFunctionPanel {
         }
         EventQueue.invokeLater(() -> {
             try {
-                JFrame jf = new JFrame();
+                JFrame jframe = new JFrame();
                 BranchOfficePanel panel = new BranchOfficePanel();
-                jf.setBounds(panel.getBounds());
-                jf.getContentPane().add(panel);
-                jf.setVisible(true);
-                jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                jframe.setBounds(panel.getBounds());
+                jframe.getContentPane().add(panel);
+                jframe.setVisible(true);
+                jframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -199,12 +199,12 @@ public class BranchOfficePanel extends AbstractFunctionPanel {
 
     private void initValidator() {
 
-        if (v != null) {
-            v.resetErrors();
+        if (validator != null) {
+            validator.resetErrors();
         }
 
-        v = new Validator(mainApp, true);
-        v.addTask(nameFLD, "Req", null, true);
+        validator = new Validator(mainApp, true);
+        validator.addTask(nameFLD, "Req", null, true);
 //		v.addTask(addressFLD, "", null, true);
 
     }
@@ -228,7 +228,7 @@ public class BranchOfficePanel extends AbstractFunctionPanel {
 
     private void save(boolean isModified) {
         initValidator();
-        if (v.validate()) {
+        if (validator.validate()) {
             try {
 
                 BranchOffice newBo = getModelFromForm();

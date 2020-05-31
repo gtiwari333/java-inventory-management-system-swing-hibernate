@@ -1,12 +1,17 @@
 package com.gt.uilib.components;
 
+import com.ca.db.model.Item;
 import com.gt.common.constants.CommonConsts;
 import com.gt.common.constants.Status;
 import com.gt.common.utils.UIUtils;
+import com.gt.uilib.components.input.DataComboBox;
+import com.gt.uilib.components.input.NumberTextField;
 import com.gt.uilib.inputverifier.Verifier;
+import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
 import java.awt.*;
+import java.math.BigDecimal;
 
 /**
  * com.gt.uilib.components-AbstractFunctionPanel.java<br/>
@@ -85,4 +90,25 @@ public abstract class AbstractFunctionPanel extends JPanel implements Verifier {
     abstract public void handleSaveAction();
 
     abstract public void enableDisableComponents();
+    
+    protected void setModelIntoForm(Item bro, JTextField txtPurchaseordernumber, JTextField txtName, JTextField txtPananumber, DataComboBox cmbCategory,
+    		JTextField txtPartsnumber, JTextField txtSerialnumber, JTextField txtRacknumber, JDateChooser txtPurDate, DataComboBox cmbVendor,
+    		NumberTextField txtQuantity, NumberTextField txtRate, JTextField txtTotal, JTextField txtKhatanumber,
+    		JTextField txtDakhilanumber) {
+        txtPurchaseordernumber.setText(bro.getPurchaseOrderNo());
+        txtName.setText(bro.getName());
+        txtPananumber.setText(bro.getPanaNumber());
+        cmbCategory.selectItem(bro.getCategory().getId());
+        txtPartsnumber.setText(bro.getPartsNumber());
+        txtSerialnumber.setText(bro.getSerialNumber());
+        txtRacknumber.setText(bro.getRackNo());
+        txtPurDate.setDate(bro.getPurchaseDate());
+        cmbVendor.selectItem(bro.getVendor().getId());
+        txtQuantity.setText(bro.getQuantity() + "");
+        txtRate.setText(bro.getRate().toString());
+        BigDecimal total = bro.getRate().multiply(new BigDecimal(bro.getQuantity()));
+        txtTotal.setText(total.toString());
+        txtKhatanumber.setText(bro.getKhataNumber());
+        txtDakhilanumber.setText(bro.getDakhilaNumber());
+    }
 }
