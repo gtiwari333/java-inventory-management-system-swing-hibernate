@@ -40,7 +40,7 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
             "Total"};
     private JPanel formPanel = null;
     private JPanel buttonPanel;
-    private Validator v;
+    private Validator validator;
     private JDateChooser txtPurDate;
     private SpecificationPanel currentSpecificationPanel;
     private JTextField txtName;
@@ -114,7 +114,7 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
         /**
          * never forget to call after setting up UI
          */
-        v = new Validator(mainApp, true);
+        validator = new Validator(mainApp, true);
         init();
     }
 
@@ -126,12 +126,12 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
         }
         EventQueue.invokeLater(() -> {
             try {
-                JFrame jf = new JFrame();
+                JFrame jframe = new JFrame();
                 ItemEntryPanel panel = new ItemEntryPanel();
-                jf.setBounds(panel.getBounds());
-                jf.getContentPane().add(panel);
-                jf.setVisible(true);
-                jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                jframe.setBounds(panel.getBounds());
+                jframe.getContentPane().add(panel);
+                jframe.setVisible(true);
+                jframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -182,29 +182,18 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
 
     private void initCmbCategory() throws Exception {
         /* Category Combo */
-        cmbCategory.init();
-        List<Category> cl = DBUtils.readAll(Category.class);
-        for (Category c : cl) {
-            cmbCategory.addRow(new Object[]{c.getId(), c.getCategoryName()});
-        }
+        initSpecificCombo(cmbCategory);
     }
 
     private void initCmbUnits() throws Exception {
         /* Category Combo */
-        cmbUnitcombo.init();
-        List<UnitsString> cl = DBUtils.readAll(UnitsString.class);
-        for (UnitsString c : cl) {
-            cmbUnitcombo.addRow(new Object[]{c.getId(), c.getValue() + ""});
-        }
+        initSpecificCombo(cmbUnitcombo);
     }
 
     private void initCmbVendor() throws Exception {
         /* Vendor Combo */
-        cmbVendor.init();
-        List<Vendor> vl = DBUtils.readAll(Vendor.class);
-        for (Vendor v : vl) {
-            cmbVendor.addRow(new Object[]{v.getId(), v.getName(), v.getAddress()});
-        }
+    	initSpecificCombo(cmbVendor);
+        
     }
 
     private JPanel getButtonPanel() {
@@ -246,6 +235,14 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
         }
 
     }
+    
+    private void setModelIntoForm(Item bro)
+    {
+    	setModelIntoForm(bro, txtPurchaseordernumber, txtName, txtPananumber, cmbCategory,
+    		txtPartsnumber, txtSerialnumber, txtRacknumber, txtPurDate, cmbVendor,
+    		txtQuantity, txtRate, txtTotal, txtKhatanumber, txtDakhilanumber);
+        cmbUnitcombo.selectItem(bro.getUnitsString().getId());
+    }
 
     private void deleteSelectedItem() {
         try {
@@ -261,7 +258,7 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
 
     @Override
     public final void enableDisableComponents() {
-        v.resetErrors();
+        validator.resetErrors();
         switch (status) {
             case NONE:
                 UIUtils.toggleAllChildren(buttonPanel, false);
@@ -334,20 +331,18 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
 
     private void initValidator() {
 
-        if (v != null) {
-            v.resetErrors();
+        if (validator != null) {
+            validator.resetErrors();
         }
-        v = new Validator(mainApp, true);
-        v.addTask(txtName, "Req", null, true);
+        validator = new Validator(mainApp, true);
+        validator.addTask(txtName, "Req", null, true);
         // TODO: confirm the fields to validate
-        v.addTask(cmbCategory, "required", null, true);
-        v.addTask(cmbVendor, "required", null, true);
-        v.addTask(currentSpecificationPanel, "Spec req", null, true);
-        v.addTask(txtPurDate, "", null, true, true);
-        v.addTask(txtQuantity, "Req", null, true);
-        v.addTask(txtDakhilanumber, "Req", null, true);
+        
+        addValidatorTask(validator);
+        
 
     }
+    
 
     /**
      * current date not added to object ( for the case of modified data)
@@ -383,28 +378,11 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
         return bo;
     }
 
-    private void setModelIntoForm(Item bro) {
-        txtPurchaseordernumber.setText(bro.getPurchaseOrderNo());
-        txtName.setText(bro.getName());
-        txtPananumber.setText(bro.getPanaNumber());
-        cmbCategory.selectItem(bro.getCategory().getId());
-        txtPartsnumber.setText(bro.getPartsNumber());
-        txtSerialnumber.setText(bro.getSerialNumber());
-        txtRacknumber.setText(bro.getRackNo());
-        txtPurDate.setDate(bro.getPurchaseDate());
-        cmbVendor.selectItem(bro.getVendor().getId());
-        txtQuantity.setText(bro.getQuantity() + "");
-        txtRate.setText(bro.getRate().toString());
-        cmbUnitcombo.selectItem(bro.getUnitsString().getId());
-        BigDecimal total = bro.getRate().multiply(new BigDecimal(bro.getQuantity()));
-        txtTotal.setText(total.toString());
-        txtKhatanumber.setText(bro.getKhataNumber());
-        txtDakhilanumber.setText(bro.getDakhilaNumber());
-    }
+    
 
     private void save(boolean isModified) {
         initValidator();
-        if (v.validate()) {
+        if (validator.validate()) {
 
             if (!isModified) {
                 if (!DataEntryUtils.confirmDBSave()) {
@@ -780,6 +758,40 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
             System.out.println("populateSelectedRowInForm");
             handleDBError(e);
         }
+    }
+    
+    private void initSpecificCombo(DataComboBox combobox) throws Exception
+    {
+    	if(combobox == cmbCategory){
+    		cmbCategory.init();
+            List<Category> categoryList = DBUtils.readAll(Category.class);
+            for (Category category : categoryList) {
+                cmbCategory.addRow(new Object[]{category.getId(), category.getCategoryName()});
+            }
+    	}
+    	else if(combobox == cmbUnitcombo){
+    		cmbUnitcombo.init();
+            List<UnitsString> unitList = DBUtils.readAll(UnitsString.class);
+            for (UnitsString unit : unitList) {
+                cmbUnitcombo.addRow(new Object[]{unit.getId(), unit.getValue() + ""});
+            }
+    	}
+    	else if(combobox == cmbVendor){
+    		cmbVendor.init();
+            List<Vendor> vendorList = DBUtils.readAll(Vendor.class);
+            for (Vendor vendor : vendorList) {
+                cmbVendor.addRow(new Object[]{vendor.getId(), vendor.getName(), vendor.getAddress()});
+            }
+    	}
+    }
+    
+    private void addValidatorTask(Validator validator){
+    	validator.addTask(cmbCategory, "required", null, true);
+        validator.addTask(cmbVendor, "required", null, true);
+        validator.addTask(currentSpecificationPanel, "Spec req", null, true);
+        validator.addTask(txtPurDate, "", null, true, true);
+        validator.addTask(txtQuantity, "Req", null, true);
+        validator.addTask(txtDakhilanumber, "Req", null, true);
     }
 
 }

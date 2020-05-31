@@ -40,7 +40,8 @@ public class NumberFormatDocument extends PlainDocument {
     }
 
     public final void setMaxLength(int maxLength) {
-        if (maxLength > 16 || maxLength < 1) {
+        final boolean isOutofLength = maxLength > 16 || maxLength < 1;
+		if (isOutofLength) {
             throw new IllegalArgumentException("the max length value is limited from 1 to 16.");
         } else {
             this.maxLength = maxLength;
@@ -59,7 +60,9 @@ public class NumberFormatDocument extends PlainDocument {
         if (!matcher.matches()) throw new BadLocationException(str, offs);
         int dot = target.getCaret().getDot();
         int len = getLength();
+        
         StringBuilder buf = new StringBuilder();
+        //
         if (str.equals("-")) {
             if (len == 0) {
                 super.insertString(offs, str, a);
@@ -80,19 +83,26 @@ public class NumberFormatDocument extends PlainDocument {
             }
             return;
         }
+        
         if (str.equals(",")) return;
+        
         buf.append(getText(0, offs));
         buf.append(str);
         buf.append(getText(offs, len - offs));
+        
         int comma1 = calcComma(getText(0, dot));
         String value = buf.toString();
         value = value.replace(",", "");
+        
         String temp = value.replace("-", "");
         int periodIndex = temp.indexOf('.');
-        boolean focusNext = false;
         String temp2 = temp.replace(".", "");
-        if (temp2.length() == maxLength) focusNext = true;
+        
+//        if (temp2.length() == maxLength) focusNext = true;
+        boolean focusNext = false;
+        focusNext = (temp2.length() == maxLength);
         if (periodIndex > 0) {
+        	//
             if (decimalPlacesSize == 0) throw new BadLocationException(str, offs);
             int decimal = temp.length() - periodIndex - 1;
             if (decimal > decimalPlacesSize) throw new BadLocationException(str, offs);
@@ -100,27 +110,56 @@ public class NumberFormatDocument extends PlainDocument {
         }
         int checkLength = maxLength - decimalPlacesSize;
         if (temp.length() > checkLength) throw new BadLocationException(str, offs);
-        String commaValue = format(value, offs);
+        
+        // extract method
+//        String commaValue = format(value, offs);
+//        super.remove(0, getLength());
+//        super.insertString(0, commaValue, a);
+        setComma(offs, value, a);
+        
+        dot += str.length();
+        
+        setColorForeground(dot, comma1);
+        
+//        if (focusNext) {
+//            FocusManager fm = FocusManager.getCurrentManager();
+//            if (fm != null) {
+//                Component owner = fm.getFocusOwner();
+//                if ((owner instanceof JTextComponent)) {
+//                    JTextComponent tf = (JTextComponent) owner;
+//                    if (tf.getDocument() == this) owner.transferFocus();
+//                }
+//            }
+//        }
+      
+        focusNextTask(focusNext);
+    }
+
+	private void focusNextTask(boolean focusNext) {
+		if (!focusNext) return ;
+        FocusManager fm = FocusManager.getCurrentManager();
+	    if (fm == null) return ;
+        Component owner = fm.getFocusOwner();
+        if (!(owner instanceof JTextComponent)) return;
+        JTextComponent tf = (JTextComponent) owner;
+        if (tf.getDocument() != this) return;
+        owner.transferFocus();
+	}
+
+	private void setComma(int offs, String value, AttributeSet a) throws BadLocationException {
+		String commaValue = format(value, offs);
         super.remove(0, getLength());
         super.insertString(0, commaValue, a);
-        dot += str.length();
-        int comma2 = calcComma(getText(0, dot));
+	}
+
+	private void setColorForeground(int dot, int comma1) throws BadLocationException {
+		int comma2 = calcComma(getText(0, dot));
         dot += comma2 - comma1;
         target.getCaret().setDot(dot);
         if (getLength() > 0 && getText(0, 1).equals("-")) target.setForeground(Color.RED);
         else
             target.setForeground(Color.BLACK);
-        if (focusNext) {
-            FocusManager fm = FocusManager.getCurrentManager();
-            if (fm != null) {
-                Component owner = fm.getFocusOwner();
-                if ((owner instanceof JTextComponent)) {
-                    JTextComponent tf = (JTextComponent) owner;
-                    if (tf.getDocument() == this) owner.transferFocus();
-                }
-            }
-        }
-    }
+	}
 
     public final void remove(int offs, int len) throws BadLocationException {
         int dot = target.getCaret().getDot();
@@ -141,16 +180,15 @@ public class NumberFormatDocument extends PlainDocument {
             return;
         }
         value = value.replaceAll("[,]", "");
-        String commaValue = format(value, offs);
-        super.remove(0, getLength());
-        super.insertString(0, commaValue, null);
+        
+     // extract method
+//        String commaValue = format(value, offs);
+//        super.remove(0, getLength());
+//        super.insertString(0, commaValue, null);
+        setComma(offs, value, null);
+        
         if (!isDelete) dot -= len;
-        int comma2 = calcComma(getText(0, dot));
-        dot += comma2 - comma1;
-        target.getCaret().setDot(dot);
-        if (getLength() > 0 && getText(0, 1).equals("-")) target.setForeground(Color.RED);
-        else
-            target.setForeground(Color.BLACK);
+        setColorForeground(dot, comma1);
     }
 
     private static int calcComma(String val) {
