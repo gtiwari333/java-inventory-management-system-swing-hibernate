@@ -123,7 +123,7 @@ public class DataComboBox extends JComboBox {
     }
 
     public final boolean contains(String s) {
-        if (s == null || s.trim().isEmpty()) return true;
+        if (isStringNull(s)) return true;
         if (itemList == null) return false;
         s = s.toLowerCase();
         for (Item i : itemList) {
@@ -135,8 +135,12 @@ public class DataComboBox extends JComboBox {
 
     }
 
+	private boolean isStringNull(String s) {
+		return s == null || s.trim().isEmpty();
+	}
+
     public final boolean matches(String s) {
-        if (s == null || s.trim().isEmpty()) return true;
+        if (isStringNull(s)) return true;
         s = s.toLowerCase();
         for (Item i : itemList) {
             if (i.toString().toLowerCase().contains(s)) {
