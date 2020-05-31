@@ -26,7 +26,7 @@ public class CategoryPanel extends AbstractFunctionPanel {
             "Specification5", "Specification6", "Specification7", "Specification8", "Specification9", "Specification10"};
     private JPanel formPanel = null;
     private JPanel buttonPanel;
-    private Validator v;
+    private Validator validator;
     private JButton btnReadAll;
     private JButton btnNew;
     private JButton btnDeleteThis;
@@ -91,12 +91,12 @@ public class CategoryPanel extends AbstractFunctionPanel {
         }
         EventQueue.invokeLater(() -> {
             try {
-                JFrame jf = new JFrame();
+                JFrame jframe = new JFrame();
                 CategoryPanel panel = new CategoryPanel();
-                jf.setBounds(panel.getBounds());
-                jf.getContentPane().add(panel);
-                jf.setVisible(true);
-                jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                jframe.setBounds(panel.getBounds());
+                jframe.getContentPane().add(panel);
+                jframe.setVisible(true);
+                jframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -228,13 +228,13 @@ public class CategoryPanel extends AbstractFunctionPanel {
 
     private void initValidator() {
 
-        if (v != null) {
-            v.resetErrors();
+        if (validator != null) {
+            validator.resetErrors();
         }
 
-        v = new Validator(mainApp, true);
-        v.addTask(txtName, "Name is Required", null, true);
-        v.addTask(sp1, "At Least one Spec. is needed", null, true);
+        validator = new Validator(mainApp, true);
+        validator.addTask(txtName, "Name is Required", null, true);
+        validator.addTask(sp1, "At Least one Spec. is needed", null, true);
 
     }
 
@@ -321,7 +321,7 @@ public class CategoryPanel extends AbstractFunctionPanel {
 
     private void save(boolean isModified) {
         initValidator();
-        if (!v.validate() || !isCategoryTypeSelected()) {
+        if (!validator.validate() || !isCategoryTypeSelected()) {
             return;
         }
 
