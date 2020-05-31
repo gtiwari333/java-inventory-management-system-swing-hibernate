@@ -58,10 +58,7 @@ public class CryptographicUtil {
         String encryptedText = null;
         try {
 
-            KeySpec ks = new DESKeySpec(keyByte);
-            SecretKeyFactory kf = SecretKeyFactory.getInstance("DES");
-            SecretKey ky = kf.generateSecret(ks);
-            nicUtil = new CryptographicUtil(ky);
+            nicUtil = getCryptoGraphicUtil(keyByte);
             encryptedText = nicUtil.encrypt(text);
         } catch (InvalidKeyException | InvalidKeySpecException | NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -82,16 +79,23 @@ public class CryptographicUtil {
         String decryptedText = null;
         try {
 
-            KeySpec ks = new DESKeySpec(keyByte);
-            SecretKeyFactory kf = SecretKeyFactory.getInstance("DES");
-            SecretKey ky = kf.generateSecret(ks);
-            nicUtil = new CryptographicUtil(ky);
+            nicUtil = getCryptoGraphicUtil(keyByte);
             decryptedText = nicUtil.decrypt(text);
         } catch (InvalidKeyException | InvalidKeySpecException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         return decryptedText;
     }
+
+	private static CryptographicUtil getCryptoGraphicUtil(byte[] keyByte)
+			throws InvalidKeyException, NoSuchAlgorithmException, InvalidKeySpecException {
+		CryptographicUtil nicUtil;
+		KeySpec ks = new DESKeySpec(keyByte);
+		SecretKeyFactory kf = SecretKeyFactory.getInstance("DES");
+		SecretKey ky = kf.generateSecret(ks);
+		nicUtil = new CryptographicUtil(ky);
+		return nicUtil;
+	}
 
     /**
      * The main method.
