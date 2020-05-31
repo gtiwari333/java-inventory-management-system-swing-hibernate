@@ -96,10 +96,10 @@ public class NumberFormatDocument extends PlainDocument {
         
         String temp = value.replace("-", "");
         int periodIndex = temp.indexOf('.');
-        boolean focusNext = false;
         String temp2 = temp.replace(".", "");
         
 //        if (temp2.length() == maxLength) focusNext = true;
+        boolean focusNext = false;
         focusNext = (temp2.length() == maxLength);
         if (periodIndex > 0) {
         	//
@@ -121,17 +121,30 @@ public class NumberFormatDocument extends PlainDocument {
         
         setColorForeground(dot, comma1);
         
-        if (focusNext) {
-            FocusManager fm = FocusManager.getCurrentManager();
-            if (fm != null) {
-                Component owner = fm.getFocusOwner();
-                if ((owner instanceof JTextComponent)) {
-                    JTextComponent tf = (JTextComponent) owner;
-                    if (tf.getDocument() == this) owner.transferFocus();
-                }
-            }
-        }
+//        if (focusNext) {
+//            FocusManager fm = FocusManager.getCurrentManager();
+//            if (fm != null) {
+//                Component owner = fm.getFocusOwner();
+//                if ((owner instanceof JTextComponent)) {
+//                    JTextComponent tf = (JTextComponent) owner;
+//                    if (tf.getDocument() == this) owner.transferFocus();
+//                }
+//            }
+//        }
+      
+        focusNextTask(focusNext);
     }
+
+	private void focusNextTask(boolean focusNext) {
+		if (!focusNext) return ;
+        FocusManager fm = FocusManager.getCurrentManager();
+	    if (fm == null) return ;
+        Component owner = fm.getFocusOwner();
+        if (!(owner instanceof JTextComponent)) return;
+        JTextComponent tf = (JTextComponent) owner;
+        if (tf.getDocument() != this) return;
+        owner.transferFocus();
+	}
 
 	private void setComma(int offs, String value, AttributeSet a) throws BadLocationException {
 		String commaValue = format(value, offs);
