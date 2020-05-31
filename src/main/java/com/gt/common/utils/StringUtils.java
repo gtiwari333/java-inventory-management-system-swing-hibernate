@@ -6,15 +6,27 @@ public final class StringUtils {
     }
 
     public static String toString(Object object) {
-        return object == null ? "" : object.toString();
+    	if(object == null) {
+    		return "";
+    	} else {
+    		return object.toString();
+    	}
     }
 
     public static String clean(String str) {
-        return (str == null ? "" : str.trim());
+    	if(str == null) {
+    		return "";
+    	} else {
+    		return str.trim();
+    	}
     }
 
     public static String trim(String str) {
-        return (str == null ? null : str.trim());
+        if(str == null) {
+        	return null;
+        } else {
+        	return str.trim();
+        }
     }
 
 
