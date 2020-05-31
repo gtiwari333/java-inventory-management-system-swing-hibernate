@@ -67,6 +67,15 @@ public class ItemServiceImpl extends BaseDAO {
         if (specs != null && specs.size() > 0) {
             try {
                 c.createAlias("specification", "sp", Criteria.LEFT_JOIN);
+                
+                for(int specnumber=0; specnumber<10; specnumber++) {
+                	if (!StringUtils.isEmpty(specs.get(specnumber))) {
+                		String name = "sp.specification" + Integer.toString(specnumber+1);
+                        c.add(Restrictions.eq(name, specs.get(specnumber)));
+                    }
+                }
+                
+                /*
                 if (!StringUtils.isEmpty(specs.get(0))) {
                     c.add(Restrictions.eq("sp.specification1", specs.get(0)));
                 }
@@ -96,7 +105,7 @@ public class ItemServiceImpl extends BaseDAO {
                 }
                 if (!StringUtils.isEmpty(specs.get(9))) {
                     c.add(Restrictions.eq("sp.specification10", specs.get(9)));
-                }
+                }*/
 
             } catch (Exception e) {
                 // e.printStackTrace();
