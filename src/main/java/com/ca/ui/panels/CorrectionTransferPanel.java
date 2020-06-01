@@ -15,11 +15,7 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.*;
 import java.awt.*;
 
-public class CorrectionTransferPanel extends AbstractFunctionPanel {
-    private JLabel txtItemnmaa;
-    private JLabel txtCategoryr;
-    private JLabel txtKhatapananumbbber;
-    Validator v;
+public class CorrectionTransferPanel extends CorrectionPanel {
     private JTextField txtTransferpananum;
     private JTextField txtRequestnum;
     private NumberTextField txtQty;
@@ -87,7 +83,7 @@ public class CorrectionTransferPanel extends AbstractFunctionPanel {
 
     }
 
-    private void getEditPanel() {
+    protected void getEditPanel() {
         setLayout(new FormLayout(new ColumnSpec[]{FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC, FormFactory.RELATED_GAP_COLSPEC,
                 FormFactory.DEFAULT_COLSPEC, FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC, FormFactory.RELATED_GAP_COLSPEC,
                 ColumnSpec.decode("max(135dlu;default)"), FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC,
@@ -196,7 +192,7 @@ public class CorrectionTransferPanel extends AbstractFunctionPanel {
 
     }
 
-    private void handleDeleteAction() {
+    protected void handleDeleteAction() {
         if (!DataEntryUtils.confirmDBDelete()) {
             return;
         }
@@ -216,7 +212,7 @@ public class CorrectionTransferPanel extends AbstractFunctionPanel {
         return "Transfer Correction and Edit, Hastantaran Register";
     }
 
-    private boolean isValidData() {
+    protected boolean isValidData() {
         int qty = Integer.parseInt(txtQty.getText());
 
         if (qty > 0 && itemReceiverPanel.isSelected() && transferDateChooser.getDate() != null) {
@@ -253,13 +249,13 @@ public class CorrectionTransferPanel extends AbstractFunctionPanel {
         }
     }
 
-    private void handleSuccess() {
+    protected void handleSuccess() {
         JOptionPane.showMessageDialog(null, "Saved Successfully");
         Window w = SwingUtilities.getWindowAncestor(CorrectionTransferPanel.this);
         w.setVisible(false);
     }
 
-    private void handleDeleteSuccess() {
+    protected void handleDeleteSuccess() {
         JOptionPane.showMessageDialog(null, "Deleted Successfully");
         Window w = SwingUtilities.getWindowAncestor(CorrectionTransferPanel.this);
         w.setVisible(false);
