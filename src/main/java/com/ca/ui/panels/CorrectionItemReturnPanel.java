@@ -28,6 +28,7 @@ public class CorrectionItemReturnPanel extends CorrectionPanel {
     private NumberTextField txtReturnQuanitty;
     private JDateChooser returnDateChooser;
     private JTextField txtReturnnumber;
+    private CorrectionItemReturnPanel thisPanel = CorrectionItemReturnPanel.this;
 
     public CorrectionItemReturnPanel(int id) {
 
@@ -249,7 +250,7 @@ public class CorrectionItemReturnPanel extends CorrectionPanel {
             TransferServiceImpl ns = new TransferServiceImpl();
             TransferServiceImpl.deleteTransfer(currentReturnId);
 
-            handleDeleteSuccess();
+            handleDeleteSuccess(thisPanel);
         } catch (Exception e) {
             e.printStackTrace();
             handleDBError(e);
@@ -307,23 +308,11 @@ public class CorrectionItemReturnPanel extends CorrectionPanel {
         }
         try {
             int damageStatus = getDamageStatusIndex(cmbReturnStatus.getSelectedItem().toString());
-            handleSuccess();
+            handleSuccess(thisPanel);
         } catch (Exception e) {
             e.printStackTrace();
             handleDBError(e);
         }
-    }
-
-    protected void handleSuccess() {
-        JOptionPane.showMessageDialog(null, "Saved Successfully");
-        Window w = SwingUtilities.getWindowAncestor(CorrectionItemReturnPanel.this);
-        w.setVisible(false);
-    }
-
-    protected void handleDeleteSuccess() {
-        JOptionPane.showMessageDialog(null, "Deleted Successfully");
-        Window w = SwingUtilities.getWindowAncestor(CorrectionItemReturnPanel.this);
-        w.setVisible(false);
     }
 
     @Override

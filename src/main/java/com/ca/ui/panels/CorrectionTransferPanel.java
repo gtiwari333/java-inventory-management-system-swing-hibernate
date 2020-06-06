@@ -25,6 +25,7 @@ public class CorrectionTransferPanel extends CorrectionPanel {
     private JPanel hastantaranStatus;
     private JRadioButton rdbtnHastantaranreceived;
     private JRadioButton rdbtnHastanNotReceived;
+    private CorrectionTransferPanel thisPanel = CorrectionTransferPanel.this;
 
     public CorrectionTransferPanel(int id) {
 
@@ -200,7 +201,7 @@ public class CorrectionTransferPanel extends CorrectionPanel {
             TransferServiceImpl ns = new TransferServiceImpl();
             TransferServiceImpl.deleteTransfer(currentTransferId);
 
-            handleDeleteSuccess();
+            handleDeleteSuccess(thisPanel);
         } catch (Exception e) {
             e.printStackTrace();
             handleDBError(e);
@@ -242,23 +243,11 @@ public class CorrectionTransferPanel extends CorrectionPanel {
             TransferServiceImpl ns = new TransferServiceImpl();
             TransferServiceImpl.updateTransfer(currentTransferId, Integer.parseInt(txtQty.getText()), transferDateChooser.getDate(), itemReceiverPanel.getCurrentType(),
                     itemReceiverPanel.getSelectedId(), txtTransferpananum.getText().trim(), txtRequestnum.getText().trim(), hastan);
-            handleSuccess();
+            handleSuccess(thisPanel);
         } catch (Exception e) {
             e.printStackTrace();
             handleDBError(e);
         }
-    }
-
-    protected void handleSuccess() {
-        JOptionPane.showMessageDialog(null, "Saved Successfully");
-        Window w = SwingUtilities.getWindowAncestor(CorrectionTransferPanel.this);
-        w.setVisible(false);
-    }
-
-    protected void handleDeleteSuccess() {
-        JOptionPane.showMessageDialog(null, "Deleted Successfully");
-        Window w = SwingUtilities.getWindowAncestor(CorrectionTransferPanel.this);
-        w.setVisible(false);
     }
 
     @Override
