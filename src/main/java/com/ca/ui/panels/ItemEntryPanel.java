@@ -71,7 +71,7 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
     private NumberTextField txtRate;
     private JTextField txtTotal;
     private JTextField txtSerialnumber;
-    AbstractFunctionPanel item = new ItemEntryPanel();
+    ItemEntryPanel item = new ItemEntryPanel();
     
     private final KeyListener priceCalcListener = new KeyListener() {
 
@@ -463,6 +463,7 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
         
         item.setFormPanelStrategy(new ItemContent());
         item.content(formPanel);
+        
         
         btnNewCategory = new JButton("New");
         btnNewCategory.setEnabled(false);
