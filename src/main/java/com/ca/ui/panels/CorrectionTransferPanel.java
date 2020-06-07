@@ -15,11 +15,7 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.*;
 import java.awt.*;
 
-public class CorrectionTransferPanel extends AbstractFunctionPanel {
-    private JLabel txtItemnmaa;
-    private JLabel txtCategoryr;
-    private JLabel txtKhatapananumbbber;
-    Validator v;
+public class CorrectionTransferPanel extends CorrectionPanel {
     private JTextField txtTransferpananum;
     private JTextField txtRequestnum;
     private NumberTextField txtQty;
@@ -29,6 +25,7 @@ public class CorrectionTransferPanel extends AbstractFunctionPanel {
     private JPanel hastantaranStatus;
     private JRadioButton rdbtnHastantaranreceived;
     private JRadioButton rdbtnHastanNotReceived;
+    private CorrectionTransferPanel thisPanel = CorrectionTransferPanel.this;
 
     public CorrectionTransferPanel(int id) {
 
@@ -87,7 +84,7 @@ public class CorrectionTransferPanel extends AbstractFunctionPanel {
 
     }
 
-    private void getEditPanel() {
+    protected void getEditPanel() {
         setLayout(new FormLayout(new ColumnSpec[]{FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC, FormFactory.RELATED_GAP_COLSPEC,
                 FormFactory.DEFAULT_COLSPEC, FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC, FormFactory.RELATED_GAP_COLSPEC,
                 ColumnSpec.decode("max(135dlu;default)"), FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC,
@@ -196,7 +193,7 @@ public class CorrectionTransferPanel extends AbstractFunctionPanel {
 
     }
 
-    private void handleDeleteAction() {
+    protected void handleDeleteAction() {
         if (!DataEntryUtils.confirmDBDelete()) {
             return;
         }
@@ -204,7 +201,7 @@ public class CorrectionTransferPanel extends AbstractFunctionPanel {
             TransferServiceImpl ns = new TransferServiceImpl();
             TransferServiceImpl.deleteTransfer(currentTransferId);
 
-            handleDeleteSuccess();
+            handleDeleteSuccess(thisPanel);
         } catch (Exception e) {
             e.printStackTrace();
             handleDBError(e);
@@ -216,7 +213,7 @@ public class CorrectionTransferPanel extends AbstractFunctionPanel {
         return "Transfer Correction and Edit, Hastantaran Register";
     }
 
-    private boolean isValidData() {
+    protected boolean isValidData() {
         int qty = Integer.parseInt(txtQty.getText());
 
         if (qty > 0 && itemReceiverPanel.isSelected() && transferDateChooser.getDate() != null) {
@@ -246,23 +243,11 @@ public class CorrectionTransferPanel extends AbstractFunctionPanel {
             TransferServiceImpl ns = new TransferServiceImpl();
             TransferServiceImpl.updateTransfer(currentTransferId, Integer.parseInt(txtQty.getText()), transferDateChooser.getDate(), itemReceiverPanel.getCurrentType(),
                     itemReceiverPanel.getSelectedId(), txtTransferpananum.getText().trim(), txtRequestnum.getText().trim(), hastan);
-            handleSuccess();
+            handleSuccess(thisPanel);
         } catch (Exception e) {
             e.printStackTrace();
             handleDBError(e);
         }
-    }
-
-    private void handleSuccess() {
-        JOptionPane.showMessageDialog(null, "Saved Successfully");
-        Window w = SwingUtilities.getWindowAncestor(CorrectionTransferPanel.this);
-        w.setVisible(false);
-    }
-
-    private void handleDeleteSuccess() {
-        JOptionPane.showMessageDialog(null, "Deleted Successfully");
-        Window w = SwingUtilities.getWindowAncestor(CorrectionTransferPanel.this);
-        w.setVisible(false);
     }
 
     @Override

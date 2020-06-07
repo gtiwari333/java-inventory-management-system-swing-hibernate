@@ -16,12 +16,7 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.*;
 import java.awt.*;
 
-public class CorrectionItemReturnPanel extends AbstractFunctionPanel {
-
-    private JLabel txtItemnmaa;
-    private JLabel txtCategoryr;
-    private JLabel txtKhatapananumbbber;
-    Validator v;
+public class CorrectionItemReturnPanel extends CorrectionPanel {
     private final String[] damageStatusStr = new String[]{"", "Good", "Unrepairable", "Needs Repair", "Exemption"};
     private JComboBox cmbReturnStatus;
     private JLabel txtTransferPnaNum1;
@@ -33,6 +28,7 @@ public class CorrectionItemReturnPanel extends AbstractFunctionPanel {
     private NumberTextField txtReturnQuanitty;
     private JDateChooser returnDateChooser;
     private JTextField txtReturnnumber;
+    private CorrectionItemReturnPanel thisPanel = CorrectionItemReturnPanel.this;
 
     public CorrectionItemReturnPanel(int id) {
 
@@ -98,7 +94,7 @@ public class CorrectionItemReturnPanel extends AbstractFunctionPanel {
 
     }
 
-    private void getEditPanel() {
+    protected void getEditPanel() {
         setLayout(new FormLayout(new ColumnSpec[]{
                 FormFactory.RELATED_GAP_COLSPEC,
                 FormFactory.DEFAULT_COLSPEC,
@@ -246,7 +242,7 @@ public class CorrectionItemReturnPanel extends AbstractFunctionPanel {
 
     }
 
-    private void handleDeleteAction() {
+    protected void handleDeleteAction() {
         if (!DataEntryUtils.confirmDBDelete()) {
             return;
         }
@@ -254,7 +250,7 @@ public class CorrectionItemReturnPanel extends AbstractFunctionPanel {
             TransferServiceImpl ns = new TransferServiceImpl();
             TransferServiceImpl.deleteTransfer(currentReturnId);
 
-            handleDeleteSuccess();
+            handleDeleteSuccess(thisPanel);
         } catch (Exception e) {
             e.printStackTrace();
             handleDBError(e);
@@ -266,7 +262,7 @@ public class CorrectionItemReturnPanel extends AbstractFunctionPanel {
         return "Transfer Correction and Edit, Hastantaran Register";
     }
 
-    private boolean isValidData() {
+    protected boolean isValidData() {
         if (returnDateChooser.getDate() != null) {
             JOptionPane.showMessageDialog(null, "Please enter proper return date!");
             return false;
@@ -312,23 +308,11 @@ public class CorrectionItemReturnPanel extends AbstractFunctionPanel {
         }
         try {
             int damageStatus = getDamageStatusIndex(cmbReturnStatus.getSelectedItem().toString());
-            handleSuccess();
+            handleSuccess(thisPanel);
         } catch (Exception e) {
             e.printStackTrace();
             handleDBError(e);
         }
-    }
-
-    private void handleSuccess() {
-        JOptionPane.showMessageDialog(null, "Saved Successfully");
-        Window w = SwingUtilities.getWindowAncestor(CorrectionItemReturnPanel.this);
-        w.setVisible(false);
-    }
-
-    private void handleDeleteSuccess() {
-        JOptionPane.showMessageDialog(null, "Deleted Successfully");
-        Window w = SwingUtilities.getWindowAncestor(CorrectionItemReturnPanel.this);
-        w.setVisible(false);
     }
 
     @Override
