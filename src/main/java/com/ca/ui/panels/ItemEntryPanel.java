@@ -71,6 +71,8 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
     private NumberTextField txtRate;
     private JTextField txtTotal;
     private JTextField txtSerialnumber;
+    AbstractFunctionPanel item = new ItemEntryPanel();
+    
     private final KeyListener priceCalcListener = new KeyListener() {
 
         public void keyPressed(KeyEvent e) {
@@ -457,192 +459,82 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
                             FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC,
                             FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC,}));
 
-            lblPurchaseOrderNumber = new JLabel("Purchase Order Number");
-            formPanel.add(lblPurchaseOrderNumber, "4, 2");
-
-            txtPurchaseordernumber = new JTextField();
-            formPanel.add(txtPurchaseordernumber, "8, 2, fill, default");
-            txtPurchaseordernumber.setColumns(10);
-
-            lblKhataNumber = new JLabel("Khata");
-            formPanel.add(lblKhataNumber, "4, 4");
-
-            txtKhatanumber = new JTextField();
-            formPanel.add(txtKhatanumber, "8, 4, fill, default");
-            txtKhatanumber.setColumns(10);
-
-            lblDakhilaNumber = new JLabel("Dakhila Number");
-            formPanel.add(lblDakhilaNumber, "4, 6");
-
-            txtDakhilanumber = new JTextField();
-            formPanel.add(txtDakhilanumber, "8, 6, fill, default");
-            txtDakhilanumber.setColumns(10);
-
-            JLabel lblN = new JLabel("Name");
-            formPanel.add(lblN, "4, 8");
-
-            txtName = new JTextField();
-            formPanel.add(txtName, "8, 8, fill, default");
-            txtName.setColumns(10);
-
-            lblPanaNumber = new JLabel("Pana Number");
-            formPanel.add(lblPanaNumber, "4, 10");
-
-            txtPananumber = new JTextField();
-            formPanel.add(txtPananumber, "8, 10, fill, default");
-            txtPananumber.setColumns(10);
-
-            JLabel lblCategory = new JLabel("Category");
-            formPanel.add(lblCategory, "4, 12, default, top");
-
-            cmbCategory = new DataComboBox();
-            formPanel.add(cmbCategory, "8, 12, fill, default");
-
-            btnNewCategory = new JButton("New");
-            btnNewCategory.setEnabled(false);
-            btnNewCategory.setVisible(false);
-            btnNewCategory.addActionListener(e -> {
-                GDialog cd = new GDialog(mainApp, "New Category Entry", true);
-                CategoryPanel vp = new CategoryPanel();
-                vp.changeStatusToCreate();
-                cd.setAbstractFunctionPanel(vp, new Dimension(450, 600));
-                cd.addWindowListener(new WindowAdapter() {
-                    @Override
-                    public void windowClosing(WindowEvent e) {
-                        try {
-                            initCmbCategory();
-                            // cmbCategory.selectLastInsertedItem();
-                        } catch (Exception ex) {
-                            System.err.println(ex.getMessage());
-                            ex.printStackTrace();
-                        }
-                    }
-
-                    public void windowClosed(WindowEvent e) {
-                        System.out
-                                .println("ItemEntryPanel.getUpperFormPanel().new ActionListener() {...}.actionPerformed(...).new WindowAdapter() {...}.windowClosing()");
-
-
-                    }
-                });
-            });
-            formPanel.add(btnNewCategory, "10, 12");
-
-            specPanelHolder = new JPanel();
-            specPanelHolder.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
-            formPanel.add(specPanelHolder, "4, 14, 17, 1, fill, fill");
-
-            lblPartsNumber = new JLabel("Parts Number");
-            formPanel.add(lblPartsNumber, "4, 16");
-
-            txtPartsnumber = new JTextField();
-            formPanel.add(txtPartsnumber, "8, 16, fill, default");
-            txtPartsnumber.setColumns(10);
-
-            lblQuantity = new JLabel("Quantity");
-            formPanel.add(lblQuantity, "12, 16");
-
-            txtQuantity = new NumberTextField(6, true);
-
-            txtQuantity.addKeyListener(priceCalcListener);
-            formPanel.add(txtQuantity, "16, 16, fill, default");
-
-            lblSerialNumber = new JLabel("Serial Number");
-            formPanel.add(lblSerialNumber, "4, 18");
-
-            txtSerialnumber = new JTextField();
-            formPanel.add(txtSerialnumber, "8, 18, fill, default");
-            txtSerialnumber.setColumns(10);
-
-            lblUnit = new JLabel("Unit");
-            formPanel.add(lblUnit, "12, 18");
-
-            cmbUnitcombo = new DataComboBox();
-            formPanel.add(cmbUnitcombo, "16, 18, fill, default");
-
-            lblRacknumber = new JLabel("Rack Number");
-            formPanel.add(lblRacknumber, "4, 20");
-
-            txtRacknumber = new JTextField();
-            formPanel.add(txtRacknumber, "8, 20, fill, default");
-            txtRacknumber.setColumns(10);
-
-            lblRate = new JLabel("Rate");
-            formPanel.add(lblRate, "12, 20");
-
-            txtRate = new NumberTextField(true);
-            txtRate.setDecimalPlace(2);
-            txtRate.addKeyListener(priceCalcListener);
-            formPanel.add(txtRate, "16, 20, fill, default");
-            txtRate.setDecimalPlace(2);
-
-            lblPurchaseDate = new JLabel("Purchase Date");
-            formPanel.add(lblPurchaseDate, "4, 22");
-
-            txtPurDate = new JDateChooser();
-            // txtPurDate.setDate(new Date());
-            txtPurDate.setEnabled(false);
-            formPanel.add(txtPurDate, "8, 22, fill, default");
-
-            lblTotal = new JLabel("Total");
-            formPanel.add(lblTotal, "12, 22");
-
-            txtTotal = new JTextField();
-            txtTotal.setEditable(false);
-            txtTotal.setFocusable(false);
-            // txtTotal.setEnabled(false);
-            formPanel.add(txtTotal, "16, 22, fill, default");
-            txtTotal.setColumns(10);
-
-            JLabel lblPhoneNumber = new JLabel("Vendor");
-            formPanel.add(lblPhoneNumber, "4, 24");
-
-            cmbVendor = new DataComboBox();
-            formPanel.add(cmbVendor, "8, 24, fill, default");
-
-            btnNewVendor = new JButton("New");
-            btnNewVendor.addActionListener(e -> {
-                GDialog cd = new GDialog(mainApp, "New Vendor Entry", true);
-                VendorPanel vp = new VendorPanel();
-                vp.changeStatusToCreate();
-                cd.setAbstractFunctionPanel(vp, new Dimension(450, 600));
-                cd.addWindowListener(new WindowAdapter() {
-                    @Override
-                    public void windowClosing(WindowEvent e) {
-                        try {
-                            initCmbVendor();
-                            cmbVendor.setSelectedIndex(cmbVendor.getItemCount() - 1);
-                        } catch (Exception ex) {
-                            System.err.println(ex.getMessage());
-                            ex.printStackTrace();
-
-                        }
-                    }
-                });
-            });
-            formPanel.add(btnNewVendor, "10, 24");
-
-            btnSave = new JButton("Save");
-            btnSave.addActionListener(e -> {
-                btnSave.setEnabled(false);
-                SwingWorker worker = new SwingWorker<Void, Void>() {
-                    @Override
-                    protected Void doInBackground() {
-                        handleSaveAction();
-                        return null;
-                    }
-
-                };
-                worker.addPropertyChangeListener(evt -> {
-                    if ("DONE".equals(evt.getNewValue().toString())) {
-                        btnSave.setEnabled(true);
-                    }
-                });
-
-                worker.execute();
-            });
-            formPanel.add(btnSave, "18, 24, fill, default");
         }
+        
+        item.setFormPanelStrategy(new ItemContent());
+        item.content(formPanel);
+        
+        btnNewCategory = new JButton("New");
+        btnNewCategory.setEnabled(false);
+        btnNewCategory.setVisible(false);
+        btnNewCategory.addActionListener(e -> {
+            GDialog cd = new GDialog(mainApp, "New Category Entry", true);
+            CategoryPanel vp = new CategoryPanel();
+            vp.changeStatusToCreate();
+            cd.setAbstractFunctionPanel(vp, new Dimension(450, 600));
+            cd.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    try {
+                        initCmbCategory();
+                        // cmbCategory.selectLastInsertedItem();
+                    } catch (Exception ex) {
+                        System.err.println(ex.getMessage());
+                        ex.printStackTrace();
+                    }
+                }
+
+                public void windowClosed(WindowEvent e) {
+                    System.out
+                            .println("ItemEntryPanel.getUpperFormPanel().new ActionListener() {...}.actionPerformed(...).new WindowAdapter() {...}.windowClosing()");
+
+
+                }
+            });
+        });
+        
+        btnNewVendor = new JButton("New");
+        btnNewVendor.addActionListener(e -> {
+            GDialog cd = new GDialog(mainApp, "New Vendor Entry", true);
+            VendorPanel vp = new VendorPanel();
+            vp.changeStatusToCreate();
+            cd.setAbstractFunctionPanel(vp, new Dimension(450, 600));
+            cd.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    try {
+                        initCmbVendor();
+                        cmbVendor.setSelectedIndex(cmbVendor.getItemCount() - 1);
+                    } catch (Exception ex) {
+                        System.err.println(ex.getMessage());
+                        ex.printStackTrace();
+
+                    }
+                }
+            });
+        });
+        formPanel.add(btnNewVendor, "10, 24");
+
+        btnSave = new JButton("Save");
+        btnSave.addActionListener(e -> {
+            btnSave.setEnabled(false);
+            SwingWorker worker = new SwingWorker<Void, Void>() {
+                @Override
+                protected Void doInBackground() {
+                    handleSaveAction();
+                    return null;
+                }
+
+            };
+            worker.addPropertyChangeListener(evt -> {
+                if ("DONE".equals(evt.getNewValue().toString())) {
+                    btnSave.setEnabled(true);
+                }
+            });
+
+            worker.execute();
+        });
+        formPanel.add(btnSave, "18, 24, fill, default");
 
         // // set Verifiers
         // txtRate.setInputVerifier(new DataTypeVerifier(null, txtRate,

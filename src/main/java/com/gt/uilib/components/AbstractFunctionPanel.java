@@ -1,6 +1,7 @@
 package com.gt.uilib.components;
 
 import com.ca.db.model.Item;
+import com.ca.ui.panels.FormPanelStrategy;
 import com.gt.common.constants.CommonConsts;
 import com.gt.common.constants.Status;
 import com.gt.common.utils.UIUtils;
@@ -27,6 +28,16 @@ public abstract class AbstractFunctionPanel extends JPanel implements Verifier {
     protected AppFrame mainApp;
     protected Status status;
     protected boolean debug;
+    FormPanelStrategy formpanelstrategy;
+    
+    public void content(JPanel formPanel){
+    	formpanelstrategy.content(formPanel);
+    }
+    
+    public void setFormPanelStrategy(FormPanelStrategy formpanelstrategy)
+    {
+    	this.formpanelstrategy = formpanelstrategy;
+    }
 
     public AbstractFunctionPanel() {
         debug = AppFrame.debug;
