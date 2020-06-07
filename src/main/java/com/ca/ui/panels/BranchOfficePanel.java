@@ -41,6 +41,7 @@ public class BranchOfficePanel extends AbstractFunctionPanel {
     private JLabel lblDistrict;
     private JTextField txtDistrict;
 
+    private ComponentsController componentsController;
     public BranchOfficePanel() {
         /**
          * all gui components added from here;
@@ -141,6 +142,22 @@ public class BranchOfficePanel extends AbstractFunctionPanel {
 
     @Override
     public final void enableDisableComponents() {
+        validator.resetErrors();
+        componentsController = new ComponentsController();
+        
+        componentsController.setButtonPanel(buttonPanel);
+        componentsController.setFormPanel(formPanel);
+        componentsController.setBtnCancel(btnCancel);
+        componentsController.setBtnSave(btnSave);
+        componentsController.setBtnReadAll(btnReadAll);
+        componentsController.setTable(table);
+        componentsController.setEditingPrimaryId(editingPrimaryId);
+        
+        componentsController.enableDisableComponents(status);
+    }
+    /*
+    @Override
+    public final void enableDisableComponents() {
         switch (status) {
             case NONE:
                 UIUtils.toggleAllChildren(buttonPanel, false);
@@ -178,7 +195,7 @@ public class BranchOfficePanel extends AbstractFunctionPanel {
             default:
                 break;
         }
-    }
+    }*/
 
     @Override
     public final void handleSaveAction() {
