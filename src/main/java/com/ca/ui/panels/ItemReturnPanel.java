@@ -94,6 +94,8 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
     private JTextField txtReturnNUmber;
     private JButton btnReset;
 
+    private ComponentsController componentsController;
+
     public ItemReturnPanel() {
         /**
          * all gui components added from here;
@@ -379,6 +381,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
         return buttonPanel;
     }
 
+    /*
     @Override
     public final void enableDisableComponents() {
         switch (status) {
@@ -401,6 +404,16 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
             default:
                 break;
         }
+    }*/
+    
+    @Override
+    public final void enableDisableComponents() {
+    	componentsController = new ComponentsController();
+        componentsController.setFormPanel(formPanel);
+        componentsController.setBtnSave(btnSave);
+        componentsController.setTable(table);
+        componentsController.enableDisableItemComponents(status);
+
     }
 
     @Override

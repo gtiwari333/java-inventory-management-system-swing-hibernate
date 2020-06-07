@@ -63,7 +63,8 @@ public class CategoryPanel extends AbstractFunctionPanel {
     private JPanel typePanel;
     private JRadioButton rdbtnReturnable;
     private JRadioButton rdbtnNonReturnable;
-
+    private ComponentsController componentsController;
+    
     public CategoryPanel() {
         /**
          * all gui components added from here;
@@ -169,6 +170,22 @@ public class CategoryPanel extends AbstractFunctionPanel {
 
     @Override
     public final void enableDisableComponents() {
+        validator.resetErrors();
+        componentsController = new ComponentsController();
+        
+        componentsController.setButtonPanel(buttonPanel);
+        componentsController.setFormPanel(formPanel);
+        componentsController.setBtnCancel(btnCancel);
+        componentsController.setBtnSave(btnSave);
+        componentsController.setBtnReadAll(btnReadAll);
+        componentsController.setTable(table);
+        componentsController.setEditingPrimaryId(editingPrimaryId);
+        
+        componentsController.enableDisableComponents(status);
+    }
+    /*
+    @Override
+    public final void enableDisableComponents() {
         switch (status) {
             case NONE:
                 UIUtils.toggleAllChildren(buttonPanel, false);
@@ -207,7 +224,9 @@ public class CategoryPanel extends AbstractFunctionPanel {
             default:
                 break;
         }
-    }
+    }*/
+    
+    
 
     @Override
     public final void handleSaveAction() {

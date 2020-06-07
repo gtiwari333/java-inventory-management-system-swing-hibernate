@@ -62,6 +62,8 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
     private NumberTextField txtRate;
     private JTextField txtTotal;
     private JTextField txtSerialnumber;
+    
+    private ComponentsController componentsController;
     private final KeyListener priceCalcListener = new KeyListener() {
 
         public void keyPressed(KeyEvent e) {
@@ -210,6 +212,7 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
         }
     }
 
+    /*
     @Override
     public final void enableDisableComponents() {
         validator.resetErrors();
@@ -255,7 +258,25 @@ public class AccountCloseItemEntryPanel extends AbstractFunctionPanel {
             default:
                 break;
         }
+    }*/
+    
+    @Override
+    public final void enableDisableComponents() {
+        validator.resetErrors();
+        componentsController = new ComponentsController();
+        
+        componentsController.setButtonPanel(buttonPanel);
+        componentsController.setFormPanel(formPanel);
+        componentsController.setBtnCancel(btnCancel);
+        componentsController.setBtnSave(btnSave);
+        componentsController.setBtnReadAll(btnReadAll);
+        componentsController.setTable(table);
+        componentsController.setEditingPrimaryId(editingPrimaryId);
+        
+        componentsController.enableDisableComponents(status);
     }
+    
+    
 
     @Override
     public final void handleSaveAction() {
