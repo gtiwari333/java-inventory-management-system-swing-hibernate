@@ -34,8 +34,7 @@ public abstract class AbstractFunctionPanel extends JPanel implements Verifier {
     	formpanelstrategy.content(formPanel);
     }
     
-    public void setFormPanelStrategy(FormPanelStrategy formpanelstrategy)
-    {
+    public void setFormPanelStrategy(FormPanelStrategy formpanelstrategy){
     	this.formpanelstrategy = formpanelstrategy;
     }
 

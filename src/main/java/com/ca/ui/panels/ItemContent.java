@@ -2,16 +2,17 @@ package com.ca.ui.panels;
 
 import java.awt.FlowLayout;
 import java.awt.event.KeyListener;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
 import com.gt.uilib.components.input.DataComboBox;
 import com.gt.uilib.components.input.NumberTextField;
 import com.toedter.calendar.JDateChooser;
 
-public class ItemContent implements FormPanelStrategy{
-
+public class ItemContent implements FormPanelStrategy {
 	private JLabel lblPurchaseOrderNumber;
 	private JTextField txtPurchaseordernumber;
 	private JLabel lblKhataNumber;
@@ -85,7 +86,7 @@ public class ItemContent implements FormPanelStrategy{
         cmbCategory = new DataComboBox();
         formPanel.add(cmbCategory, "8, 12, fill, default");
 
-        
+
         formPanel.add(btnNewCategory, "10, 12");
 
         specPanelHolder = new JPanel();
@@ -159,7 +160,7 @@ public class ItemContent implements FormPanelStrategy{
 
         cmbVendor = new DataComboBox();
         formPanel.add(cmbVendor, "8, 24, fill, default");
-        
+
 	}
 
 }
