@@ -49,7 +49,7 @@ public abstract class AbstractFunctionPanel extends JPanel implements Verifier {
     /**
      * we can override this function to display different message
      */
-    public static final String getUnsavedExitMessage() {
+    public static String getUnsavedExitMessage() {
         return "Are you sure to exit?";
 
     }
@@ -67,7 +67,7 @@ public abstract class AbstractFunctionPanel extends JPanel implements Verifier {
 
     }
 
-    protected static final void handleDBError(Exception e) {
+    protected static void handleDBError(Exception e) {
         System.out.println("db error " + e.toString());
         e.printStackTrace();
         String expln = e.toString();

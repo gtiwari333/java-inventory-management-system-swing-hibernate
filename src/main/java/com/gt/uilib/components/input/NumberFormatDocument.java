@@ -52,7 +52,7 @@ public class NumberFormatDocument extends PlainDocument {
     }
 
     public final void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
-        Matcher matcher = null;
+        Matcher matcher;
         if (target.isRestrictPositiveNumber()) matcher = pattern.matcher(str);
         else
             matcher = patternNegative.matcher(str);
@@ -176,7 +176,7 @@ public class NumberFormatDocument extends PlainDocument {
                 if (decimalValue.contains(".")) throw new BadLocationException(value, offs);
             }
         }
-        double doubleValue = 0.0D;
+        double doubleValue;
         try {
             doubleValue = Double.parseDouble(intValue);
         } catch (NumberFormatException nex) {

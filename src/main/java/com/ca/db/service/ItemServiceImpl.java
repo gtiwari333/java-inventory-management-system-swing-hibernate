@@ -22,7 +22,7 @@ public class ItemServiceImpl extends BaseDAO {
     /**
      * used by item transfer entry and stock query
      */
-    public static final List itemStockQuery(String itemName, int categoryId, int vendorId, String panaNum, String rackNumber, String khataNumber, String dakhilaNumber, Date fromDate, Date toDate, List<String> specs) throws Exception {
+    public static List itemStockQuery(String itemName, int categoryId, int vendorId, String panaNum, String rackNumber, String khataNumber, String dakhilaNumber, Date fromDate, Date toDate, List<String> specs) throws Exception {
 
         Criteria c = getSession().createCriteria(Item.class);
         // c.createAlias("item", "it");
@@ -105,7 +105,7 @@ public class ItemServiceImpl extends BaseDAO {
         return c.list();
     }
 
-    public static final List getAddedItems() throws Exception {
+    public static List getAddedItems() throws Exception {
         Criteria c = getSession().createCriteria(Item.class);
         // c.createAlias("item", "it");
         c.add(Restrictions.eq("dFlag", 1));
@@ -121,7 +121,7 @@ public class ItemServiceImpl extends BaseDAO {
      * @return
      * @throws Exception
      */
-    public static final List getAllItemsToCloseCurrFiscalYear(int type) throws Exception {
+    public static List getAllItemsToCloseCurrFiscalYear(int type) throws Exception {
         Criteria c = getSession().createCriteria(Item.class);
         c.add(Restrictions.eq("dFlag", 1));
         if (type > 0) {

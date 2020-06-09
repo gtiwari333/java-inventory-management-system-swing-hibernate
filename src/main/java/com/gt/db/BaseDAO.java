@@ -26,14 +26,13 @@ public abstract class BaseDAO extends SessionUtils {
     }
 
     public final int runQuery(Query q) throws Exception {
-        int ret = 0;
+        int ret = -1;
         try {
             startOperation();
             ret = q.executeUpdate();
             tx.commit();
         } catch (Exception e) {
             handleException(e);
-            ret = -1;
             throw new Exception(e);
         } finally {
             close(session);
@@ -42,7 +41,7 @@ public abstract class BaseDAO extends SessionUtils {
     }
 
     public final List runReadQuery(Query q) throws Exception {
-        List list = null;
+        List list;
         try {
             startOperation();
             list = q.list();
@@ -87,7 +86,7 @@ public abstract class BaseDAO extends SessionUtils {
     }
 
     public final Object find(Class clazz, Long id) throws Exception {
-        Object obj = null;
+        Object obj;
         try {
             startOperation();
             obj = session.load(clazz, id);
@@ -99,7 +98,7 @@ public abstract class BaseDAO extends SessionUtils {
     }
 
     public final List findAll(Class clazz) throws Exception {
-        List objects = null;
+        List objects;
         try {
             // startOperation();
             session = getSession();
@@ -115,7 +114,7 @@ public abstract class BaseDAO extends SessionUtils {
     }
 
     public final void handleException(Exception e) {
-        System.out.println("Transcation rollback due to " + e.getMessage());
+        System.out.println("Transaction rollback due to " + e.getMessage());
         rollback(tx);
 
     }

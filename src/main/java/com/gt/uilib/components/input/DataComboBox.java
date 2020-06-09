@@ -22,7 +22,6 @@ public class DataComboBox extends JComboBox {
     public DataComboBox() {
         super();
         setBorder(BorderFactory.createEmptyBorder());
-//		setModel(new SortedComboBoxModel());
         AutoCompleteDecorator.decorate(this);
     }
 
@@ -61,7 +60,7 @@ public class DataComboBox extends JComboBox {
 
     }
 
-    protected static final String getStringRepresentation(Object[] values) {
+    protected static String getStringRepresentation(Object[] values) {
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i < values.length; i++) {
             sb.append(values[i]);
@@ -87,31 +86,7 @@ public class DataComboBox extends JComboBox {
         }
     }
 
-    private int getMaxIdIndex() {
-        int index = 0;
-        int max = 0;
-        for (int i = 0; i < itemList.size(); i++) {
 
-            if (itemList.get(i).id >= max) {
-                max = itemList.get(i).id;
-                index = i;
-            }
-        }
-        System.out.println("Max IDDDDDDd index >> " + index + " id " + max);
-        return index;
-    }
-
-    /**
-     * select max ID value
-     */
-//	public void selectLastInsertedItem() {
-//		if (itemList != null) {
-//
-//			this.setSelectedIndex(getMaxIdIndex());
-//		}
-//		else
-//			setSelectedIndex(getItemCount() - 1);
-//	}
     public final void selectLastItem() {
         if (itemList != null) this.setSelectedItem(itemList.size());
         else
@@ -175,7 +150,6 @@ public class DataComboBox extends JComboBox {
 
         @Override
         public final String toString() {
-            // return String.format("%s : %s", id, text);
             return String.format("%s", text);
         }
 
@@ -184,12 +158,5 @@ public class DataComboBox extends JComboBox {
             return this.text.compareToIgnoreCase(it2.text);
 
         }
-
-        // @Override
-        // public boolean equals(Object obj) {
-        // // TODO Auto-generated method stub
-        // Item it2 = (Item) obj;
-        // return it2.text.compareToIgnoreCase(this.text) > 0 ? true : false;
-        // }
     }
 }

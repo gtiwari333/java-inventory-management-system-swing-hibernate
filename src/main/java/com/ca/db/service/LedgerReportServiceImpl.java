@@ -166,7 +166,7 @@ public class LedgerReportServiceImpl extends BaseDAO {
                 /**
                  * For Remaining quanity
                  */
-                Integer rem = 0;
+                Integer rem;
                 if (uniqueRows.containsKey("I" + item.getId())) {
                     Integer prevQty = uniqueRows.get("I" + item.getId());
                     System.out.println("prev qty " + prevQty);
@@ -212,7 +212,7 @@ public class LedgerReportServiceImpl extends BaseDAO {
                 rbReturn.setNikTotal("");
                 rbReturn.setUnitTransfer("");
 
-                int rem = 0;
+                int rem;
                 if (uniqueRows.containsKey("I" + item.getId())) {
                     Integer prevQty = uniqueRows.get("I" + item.getId());
                     System.out.println("prev qty " + prevQty);

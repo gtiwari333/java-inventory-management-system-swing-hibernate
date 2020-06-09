@@ -527,7 +527,7 @@ public class CategoryPanel extends AbstractFunctionPanel {
     private void showBranchOfficesInGrid(List<Category> brsL) {
         dataModel.resetModel();
         int sn = 0;
-        String type = "";
+        String type;
         for (Category bo : brsL) {
             System.out.println(bo.getCategoryType() + "  >> ");
             if (bo.getCategoryType() == Category.TYPE_NON_RETURNABLE) {

@@ -374,8 +374,8 @@ public class ReturnQueryPanel extends AbstractFunctionPanel {
         dataModel.resetModel();
         int sn = 0;
         editingPrimaryId = -1;
-        String transferTYpe = "";
-        String sentTo = "";
+        String transferTYpe;
+        String sentTo;
         for (ItemReturn bo : brsL) {
             transferTYpe = "";
             sentTo = "";

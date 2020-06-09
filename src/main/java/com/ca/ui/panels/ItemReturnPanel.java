@@ -539,8 +539,8 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
     private void showListInGrid(List<Transfer> brsL) {
         dataModel.resetModel();
         int sn = 0;
-        String transferTYpe = "";
-        String sentTo = "";
+        String transferTYpe;
+        String sentTo;
         for (Transfer bo : brsL) {
             transferTYpe = "";
             sentTo = "";
@@ -628,7 +628,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
 
     static class CartTableQuantityCellEditor extends AbstractCellEditor implements TableCellEditor {
         final JComponent component = new JTextField();
-        int maxQuantity = 0;
+        int maxQuantity;
 
         CartTableQuantityCellEditor(int maxQuantity) {
             this.maxQuantity = maxQuantity;
@@ -659,7 +659,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
          * It must return the new value to be stored in the cell.
          */
         public final Object getCellEditorValue() {
-            int retQty = 0;
+            int retQty;
             try {
                 retQty = Integer.parseInt(((JTextField) component).getText());
                 // if max

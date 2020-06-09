@@ -21,7 +21,7 @@ public class ExcelUtils {
             curSheet.addCell(column);
         }
 
-        int j = 0;
+        int j;
         for (int i = 0; i < data[0].length; i++) {//rows
             for (j = 0; j < data[i][0].length(); j++) {//column
                 Label row = new Label(j, i + 1, data[i][j]);
@@ -45,7 +45,7 @@ public class ExcelUtils {
             curSheet.addCell(column);
         }
 
-        int j = 0;
+        int j;
         for (int i = 0; i < model.getRowCount(); i++) {
             for (j = 0; j < model.getColumnCount(); j++) {
                 Object tmp = model.getValueAt(i, j);

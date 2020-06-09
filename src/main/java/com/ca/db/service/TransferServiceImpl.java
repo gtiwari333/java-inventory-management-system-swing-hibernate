@@ -23,7 +23,7 @@ public class TransferServiceImpl extends BaseDAO {
         super();
     }
 
-    public static final void deleteTransfer(int transferId) throws Exception {
+    public static void deleteTransfer(int transferId) throws Exception {
         Session s = getSession();
         Transaction tx = s.beginTransaction();
         try {
@@ -57,8 +57,8 @@ public class TransferServiceImpl extends BaseDAO {
         }
     }
 
-    public static final void updateTransfer(int transferId, int qty, Date transferDate, ReceiverType type, int id, String transferPanaNumber, String requestNumber,
-                                            int hastantaranStatus) throws Exception {
+    public static void updateTransfer(int transferId, int qty, Date transferDate, ReceiverType type, int id, String transferPanaNumber, String requestNumber,
+                                      int hastantaranStatus) throws Exception {
         Session s = getSession();
         Transaction tx = s.beginTransaction();
         try {
@@ -122,7 +122,7 @@ public class TransferServiceImpl extends BaseDAO {
         }
     }
 
-    public static final void saveTransfer(Map<Integer, Integer> cartMap, Date transferDate, ReceiverType type, int id, String transferPanaNumber, String requestNumber)
+    public static void saveTransfer(Map<Integer, Integer> cartMap, Date transferDate, ReceiverType type, int id, String transferPanaNumber, String requestNumber)
             throws Exception {
         Session s = getSession();
         Transaction tx = s.beginTransaction();
@@ -187,8 +187,8 @@ public class TransferServiceImpl extends BaseDAO {
         }
     }
 
-    public static final List allTransferItemQuery(String itemName, int categoryId, int selectedReceiverType, int receiverId, int returnedStatus,
-                                                  int hastantaranStatus, String transferNumber, String requestNumber, Date fromDate, Date toDate) throws Exception {
+    public static List allTransferItemQuery(String itemName, int categoryId, int selectedReceiverType, int receiverId, int returnedStatus,
+                                            int hastantaranStatus, String transferNumber, String requestNumber, Date fromDate, Date toDate) throws Exception {
         Criteria c = getSession().createCriteria(Transfer.class);
         // c.createAlias("item", "it");
         c.add(Restrictions.eq("dFlag", 1));
@@ -247,8 +247,8 @@ public class TransferServiceImpl extends BaseDAO {
     /**
      * accessed by ItemReturnPanel
      */
-    public static final List notReturnedTransferItemQuery(String itemName, int categoryId, int selectedReceiverType, int receiverId, int returnedStatus,
-                                                          int hastantaranStatus, String transferNumber, String requestNumber, Date fromDate, Date toDate) throws Exception {
+    public static List notReturnedTransferItemQuery(String itemName, int categoryId, int selectedReceiverType, int receiverId, int returnedStatus,
+                                                    int hastantaranStatus, String transferNumber, String requestNumber, Date fromDate, Date toDate) throws Exception {
         Criteria c = getSession().createCriteria(Transfer.class);
         c.createAlias("item", "it");
         c.add(Restrictions.eq("dFlag", 1));

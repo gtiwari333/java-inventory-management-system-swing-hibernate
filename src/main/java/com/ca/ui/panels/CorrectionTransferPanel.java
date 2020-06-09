@@ -237,7 +237,7 @@ public class CorrectionTransferPanel extends AbstractFunctionPanel {
         }
         try {
 
-            int hastan = -1;
+            int hastan;
             if (rdbtnHastanNotReceived.isSelected()) {
                 hastan = Transfer.HASTANTARAN_NOT_RECEIVED;
             } else {

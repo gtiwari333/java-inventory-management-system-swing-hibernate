@@ -222,7 +222,7 @@ public class AppFrame extends JFrame {
         }
     }
 
-    protected static final AbstractFunctionPanel getFunctionPanelInstance(String className) {
+    protected static AbstractFunctionPanel getFunctionPanelInstance(String className) {
         AbstractFunctionPanel object = null;
         try {
             object = (AbstractFunctionPanel) Class.forName(className).newInstance();
@@ -278,7 +278,7 @@ public class AppFrame extends JFrame {
         return toolBarPanel;
     }
 
-    public static final void showDBConnectionErrorMessage(Exception e) {
+    public static void showDBConnectionErrorMessage(Exception e) {
         JOptionPane.showMessageDialog(null, "Could not start DB Connection " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         logger.error("DB connection failed", e);
     }

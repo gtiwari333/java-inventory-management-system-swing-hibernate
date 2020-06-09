@@ -25,7 +25,7 @@ public class ItemReturnServiceImpl extends BaseDAO {
         super();
     }
 
-    public static final void editReturnedItem(int returnId, int qty, Date returnDate, int damageStatus, String returnNumber) throws Exception {
+    public static void editReturnedItem(int returnId, int qty, Date returnDate, int damageStatus, String returnNumber) throws Exception {
         Session s = getSession();
         Transaction tx = s.beginTransaction();
         try {
@@ -70,7 +70,7 @@ public class ItemReturnServiceImpl extends BaseDAO {
         }
     }
 
-    public static final void deleteReturnedItem(int returnId) throws Exception {
+    public static void deleteReturnedItem(int returnId) throws Exception {
         Session s = getSession();
         Transaction tx = s.beginTransaction();
         try {
@@ -107,8 +107,8 @@ public class ItemReturnServiceImpl extends BaseDAO {
 
     }
 
-    public static final List itemReturnQuery(String itemName, int categoryId, int selectedReceiverType, int receiverId, int returnedStatus,
-                                             String transferNumber, String returnNumber, Date fromDate, Date toDate) throws Exception {
+    public static List itemReturnQuery(String itemName, int categoryId, int selectedReceiverType, int receiverId, int returnedStatus,
+                                       String transferNumber, String returnNumber, Date fromDate, Date toDate) throws Exception {
         Criteria c = getSession().createCriteria(ItemReturn.class);
 
         c.add(Restrictions.eq("dFlag", 1));
@@ -167,7 +167,7 @@ public class ItemReturnServiceImpl extends BaseDAO {
         return c.list();
     }
 
-    public static final List getNonReturnableCategory() throws Exception {
+    public static List getNonReturnableCategory() throws Exception {
         Criteria c = getSession().createCriteria(Category.class);
         c.add(Restrictions.eq("categoryType", Category.TYPE_RETURNABLE));
         return c.list();
@@ -177,7 +177,7 @@ public class ItemReturnServiceImpl extends BaseDAO {
     /**
      * FIXME: do i save returned item to Item table ?
      */
-    public static final void saveReturnedItem(Map<Integer, ReturnedItemDTO> cartMap, String returnNumber) throws Exception {
+    public static void saveReturnedItem(Map<Integer, ReturnedItemDTO> cartMap, String returnNumber) throws Exception {
         Session s = getSession();
         Transaction tx = s.beginTransaction();
         try {

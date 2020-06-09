@@ -153,7 +153,7 @@ public class LedgerReportPanel extends AbstractFunctionPanel {
         // if khata number is entered, it is not single pana
         // if khata number and pana number both entered, then single pana number
 
-        boolean isSinglePanaLedger = false;
+        boolean isSinglePanaLedger;
         if (!StringUtils.isEmpty(panaNum)) {
             // show pana number and item name at header
             isSinglePanaLedger = true;

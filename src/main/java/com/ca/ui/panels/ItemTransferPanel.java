@@ -506,7 +506,7 @@ public class ItemTransferPanel extends AbstractFunctionPanel {
         try {
             ItemServiceImpl is = new ItemServiceImpl();
             List<Item> brsL;
-            List<String> specs = null;
+            List<String> specs;
             if (currentSpecificationPanel == null) {
                 specs = new LinkedList<>();
             } else {
@@ -615,7 +615,7 @@ public class ItemTransferPanel extends AbstractFunctionPanel {
 
     static class CartTableQuantityCellEditor extends AbstractCellEditor implements TableCellEditor {
         final JComponent component = new JTextField();
-        int maxQuantity = 0;
+        int maxQuantity;
 
         CartTableQuantityCellEditor(int maxQuantity) {
             this.maxQuantity = maxQuantity;
@@ -646,7 +646,7 @@ public class ItemTransferPanel extends AbstractFunctionPanel {
          * It must return the new value to be stored in the cell.
          */
         public final Object getCellEditorValue() {
-            int retQty = 0;
+            int retQty;
             try {
                 retQty = Integer.parseInt(((JTextField) component).getText());
                 // if max

@@ -135,10 +135,6 @@ public class StockQueryPanel extends AbstractFunctionPanel {
             if (id > 0) {
                 currentSpecificationPanel = new SpecificationPanel(id);
                 specPanelHolder.add(currentSpecificationPanel, FlowLayout.LEFT);
-                // if (status == Status.CREATE || status == Status.MODIFY)
-                // currentSpecificationPanel.enableAll();
-                // else
-                // currentSpecificationPanel.disableAll();
             }
             specPanelHolder.repaint();
             specPanelHolder.revalidate();
@@ -178,16 +174,12 @@ public class StockQueryPanel extends AbstractFunctionPanel {
     public final void enableDisableComponents() {
         switch (status) {
             case NONE:
-                // UIUtils.toggleAllChildren(buttonPanel, false);
-                // UIUtils.toggleAllChildren(formPanel, false);
                 UIUtils.clearAllFields(formPanel);
                 table.setEnabled(true);
                 btnSave.setEnabled(true);
                 break;
 
             case READ:
-                // UIUtils.toggleAllChildren(formPanel, false);
-                // UIUtils.toggleAllChildren(buttonPanel, true);
                 UIUtils.clearAllFields(formPanel);
                 table.clearSelection();
                 table.setEnabled(true);
@@ -200,16 +192,6 @@ public class StockQueryPanel extends AbstractFunctionPanel {
 
     @Override
     public void handleSaveAction() {
-
-    }
-
-    private void initValidator() {
-
-        if (v != null) {
-            v.resetErrors();
-        }
-
-        v = new Validator(mainApp, true);
 
     }
 
@@ -349,7 +331,7 @@ public class StockQueryPanel extends AbstractFunctionPanel {
         try {
             ItemServiceImpl is = new ItemServiceImpl();
             List<Item> brsL;
-            List<String> specs = null;
+            List<String> specs;
             if (currentSpecificationPanel == null) {
                 specs = new LinkedList<>();
             } else {
@@ -377,9 +359,7 @@ public class StockQueryPanel extends AbstractFunctionPanel {
         dataModel.resetModel();
         int sn = 0;
         for (Item bo : brsL) {
-            // BigDecimal total = bo.getRate().multiply(new
-            // BigDecimal(bo.getQuantity()));
-            String addedType = "";
+            String addedType;
             if (bo.getAddedType() == Item.ADD_TYPE_NEW_ENTRY) {
                 addedType = "Purchase Stock";
             } else {
