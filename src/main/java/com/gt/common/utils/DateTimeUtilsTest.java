@@ -1,7 +1,7 @@
 package com.gt.common.utils;
 
 import static org.junit.Assert.*;
-
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -44,11 +44,21 @@ public class DateTimeUtilsTest {
 		assertFalse(DTU.isEmpty(date)); 
 	}
 	
-	
-	
+	/**
+	*Purpose: check equal date format if date object has today's instance
+	*Input: instance of Date today's date(Calendar.getInstance().getTime())
+	*Expected:
+	*	Return today's date("yyyy-MM-dd")
+	*	
+	*	ex) "2020-06-17" = DTU.getTodayDate()
+	*/
 	@Test
 	public void testGetTodayDate() {
-		fail("Not yet implemented");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		date = Calendar.getInstance().getTime();
+//		sdf.format(date);
+//		assertEquals("2020-06-17", DTU.getTodayDate());
+		assertEquals(sdf.format(date), DTU.getTodayDate());
 	}
 
 	
