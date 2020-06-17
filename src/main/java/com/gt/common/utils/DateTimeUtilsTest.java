@@ -102,9 +102,18 @@ public class DateTimeUtilsTest {
 		fail("Not yet implemented");
 	}
 
+	/**
+	*Purpose: check integer of today's year
+	*Input: string that date format that instance of Date, date(Calendar.getInstance().getTime())
+	*Expected:
+	*	Return int of date year
+	*	
+	*	ex) "2020-06-17" = DTU.testGetTodayDate()
+	*		-> 2020
+	*/
 	@Test
 	public void testGetYearFromYYYYMMDD() {
-		fail("Not yet implemented");
+		assertEquals(2020, DTU.getYearFromYYYYMMDD(DTU.getTodayDate()));
 	}
 
 }
