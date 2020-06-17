@@ -80,9 +80,21 @@ public class DateTimeUtilsTest {
 //		assertEquals(sdf.format(date), DTU.getCvDateMMMddyyyy(date));
 	}
 
+	
+	/**
+	*Purpose: check equal date format if date object has a format like "MM/dd/yyyy"
+	*Input: date format that instance of Date, date(Calendar.getInstance().getTime())
+	*Expected:
+	*	Return string of date format("MM/dd/yyyy")
+	*	
+	*	ex) "06/17/2020" = DTU.getCvDateMMDDYYYY(date)
+	*/
 	@Test
 	public void testGetCvDateMMDDYYYY() {
-		fail("Not yet implemented");
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		Date date = Calendar.getInstance().getTime();
+		assertEquals("06/17/2020", DTU.getCvDateMMDDYYYY(date));
+//		assertEquals(sdf.format(date), DTU.getCvDateMMDDYYYY(date));
 	}
 
 	@Test
