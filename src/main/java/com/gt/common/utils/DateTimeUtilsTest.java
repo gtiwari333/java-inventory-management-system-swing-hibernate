@@ -63,10 +63,21 @@ public class DateTimeUtilsTest {
 
 	
 	
-	
+	/**
+	*Purpose: check equal date format if date object has a format like "MMM dd, yyyy"
+	*Input: date format that instance of Date, date(Calendar.getInstance().getTime())
+	*Expected:
+	*	Return date format("MMM dd, yyyy")
+	*	
+	*	ex) "6¿ù 17, 2020" = DTU.getCvDateMMMddyyyy(date)
+	*	ex) "Jun 17, 2020" = DTU.getCvDateMMMddyyyy(date)
+	*/
 	@Test
 	public void testGetCvDateMMMddyyyy() {
-		fail("Not yet implemented");
+		SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
+		Date date = Calendar.getInstance().getTime();
+		assertEquals("6¿ù 17, 2020", DTU.getCvDateMMMddyyyy(date));
+//		assertEquals(sdf.format(date), DTU.getCvDateMMMddyyyy(date));
 	}
 
 	@Test
