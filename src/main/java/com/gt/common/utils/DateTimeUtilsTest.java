@@ -30,14 +30,30 @@ public class DateTimeUtilsTest {
 		assertTrue(DTU.isEmpty(date)); 
 	}
 	
+	/**
+	*Purpose: check false if date object is not null
+	*Input: new object of DateTimeUtils DTU, and object of Date date
+	*Expected:
+	*	Return true
+	*	
+	*	
+	*/
+	@Test
+	public void testDateIsNotEmpty() {
+		date = Calendar.getInstance().getTime();
+		assertFalse(DTU.isEmpty(date)); 
+	}
 	
 	
-
+	
 	@Test
 	public void testGetTodayDate() {
 		fail("Not yet implemented");
 	}
 
+	
+	
+	
 	@Test
 	public void testGetCvDateMMMddyyyy() {
 		fail("Not yet implemented");
