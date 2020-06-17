@@ -97,9 +97,17 @@ public class DateTimeUtilsTest {
 //		assertEquals(sdf.format(date), DTU.getCvDateMMDDYYYY(date));
 	}
 
+	/**
+	*Purpose: check integer of fiscal year
+	*Input: string that date format that instance of Date, date(Calendar.getInstance().getTime())
+	*Expected:
+	*	Return int of date year
+	*	
+	*/
 	@Test
 	public void testGetCurrentFiscalYear() {
-		fail("Not yet implemented");
+		assertEquals(2020, DTU.getCurrentFiscalYear());
+//		fail("Not yet implemented");
 	}
 
 	/**
