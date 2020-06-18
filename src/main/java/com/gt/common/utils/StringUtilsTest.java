@@ -48,10 +48,22 @@ public class StringUtilsTest {
 	public void testTrim() {
 		assertEquals("hello java?", StringUtils.trim(" hello java? "));
 	}
-
+	
+	
+	
+	/**
+	*Purpose: check string is empty
+	*Input: string variable
+	*Expected:
+	*	Return true
+	*	string("hello java?") ->false(not empty)
+	*	string(""), null string -> true
+	*	
+	*/
 	@Test
 	public void testIsEmpty() {
-		fail("Not yet implemented");
+		assertTrue(StringUtils.isEmpty(""));
+		assertFalse(StringUtils.isEmpty("hello java?"));
 	}
 
 	@Test
