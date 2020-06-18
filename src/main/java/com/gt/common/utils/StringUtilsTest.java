@@ -12,21 +12,41 @@ public class StringUtilsTest {
 	*Expected:
 	*	Return true
 	*	int(12345) -> str("12345")
+	*	double(123.456) ->str("123.456")
 	*	
 	*/
 	@Test
 	public void testToStringObject() {
 		assertEquals("12345", StringUtils.toString((Integer)12345));
+		assertEquals("123.456", StringUtils.toString((Double)123.456));
 	}
 
+	
+	/**
+	*Purpose: check equal that string variable apply trim
+	*Input: string variable
+	*Expected:
+	*	Return true
+	*	string(" hello java? ") -> string("hello java?")
+	*	
+	*/
 	@Test
 	public void testClean() {
-		fail("Not yet implemented");
+		assertEquals("hello java?", StringUtils.trim(" hello java? "));
+//		fail("Not yet implemented");
 	}
 
+	/**
+	*Purpose: check equal that string variable apply trim
+	*Input: string variable
+	*Expected:
+	*	Return true
+	*	string(" hello java? ") -> string("hello java?")
+	*	
+	*/
 	@Test
 	public void testTrim() {
-		fail("Not yet implemented");
+		assertEquals("hello java?", StringUtils.trim(" hello java? "));
 	}
 
 	@Test
