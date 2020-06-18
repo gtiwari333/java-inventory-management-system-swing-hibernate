@@ -71,9 +71,17 @@ public class StringUtilsTest {
 		fail("Not yet implemented");
 	}
 
+	/**
+	*Purpose: check equal string replace with count
+	*Input: string text, string replaceTarget, string newValue, int count 
+	*Expected:
+	*	Return true
+	*	string("apple pie"), replaceTarget("p"), newValue("z"), count(2) ->string("azzle pie")
+	*	
+	*/
 	@Test
 	public void testReplaceStringStringStringInt() {
-		fail("Not yet implemented");
+		assertEquals("azzle pie", StringUtils.replace("apple pie", "p", "z", 2));
 	}
 
 }
