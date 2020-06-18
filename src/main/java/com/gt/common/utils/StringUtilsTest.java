@@ -66,9 +66,18 @@ public class StringUtilsTest {
 		assertFalse(StringUtils.isEmpty("hello java?"));
 	}
 
+	
+	/**
+	*Purpose: check equal string replace
+	*Input: string text, string replaceTarget, string newValue
+	*Expected:
+	*	Return true
+	*	string("apple pie"), replaceTarget("p"), newValue("z") ->string("azzle zie")
+	*	
+	*/
 	@Test
 	public void testReplaceStringStringString() {
-		fail("Not yet implemented");
+		assertEquals("azzle zie", StringUtils.replace("apple pie", "p", "z"));
 	}
 
 	/**
