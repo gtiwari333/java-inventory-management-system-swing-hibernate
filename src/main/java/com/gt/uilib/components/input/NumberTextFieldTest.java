@@ -111,9 +111,21 @@ public class NumberTextFieldTest {
 		assertTrue(NTF.isRestrictPositiveNumber());
 	}
 
+	/**
+	*Purpose: check nonzero is entered
+	*Input: instance of NumberTextField
+	*Expected:
+	*	Return 
+	*			true if bigdecimal is not zero
+	*	
+	*/
 	@Test
 	public void testIsNonZeroEntered() {
-		fail("Not yet implemented");
+		NTF = new NumberTextField();
+		NTF.setText("0");
+		assertFalse(NTF.isNonZeroEntered());
+		NTF.setText("123454,5");
+		assertTrue(NTF.isNonZeroEntered());
 	}
 
 	@Test
