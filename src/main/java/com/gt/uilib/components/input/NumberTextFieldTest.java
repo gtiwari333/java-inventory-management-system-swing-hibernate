@@ -143,9 +143,19 @@ public class NumberTextFieldTest {
 		fail("Not yet implemented");
 	}
 
+	/**
+	*Purpose: check text is well replaced
+	*Input: text of instance of NumberTextField
+	*Expected:
+	*	Return 
+	*			String value if text is not null
+	*	
+	*/
 	@Test
 	public void testGetText() {
-		fail("Not yet implemented");
+		NTF = new NumberTextField();
+		NTF.setText("12345,5");
+		assertEquals("123455", NTF.getText());
 	}
 
 	@Test
