@@ -128,20 +128,30 @@ public class NumberTextFieldTest {
 		assertTrue(NTF.isNonZeroEntered());
 	}
 
+	/**
+	*Purpose: check equals between createDefaultModel and NumberFormatDocument
+	*Input: NumberFormatDocument instance and NumberTextField
+	*Expected:
+	*	Return 
+	*			true same object
+	*	
+	*/
 	@Test
 	public void testCreateDefaultModel() {
-		fail("Not yet implemented");
+		NTF = new NumberTextField();
+		NFD = new NumberFormatDocument(NTF);
+		assertEquals(NFD, NTF.createDefaultModel());
 	}
 
-	@Test
-	public void testSetMaxLength() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetDecimalPlace() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	public void testSetMaxLength() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	public void testSetDecimalPlace() {
+//		fail("Not yet implemented");
+//	}
 
 	/**
 	*Purpose: check text is well replaced
@@ -158,14 +168,14 @@ public class NumberTextFieldTest {
 		assertEquals("123455", NTF.getText());
 	}
 
-	@Test
-	public void testSelectAll() {
-		fail("Not yet implemented");
-	}
-	
-	@Test
-	public void testInitProperties() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	public void testSelectAll() {
+//		fail("Not yet implemented");
+//	}
+//	
+//	@Test
+//	public void testInitProperties() {
+//		fail("Not yet implemented");
+//	}
 
 }
