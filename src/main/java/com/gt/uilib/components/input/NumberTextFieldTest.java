@@ -96,9 +96,19 @@ public class NumberTextFieldTest {
 		assertFalse(NTF.isRestrictPositiveNumber());
 	}
 
+	/**
+	*Purpose: check boolean value is set
+	*Input: boolean value
+	*Expected:
+	*	Return 
+	*			true if boolean value is true
+	*	
+	*/
 	@Test
 	public void testSetRestrictPositiveNumber() {
-		fail("Not yet implemented");
+		NTF = new NumberTextField();
+		NTF.setRestrictPositiveNumber(true);
+		assertTrue(NTF.isRestrictPositiveNumber());
 	}
 
 	@Test
