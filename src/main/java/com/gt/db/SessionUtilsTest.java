@@ -49,7 +49,7 @@ class SessionUtilsTest {
 	void testGetSession() {
 		boolean thrown = false;
 		try {
-			sessionUtils.getSession()
+			sessionUtils.getSession();
 		} catch(Exception e) {
 			thrown = true;
 		}
