@@ -87,7 +87,7 @@ public class CryptographicUtil {
         return decryptedText;
     }
 
-	private static CryptographicUtil getCryptoGraphicUtil(byte[] keyByte)
+	public static CryptographicUtil getCryptoGraphicUtil(byte[] keyByte)
 			throws InvalidKeyException, NoSuchAlgorithmException, InvalidKeySpecException {
 		CryptographicUtil nicUtil;
 		KeySpec ks = new DESKeySpec(keyByte);
