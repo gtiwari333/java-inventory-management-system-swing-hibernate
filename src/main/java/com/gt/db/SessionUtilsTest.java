@@ -3,6 +3,7 @@ package com.gt.db;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.junit.After;
 import org.junit.Before;
@@ -49,7 +50,7 @@ class SessionUtilsTest {
 	void testGetSession() {
 		boolean thrown = false;
 		try {
-			sessionUtils.getSession()
+			sessionUtils.getSession();
 		} catch(Exception e) {
 			thrown = true;
 		}
@@ -64,10 +65,10 @@ class SessionUtilsTest {
 
 	@Test
 	void testClose() {
-		Session session;
+		Session session = null; 
 		boolean thrown = false;
 		try {
-			sessionUtils.getSession()
+			sessionUtils.close(session);
 		} catch(Exception e) {
 			thrown = true;
 		}
