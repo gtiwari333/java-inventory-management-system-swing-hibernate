@@ -18,7 +18,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.4.19.Final</version>
+            <version>5.4.20.Final</version>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
@@ -63,7 +63,7 @@
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
-            <version>6.13.0</version>
+            <version>6.14.0</version>
         </dependency>
         <dependency>
             <groupId>net.sourceforge.jexcelapi</groupId>
