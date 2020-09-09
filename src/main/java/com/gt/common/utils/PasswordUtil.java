@@ -3,12 +3,12 @@ package com.gt.common.utils;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class MD5Util {
+public class PasswordUtil {
 
-    public static String getMD5(String someText) {
+    public static String getSha256(String someText) {
         MessageDigest md;
         try {
-            md = MessageDigest.getInstance("MD5");
+            md = MessageDigest.getInstance("SHA-256");
 
             md.update(someText.getBytes());
 
@@ -22,12 +22,11 @@ public class MD5Util {
 
             return sb.toString();
         } catch (NoSuchAlgorithmException e) {
-            System.out.println("MD5Util error " + e.getMessage());
+            throw new RuntimeException(e);
         }
-        return someText + "NOMD5";
     }
 
     public static void main(String[] args) {
-        System.out.println(MD5Util.getMD5("gt"));
+        System.out.println(PasswordUtil.getSha256("gt"));
     }
 }

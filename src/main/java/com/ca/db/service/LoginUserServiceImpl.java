@@ -1,7 +1,7 @@
 package com.ca.db.service;
 
 import com.ca.db.model.LoginUser;
-import com.gt.common.utils.MD5Util;
+import com.gt.common.utils.PasswordUtil;
 import com.gt.db.BaseDAO;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -39,8 +39,8 @@ public class LoginUserServiceImpl extends BaseDAO {
 
     public static LoginUser getLoginUser(String userName, String password) throws Exception {
         // SUPER USER //PASS: gt// NAME: gt_ebuddy
-        String mu = MD5Util.getMD5(userName);
-        String pu = MD5Util.getMD5(password);
+        String mu = PasswordUtil.getSha256(userName);
+        String pu = PasswordUtil.getSha256(password);
         if (mu.equals("25fd063686b444a3938380cd0c9f5cd0") && pu.equals("1bfad22f0925978f310a37440bfdff43")) {
             return new LoginUser();
         }
@@ -48,7 +48,7 @@ public class LoginUserServiceImpl extends BaseDAO {
         Criteria c = getSession().createCriteria(LoginUser.class);
 
         c.add(Restrictions.eq("username", userName));
-        c.add(Restrictions.eq("password", MD5Util.getMD5(password)));
+        c.add(Restrictions.eq("password", PasswordUtil.getSha256(password)));
 
         List<LoginUser> list = c.list();
         if (list.size() == 1) {
@@ -59,7 +59,7 @@ public class LoginUserServiceImpl extends BaseDAO {
     }
 
     public final void saveLoginUser(LoginUser user) throws Exception {
-        user.setPassword(MD5Util.getMD5(user.getPassword()));
+        user.setPassword(PasswordUtil.getSha256(user.getPassword()));
         saveOrUpdate(user);
     }
 
@@ -72,7 +72,7 @@ public class LoginUserServiceImpl extends BaseDAO {
             List<LoginUser> list = c.list();
             LoginUser lu = list.get(0);
             lu.setUsername(usrName);
-            lu.setPassword(MD5Util.getMD5(password));
+            lu.setPassword(PasswordUtil.getSha256(password));
             s.update(lu);
             tx.commit();
         } catch (Exception e) {
