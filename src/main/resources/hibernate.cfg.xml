@@ -30,10 +30,8 @@
 		<mapping class="com.ca.db.model.Specification" />
 
 		<mapping class="com.ca.db.model.Item" />
-		<mapping class="com.ca.db.model.ItemReturn" />
-		<mapping class="com.ca.db.model.TransferRequest" />
-
 		<mapping class="com.ca.db.model.Transfer" />
+		<mapping class="com.ca.db.model.ItemReturn" />
 
 	</session-factory>
 </hibernate-configuration>
