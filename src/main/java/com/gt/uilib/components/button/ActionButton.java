@@ -14,7 +14,6 @@ public class ActionButton extends JLabel {
 
     private static final long serialVersionUID = 20110814L;
     private final String panelQualifiedClassName;
-    private final Dimension d = new Dimension(80, 80);
     private final ImageIcon on;
     private final ImageIcon off;
 
@@ -23,6 +22,7 @@ public class ActionButton extends JLabel {
         this.off = off;
         this.on = on;
         this.panelQualifiedClassName = panelQualifiedClassName;
+        Dimension d = new Dimension(80, 80);
         setPreferredSize(d);
         setMinimumSize(d);
         setHorizontalTextPosition(JLabel.CENTER);

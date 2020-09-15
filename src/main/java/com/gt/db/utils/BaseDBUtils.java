@@ -18,7 +18,7 @@ public class BaseDBUtils extends BaseDAO {
      * Status 1 = active - not deleted
      */
 
-    public BaseDBUtils() throws Exception {
+    public BaseDBUtils() {
         super();
     }
 

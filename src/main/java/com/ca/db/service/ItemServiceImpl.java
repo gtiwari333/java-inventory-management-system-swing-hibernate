@@ -19,18 +19,18 @@ public class ItemServiceImpl extends BaseDAO {
     }
 
     @SuppressWarnings("deprecation")
-    /**
-     * used by item transfer entry and stock query
+    /*
+      used by item transfer entry and stock query
      */
-    public static List itemStockQuery(String itemName, int categoryId, int vendorId, String rackNumber, Date fromDate, Date toDate, List<String> specs) {
+    public static List<Item> itemStockQuery(String itemName, int categoryId, int vendorId, String rackNumber, Date fromDate, Date toDate, List<String> specs) {
 
         Criteria c = getSession().createCriteria(Item.class);
         // c.createAlias("item", "it");
         c.add(Restrictions.eq("dFlag", 1));
         c.add(Restrictions.gt("quantity", 0));
-        /**
-         * read all items that has not been transferred and qty >0, the items
-         * with qty =0 is copied to new by setting transferred status Item.ACCOUNT_TRANSFERRED_TO_NEW
+        /*
+          read all items that has not been transferred and qty >0, the items
+          with qty =0 is copied to new by setting transferred status Item.ACCOUNT_TRANSFERRED_TO_NEW
          */
         c.add(Restrictions.ne("accountTransferStatus", Item.ACCOUNT_TRANSFERRED_TO_NEW));
 

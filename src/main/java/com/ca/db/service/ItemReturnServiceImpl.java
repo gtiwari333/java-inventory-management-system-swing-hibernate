@@ -5,13 +5,10 @@ import com.ca.db.model.Item;
 import com.ca.db.model.ItemReturn;
 import com.ca.db.model.Transfer;
 import com.ca.db.service.dto.ReturnedItemDTO;
-import com.gt.common.utils.DateTimeUtils;
-import com.gt.common.utils.StringUtils;
 import com.gt.db.BaseDAO;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.Date;
@@ -25,7 +22,7 @@ public class ItemReturnServiceImpl extends BaseDAO {
         super();
     }
 
-    public static List getNonReturnableCategory() throws Exception {
+    public static List<Category> getNonReturnableCategory() {
         Criteria c = getSession().createCriteria(Category.class);
         c.add(Restrictions.eq("categoryType", Category.TYPE_RETURNABLE));
         return c.list();

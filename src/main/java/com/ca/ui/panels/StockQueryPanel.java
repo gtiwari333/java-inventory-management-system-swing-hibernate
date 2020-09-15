@@ -45,21 +45,12 @@ public class StockQueryPanel extends AbstractFunctionPanel {
     private DataComboBox cmbCategory;
     private DataComboBox cmbVendor;
     private JPanel specPanelHolder;
-    private JLabel lblVendor;
-    private JLabel lblFrom;
-    private JLabel lblTo;
-    private JButton btnSaveToExcel;
-    private JButton btnPrev;
-    private JButton btnNext;
-    private JLabel lblItemName;
     private JTextField txtItemname;
-    private JLabel lblRackNumber;
     private JTextField txtRacknumber;
-    private JButton btnReset;
 
     public StockQueryPanel() {
-        /**
-         * all gui components added from here;
+        /*
+          all gui components added from here;
          */
         JSplitPane splitPane = new JSplitPane();
         splitPane.setContinuousLayout(true);
@@ -68,13 +59,13 @@ public class StockQueryPanel extends AbstractFunctionPanel {
         add(splitPane, BorderLayout.CENTER);
         splitPane.setLeftComponent(getUpperSplitPane());
         splitPane.setRightComponent(getLowerSplitPane());
-        /**
-         * never forget to call after setting up UI
+        /*
+          never forget to call after setting up UI
          */
         init();
     }
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         if (SystemUtils.IS_OS_WINDOWS) {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         }
@@ -140,7 +131,7 @@ public class StockQueryPanel extends AbstractFunctionPanel {
         if (buttonPanel == null) {
             buttonPanel = new JPanel();
 
-            btnSaveToExcel = new JButton("Save to Excel");
+            JButton btnSaveToExcel = new JButton("Save to Excel");
             btnSaveToExcel.addActionListener(e -> {
                 JFileChooser jf = new JFileChooser();
                 jf.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -153,10 +144,10 @@ public class StockQueryPanel extends AbstractFunctionPanel {
                 }
             });
 
-            btnPrev = new JButton("<");
+            JButton btnPrev = new JButton("<");
             buttonPanel.add(btnPrev);
 
-            btnNext = new JButton(">");
+            JButton btnNext = new JButton(">");
             buttonPanel.add(btnNext);
             buttonPanel.add(btnSaveToExcel);
         }
@@ -233,7 +224,7 @@ public class StockQueryPanel extends AbstractFunctionPanel {
                             FormFactory.RELATED_GAP_ROWSPEC,
                             FormFactory.DEFAULT_ROWSPEC,}));
 
-            lblItemName = new JLabel("Item Name");
+            JLabel lblItemName = new JLabel("Item Name");
             formPanel.add(lblItemName, "4, 2");
 
             txtItemname = new JTextField();
@@ -246,7 +237,7 @@ public class StockQueryPanel extends AbstractFunctionPanel {
             cmbCategory = new DataComboBox();
             formPanel.add(cmbCategory, "8, 4, fill, default");
 
-            lblVendor = new JLabel("Vendor");
+            JLabel lblVendor = new JLabel("Vendor");
             formPanel.add(lblVendor, "12, 4");
 
             cmbVendor = new DataComboBox();
@@ -256,20 +247,20 @@ public class StockQueryPanel extends AbstractFunctionPanel {
             formPanel.add(specPanelHolder, "4, 6, 21, 1, fill, fill");
             specPanelHolder.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 
-            lblRackNumber = new JLabel("Rack Number");
+            JLabel lblRackNumber = new JLabel("Rack Number");
             formPanel.add(lblRackNumber, "12, 10");
 
             txtRacknumber = new JTextField();
             formPanel.add(txtRacknumber, "16, 10, fill, default");
             txtRacknumber.setColumns(10);
 
-            lblFrom = new JLabel("From");
+            JLabel lblFrom = new JLabel("From");
             formPanel.add(lblFrom, "4, 12");
 
             txtFromDate = new JDateChooser();
             formPanel.add(txtFromDate, "8, 12, fill, default");
 
-            lblTo = new JLabel("To");
+            JLabel lblTo = new JLabel("To");
             formPanel.add(lblTo, "12, 12");
 
             txtToDate = new JDateChooser();
@@ -281,7 +272,7 @@ public class StockQueryPanel extends AbstractFunctionPanel {
 
             formPanel.add(btnSave, "18, 12");
 
-            btnReset = new JButton("Reset");
+            JButton btnReset = new JButton("Reset");
             btnReset.addActionListener(e -> {
                 UIUtils.clearAllFields(formPanel);
                 if (currentSpecificationPanel != null)

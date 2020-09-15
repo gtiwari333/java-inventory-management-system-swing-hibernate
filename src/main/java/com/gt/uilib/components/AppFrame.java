@@ -25,12 +25,11 @@ import java.util.List;
  */
 public class AppFrame extends JFrame {
 
-    static Logger logger = Logger.getLogger(AppFrame.class);
     public static final String loginPanel = com.ca.ui.panels.LoginPanel.class.getName();
-
     public static AbstractFunctionPanel currentWindow;
     public static boolean isLoggedIn = false;
     public static boolean debug = true;
+    static Logger logger = Logger.getLogger(AppFrame.class);
     private static AppFrame _instance;
     private static JMenuBar menuBar;
     private static JPanel bodyPanel;
@@ -80,11 +79,29 @@ public class AppFrame extends JFrame {
         logger.info("logged in");
     }
 
+    private static JPanel getBodyPanel() {
+        bodyPanel = new JPanel();
+        bodyPanel.setLayout(new BorderLayout());
+        bodyPanel.add(new JLabel("Hello"));
+
+        return bodyPanel;
+    }
+
+    protected static AbstractFunctionPanel getFunctionPanelInstance(String className) {
+        AbstractFunctionPanel object = null;
+        try {
+            object = (AbstractFunctionPanel) Class.forName(className).newInstance();
+        } catch (InstantiationException | ClassNotFoundException | IllegalAccessException e) {
+            System.err.println(e);
+        }
+        return object;
+    }
+
     private JMenuBar getMenuBarr() {
         if (menuBar == null) {
             menuBar = new JMenuBar();
-            /**
-             * First menu -
+            /*
+              First menu -
              */
             JMenu startMnu = new JMenu("Application");
             JMenuItem logOutMnuItem = new JMenuItem("Log Out");
@@ -94,8 +111,8 @@ public class AppFrame extends JFrame {
             exitMnuItem.addActionListener(e -> ExitButton.handleExit());
             startMnu.add(exitMnuItem);
             menuBar.add(startMnu);
-            /**
-             * Entry Menu
+            /*
+              Entry Menu
              */
             JMenu entryMenu = new JMenu("Entry");
             entryMenu.add(ActionMenuItem.create("New Item Entry", "sitementry", com.ca.ui.panels.ItemEntryPanel.class.getName()));
@@ -109,15 +126,15 @@ public class AppFrame extends JFrame {
             entryMenu.add(initRecordMenuSub);
             menuBar.add(entryMenu);
 
-            /**
-             * Search
+            /*
+              Search
              */
             JMenu searchMnu = new JMenu("Search");
             searchMnu.add(ActionMenuItem.create("Stock Search", "sfind", com.ca.ui.panels.StockQueryPanel.class.getName()));
             menuBar.add(searchMnu);
 
-            /**
-             * Tools Menu This ActionMenuItem should be displayed on JDialog
+            /*
+              Tools Menu This ActionMenuItem should be displayed on JDialog
              */
             JMenu toolsMenu = new JMenu("Tools");
             JMenuItem jmChang = new JMenuItem("Change UserName/Password");
@@ -133,8 +150,8 @@ public class AppFrame extends JFrame {
             });
             toolsMenu.add(jmChang);
             menuBar.add(toolsMenu);
-            /**
-             * Last Menu
+            /*
+              Last Menu
              */
             JMenu helpMenu = new JMenu("Help");
             JMenuItem readmanualItem = new JMenuItem("Read Manual");
@@ -180,14 +197,6 @@ public class AppFrame extends JFrame {
 
     }
 
-    private static JPanel getBodyPanel() {
-        bodyPanel = new JPanel();
-        bodyPanel.setLayout(new BorderLayout());
-        bodyPanel.add(new JLabel("Hello"));
-
-        return bodyPanel;
-    }
-
     public final void setWindow(String curQfn) {
         AbstractFunctionPanel cur = getFunctionPanelInstance(curQfn);
         if (cur != null && isLoggedIn) {
@@ -199,16 +208,6 @@ public class AppFrame extends JFrame {
         if (!isLoggedIn) {
             JOptionPane.showMessageDialog(null, "You must Log in First");
         }
-    }
-
-    protected static AbstractFunctionPanel getFunctionPanelInstance(String className) {
-        AbstractFunctionPanel object = null;
-        try {
-            object = (AbstractFunctionPanel) Class.forName(className).newInstance();
-        } catch (InstantiationException | ClassNotFoundException | IllegalAccessException e) {
-            System.err.println(e);
-        }
-        return object;
     }
 
     private void setWindow(final AbstractFunctionPanel next) {

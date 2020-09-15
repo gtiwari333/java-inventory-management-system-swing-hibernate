@@ -29,7 +29,7 @@ public class BetterJTable extends JTable {
         TableColumnModel tcm = getColumnModel();
         int index = tcm.getColumnIndex(columnName);
         TableColumn column = tcm.getColumn(index);
-        Map<Object, Object> hiddenColumns = new HashMap<>();
+        Map<String, Object> hiddenColumns = new HashMap<>();
         hiddenColumns.put(columnName, column);
         hiddenColumns.put(":" + columnName, index);
         tcm.removeColumn(column);

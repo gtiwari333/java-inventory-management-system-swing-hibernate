@@ -1,6 +1,9 @@
 package com.ca.db.service;
 
-import com.ca.db.model.*;
+import com.ca.db.model.BranchOffice;
+import com.ca.db.model.Category;
+import com.ca.db.model.Item;
+import com.ca.db.model.Transfer;
 import com.ca.ui.panels.ItemReceiverPanel.ReceiverType;
 import com.gt.common.utils.DateTimeUtils;
 import com.gt.common.utils.StringUtils;
@@ -9,7 +12,6 @@ import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.Date;
@@ -19,45 +21,11 @@ import java.util.Map.Entry;
 
 public class TransferServiceImpl extends BaseDAO {
 
-    public TransferServiceImpl() throws Exception {
+    public TransferServiceImpl() {
         super();
     }
 
-    public static void deleteTransfer(int transferId) throws Exception {
-        Session s = getSession();
-        Transaction tx = s.beginTransaction();
-        try {
-
-            Criteria c = s.createCriteria(Transfer.class);
-            c.add(Restrictions.eq("id", transferId));
-            Transfer transfer = (Transfer) (c.list()).get(0);
-
-            if (transfer.getQuantity() != transfer.getRemainingQtyToReturn()) {
-                throw new Exception(" This cannot be modified.");
-            }
-
-            Criteria cI = s.createCriteria(Item.class);
-            cI.add(Restrictions.eq("id", transfer.getItem().getId()));
-            Item item = (Item) (cI.list()).get(0);
-
-            // qty in stock, add previous qty (since it is deleted)
-            item.setQuantity(item.getQuantity() + transfer.getQuantity());
-            transfer.setRemainingQtyToReturn(transfer.getRemainingQtyToReturn() - transfer.getQuantity());
-
-            transfer.setdFlag(0);
-
-            s.update(item);
-            s.update(transfer);
-
-            tx.commit();
-        } catch (Exception er) {
-            tx.rollback();
-            er.printStackTrace();
-            throw new Exception("Item transfer delete failed " + er.getMessage());
-        }
-    }
-
-    public static void saveTransfer(Map<Integer, Integer> cartMap, Date transferDate, ReceiverType type, int id,   String requestNumber)
+    public static void saveTransfer(Map<Integer, Integer> cartMap, Date transferDate, ReceiverType type, int id, String requestNumber)
             throws Exception {
         Session s = getSession();
         Transaction tx = s.beginTransaction();
@@ -112,16 +80,12 @@ public class TransferServiceImpl extends BaseDAO {
     /**
      * accessed by ItemReturnPanel
      */
-    public static List notReturnedTransferItemQuery(String itemName, int categoryId, int receiverId, int returnedStatus,
-                                                    int receiveStatus, String transferNumber, String requestNumber, Date fromDate, Date toDate) throws Exception {
+    public static List<Transfer> notReturnedTransferItemQuery(String itemName, int categoryId, int receiverId, int returnedStatus,
+                                                    int receiveStatus, String requestNumber, Date fromDate, Date toDate) throws Exception {
         Criteria c = getSession().createCriteria(Transfer.class);
         c.createAlias("item", "it");
         c.add(Restrictions.eq("dFlag", 1));
         c.add(Restrictions.gt("remainingQtyToReturn", 0));
-
-        if (!StringUtils.isEmpty(transferNumber)) {
-            c.add(Restrictions.eq("transferPanaNumber", transferNumber));
-        }
 
         if (!StringUtils.isEmpty(requestNumber)) {
             c.add(Restrictions.eq("requestNumber", requestNumber));

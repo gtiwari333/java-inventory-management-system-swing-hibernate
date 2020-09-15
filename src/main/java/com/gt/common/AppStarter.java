@@ -16,10 +16,8 @@ import java.net.Socket;
  * href="http://ganeshtiwaridotcomdotnp.blogspot.com">Ganesh Tiwari </a>
  */
 public class AppStarter {
-    public boolean notFindExisting = true;
-    private String HOST = "localhost";
     private final int PORT = 45433;
-
+    public boolean notFindExisting = true;
     Logger logger = Logger.getLogger(AppStarter.class);
 
     public AppStarter() {
@@ -36,6 +34,7 @@ public class AppStarter {
         // try to connect to server
         Socket client;
         try {
+            String HOST = "localhost";
             client = new Socket(HOST, PORT);
             logger.info("Connection accepted by already running app");
             notFindExisting = false;

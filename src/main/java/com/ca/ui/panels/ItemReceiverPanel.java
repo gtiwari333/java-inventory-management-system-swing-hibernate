@@ -1,7 +1,6 @@
 package com.ca.ui.panels;
 
 import com.ca.db.model.BranchOffice;
-import com.ca.db.model.Transfer;
 import com.ca.db.service.DBUtils;
 import com.gt.uilib.components.input.DataComboBox;
 import com.jgoodies.forms.factories.FormFactory;
@@ -11,8 +10,6 @@ import com.jgoodies.forms.layout.RowSpec;
 import org.apache.commons.lang3.SystemUtils;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 public class ItemReceiverPanel extends JPanel {

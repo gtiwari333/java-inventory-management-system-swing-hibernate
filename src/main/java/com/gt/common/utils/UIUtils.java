@@ -30,12 +30,8 @@ public class UIUtils {
 
         if (parent instanceof JTextField) {
             ((JTextField) parent).setText("");
-        } else if (parent instanceof JTextField) {
-            ((JTextField) parent).setText("");
         } else if (parent instanceof JTextArea) {
             ((JTextArea) parent).setText("");
-        } else if (parent instanceof JComboBox) {
-            ((JComboBox) parent).setSelectedIndex(0);
         } else if (parent instanceof JCheckBox) {
             ((JCheckBox) parent).setSelected(false);
         } else if (parent instanceof JComponent) {

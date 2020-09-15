@@ -17,14 +17,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ChangePasswordPanel extends AbstractFunctionPanel {
-    private JPanel fullPanel;
     private JPanel innerPanel;
     private JTextField userName;
     private JPasswordField passWord;
-    private JLabel lblDept;
-    private JLabel lblInventoryManagementSystem;
-    private JLabel lblTitile;
-    private JLabel lblImg;
     private JTextField txtNewUsrName;
     private JPasswordField txtNewPass1;
     private JPasswordField txtNewpass;
@@ -34,7 +29,7 @@ public class ChangePasswordPanel extends AbstractFunctionPanel {
         init();
     }
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         if (SystemUtils.IS_OS_WINDOWS) {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         }
@@ -53,7 +48,7 @@ public class ChangePasswordPanel extends AbstractFunctionPanel {
     }
 
     private JPanel getLoginPanel() {
-        fullPanel = new JPanel();
+        JPanel fullPanel = new JPanel();
         fullPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         innerPanel = new JPanel();
         innerPanel.setBounds(41, 96, 336, 144);
@@ -71,19 +66,19 @@ public class ChangePasswordPanel extends AbstractFunctionPanel {
                 FormFactory.RELATED_GAP_ROWSPEC, RowSpec.decode("max(18dlu;default)"), FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC,
                 FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC,}));
 
-        lblImg = new JLabel("img");
+        JLabel lblImg = new JLabel("img");
         lblImg.setIcon(ResourceManager.getImageIcon("logo2.png"));
         innerPanel.add(lblImg, "2, 6, 3, 5");
 
-        lblTitile = new JLabel(ResourceManager.getString(StrConstants.COMPANY_NAME));
+        JLabel lblTitile = new JLabel(ResourceManager.getString(StrConstants.COMPANY_NAME));
         lblTitile.setFont(new Font("Tahoma", Font.BOLD, 16));
         innerPanel.add(lblTitile, "6, 6, 7, 1, left, default");
 
-        lblDept = new JLabel(ResourceManager.getString(StrConstants.DEPARTMENT));
+        JLabel lblDept = new JLabel(ResourceManager.getString(StrConstants.DEPARTMENT));
         lblDept.setFont(new Font("Tahoma", Font.BOLD, 13));
         innerPanel.add(lblDept, "6, 8, 7, 1, left, default");
 
-        lblInventoryManagementSystem = new JLabel(ResourceManager.getString(StrConstants.APP_TITLE));
+        JLabel lblInventoryManagementSystem = new JLabel(ResourceManager.getString(StrConstants.APP_TITLE));
         lblInventoryManagementSystem.setFont(new Font("Tahoma", Font.BOLD, 13));
         innerPanel.add(lblInventoryManagementSystem, "6, 10, 7, 1, left, default");
 

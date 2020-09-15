@@ -143,15 +143,15 @@ public class Validator {
         if (jc instanceof JTextComponent) {
             String input = ((JTextComponent) jc).getText();
 
-            /**
-             * if value is empty and is not compulsory, then valid
+            /*
+              if value is empty and is not compulsory, then valid
              */
             if (StringUtils.isEmpty(input) && !task.isRequired) {
                 return true;
             }
 
-            /**
-             * if value is empty and is compulsory, the invalid
+            /*
+              if value is empty and is compulsory, the invalid
              */
             if (StringUtils.isEmpty(input) && task.isRequired) {
                 return false;
@@ -168,16 +168,16 @@ public class Validator {
             JDateChooser jdc = (JDateChooser) jc;
             Date inputDate = jdc.getDate();
 
-            /**
-             * If this field can be empty and current input date is empty , then
-             * it is ok.
+            /*
+              If this field can be empty and current input date is empty , then
+              it is ok.
              */
             if (inputDate == null && !task.isRequired) {
                 return true;
             }
 
-            /**
-             * Input date should be in Specified format
+            /*
+              Input date should be in Specified format
              */
             String pattern = jdc.getDateFormatString();
             SimpleDateFormat format = new SimpleDateFormat(pattern);
@@ -205,8 +205,8 @@ public class Validator {
                 return true;
             }
 
-            /**
-             * if value is empty and is compulsory, the invalid
+            /*
+              if value is empty and is compulsory, the invalid
              */
             if (StringUtils.isEmpty(input) && task.isRequired) {
                 return false;

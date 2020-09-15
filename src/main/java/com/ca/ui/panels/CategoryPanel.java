@@ -30,44 +30,30 @@ public class CategoryPanel extends AbstractFunctionPanel {
     private Validator v;
     private JButton btnReadAll;
     private JButton btnNew;
-    private JButton btnDeleteThis;
     private JButton btnSave;
     private JPanel upperPane;
     private JPanel lowerPane;
     private BetterJTable table;
     private EasyTableModel dataModel;
     private int editingPrimaryId = 0;
-    private JButton btnModify;
     private JButton btnCancel;
-    private JLabel lblSpecification;
-    private JLabel lblSpecification_1;
-    private JLabel lblSpecification_2;
-    private JLabel lblSpecification_3;
     private JTextField sp1;
     private JTextField sp2;
     private JTextField sp3;
     private JTextField sp4;
-    private JLabel lblSpecification_4;
     private JTextField sp5;
-    private JLabel lblSpecification_5;
     private JTextField sp6;
-    private JLabel lblSpecification_6;
     private JTextField sp7;
-    private JLabel lblSpecification_7;
     private JTextField sp8;
-    private JLabel lblSpecification_8;
     private JTextField sp9;
-    private JLabel lblSpecification_9;
     private JTextField sp10;
     private JTextField txtName;
-    private JLabel lblType;
-    private JPanel typePanel;
     private JRadioButton rdbtnReturnable;
     private JRadioButton rdbtnNonReturnable;
 
     public CategoryPanel() {
-        /**
-         * all gui components added from here;
+        /*
+          all gui components added from here;
          */
         JSplitPane splitPane = new JSplitPane();
         splitPane.setContinuousLayout(true);
@@ -78,13 +64,13 @@ public class CategoryPanel extends AbstractFunctionPanel {
         splitPane.setLeftComponent(getUpperSplitPane());
         splitPane.setRightComponent(getLowerSplitPane());
 
-        /**
-         * never forget to call after setting up UI
+        /*
+          never forget to call after setting up UI
          */
         init();
     }
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         if (SystemUtils.IS_OS_WINDOWS) {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         }
@@ -100,6 +86,20 @@ public class CategoryPanel extends AbstractFunctionPanel {
                 e.printStackTrace();
             }
         });
+    }
+
+    private static boolean checkEntryOrder(List<String> strL) {
+        boolean isEmptyFind = false;
+        for (String st : strL) {
+            if (!isEmptyFind && StringUtils.isEmpty(st)) {
+                isEmptyFind = true;
+            }
+            if (isEmptyFind && !StringUtils.isEmpty(st)) {
+                return false;
+            }
+        }
+        return true;
+
     }
 
     @Override
@@ -124,12 +124,12 @@ public class CategoryPanel extends AbstractFunctionPanel {
             btnNew.addActionListener(e -> changeStatus(Status.CREATE));
             buttonPanel.add(btnNew);
 
-            btnDeleteThis = new JButton("Delete This");
+            JButton btnDeleteThis = new JButton("Delete This");
             btnDeleteThis.addActionListener(e -> {
                 if (editingPrimaryId > 0) handleDeleteAction();
             });
 
-            btnModify = new JButton("Modify");
+            JButton btnModify = new JButton("Modify");
             btnModify.addActionListener(e -> {
                 if (editingPrimaryId > 0) changeStatus(Status.MODIFY);
             });
@@ -282,20 +282,6 @@ public class CategoryPanel extends AbstractFunctionPanel {
         }
     }
 
-    private static boolean checkEntryOrder(List<String> strL) {
-        boolean isEmptyFind = false;
-        for (String st : strL) {
-            if (!isEmptyFind && StringUtils.isEmpty(st)) {
-                isEmptyFind = true;
-            }
-            if (isEmptyFind && !StringUtils.isEmpty(st)) {
-                return false;
-            }
-        }
-        return true;
-
-    }
-
     private boolean isThereNoDiscontinuity() {
         List<String> li = new ArrayList<>();
         li.add(sp1.getText());
@@ -411,10 +397,10 @@ public class CategoryPanel extends AbstractFunctionPanel {
             formPanel.add(txtName, "8, 2, fill, default");
             txtName.setColumns(10);
 
-            lblType = new JLabel("Type");
+            JLabel lblType = new JLabel("Type");
             formPanel.add(lblType, "4, 4");
 
-            typePanel = new JPanel();
+            JPanel typePanel = new JPanel();
             formPanel.add(typePanel, "8, 4, fill, fill");
 
             rdbtnReturnable = new JRadioButton("Returnable");
@@ -427,70 +413,70 @@ public class CategoryPanel extends AbstractFunctionPanel {
             bg.add(rdbtnReturnable);
             bg.add(rdbtnNonReturnable);
 
-            lblSpecification = new JLabel("Specification1");
+            JLabel lblSpecification = new JLabel("Specification1");
             formPanel.add(lblSpecification, "4, 6");
 
             sp1 = new JTextField();
             formPanel.add(sp1, "8, 6, fill, default");
             sp1.setColumns(10);
 
-            lblSpecification_1 = new JLabel("Specification2");
+            JLabel lblSpecification_1 = new JLabel("Specification2");
             formPanel.add(lblSpecification_1, "4, 8");
 
             sp2 = new JTextField();
             formPanel.add(sp2, "8, 8, fill, default");
             sp2.setColumns(10);
 
-            lblSpecification_2 = new JLabel("Specification3");
+            JLabel lblSpecification_2 = new JLabel("Specification3");
             formPanel.add(lblSpecification_2, "4, 10");
 
             sp3 = new JTextField();
             formPanel.add(sp3, "8, 10, fill, default");
             sp3.setColumns(10);
 
-            lblSpecification_3 = new JLabel("Specification4");
+            JLabel lblSpecification_3 = new JLabel("Specification4");
             formPanel.add(lblSpecification_3, "4, 12");
 
             sp4 = new JTextField();
             formPanel.add(sp4, "8, 12, fill, default");
             sp4.setColumns(10);
 
-            lblSpecification_4 = new JLabel("Specification5");
+            JLabel lblSpecification_4 = new JLabel("Specification5");
             formPanel.add(lblSpecification_4, "4, 14");
 
             sp5 = new JTextField();
             formPanel.add(sp5, "8, 14, fill, default");
             sp5.setColumns(10);
 
-            lblSpecification_5 = new JLabel("Specification6");
+            JLabel lblSpecification_5 = new JLabel("Specification6");
             formPanel.add(lblSpecification_5, "4, 16");
 
             sp6 = new JTextField();
             formPanel.add(sp6, "8, 16, fill, default");
             sp6.setColumns(10);
 
-            lblSpecification_6 = new JLabel("Specification7");
+            JLabel lblSpecification_6 = new JLabel("Specification7");
             formPanel.add(lblSpecification_6, "4, 18");
 
             sp7 = new JTextField();
             formPanel.add(sp7, "8, 18, fill, default");
             sp7.setColumns(10);
 
-            lblSpecification_7 = new JLabel("Specification8");
+            JLabel lblSpecification_7 = new JLabel("Specification8");
             formPanel.add(lblSpecification_7, "4, 20");
 
             sp8 = new JTextField();
             formPanel.add(sp8, "8, 20, fill, default");
             sp8.setColumns(10);
 
-            lblSpecification_8 = new JLabel("Specification9");
+            JLabel lblSpecification_8 = new JLabel("Specification9");
             formPanel.add(lblSpecification_8, "4, 22");
 
             sp9 = new JTextField();
             formPanel.add(sp9, "8, 22, fill, default");
             sp9.setColumns(10);
 
-            lblSpecification_9 = new JLabel("Specification10");
+            JLabel lblSpecification_9 = new JLabel("Specification10");
             formPanel.add(lblSpecification_9, "4, 24");
 
             sp10 = new JTextField();
@@ -574,8 +560,8 @@ public class CategoryPanel extends AbstractFunctionPanel {
             table.getSelectionModel().addListSelectionListener(e -> {
                 int selRow = table.getSelectedRow();
                 if (selRow != -1) {
-                    /**
-                     * if second column doesnot have primary id info, then
+                    /*
+                      if second column doesnot have primary id info, then
                      */
                     int selectedId = (Integer) dataModel.getValueAt(selRow, 1);
                     populateSelectedRowInForm(selectedId);

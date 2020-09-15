@@ -20,17 +20,13 @@ public class LoginPanel extends AbstractFunctionPanel {
     private JPanel innerPanel;
     private JTextField userName;
     private JTextField passWord;
-    private JLabel lblDept;
-    private JLabel lblInventoryManagementSystem;
-    private JLabel lblTitile;
-    private JLabel lblImg;
 
     public LoginPanel() {
         add(getLoginPanel());
         init();
     }
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         if (SystemUtils.IS_OS_WINDOWS) {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         }
@@ -67,19 +63,19 @@ public class LoginPanel extends AbstractFunctionPanel {
                 RowSpec.decode("max(14dlu;default)"), FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC,
                 FormFactory.DEFAULT_ROWSPEC,}));
 
-        lblImg = new JLabel("img");
+        JLabel lblImg = new JLabel("img");
         lblImg.setIcon(ResourceManager.getImageIcon("logo2.png"));
         innerPanel.add(lblImg, "2, 8, 3, 5");
 
-        lblTitile = new JLabel(ResourceManager.getString(StrConstants.COMPANY_NAME));
+        JLabel lblTitile = new JLabel(ResourceManager.getString(StrConstants.COMPANY_NAME));
         lblTitile.setFont(new Font("Tahoma", Font.BOLD, 16));
         innerPanel.add(lblTitile, "6, 8, 7, 1, left, default");
 
-        lblDept = new JLabel(ResourceManager.getString(StrConstants.DEPARTMENT));
+        JLabel lblDept = new JLabel(ResourceManager.getString(StrConstants.DEPARTMENT));
         lblDept.setFont(new Font("Tahoma", Font.BOLD, 13));
         innerPanel.add(lblDept, "6, 10, 7, 1, left, default");
 
-        lblInventoryManagementSystem = new JLabel(ResourceManager.getString(StrConstants.APP_TITLE));
+        JLabel lblInventoryManagementSystem = new JLabel(ResourceManager.getString(StrConstants.APP_TITLE));
         lblInventoryManagementSystem.setFont(new Font("Tahoma", Font.BOLD, 13));
         innerPanel.add(lblInventoryManagementSystem, "6, 12, 7, 1, left, default");
 

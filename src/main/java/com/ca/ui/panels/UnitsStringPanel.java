@@ -29,19 +29,17 @@ public class UnitsStringPanel extends AbstractFunctionPanel {
     private JTextField nameFLD;
     private JButton btnReadAll;
     private JButton btnNew;
-    private JButton btnDeleteThis;
     private JButton btnSave;
     private JPanel upperPane;
     private JPanel lowerPane;
     private BetterJTable table;
     private EasyTableModel dataModel;
     private int editingPrimaryId = 0;
-    private JButton btnModify;
     private JButton btnCancel;
 
     public UnitsStringPanel() {
-        /**
-         * all gui components added from here;
+        /*
+          all gui components added from here;
          */
         JSplitPane splitPane = new JSplitPane();
         splitPane.setContinuousLayout(true);
@@ -50,13 +48,13 @@ public class UnitsStringPanel extends AbstractFunctionPanel {
         add(splitPane, BorderLayout.CENTER);
         splitPane.setLeftComponent(getUpperSplitPane());
         splitPane.setRightComponent(getLowerSplitPane());
-        /**
-         * never forget to call after setting up UI
+        /*
+          never forget to call after setting up UI
          */
         init();
     }
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         if (SystemUtils.IS_OS_WINDOWS) {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         }
@@ -96,12 +94,12 @@ public class UnitsStringPanel extends AbstractFunctionPanel {
             btnNew.addActionListener(e -> changeStatus(Status.CREATE));
             buttonPanel.add(btnNew);
 
-            btnDeleteThis = new JButton("Delete This");
+            JButton btnDeleteThis = new JButton("Delete This");
             btnDeleteThis.addActionListener(e -> {
                 if (editingPrimaryId > 0) handleDeleteAction();
             });
 
-            btnModify = new JButton("Modify");
+            JButton btnModify = new JButton("Modify");
             btnModify.addActionListener(e -> {
                 if (editingPrimaryId > 0) changeStatus(Status.MODIFY);
             });
@@ -326,8 +324,8 @@ public class UnitsStringPanel extends AbstractFunctionPanel {
             table.getSelectionModel().addListSelectionListener(e -> {
                 int selRow = table.getSelectedRow();
                 if (selRow != -1) {
-                    /**
-                     * if second column doesnot have primary id info, then
+                    /*
+                      if second column doesnot have primary id info, then
                      */
                     int selectedId = (Integer) dataModel.getValueAt(selRow, 1);
                     populateSelectedRowInForm(selectedId);

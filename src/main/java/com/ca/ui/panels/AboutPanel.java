@@ -52,7 +52,7 @@ public class AboutPanel extends AbstractFunctionPanel {
         panel.add(txtrHello, "4, 4, 5, 3, fill, fill");
     }
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         if (SystemUtils.IS_OS_WINDOWS) {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         }

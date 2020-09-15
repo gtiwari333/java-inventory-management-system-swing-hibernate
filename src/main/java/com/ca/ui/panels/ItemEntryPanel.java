@@ -44,31 +44,21 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
     private JTextField txtName;
     private JButton btnReadAll;
     private JButton btnNew;
-    private JButton btnDeleteThis;
     private JButton btnSave;
     private JPanel upperPane;
     private JPanel lowerPane;
     private BetterJTable table;
     private EasyTableModel dataModel;
     private int editingPrimaryId = 0;
-    private JButton btnModify;
     private JButton btnCancel;
     private DataComboBox cmbCategory;
     private JPanel specPanelHolder;
-    private JLabel lblPartsNumber;
     private JTextField txtPartsnumber;
-    private JLabel lblPurchaseDate;
-    private JLabel lblRacknumber;
     private JTextField txtRacknumber;
     private DataComboBox cmbVendor;
-    private JLabel lblQuantity;
     private NumberTextField txtQuantity;
-    private JLabel lblRate;
-    private JLabel lblTotal;
-    private JLabel lblSerialNumber;
     private NumberTextField txtRate;
     private JTextField txtTotal;
-    private JTextField txtSerialnumber;
     private final KeyListener priceCalcListener = new KeyListener() {
 
         public void keyPressed(KeyEvent e) {
@@ -84,16 +74,14 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
         }
 
     };
-    private JLabel lblPurchaseOrderNumber;
+    private JTextField txtSerialnumber;
     private JTextField txtPurchaseordernumber;
-    private JLabel lblEntryNumber;
     private JTextField txtEntrynumber;
-    private JLabel lblUnit;
     private DataComboBox cmbUnitcombo;
 
     public ItemEntryPanel() {
-        /**
-         * all gui components added from here;
+        /*
+          all gui components added from here;
          */
         JSplitPane splitPane = new JSplitPane();
         splitPane.setContinuousLayout(true);
@@ -102,8 +90,8 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
         add(splitPane, BorderLayout.CENTER);
         splitPane.setLeftComponent(getUpperSplitPane());
         splitPane.setRightComponent(getLowerSplitPane());
-        /**
-         * never forget to call after setting up UI
+        /*
+          never forget to call after setting up UI
          */
         v = new Validator(mainApp, true);
         init();
@@ -210,12 +198,12 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
             btnNew.addActionListener(e -> changeStatus(Status.CREATE));
             buttonPanel.add(btnNew);
 
-            btnDeleteThis = new JButton("Delete This");
+            JButton btnDeleteThis = new JButton("Delete This");
             btnDeleteThis.addActionListener(e -> {
                 if (editingPrimaryId > 0) handleDeleteAction();
             });
 
-            btnModify = new JButton("Modify");
+            JButton btnModify = new JButton("Modify");
             btnModify.addActionListener(e -> {
                 if (editingPrimaryId > 0) changeStatus(Status.MODIFY);
             });
@@ -460,14 +448,14 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
                             FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC,
                             FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC,}));
 
-            lblPurchaseOrderNumber = new JLabel("Purchase Order Number");
+            JLabel lblPurchaseOrderNumber = new JLabel("Purchase Order Number");
             formPanel.add(lblPurchaseOrderNumber, "4, 2");
 
             txtPurchaseordernumber = new JTextField();
             formPanel.add(txtPurchaseordernumber, "8, 2, fill, default");
             txtPurchaseordernumber.setColumns(10);
 
-            lblEntryNumber = new JLabel("Entry Number");
+            JLabel lblEntryNumber = new JLabel("Entry Number");
             formPanel.add(lblEntryNumber, "4, 6");
 
             txtEntrynumber = new JTextField();
@@ -491,14 +479,14 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
             specPanelHolder.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
             formPanel.add(specPanelHolder, "4, 14, 17, 1, fill, fill");
 
-            lblPartsNumber = new JLabel("Parts Number");
+            JLabel lblPartsNumber = new JLabel("Parts Number");
             formPanel.add(lblPartsNumber, "4, 16");
 
             txtPartsnumber = new JTextField();
             formPanel.add(txtPartsnumber, "8, 16, fill, default");
             txtPartsnumber.setColumns(10);
 
-            lblQuantity = new JLabel("Quantity");
+            JLabel lblQuantity = new JLabel("Quantity");
             formPanel.add(lblQuantity, "12, 16");
 
             txtQuantity = new NumberTextField(6, true);
@@ -506,27 +494,27 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
             txtQuantity.addKeyListener(priceCalcListener);
             formPanel.add(txtQuantity, "16, 16, fill, default");
 
-            lblSerialNumber = new JLabel("Serial Number");
+            JLabel lblSerialNumber = new JLabel("Serial Number");
             formPanel.add(lblSerialNumber, "4, 18");
 
             txtSerialnumber = new JTextField();
             formPanel.add(txtSerialnumber, "8, 18, fill, default");
             txtSerialnumber.setColumns(10);
 
-            lblUnit = new JLabel("Unit");
+            JLabel lblUnit = new JLabel("Unit");
             formPanel.add(lblUnit, "12, 18");
 
             cmbUnitcombo = new DataComboBox();
             formPanel.add(cmbUnitcombo, "16, 18, fill, default");
 
-            lblRacknumber = new JLabel("Rack Number");
+            JLabel lblRacknumber = new JLabel("Rack Number");
             formPanel.add(lblRacknumber, "4, 20");
 
             txtRacknumber = new JTextField();
             formPanel.add(txtRacknumber, "8, 20, fill, default");
             txtRacknumber.setColumns(10);
 
-            lblRate = new JLabel("Rate");
+            JLabel lblRate = new JLabel("Rate");
             formPanel.add(lblRate, "12, 20");
 
             txtRate = new NumberTextField(true);
@@ -535,7 +523,7 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
             formPanel.add(txtRate, "16, 20, fill, default");
             txtRate.setDecimalPlace(2);
 
-            lblPurchaseDate = new JLabel("Purchase Date");
+            JLabel lblPurchaseDate = new JLabel("Purchase Date");
             formPanel.add(lblPurchaseDate, "4, 22");
 
             txtPurDate = new JDateChooser();
@@ -543,7 +531,7 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
             txtPurDate.setEnabled(false);
             formPanel.add(txtPurDate, "8, 22, fill, default");
 
-            lblTotal = new JLabel("Total");
+            JLabel lblTotal = new JLabel("Total");
             formPanel.add(lblTotal, "12, 22");
 
             txtTotal = new JTextField();
@@ -657,8 +645,8 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
             table.getSelectionModel().addListSelectionListener(e -> {
                 int selRow = table.getSelectedRow();
                 if (selRow != -1) {
-                    /**
-                     * if second column doesnot have primary id info, then
+                    /*
+                      if second column doesnot have primary id info, then
                      */
                     int selectedId = (Integer) dataModel.getValueAt(selRow, 1);
                     populateSelectedRowInForm(selectedId);

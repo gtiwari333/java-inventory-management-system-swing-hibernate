@@ -58,11 +58,6 @@ public class LoginUserServiceImpl extends BaseDAO {
         return null;
     }
 
-    public final void saveLoginUser(LoginUser user) throws Exception {
-        user.setPassword(PasswordUtil.getSha256(user.getPassword()));
-        saveOrUpdate(user);
-    }
-
     public static void changeLogin(String usrName, String password) throws Exception {
 
         Session s = getSession();
@@ -79,6 +74,11 @@ public class LoginUserServiceImpl extends BaseDAO {
             tx.rollback();
             throw new Exception(e);
         }
+    }
+
+    public final void saveLoginUser(LoginUser user) throws Exception {
+        user.setPassword(PasswordUtil.getSha256(user.getPassword()));
+        saveOrUpdate(user);
     }
 
 }

@@ -30,21 +30,18 @@ public class BranchOfficePanel extends AbstractFunctionPanel {
     private GTextArea addressFLD;
     private JButton btnReadAll;
     private JButton btnNew;
-    private JButton btnDeleteThis;
     private JButton btnSave;
     private JPanel upperPane;
     private JPanel lowerPane;
     private BetterJTable table;
     private EasyTableModel dataModel;
     private int editingPrimaryId = 0;
-    private JButton btnModify;
     private JButton btnCancel;
-    private JLabel lblDistrict;
     private JTextField txtDistrict;
 
     public BranchOfficePanel() {
-        /**
-         * all gui components added from here;
+        /*
+          all gui components added from here;
          */
         JSplitPane splitPane = new JSplitPane();
         splitPane.setContinuousLayout(true);
@@ -53,13 +50,13 @@ public class BranchOfficePanel extends AbstractFunctionPanel {
         add(splitPane, BorderLayout.CENTER);
         splitPane.setLeftComponent(getUpperSplitPane());
         splitPane.setRightComponent(getLowerSplitPane());
-        /**
-         * never forget to call after setting up UI
+        /*
+          never forget to call after setting up UI
          */
         init();
     }
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         if (SystemUtils.IS_OS_WINDOWS) {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         }
@@ -99,13 +96,13 @@ public class BranchOfficePanel extends AbstractFunctionPanel {
             btnNew.addActionListener(e -> changeStatus(Status.CREATE));
             buttonPanel.add(btnNew);
 
-            btnDeleteThis = new JButton("Delete This");
+            JButton btnDeleteThis = new JButton("Delete This");
             btnDeleteThis.addActionListener(e -> {
                 if (editingPrimaryId > 0)
                     handleDeleteAction();
             });
 
-            btnModify = new JButton("Modify");
+            JButton btnModify = new JButton("Modify");
             btnModify.addActionListener(e -> {
                 if (editingPrimaryId > 0)
                     changeStatus(Status.MODIFY);
@@ -289,7 +286,7 @@ public class BranchOfficePanel extends AbstractFunctionPanel {
             addressFLD = new GTextArea(5, 30);
             formPanel.add(addressFLD, "8, 4, fill, fill");
 
-            lblDistrict = new JLabel("District");
+            JLabel lblDistrict = new JLabel("District");
             formPanel.add(lblDistrict, "4, 6");
 
             txtDistrict = new JTextField();
@@ -370,8 +367,8 @@ public class BranchOfficePanel extends AbstractFunctionPanel {
             table.getSelectionModel().addListSelectionListener(e -> {
                 int selRow = table.getSelectedRow();
                 if (selRow != -1) {
-                    /**
-                     * if second column doesnot have primary id info, then
+                    /*
+                      if second column doesnot have primary id info, then
                      */
                     int selectedId = (Integer) dataModel.getValueAt(selRow, 1);
                     populateSelectedRowInForm(selectedId);

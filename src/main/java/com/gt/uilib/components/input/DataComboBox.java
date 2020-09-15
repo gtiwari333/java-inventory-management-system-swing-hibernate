@@ -25,6 +25,15 @@ public class DataComboBox extends JComboBox {
         AutoCompleteDecorator.decorate(this);
     }
 
+    protected static String getStringRepresentation(Object[] values) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i < values.length; i++) {
+            sb.append(values[i]);
+            if (i != values.length - 1) sb.append("  -  ");
+        }
+        return sb.toString();
+    }
+
     /**
      * clears the all data in combo
      */
@@ -37,11 +46,11 @@ public class DataComboBox extends JComboBox {
         }
     }
 
+    // decorate
+
     public final boolean isValidDataChoosen() {
         return (getSelectedId() != -1);
     }
-
-    // decorate
 
     /**
      * @param values first index must contain ID field
@@ -58,15 +67,6 @@ public class DataComboBox extends JComboBox {
         itemList.add(item);
         this.addItem(item);
 
-    }
-
-    protected static String getStringRepresentation(Object[] values) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 1; i < values.length; i++) {
-            sb.append(values[i]);
-            if (i != values.length - 1) sb.append("  -  ");
-        }
-        return sb.toString();
     }
 
     public final int getSelectedId() {

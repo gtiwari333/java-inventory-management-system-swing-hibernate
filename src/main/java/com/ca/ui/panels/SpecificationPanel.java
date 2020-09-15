@@ -37,6 +37,10 @@ public class SpecificationPanel extends JPanel {
         jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
+    public static boolean isValidDataEntered() {
+        return true;
+    }
+
     private boolean toSkip(String spec) {
 
         if (!StringUtils.isEmpty(spec) && !skipNext) {
@@ -46,10 +50,6 @@ public class SpecificationPanel extends JPanel {
         }
         System.out.println(skipNext + " skipnext..");
         return !skipNext;
-    }
-
-    public static boolean isValidDataEntered() {
-        return true;
     }
 
     public final void disableAll() {

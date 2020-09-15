@@ -13,8 +13,8 @@ import java.util.regex.Pattern;
 public class NumberFormatDocument extends PlainDocument {
 
     private static final long serialVersionUID = 147012982380037443L;
-    private static final String REGEXP = "^[0-9,\\.]+$";
-    private static final String REGEXP_NEGATIVE = "^[0-9,-\\.]+$";
+    private static final String REGEXP = "^[0-9,.]+$";
+    private static final String REGEXP_NEGATIVE = "^[0-9,-.]+$";
     private NumberTextField target;
     private NumberFormat format;
     private int maxLength;
@@ -33,6 +33,14 @@ public class NumberFormatDocument extends PlainDocument {
         format.setGroupingUsed(true);
         pattern = Pattern.compile(REGEXP);
         patternNegative = Pattern.compile(REGEXP_NEGATIVE);
+    }
+
+    private static int calcComma(String val) {
+        int n = 0;
+        for (int i = 0; i < val.length(); i++)
+            if (val.charAt(i) == ',') n++;
+
+        return n;
     }
 
     public final int getMaxLength() {
@@ -151,14 +159,6 @@ public class NumberFormatDocument extends PlainDocument {
         if (getLength() > 0 && getText(0, 1).equals("-")) target.setForeground(Color.RED);
         else
             target.setForeground(Color.BLACK);
-    }
-
-    private static int calcComma(String val) {
-        int n = 0;
-        for (int i = 0; i < val.length(); i++)
-            if (val.charAt(i) == ',') n++;
-
-        return n;
     }
 
     private String format(String value, int offs) throws BadLocationException {

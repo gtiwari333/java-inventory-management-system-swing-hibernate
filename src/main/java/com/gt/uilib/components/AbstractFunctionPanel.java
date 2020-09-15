@@ -31,11 +31,29 @@ public abstract class AbstractFunctionPanel extends JPanel implements Verifier {
     }
 
     /**
+     * we can override this function to display different message
+     */
+    public static String getUnsavedExitMessage() {
+        return "Are you sure to exit?";
+
+    }
+
+    // utility method to clear all editable text fields and combo boxes
+
+    protected static void handleDBError(Exception e) {
+        System.out.println("db error " + e.toString());
+        e.printStackTrace();
+        String expln = e.toString();
+
+        String[] exp = expln.split("Exception:");
+        System.err.println("Reason - " + exp[exp.length - 1]);
+        JOptionPane.showMessageDialog(null, "DB Error" + e.getMessage(), "Error ! ", JOptionPane.ERROR_MESSAGE);
+    }
+
+    /**
      * function name will be displayed in title bar
      */
     abstract public String getFunctionName();
-
-    // utility method to clear all editable text fields and combo boxes
 
     /**
      * initialize fields, set initial status, <br/>
@@ -44,14 +62,6 @@ public abstract class AbstractFunctionPanel extends JPanel implements Verifier {
     public void init() {
         // UIUtils.updateFont(new Font("Arial", Font.PLAIN, 12), this);
         UIUtils.decorateBorders(this);
-    }
-
-    /**
-     * we can override this function to display different message
-     */
-    public static String getUnsavedExitMessage() {
-        return "Are you sure to exit?";
-
     }
 
     public final AppFrame getMainFrame() {
@@ -65,16 +75,6 @@ public abstract class AbstractFunctionPanel extends JPanel implements Verifier {
 
     public void validatePassed() {
 
-    }
-
-    protected static void handleDBError(Exception e) {
-        System.out.println("db error " + e.toString());
-        e.printStackTrace();
-        String expln = e.toString();
-
-        String[] exp = expln.split("Exception:");
-        System.err.println("Reason - " + exp[exp.length - 1]);
-        JOptionPane.showMessageDialog(null, "DB Error" + e.getMessage(), "Error ! ", JOptionPane.ERROR_MESSAGE);
     }
 
     public final void changeStatus(Status status) {
