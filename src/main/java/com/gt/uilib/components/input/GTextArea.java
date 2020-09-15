@@ -1,5 +1,7 @@
 package com.gt.uilib.components.input;
 
+import org.apache.commons.lang3.SystemUtils;
+
 import javax.swing.*;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
@@ -36,9 +38,10 @@ public class GTextArea extends JScrollPane {
         frame.setVisible(true);
     }
 
-    public static void main(String[] args) throws Exception {
-
-        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+    public static void main(String[] args) throws Exception{
+        if (SystemUtils.IS_OS_WINDOWS) {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        }
 
         makeUI();
     }

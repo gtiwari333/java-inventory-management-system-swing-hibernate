@@ -13,6 +13,7 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
+import org.apache.commons.lang3.SystemUtils;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -58,11 +59,9 @@ public class BranchOfficePanel extends AbstractFunctionPanel {
         init();
     }
 
-    public static void main(String[] args) {
-        try {
+    public static void main(String[] args) throws Exception{
+        if (SystemUtils.IS_OS_WINDOWS) {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         EventQueue.invokeLater(() -> {
             try {
@@ -205,8 +204,6 @@ public class BranchOfficePanel extends AbstractFunctionPanel {
 
         v = new Validator(mainApp, true);
         v.addTask(nameFLD, "Req", null, true);
-//		v.addTask(addressFLD, "", null, true);
-
     }
 
     private BranchOffice getModelFromForm() {
@@ -338,7 +335,6 @@ public class BranchOfficePanel extends AbstractFunctionPanel {
         for (BranchOffice bo : brsL) {
             dataModel.addRow(new Object[]{++sn, bo.getId(), bo.getName(), bo.getAddress(), bo.getDistrict(), bo.getPhoneNumber()});
         }
-        // table.setTableHeader(tableHeader);
         table.setModel(dataModel);
         dataModel.fireTableDataChanged();
         table.adjustColumns();

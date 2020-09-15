@@ -15,8 +15,7 @@ public abstract class BaseDAO extends SessionUtils {
     private Session session;
     private Transaction tx;
 
-    public BaseDAO() throws Exception {
-
+    public BaseDAO() {
         get();
     }
 
@@ -119,7 +118,7 @@ public abstract class BaseDAO extends SessionUtils {
 
     }
 
-    public final void startOperation() throws Exception {
+    public final void startOperation() {
         session = getSession();
         tx = session.beginTransaction();
     }

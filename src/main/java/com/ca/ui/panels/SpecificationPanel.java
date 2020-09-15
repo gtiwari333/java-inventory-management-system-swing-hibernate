@@ -27,8 +27,6 @@ public class SpecificationPanel extends JPanel {
         setLayout(new FlowLayout());
         addCategoryPanels();
         setBorder(BorderFactory.createTitledBorder("Specification :  " + category.getCategoryName()));
-//		setMinimumSize(new Dimension(150,100));
-//		setPreferredSize(new Dimension(150,80));
     }
 
     public static void main(String[] args) {
@@ -52,7 +50,6 @@ public class SpecificationPanel extends JPanel {
 
     public static boolean isValidDataEntered() {
         return true;
-        // TODO: implement logic
     }
 
     public final void disableAll() {
@@ -99,7 +96,6 @@ public class SpecificationPanel extends JPanel {
             if (toSkip(category.getSpecification10()))
                 pairList.add(new CategoryEntryPair(category.getSpecification10()));
 
-//			Collections.reverse(pairList);
             for (CategoryEntryPair pair : pairList) {
                 add(pair);
             }
@@ -162,7 +158,7 @@ public class SpecificationPanel extends JPanel {
             pairList.get(9).tb.setText(spec.getSpecification10());
 
         } catch (Exception ignored) {
-
+            // no problem
         }
 
     }
@@ -171,7 +167,7 @@ public class SpecificationPanel extends JPanel {
         try {
             category = (Category) DBUtils.getById(Category.class, id);
         } catch (Exception e) {
-            // TODO:
+            throw new RuntimeException(e);
         }
     }
 

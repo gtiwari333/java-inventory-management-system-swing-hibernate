@@ -7,13 +7,8 @@ import java.util.Date;
 @Entity
 @Table(name = "Transfer")
 public class Transfer {
-    public static final int OFFICIAL = 2;
-    public static final int PERSONNAL = 1;
-    public static final int LILAM = 3;
-    public static final int STATUS_RETURNED_ALL = 0;
+    public static final int STATUS_RETURNED_ALL = 2;
     public static final int STATUS_NOT_RETURNED = 1;
-    public static final int HASTANTARAN_NOT_RECEIVED = 1;
-    public static final int HASTANTARAN_RECEIVED = 2;
 
     @Id
     @GeneratedValue
@@ -21,7 +16,7 @@ public class Transfer {
     private int id;
 
     @OneToOne(cascade = {javax.persistence.CascadeType.ALL})
-    private BranchOffice branchOffice;
+    private BranchOffice branchOffice; //lend to another office
 
     @Column(name = "transferdate")
     private Date transferDate;
@@ -31,11 +26,6 @@ public class Transfer {
 
     @Column(name = "lastmodifieddate")
     private Date lastModifiedDate;
-
-    private int transferType;
-
-    @OneToOne(cascade = {javax.persistence.CascadeType.ALL})
-    private Person person;
 
     @OneToOne(cascade = {javax.persistence.CascadeType.ALL})
     private Item item;
@@ -56,17 +46,15 @@ public class Transfer {
 
     private String transferRequestNumber;
 
-    private String transferPanaNumber;
+    @Column(name = "receiveStatus")
+    private int receiveStatus;
 
-    @Column(name = "hastantaranReceivedStatus")
-    private int hastantaranReceivedStatus;
-
-    public int getHastantaranReceivedStatus() {
-        return this.hastantaranReceivedStatus;
+    public int getReceiveStatus() {
+        return receiveStatus;
     }
 
-    public void setHastantaranReceivedStatus(int hastantaranReceivedStatus) {
-        this.hastantaranReceivedStatus = hastantaranReceivedStatus;
+    public void setReceiveStatus(int receiveStatus) {
+        this.receiveStatus = receiveStatus;
     }
 
     public Date getLastModifiedDate() {
@@ -109,14 +97,6 @@ public class Transfer {
         this.transferDate = transferDate;
     }
 
-    public int getTransferType() {
-        return this.transferType;
-    }
-
-    public void setTransferType(int transferType) {
-        this.transferType = transferType;
-    }
-
     public Item getItem() {
         return this.item;
     }
@@ -157,22 +137,6 @@ public class Transfer {
         this.deliveredDate = deliveredDate;
     }
 
-    public String getTransferPanaNumber() {
-        return this.transferPanaNumber;
-    }
-
-    public void setTransferPanaNumber(String transferPanaNumber) {
-        this.transferPanaNumber = transferPanaNumber;
-    }
-
-    public Person getPerson() {
-        return this.person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
-
     public String getTransferRequestNumber() {
         return this.transferRequestNumber;
     }
@@ -201,10 +165,6 @@ public class Transfer {
                 this.dFlag +
                 ", lastModifiedDate=" +
                 this.lastModifiedDate +
-                ", transferType=" +
-                this.transferType +
-                ", person=" +
-                this.person +
                 ", quantity=" +
                 this.quantity +
                 ", remainingQtyToReturn=" +
@@ -217,8 +177,6 @@ public class Transfer {
                 this.deliveredDate +
                 ", transferRequestNumber=" +
                 this.transferRequestNumber +
-                ", transferPanaNumber=" +
-                this.transferPanaNumber +
                 "]";
         return builder;
     }

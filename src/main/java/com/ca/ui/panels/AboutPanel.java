@@ -8,6 +8,7 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
+import org.apache.commons.lang3.SystemUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,11 +52,9 @@ public class AboutPanel extends AbstractFunctionPanel {
         panel.add(txtrHello, "4, 4, 5, 3, fill, fill");
     }
 
-    public static void main(String[] args) {
-        try {
+    public static void main(String[] args) throws Exception{
+        if (SystemUtils.IS_OS_WINDOWS) {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         EventQueue.invokeLater(() -> {
             try {
@@ -78,13 +77,9 @@ public class AboutPanel extends AbstractFunctionPanel {
 
     @Override
     public void handleSaveAction() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void enableDisableComponents() {
-        // TODO Auto-generated method stub
-
     }
 }

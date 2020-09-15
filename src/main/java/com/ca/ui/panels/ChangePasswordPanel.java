@@ -11,6 +11,7 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
+import org.apache.commons.lang3.SystemUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,11 +34,9 @@ public class ChangePasswordPanel extends AbstractFunctionPanel {
         init();
     }
 
-    public static void main(String[] args) {
-        try {
+    public static void main(String[] args) throws Exception{
+        if (SystemUtils.IS_OS_WINDOWS) {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         EventQueue.invokeLater(() -> {
             try {

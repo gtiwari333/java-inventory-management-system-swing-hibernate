@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ItemServiceImpl extends BaseDAO {
 
-    public ItemServiceImpl() throws Exception {
+    public ItemServiceImpl() {
         super();
     }
 
@@ -22,7 +22,7 @@ public class ItemServiceImpl extends BaseDAO {
     /**
      * used by item transfer entry and stock query
      */
-    public static List itemStockQuery(String itemName, int categoryId, int vendorId, String panaNum, String rackNumber, String khataNumber, String dakhilaNumber, Date fromDate, Date toDate, List<String> specs) throws Exception {
+    public static List itemStockQuery(String itemName, int categoryId, int vendorId, String rackNumber, Date fromDate, Date toDate, List<String> specs) {
 
         Criteria c = getSession().createCriteria(Item.class);
         // c.createAlias("item", "it");
@@ -45,18 +45,11 @@ public class ItemServiceImpl extends BaseDAO {
             c.setFetchMode("vendor", FetchMode.JOIN);
             c.add(Restrictions.eq("vendor.id", vendorId));
         }
-        if (!StringUtils.isEmpty(panaNum)) {
-            c.add(Restrictions.like("panaNumber", StringUtils.clean(panaNum)));
-        }
+
         if (!StringUtils.isEmpty(rackNumber)) {
             c.add(Restrictions.like("rackno", StringUtils.clean(rackNumber)));
         }
-        if (!StringUtils.isEmpty(khataNumber)) {
-            c.add(Restrictions.like("khataNumber", StringUtils.clean(khataNumber)));
-        }
-        if (!StringUtils.isEmpty(dakhilaNumber)) {
-            c.add(Restrictions.like("dakhilaNumber", StringUtils.clean(dakhilaNumber)));
-        }
+
         if (!DateTimeUtils.isEmpty(fromDate)) {
             c.add(Restrictions.ge("purchaseDate", fromDate));
         }
@@ -99,13 +92,13 @@ public class ItemServiceImpl extends BaseDAO {
                 }
 
             } catch (Exception e) {
-                // e.printStackTrace();
+                e.printStackTrace();
             }
         }
         return c.list();
     }
 
-    public static List getAddedItems() throws Exception {
+    public static List<Item> getAddedItems() {
         Criteria c = getSession().createCriteria(Item.class);
         // c.createAlias("item", "it");
         c.add(Restrictions.eq("dFlag", 1));
@@ -115,23 +108,5 @@ public class ItemServiceImpl extends BaseDAO {
         return c.list();
     }
 
-    /**
-     * account close item entry panel, not transferred yet and quantity>0 - should be transferred to new
-     *
-     * @return
-     * @throws Exception
-     */
-    public static List getAllItemsToCloseCurrFiscalYear(int type) throws Exception {
-        Criteria c = getSession().createCriteria(Item.class);
-        c.add(Restrictions.eq("dFlag", 1));
-        if (type > 0) {
-            c.createAlias("category", "cat", Criteria.LEFT_JOIN);
-            c.add(Restrictions.eq("cat.categoryType", type));
-        }
-        c.add(Restrictions.ne("accountTransferStatus", Item.ACCOUNT_TRANSFERRED_TO_NEW));
-        c.add(Restrictions.le("currentFiscalYear", DateTimeUtils.getCurrentFiscalYear()));
-        c.add(Restrictions.gt("quantity", 0));
-        return c.list();
-    }
 
 }

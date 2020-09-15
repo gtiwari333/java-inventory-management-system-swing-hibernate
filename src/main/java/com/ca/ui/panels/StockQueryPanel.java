@@ -19,6 +19,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.toedter.calendar.JDateChooser;
+import org.apache.commons.lang3.SystemUtils;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -28,7 +29,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class StockQueryPanel extends AbstractFunctionPanel {
-    private final String[] header = new String[]{"S.N.", "ID", "Name", "Category", "Specification", "Khata No.", "Dakhila No.", "Parts Number", "Serial Number", "Pana Number", "Rack Number", "Purchase date", "Vendor", "Added Type",
+    private final String[] header = new String[]{"S.N.", "ID", "Name", "Category", "Specification", "Parts Number", "Serial Number", "Rack Number", "Purchase date", "Vendor", "Added Type",
             "Remaining Quantity", "Unit", "Rate",};
     private JPanel formPanel = null;
     private JPanel buttonPanel;
@@ -45,8 +46,6 @@ public class StockQueryPanel extends AbstractFunctionPanel {
     private DataComboBox cmbVendor;
     private JPanel specPanelHolder;
     private JLabel lblVendor;
-    private JLabel lblPanaNumber;
-    private JTextField txtPanaNumber;
     private JLabel lblFrom;
     private JLabel lblTo;
     private JButton btnSaveToExcel;
@@ -57,10 +56,6 @@ public class StockQueryPanel extends AbstractFunctionPanel {
     private JLabel lblRackNumber;
     private JTextField txtRacknumber;
     private JButton btnReset;
-    private JLabel lblKhataNumber;
-    private JTextField txtKhataNumber;
-    private JLabel lblDakhilaNumber;
-    private JTextField txtDakhilanumber;
 
     public StockQueryPanel() {
         /**
@@ -79,11 +74,9 @@ public class StockQueryPanel extends AbstractFunctionPanel {
         init();
     }
 
-    public static void main(String[] args) {
-        try {
+    public static void main(String[] args) throws Exception{
+        if (SystemUtils.IS_OS_WINDOWS) {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         EventQueue.invokeLater(() -> {
             try {
@@ -263,27 +256,6 @@ public class StockQueryPanel extends AbstractFunctionPanel {
             formPanel.add(specPanelHolder, "4, 6, 21, 1, fill, fill");
             specPanelHolder.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 
-            lblKhataNumber = new JLabel("Khata Number");
-            formPanel.add(lblKhataNumber, "4, 8");
-
-            txtKhataNumber = new JTextField();
-            formPanel.add(txtKhataNumber, "8, 8, fill, default");
-            txtKhataNumber.setColumns(10);
-
-            lblDakhilaNumber = new JLabel("Dakhila Number");
-            formPanel.add(lblDakhilaNumber, "12, 8");
-
-            txtDakhilanumber = new JTextField();
-            formPanel.add(txtDakhilanumber, "16, 8, fill, default");
-            txtDakhilanumber.setColumns(10);
-
-            lblPanaNumber = new JLabel("Pana Number");
-            formPanel.add(lblPanaNumber, "4, 10");
-
-            txtPanaNumber = new JTextField();
-            formPanel.add(txtPanaNumber, "8, 10, left, default");
-            txtPanaNumber.setColumns(10);
-
             lblRackNumber = new JLabel("Rack Number");
             formPanel.add(lblRackNumber, "12, 10");
 
@@ -337,13 +309,11 @@ public class StockQueryPanel extends AbstractFunctionPanel {
             } else {
                 specs = currentSpecificationPanel.getSpecificationsStringList();
             }
-            brsL = ItemServiceImpl.itemStockQuery(txtItemname.getText(), cmbCategory.getSelectedId(), cmbVendor.getSelectedId(), txtPanaNumber.getText().trim(), txtRacknumber.getText().trim(), txtKhataNumber.getText().trim(), txtDakhilanumber.getText().trim(),
+            brsL = ItemServiceImpl.itemStockQuery(txtItemname.getText(), cmbCategory.getSelectedId(), cmbVendor.getSelectedId(), txtRacknumber.getText().trim(),
                     txtFromDate.getDate(), txtToDate.getDate(), specs);
 
             if (brsL == null || brsL.size() == 0) {
-                if (true) {
-                    JOptionPane.showMessageDialog(null, "No Records Found");
-                }
+                JOptionPane.showMessageDialog(null, "No Records Found");
                 dataModel.resetModel();
                 dataModel.fireTableDataChanged();
                 table.adjustColumns();
@@ -365,9 +335,9 @@ public class StockQueryPanel extends AbstractFunctionPanel {
             } else {
                 addedType = "Returned Stock";
             }
-            //"Specification","Khata No.","Dakhila No.",
-            dataModel.addRow(new Object[]{++sn, bo.getId(), bo.getName(), bo.getCategory().getCategoryName(), bo.getSpeciifcationString(), bo.getKhataNumber(), bo.getDakhilaNumber(), bo.getPartsNumber(),
-                    bo.getSerialNumber(), bo.getPanaNumber(), bo.getRackNo(), DateTimeUtils.getCvDateMMMddyyyy(bo.getPurchaseDate()), bo.getVendor().getName(), addedType, bo.getQuantity(), bo.getUnitsString().getValue(),
+
+            dataModel.addRow(new Object[]{++sn, bo.getId(), bo.getName(), bo.getCategory().getCategoryName(), bo.getSpeciifcationString(), bo.getPartsNumber(),
+                    bo.getSerialNumber(), bo.getRackNo(), DateTimeUtils.getCvDateMMMddyyyy(bo.getPurchaseDate()), bo.getVendor().getName(), addedType, bo.getQuantity(), bo.getUnitsString().getValue(),
                     bo.getRate()});
         }
         table.setModel(dataModel);

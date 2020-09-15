@@ -26,7 +26,7 @@ import java.util.List;
 public class AppFrame extends JFrame {
 
     static Logger logger = Logger.getLogger(AppFrame.class);
-    public static final String loginPanel = "com.ca.ui.panels.LoginPanel";
+    public static final String loginPanel = com.ca.ui.panels.LoginPanel.class.getName();
 
     public static AbstractFunctionPanel currentWindow;
     public static boolean isLoggedIn = false;
@@ -76,7 +76,7 @@ public class AppFrame extends JFrame {
 
     public static void loginSuccess() {
         isLoggedIn = true;
-        getInstance().setWindow("com.ca.ui.panels.HomeScreenPanel");
+        getInstance().setWindow(com.ca.ui.panels.HomeScreenPanel.class.getName());
         logger.info("logged in");
     }
 
@@ -98,17 +98,14 @@ public class AppFrame extends JFrame {
              * Entry Menu
              */
             JMenu entryMenu = new JMenu("Entry");
-            entryMenu.add(ActionMenuItem.create("New Item Entry", "sitementry", "com.ca.ui.panels.ItemEntryPanel"));
-            entryMenu.add(ActionMenuItem.create("Item Nikasha", "sitemnikasha", "com.ca.ui.panels.ItemTransferPanel"));
-            entryMenu.add(ActionMenuItem.create("Item Return", "sitemnikasha", "com.ca.ui.panels.ItemReturnPanel"));
+            entryMenu.add(ActionMenuItem.create("New Item Entry", "sitementry", com.ca.ui.panels.ItemEntryPanel.class.getName()));
             entryMenu.add(new JSeparator());
             JMenu initRecordMenuSub = new JMenu("Initial Records");
 
-            initRecordMenuSub.add(ActionMenuItem.create("Add Category", "a", "com.ca.ui.panels.CategoryPanel"));
-            initRecordMenuSub.add(ActionMenuItem.create("Add Vendor", "vendor", "com.ca.ui.panels.VendorPanel"));
-            initRecordMenuSub.add(ActionMenuItem.create("Add Person", "user", "com.ca.ui.panels.PersonPanel"));
-            initRecordMenuSub.add(ActionMenuItem.create("Add Branch Office", "a", "com.ca.ui.panels.BranchOfficePanel"));
-            initRecordMenuSub.add(ActionMenuItem.create("Add New Unit Type", "a", "com.ca.ui.panels.UnitsStringPanel"));
+            initRecordMenuSub.add(ActionMenuItem.create("Add Category", "a", com.ca.ui.panels.CategoryPanel.class.getName()));
+            initRecordMenuSub.add(ActionMenuItem.create("Add Vendor", "vendor", com.ca.ui.panels.VendorPanel.class.getName()));
+            initRecordMenuSub.add(ActionMenuItem.create("Add Branch Office", "vendor", com.ca.ui.panels.BranchOfficePanel.class.getName()));
+            initRecordMenuSub.add(ActionMenuItem.create("Add New Unit Type", "a", com.ca.ui.panels.UnitsStringPanel.class.getName()));
             entryMenu.add(initRecordMenuSub);
             menuBar.add(entryMenu);
 
@@ -116,23 +113,13 @@ public class AppFrame extends JFrame {
              * Search
              */
             JMenu searchMnu = new JMenu("Search");
-            searchMnu.add(ActionMenuItem.create("Stock Search", "sfind", "com.ca.ui.panels.StockQueryPanel"));
-            searchMnu.add(ActionMenuItem.create("Transfer Search", "sfind", "com.ca.ui.panels.TransferQueryPanel"));
-            searchMnu.add(ActionMenuItem.create("Item Return Search", "sfind", "com.ca.ui.panels.ReturnQueryPanel"));
+            searchMnu.add(ActionMenuItem.create("Stock Search", "sfind", com.ca.ui.panels.StockQueryPanel.class.getName()));
             menuBar.add(searchMnu);
 
-            /**
-             * View All Reports
-             */
-            JMenu reportsMenu = new JMenu("Reports");
-            reportsMenu.add(ActionMenuItem.create("Ledger ", "sfind", "com.ca.ui.report.LedgerReportPanel"));
-            menuBar.add(reportsMenu);
             /**
              * Tools Menu This ActionMenuItem should be displayed on JDialog
              */
             JMenu toolsMenu = new JMenu("Tools");
-            toolsMenu.add(ActionMenuItem.create("Account Transfer/Close", "backup", "com.ca.ui.panels.AccountCloseItemEntryPanel"));
-            toolsMenu.add(new JSeparator());
             JMenuItem jmChang = new JMenuItem("Change UserName/Password");
             jmChang.addActionListener(e -> {
                 if (isLoggedIn) {
@@ -141,14 +128,6 @@ public class AppFrame extends JFrame {
                     cd.setAbstractFunctionPanel(vp, new Dimension(480, 340));
                     cd.setResizable(false);
                     cd.setVisible(true);
-                    cd.addWindowListener(new WindowAdapter() {
-                        @Override
-                        public void windowClosing(WindowEvent e) {
-                            // setWindow("com.ca.ui.panels.HomeScreenPanel");
-                            handleLogOut();
-                        }
-                    });
-
                 }
 
             });
@@ -251,16 +230,14 @@ public class AppFrame extends JFrame {
             toolBarPanel.setLayout(new BorderLayout(20, 10));
 
             List<JLabel> buttons = new ArrayList<>();
-            buttons.add(ActionButton.create("HOME", "home", "com.ca.ui.panels.HomeScreenPanel"));
-            buttons.add(ActionButton.create("Stock Query", "find", "com.ca.ui.panels.StockQueryPanel"));
-            buttons.add(ActionButton.create("Item Entry", "itementry", "com.ca.ui.panels.ItemEntryPanel"));
-            buttons.add(ActionButton.create("Transfer", "itemtransfer", "com.ca.ui.panels.ItemTransferPanel"));
-            buttons.add(ActionButton.create("Item Return", "return", "com.ca.ui.panels.ItemReturnPanel"));
-            buttons.add(ActionButton.create("Return Query", "returnquerya", "com.ca.ui.panels.ReturnQueryPanel"));
-            buttons.add(ActionButton.create("Ledger View", "stock", "com.ca.ui.report.LedgerReportPanel"));
+            buttons.add(ActionButton.create("HOME", "home", com.ca.ui.panels.HomeScreenPanel.class.getName()));
+            buttons.add(ActionButton.create("Stock Query", "find", com.ca.ui.panels.StockQueryPanel.class.getName()));
+            buttons.add(ActionButton.create("Item Entry", "itementry", com.ca.ui.panels.ItemEntryPanel.class.getName()));
+            buttons.add(ActionButton.create("Transfer", "itemtransfer", com.ca.ui.panels.ItemTransferPanel.class.getName()));
+            buttons.add(ActionButton.create("Item Return", "return", com.ca.ui.panels.ItemReturnPanel.class.getName()));
             buttons.add(new JLabel());
-            buttons.add(LogOutButton.create("Logout", "logout", "com.ca.ui.panels.HomeScreenPanel"));
-            buttons.add(ExitButton.create("Exit", "exit", "com.ca.ui.panels.HomeScreenPanel"));
+            buttons.add(LogOutButton.create("Logout", "logout", com.ca.ui.panels.HomeScreenPanel.class.getName()));
+            buttons.add(ExitButton.create("Exit", "exit", com.ca.ui.panels.HomeScreenPanel.class.getName()));
 
             toolBarPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
             toolBarPanel.setPreferredSize(new Dimension(getWidth(), 80));
@@ -276,11 +253,6 @@ public class AppFrame extends JFrame {
             }
         }
         return toolBarPanel;
-    }
-
-    public static void showDBConnectionErrorMessage(Exception e) {
-        JOptionPane.showMessageDialog(null, "Could not start DB Connection " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        logger.error("DB connection failed", e);
     }
 
     public final void handleLogOut() {

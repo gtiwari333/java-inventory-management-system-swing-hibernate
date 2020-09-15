@@ -191,7 +191,6 @@ public class Validator {
 
         }
         if (jc instanceof SpecificationPanel) {
-            SpecificationPanel spp = (SpecificationPanel) jc;
             return SpecificationPanel.isValidDataEntered();
         }
         if (jc instanceof DataComboBox) {
@@ -254,7 +253,6 @@ public class Validator {
         protected boolean isRequired;
         private JLabel image;
         private JLabel messageLabel;
-        private Color orgColor;
         private JDialog popup;
         private JComponent comp;
         private boolean showPopup;
@@ -309,9 +307,6 @@ public class Validator {
         }
 
         private void showPopup() {
-            if (orgColor == null) {
-                // orgColor = comp.getBackground();
-            }
             if (comp instanceof JTextComponent || comp instanceof JDateChooser)
                 comp.setBackground(Color.PINK);
             // set background at combo
@@ -320,17 +315,6 @@ public class Validator {
                 dc.setBackground(Color.PINK);
 
             }
-
-            // if (showPopup) {
-            // // popup.setSize(0, 0);
-            // popup.setLocationRelativeTo(comp);
-            // Point point = popup.getLocation();
-            // Dimension cDim = comp.getSize();
-            // popup.setLocation(point.x - (int) cDim.getWidth() / 2, point.y +
-            // (int) cDim.getHeight() / 2);
-            // popup.pack();
-            // popup.setVisible(true);
-            // }
         }
 
         private void hideErrorInfo() {

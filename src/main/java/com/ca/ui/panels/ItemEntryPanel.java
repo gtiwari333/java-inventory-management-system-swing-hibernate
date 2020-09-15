@@ -11,7 +11,6 @@ import com.gt.common.utils.DateTimeUtils;
 import com.gt.common.utils.StringUtils;
 import com.gt.common.utils.UIUtils;
 import com.gt.uilib.components.AbstractFunctionPanel;
-import com.gt.uilib.components.GDialog;
 import com.gt.uilib.components.input.DataComboBox;
 import com.gt.uilib.components.input.NumberTextField;
 import com.gt.uilib.components.table.BetterJTable;
@@ -22,20 +21,19 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.toedter.calendar.JDateChooser;
+import org.apache.commons.lang3.SystemUtils;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 public class ItemEntryPanel extends AbstractFunctionPanel {
-    private final String[] header = new String[]{"S.N.", "ID", "Purchase Order No.", "Khata No.", "Dakhila No.", "Name", "Pana No.", "Category", "Specification",
+    private final String[] header = new String[]{"S.N.", "ID", "Purchase Order No.", "Name", "Category", "Specification",
             "Parts No.", "Serial No.", "Rack Number", "Purchase date", "Added date", "Vendor", "Original Quantity", "Qty in Stock", "Rate", "Unit",
             "Total"};
     private JPanel formPanel = null;
@@ -86,16 +84,10 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
         }
 
     };
-    private JLabel lblPanaNumber;
-    private JTextField txtPananumber;
     private JLabel lblPurchaseOrderNumber;
     private JTextField txtPurchaseordernumber;
-    private JButton btnNewVendor;
-    private JButton btnNewCategory;
-    private JLabel lblKhataNumber;
-    private JTextField txtKhatanumber;
-    private JLabel lblDakhilaNumber;
-    private JTextField txtDakhilanumber;
+    private JLabel lblEntryNumber;
+    private JTextField txtEntrynumber;
     private JLabel lblUnit;
     private DataComboBox cmbUnitcombo;
 
@@ -107,7 +99,6 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
         splitPane.setContinuousLayout(true);
         splitPane.setResizeWeight(0.3);
         splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
-        // splitPane.setDividerSize(0);
         add(splitPane, BorderLayout.CENTER);
         splitPane.setLeftComponent(getUpperSplitPane());
         splitPane.setRightComponent(getLowerSplitPane());
@@ -118,11 +109,9 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
         init();
     }
 
-    public static void main(String[] args) {
-        try {
+    public static void main(String[] args) throws Exception {
+        if (SystemUtils.IS_OS_WINDOWS) {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         EventQueue.invokeLater(() -> {
             try {
@@ -289,7 +278,6 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
                 UIUtils.toggleAllChildren(buttonPanel, false);
                 UIUtils.toggleAllChildren(currentSpecificationPanel, true);
                 cmbCategory.setEnabled(false);
-                btnNewCategory.setEnabled(false);
 
                 btnCancel.setEnabled(true);
                 btnSave.setEnabled(true);
@@ -345,7 +333,7 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
         v.addTask(currentSpecificationPanel, "Spec req", null, true);
         v.addTask(txtPurDate, "", null, true, true);
         v.addTask(txtQuantity, "Req", null, true);
-        v.addTask(txtDakhilanumber, "Req", null, true);
+        v.addTask(txtEntrynumber, "Req", null, true);
 
     }
 
@@ -358,9 +346,6 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
         Item bo = new Item();
         bo.setPurchaseOrderNo(txtPurchaseordernumber.getText().trim());
         bo.setName(txtName.getText().trim());
-        bo.setKhataNumber(txtKhatanumber.getText().trim().toUpperCase());
-        bo.setDakhilaNumber(txtDakhilanumber.getText().trim().toUpperCase());
-        bo.setPanaNumber(txtPananumber.getText().trim().toUpperCase());
         bo.setRackNo(txtRacknumber.getText().trim().toUpperCase());
         bo.setRate(new BigDecimal(txtRate.getText().trim()));
         bo.setPartsNumber(txtPartsnumber.getText().trim());
@@ -386,7 +371,6 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
     private void setModelIntoForm(Item bro) {
         txtPurchaseordernumber.setText(bro.getPurchaseOrderNo());
         txtName.setText(bro.getName());
-        txtPananumber.setText(bro.getPanaNumber());
         cmbCategory.selectItem(bro.getCategory().getId());
         txtPartsnumber.setText(bro.getPartsNumber());
         txtSerialnumber.setText(bro.getSerialNumber());
@@ -398,8 +382,6 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
         cmbUnitcombo.selectItem(bro.getUnitsString().getId());
         BigDecimal total = bro.getRate().multiply(new BigDecimal(bro.getQuantity()));
         txtTotal.setText(total.toString());
-        txtKhatanumber.setText(bro.getKhataNumber());
-        txtDakhilanumber.setText(bro.getDakhilaNumber());
     }
 
     private void save(boolean isModified) {
@@ -423,7 +405,6 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
                     System.out.println("is MODIFIED..........");
                     bo.setName(newBo.getName());
                     bo.setPurchaseOrderNo(newBo.getPurchaseOrderNo());
-                    bo.setPanaNumber(newBo.getPanaNumber());
                     bo.setRackNo(newBo.getRackNo());
                     bo.setRate(newBo.getRate());
                     bo.setPartsNumber(newBo.getPartsNumber());
@@ -486,19 +467,12 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
             formPanel.add(txtPurchaseordernumber, "8, 2, fill, default");
             txtPurchaseordernumber.setColumns(10);
 
-            lblKhataNumber = new JLabel("Khata");
-            formPanel.add(lblKhataNumber, "4, 4");
+            lblEntryNumber = new JLabel("Entry Number");
+            formPanel.add(lblEntryNumber, "4, 6");
 
-            txtKhatanumber = new JTextField();
-            formPanel.add(txtKhatanumber, "8, 4, fill, default");
-            txtKhatanumber.setColumns(10);
-
-            lblDakhilaNumber = new JLabel("Dakhila Number");
-            formPanel.add(lblDakhilaNumber, "4, 6");
-
-            txtDakhilanumber = new JTextField();
-            formPanel.add(txtDakhilanumber, "8, 6, fill, default");
-            txtDakhilanumber.setColumns(10);
+            txtEntrynumber = new JTextField();
+            formPanel.add(txtEntrynumber, "8, 6, fill, default");
+            txtEntrynumber.setColumns(10);
 
             JLabel lblN = new JLabel("Name");
             formPanel.add(lblN, "4, 8");
@@ -507,48 +481,11 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
             formPanel.add(txtName, "8, 8, fill, default");
             txtName.setColumns(10);
 
-            lblPanaNumber = new JLabel("Pana Number");
-            formPanel.add(lblPanaNumber, "4, 10");
-
-            txtPananumber = new JTextField();
-            formPanel.add(txtPananumber, "8, 10, fill, default");
-            txtPananumber.setColumns(10);
-
             JLabel lblCategory = new JLabel("Category");
             formPanel.add(lblCategory, "4, 12, default, top");
 
             cmbCategory = new DataComboBox();
             formPanel.add(cmbCategory, "8, 12, fill, default");
-
-            btnNewCategory = new JButton("New");
-            btnNewCategory.setEnabled(false);
-            btnNewCategory.setVisible(false);
-            btnNewCategory.addActionListener(e -> {
-                GDialog cd = new GDialog(mainApp, "New Category Entry", true);
-                CategoryPanel vp = new CategoryPanel();
-                vp.changeStatusToCreate();
-                cd.setAbstractFunctionPanel(vp, new Dimension(450, 600));
-                cd.addWindowListener(new WindowAdapter() {
-                    @Override
-                    public void windowClosing(WindowEvent e) {
-                        try {
-                            initCmbCategory();
-                            // cmbCategory.selectLastInsertedItem();
-                        } catch (Exception ex) {
-                            System.err.println(ex.getMessage());
-                            ex.printStackTrace();
-                        }
-                    }
-
-                    public void windowClosed(WindowEvent e) {
-                        System.out
-                                .println("ItemEntryPanel.getUpperFormPanel().new ActionListener() {...}.actionPerformed(...).new WindowAdapter() {...}.windowClosing()");
-
-
-                    }
-                });
-            });
-            formPanel.add(btnNewCategory, "10, 12");
 
             specPanelHolder = new JPanel();
             specPanelHolder.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
@@ -622,28 +559,6 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
             cmbVendor = new DataComboBox();
             formPanel.add(cmbVendor, "8, 24, fill, default");
 
-            btnNewVendor = new JButton("New");
-            btnNewVendor.addActionListener(e -> {
-                GDialog cd = new GDialog(mainApp, "New Vendor Entry", true);
-                VendorPanel vp = new VendorPanel();
-                vp.changeStatusToCreate();
-                cd.setAbstractFunctionPanel(vp, new Dimension(450, 600));
-                cd.addWindowListener(new WindowAdapter() {
-                    @Override
-                    public void windowClosing(WindowEvent e) {
-                        try {
-                            initCmbVendor();
-                            cmbVendor.setSelectedIndex(cmbVendor.getItemCount() - 1);
-                        } catch (Exception ex) {
-                            System.err.println(ex.getMessage());
-                            ex.printStackTrace();
-
-                        }
-                    }
-                });
-            });
-            formPanel.add(btnNewVendor, "10, 24");
-
             btnSave = new JButton("Save");
             btnSave.addActionListener(e -> {
                 btnSave.setEnabled(false);
@@ -666,33 +581,22 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
             formPanel.add(btnSave, "18, 24, fill, default");
         }
 
-        // // set Verifiers
-        // txtRate.setInputVerifier(new DataTypeVerifier(null, txtRate,
-        // "must be price", RegexUtils.NON_NEGATIVE_MONEY_FIELD, false, false));
-        // txtQuantity.setInputVerifier(new DataTypeVerifier(null, txtQuantity,
-        // "must be int", RegexUtils.NON_NEGATIVE_INTEGER_FIELD, false, false));
-
         return formPanel;
     }
 
     private void readAndShowAll(boolean showSize0Error) {
-        try {
-            ItemServiceImpl is = new ItemServiceImpl();
-            List<Item> brsL = ItemServiceImpl.getAddedItems();
-            editingPrimaryId = -1;
-            if (brsL == null || brsL.size() == 0) {
-                if (showSize0Error) {
-                    JOptionPane.showMessageDialog(null, "No Records Found");
-                }
+        List<Item> brsL = ItemServiceImpl.getAddedItems();
+        editingPrimaryId = -1;
+        if (brsL == null || brsL.size() == 0) {
+            if (showSize0Error) {
+                JOptionPane.showMessageDialog(null, "No Records Found");
             }
-            showListInGrid(brsL);
-        } catch (Exception ee) {
-            ee.printStackTrace();
         }
+        showListInGrid(brsL);
+
     }
 
     private String getPrice() {
-        BigDecimal amt = new BigDecimal("0");
         BigDecimal rate = new BigDecimal("0");
         BigDecimal qty = new BigDecimal("0");
         if (!StringUtils.isEmpty(txtRate.getText())) {
@@ -703,7 +607,7 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
         }
         System.out.println("Rate " + txtRate.getText() + " Qty " + txtQuantity.getText());
         System.out.println("Rate " + rate + " Qty " + qty);
-        amt = rate.multiply(qty);
+        BigDecimal amt = rate.multiply(qty);
         return amt + "";
     }
 
@@ -712,8 +616,9 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
         int sn = 0;
         for (Item bo : brsL) {
             BigDecimal total = bo.getRate().multiply(new BigDecimal(bo.getQuantity()));
-            dataModel.addRow(new Object[]{++sn, bo.getId(), bo.getPurchaseOrderNo(), bo.getKhataNumber(), bo.getDakhilaNumber(), bo.getName(),
-                    bo.getPanaNumber(), bo.getCategory().getCategoryName(), bo.getSpeciifcationString(), bo.getPartsNumber(), bo.getSerialNumber(),
+
+            dataModel.addRow(new Object[]{++sn, bo.getId(), bo.getPurchaseOrderNo(), bo.getName(),
+                    bo.getCategory().getCategoryName(), bo.getSpeciifcationString(), bo.getPartsNumber(), bo.getSerialNumber(),
                     bo.getRackNo(), DateTimeUtils.getCvDateMMMddyyyy(bo.getPurchaseDate()), DateTimeUtils.getCvDateMMMddyyyy(bo.getAddedDate()),
                     bo.getVendor().getName(), bo.getOriginalQuantity(), bo.getQuantity(), bo.getRate(), bo.getUnitsString().getValue(), total});
         }
@@ -756,7 +661,6 @@ public class ItemEntryPanel extends AbstractFunctionPanel {
                      * if second column doesnot have primary id info, then
                      */
                     int selectedId = (Integer) dataModel.getValueAt(selRow, 1);
-                    // changeStatus(Status.NONE);
                     populateSelectedRowInForm(selectedId);
                 }
             });

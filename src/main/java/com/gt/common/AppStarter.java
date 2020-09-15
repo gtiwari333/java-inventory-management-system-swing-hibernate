@@ -57,6 +57,7 @@ public class AppStarter {
                     Main.showMaximized();
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 System.out.println("detect thread terminated " + e.getMessage());
 
             }

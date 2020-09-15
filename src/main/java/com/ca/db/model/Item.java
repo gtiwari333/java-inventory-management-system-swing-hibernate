@@ -21,7 +21,7 @@ public class Item {
     private String name;
 
     @Column(name = "rackno")
-    private String rackNo;
+    private String rackNo; //warehouse rack number
 
     @Column(name = "rate")
     private BigDecimal rate;
@@ -67,25 +67,14 @@ public class Item {
     @Column(name = "purchaseorderno")
     private String purchaseOrderNo;
 
-    private String panaNumber;
-
     @Column(name = "addedtype")
     private int addedType;
-
-    @Column(name = "parentitemid")
-    private int parentItemId;
 
     @Column(name = "accounttransferstatus")
     private int accountTransferStatus;
 
     @Column(name = "currentfiscalyear")
     private int currentFiscalYear;
-
-    @Column(name = "dakhilano")
-    private String dakhilaNumber;
-
-    @Column(name = "khatanumber")
-    private String khataNumber;
 
     @Column(name = "zxtra1")
     private String zxtra1;
@@ -120,14 +109,6 @@ public class Item {
 
     public void setPurchaseOrderNo(String purchaseOrderNo) {
         this.purchaseOrderNo = purchaseOrderNo;
-    }
-
-    public String getPanaNumber() {
-        return this.panaNumber;
-    }
-
-    public void setPanaNumber(String panaNumber) {
-        this.panaNumber = panaNumber;
     }
 
     public Date getLastModifiedDate() {
@@ -306,36 +287,12 @@ public class Item {
         this.addedType = addedType;
     }
 
-    public int getParentItemId() {
-        return this.parentItemId;
-    }
-
-    public void setParentItemId(int parentItemId) {
-        this.parentItemId = parentItemId;
-    }
-
     public int getCurrentFiscalYear() {
         return this.currentFiscalYear;
     }
 
     public void setCurrentFiscalYear(int currentFiscalYear) {
         this.currentFiscalYear = currentFiscalYear;
-    }
-
-    public String getDakhilaNumber() {
-        return this.dakhilaNumber;
-    }
-
-    public void setDakhilaNumber(String dakhilaNumber) {
-        this.dakhilaNumber = dakhilaNumber;
-    }
-
-    public String getKhataNumber() {
-        return this.khataNumber;
-    }
-
-    public void setKhataNumber(String khataNumber) {
-        this.khataNumber = khataNumber;
     }
 
     public UnitsString getUnitsString() {
@@ -350,6 +307,9 @@ public class Item {
         StringBuilder sb = new StringBuilder();
         Category c = getCategory();
         Specification sp = getSpecification();
+        if (sp == null) {
+            return "NO SPECS";
+        }
         if ((isNotEmpty(c.getSpecification1())) && (isNotEmpty(sp.getSpecification1()))) {
             sb.append(c.getSpecification1()).append(" : ").append(sp.getSpecification1());
         }
@@ -415,20 +375,12 @@ public class Item {
                 this.lastModifiedDate +
                 ", purchaseOrderNo=" +
                 this.purchaseOrderNo +
-                ", panaNumber=" +
-                this.panaNumber +
                 ", addedType=" +
                 this.addedType +
-                ", parentItemId=" +
-                this.parentItemId +
                 ", accountTransferStatus=" +
                 this.accountTransferStatus +
                 ", currentFiscalYear=" +
                 this.currentFiscalYear +
-                ", dakhilaNumber=" +
-                this.dakhilaNumber +
-                ", khataNumber=" +
-                this.khataNumber +
                 "]";
         return builder;
     }

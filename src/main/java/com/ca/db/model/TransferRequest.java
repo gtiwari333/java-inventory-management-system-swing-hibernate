@@ -6,8 +6,6 @@ import java.util.Date;
 @Entity
 @Table(name = "TransferRequest")
 public class TransferRequest {
-    public static final int OFFICIAL = 2;
-    public static final int PESONNAL = 1;
 
     @Id
     @GeneratedValue
@@ -27,9 +25,6 @@ public class TransferRequest {
     private Date lastModifiedDate;
 
     private int transferType;
-
-    @OneToOne(cascade = {javax.persistence.CascadeType.ALL})
-    private Person person;
 
     @OneToOne(cascade = {javax.persistence.CascadeType.ALL})
     private Item item;
@@ -106,14 +101,6 @@ public class TransferRequest {
 
     public void setStatus(int status) {
         this.status = status;
-    }
-
-    public Person getPerson() {
-        return this.person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
     }
 
     public Date getRequestDate() {

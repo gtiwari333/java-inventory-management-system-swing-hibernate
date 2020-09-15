@@ -21,6 +21,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.toedter.calendar.JDateChooser;
+import org.apache.commons.lang3.SystemUtils;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -39,7 +40,7 @@ import java.util.Map.Entry;
  * @author GT
  */
 public class ItemReturnPanel extends AbstractFunctionPanel {
-    private final String[] header = new String[]{"S.N.", "ID", "Name", "Category", "Specification", "Transfer Date", "Niksa Type", "Sent To", "Transfer Pana Num",
+    private final String[] header = new String[]{"S.N.", "ID", "Name", "Category", "Specification", "Transfer Date", "Sent To",
             "Request Number", "Remaining Quantity", "Unit"};
     private final String[] returnTblHeader = new String[]{"", "ID", "Name", "Category", "Goods Status", "Return Quantity", "Unit"};
     private final String[] damageStatusStr = new String[]{"", "Good", "Unrepairable", "Needs Repair", "Exemption"};
@@ -47,7 +48,6 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
     private JPanel formPanel = null;
     private JPanel buttonPanel;
     private Validator v;
-    Validator vCart;
     private JDateChooser txtFromDate;
     private JDateChooser txtToDate;
     private final List cellQtyEditors = new ArrayList();
@@ -111,11 +111,9 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
         init();
     }
 
-    public static void main(String[] args) {
-        try {
+    public static void main(String[] args) throws Exception {
+        if (SystemUtils.IS_OS_WINDOWS) {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         EventQueue.invokeLater(() -> {
             try {
@@ -487,7 +485,6 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
             receiverHolder = new JPanel();
             itemReceiverPanel = new ItemReceiverPanel();
             receiverHolder.add(itemReceiverPanel);
-            itemReceiverPanel.hideLilam();
             formPanel.add(receiverHolder, "8, 8, fill, fill");
 
             formPanel.add(btnSave, "18, 8, default, bottom");
@@ -496,10 +493,7 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
             formPanel.add(btnReset, "20, 8, default, bottom");
             btnReset.addActionListener(e -> {
                 UIUtils.clearAllFields(formPanel);
-                // if(currentSpecificationPanel!=null)
-                // currentSpecificationPanel.resetAll();
                 cmbCategory.selectDefaultItem();
-                // cmbVendor.selectDefaultItem();
                 itemReceiverPanel.clearAll();
             });
         }
@@ -517,14 +511,12 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
             // FIXME : pananumber vs - request number ??
             int returnStatus = -1;
 
-            brsL = TransferServiceImpl.notReturnedTransferItemQuery(txtItemname.getText(), cmbCategory.getSelectedId(), itemReceiverPanel.getCurrentReceiverConstant(),
+            brsL = TransferServiceImpl.notReturnedTransferItemQuery(txtItemname.getText(), cmbCategory.getSelectedId(),
                     itemReceiverPanel.getSelectedId(), returnStatus, -1, txtPanaNumber.getText().trim(), "", txtFromDate.getDate(),
                     txtToDate.getDate());
 
             if (brsL == null || brsL.size() == 0) {
-                if (true) {
-                    JOptionPane.showMessageDialog(null, "No Records Found");
-                }
+                JOptionPane.showMessageDialog(null, "No Records Found");
                 dataModel.resetModel();
                 dataModel.fireTableDataChanged();
                 table.adjustColumns();
@@ -542,20 +534,13 @@ public class ItemReturnPanel extends AbstractFunctionPanel {
         String transferTYpe;
         String sentTo;
         for (Transfer bo : brsL) {
-            transferTYpe = "";
-            sentTo = "";
+            transferTYpe = "Official";
+            sentTo = bo.getBranchOffice().getName() + "  " + bo.getBranchOffice().getAddress();
 
-            if (bo.getTransferType() == Transfer.OFFICIAL) {
-                transferTYpe = "Official";
-                sentTo = bo.getBranchOffice().getName() + "  " + bo.getBranchOffice().getAddress();
-            } else if (bo.getTransferType() == Transfer.PERSONNAL) {
-                transferTYpe = "Personnal";
-                sentTo = bo.getPerson().getFirstName() + "  " + bo.getPerson().getLastName();
-            }
             // TODO: add person/office name, specs in column
             dataModel.addRow(new Object[]{++sn, bo.getId(), bo.getItem().getName(), bo.getItem().getCategory().getCategoryName(),
                     bo.getItem().getSpeciifcationString(), DateTimeUtils.getCvDateMMMddyyyy(bo.getTransferDate()), transferTYpe, sentTo,
-                    bo.getTransferPanaNumber(), bo.getTransferRequestNumber(), bo.getRemainingQtyToReturn(), bo.getItem().getUnitsString().getValue()});
+                    "bo.getTransferPanaNumber()", bo.getTransferRequestNumber(), bo.getRemainingQtyToReturn(), bo.getItem().getUnitsString().getValue()});
         }
         table.setModel(dataModel);
         dataModel.fireTableDataChanged();

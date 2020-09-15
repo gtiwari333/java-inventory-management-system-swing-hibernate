@@ -18,22 +18,22 @@
 
 		<property name="hbm2ddl.auto">update</property>
 		<!-- Mapping for new tables -->
-		<mapping class="com.ca.db.model.Department" />
-		<mapping class="com.ca.db.model.Employee" />
+		<!-- system internals -->
 		<mapping class="com.ca.db.model.LoginUser" />
-		<mapping class="com.ca.db.model.Person" />
+		<mapping class="com.ca.db.model.Role" />
 		<mapping class="com.ca.db.model.ApplicationLog" />
+		<!-- initial records -->
 		<mapping class="com.ca.db.model.BranchOffice" />
 		<mapping class="com.ca.db.model.Vendor" />
 		<mapping class="com.ca.db.model.Category" />
-		<mapping class="com.ca.db.model.Item" />
-		<mapping class="com.ca.db.model.Transfer" />
+		<mapping class="com.ca.db.model.UnitsString" />
 		<mapping class="com.ca.db.model.Specification" />
-		<mapping class="com.ca.db.model.Role" />
+
+		<mapping class="com.ca.db.model.Item" />
 		<mapping class="com.ca.db.model.ItemReturn" />
 		<mapping class="com.ca.db.model.TransferRequest" />
-		<mapping class="com.ca.db.model.PurchaseOrder" />
-		<mapping class="com.ca.db.model.UnitsString" />
+
+		<mapping class="com.ca.db.model.Transfer" />
 
 	</session-factory>
 </hibernate-configuration>

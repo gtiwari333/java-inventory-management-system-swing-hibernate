@@ -16,11 +16,11 @@ public class SessionUtils {
     /**
      * Builds a SessionFactory, if it hasn't been already.
      */
-    public static SessionFactory get() throws Exception {
+    public static SessionFactory get() {
         return sessionFactory;
     }
 
-    public static Session getSession() throws Exception {
+    public static Session getSession() {
         return sessionFactory.openSession();
     }
 
@@ -54,6 +54,7 @@ public class SessionUtils {
         } catch (Exception e) {
             // The registry would be destroyed by the SessionFactory, but we had trouble building the SessionFactory
             // so destroy it manually.
+            e.printStackTrace();
             StandardServiceRegistryBuilder.destroy(registry);
         }
     }
