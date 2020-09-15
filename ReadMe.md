@@ -5,7 +5,6 @@
 - JGoodies Swing Extension Library
 - Hibernate 
 - H2 Database 
-- Jasper Reports
 
 #### How to run the application
 - Clone/Download the project and import into your IDE
