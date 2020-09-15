@@ -233,7 +233,7 @@ public class AppFrame extends JFrame {
             buttons.add(ActionButton.create("Stock Query", "find", com.ca.ui.panels.StockQueryPanel.class.getName()));
             buttons.add(ActionButton.create("Item Entry", "itementry", com.ca.ui.panels.ItemEntryPanel.class.getName()));
             buttons.add(ActionButton.create("Transfer", "itemtransfer", com.ca.ui.panels.ItemTransferPanel.class.getName()));
-            buttons.add(ActionButton.create("Item Return", "return", com.ca.ui.panels.ItemReturnPanel.class.getName()));
+            buttons.add(ActionButton.create("Return", "return", com.ca.ui.panels.ItemReturnPanel.class.getName()));
             buttons.add(new JLabel());
             buttons.add(LogOutButton.create("Logout", "logout", com.ca.ui.panels.HomeScreenPanel.class.getName()));
             buttons.add(ExitButton.create("Exit", "exit", com.ca.ui.panels.HomeScreenPanel.class.getName()));

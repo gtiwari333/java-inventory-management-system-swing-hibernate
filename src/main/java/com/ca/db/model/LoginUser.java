@@ -28,10 +28,6 @@ public class LoginUser {
     @Column(name = "last_login_date")
     private Date lastLoginDate;
 
-    @OneToMany(cascade = {javax.persistence.CascadeType.ALL})
-    @Column(name = "roles")
-    private List<Role> roles;
-
     @Column(name = "lastmodifieddate")
     private Date lastModifiedDate;
 
@@ -64,14 +60,6 @@ public class LoginUser {
 
     public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
-    }
-
-    public List<Role> getRoles() {
-        return this.roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
     }
 
     public int getId() {

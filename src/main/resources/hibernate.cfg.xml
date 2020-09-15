@@ -20,7 +20,6 @@
 		<!-- Mapping for new tables -->
 		<!-- system internals -->
 		<mapping class="com.ca.db.model.LoginUser" />
-		<mapping class="com.ca.db.model.Role" />
 		<mapping class="com.ca.db.model.ApplicationLog" />
 		<!-- initial records -->
 		<mapping class="com.ca.db.model.BranchOffice" />

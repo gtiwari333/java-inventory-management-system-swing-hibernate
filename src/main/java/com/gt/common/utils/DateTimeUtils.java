@@ -23,12 +23,6 @@ public class DateTimeUtils {
         return datef.format(date);
     }
 
-    public static String getCvDateMMDDYYYY(Date date) {
-        if (date == null) return "";
-        DateFormat datef = new SimpleDateFormat("MM/dd/yyyy");
-        return datef.format(date);
-    }
-
     // FIXME: DO it on the basis of Nepali calendar
     public static int getCurrentFiscalYear() {
         return getYearFromYYYYMMDD(getTodayDate());
