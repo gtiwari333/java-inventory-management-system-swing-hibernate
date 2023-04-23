@@ -12,7 +12,7 @@ public class ApplicationLog {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "datetime")
+    @Column(name = "date_time")
     private Date dateTime;
 
     @Column(name = "dflag")
