@@ -70,7 +70,7 @@ public class Main {
 
         EventQueue.invokeLater(() -> {
 
-            if (new AppStarter().notFindExisting) {
+            if (new AppStarter().alreadyRunning) {
                 setApplicationStartLog();
                 setUpAndShowGui();
             } else {

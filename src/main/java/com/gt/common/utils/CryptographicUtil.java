@@ -152,22 +152,4 @@ public class CryptographicUtil {
         return decryptedText;
     }
 
-    /**
-     * Gets the key.
-     *
-     * @return the key
-     */
-    public final String getKey() {
-        return key;
-    }
-
-    /**
-     * Sets the key.
-     *
-     * @param key the new key
-     */
-    public final void setKey(String key) {
-        this.key = key;
-    }
-
 }

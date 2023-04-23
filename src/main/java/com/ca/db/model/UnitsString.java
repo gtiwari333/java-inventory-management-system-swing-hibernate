@@ -12,13 +12,13 @@ public class UnitsString {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "datetime")
+    @Column(name = "date_time")
     private Date dateTime;
 
     @Column(name = "dflag")
     private int dFlag;
 
-    @Column(name = "value")
+    @Column(name = "unit_value")
     private String value;
 
     @Column(name = "lastmodifieddate")

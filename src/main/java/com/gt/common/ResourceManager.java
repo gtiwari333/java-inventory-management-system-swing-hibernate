@@ -23,18 +23,8 @@ import java.util.Map;
 public class ResourceManager {
 
     public static final String resourceMapFile = "string-resource.ini";
-    public static final String configMapFile = "config.ini";
     private static final String a = "gt?Pass,e#. ";
-    private static ResourceManager reader;
     private static Map<String, String> stringConstantsMap;
-    private static Map<String, String> configParamMap;
-
-    public static synchronized ResourceManager getReader() {
-        if (reader == null) {
-            reader = new ResourceManager();
-        }
-        return reader;
-    }
 
     public static synchronized String getString(String key) {
         if (stringConstantsMap == null) {
@@ -63,39 +53,6 @@ public class ResourceManager {
         return map;
     }
 
-    public static boolean saveMap(String file, Map<String, String> map, boolean isEncry) {
-        BufferedWriter out;
-        try {
-            out = new BufferedWriter(new FileWriter(file));
-            for (Map.Entry<String, String> entry : map.entrySet()) {
-                if (isEncry) {
-                    out.write(CryptographicUtil.encryptText(entry.getKey(), a) + ":" + CryptographicUtil.encryptText(entry.getValue(), a) + "\n");
-                } else {
-                    out.write(entry.getKey() + ":" + entry.getValue());
-                }
-
-            }
-            out.flush();
-            out.close();
-        } catch (IOException e) {
-            return false;
-        }
-        return true;
-
-    }
-
-    public static String getConfigParam(String key) {
-        if (configParamMap == null) {
-            try {
-                /* config params are encrypted */
-                configParamMap = readMap(configMapFile, true);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Cannot Read Config File" + e.getMessage(), "Severe Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-        return configParamMap.get(key);
-    }
-
     public static Image getImage(String fileName) {
         // src/image/
         return readImage(ResourceManager.class.getResource("/images/" + fileName).toString());
@@ -103,10 +60,6 @@ public class ResourceManager {
 
     public static ImageIcon getImageIcon(String resourcePath) {
         return new ImageIcon(ResourceManager.class.getResource("/images/" + resourcePath));
-    }
-
-    public static URL getResource(String fileName) {
-        return ResourceManager.class.getResource("/" + fileName);
     }
 
     public static BufferedImage readImage(String imageName) {

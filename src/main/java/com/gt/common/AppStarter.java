@@ -17,12 +17,12 @@ import java.net.Socket;
  */
 public class AppStarter {
     private final int PORT = 45433;
-    public boolean notFindExisting = true;
+    public boolean alreadyRunning = true;
     Logger logger = Logger.getLogger(AppStarter.class);
 
     public AppStarter() {
 
-        if (notFindExisting()) {
+        if (alreadyRunning()) {
             // if not found existing ... will be killed
             // start detecting server thread
             new Thread(new DetectForNew()).start();
@@ -30,19 +30,20 @@ public class AppStarter {
 
     }
 
-    private synchronized boolean notFindExisting() {
+    private synchronized boolean alreadyRunning() {
         // try to connect to server
-        Socket client;
+        ;
         try {
             String HOST = "localhost";
-            client = new Socket(HOST, PORT);
-            logger.info("Connection accepted by already running app");
-            notFindExisting = false;
+            try(Socket client = new Socket(HOST, PORT)) {
+                logger.info("Connection accepted by already running app");
+                alreadyRunning = false;
+            }
         } catch (Exception e) {
-            notFindExisting = true;
+            alreadyRunning = true;
 
         }
-        return notFindExisting;
+        return alreadyRunning;
     }
 
     class DetectForNew implements Runnable {

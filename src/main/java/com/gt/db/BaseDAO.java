@@ -53,11 +53,6 @@ public abstract class BaseDAO extends SessionUtils {
         return list;
     }
 
-    public final List runReadQuery(String query) throws Exception {
-        Query q = session.createQuery(query);
-        return runReadQuery(q);
-    }
-
     public void saveOrUpdate(Object obj) throws Exception {
         try {
             startOperation();
